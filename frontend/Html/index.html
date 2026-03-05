@@ -8,14 +8,16 @@
 </head>
 <body>
     <div class="main">
-        <!-- Navbar Div -->
-        <nav class="nav-bar" aria-label="Main navigation">
-            <h1 class="brand">Guardian Tails</h1>
-            <div class="buttons" role="group" aria-label="Authentication">
-                <button class="btn btn-login" type="button">Login</button>
-                <button class="btn btn-register" type="button">Register</button>
-            </div>
-        </nav>
+    <!-- Navbar -->
+<nav class="nav-bar">
+    <h1 class="brand">Guardian Tails</h1>
+
+    <div class="buttons">
+        <a href="../Html/UserAuth/login.html" id="loginBtn">Login</a>
+        <a href="../Html/UserAuth/register.html" id="registerBtn">Register</a>
+        <button id="logoutBtn" style="display:none;">Logout</button>
+    </div>
+</nav>
 
         <!-- Header Section -->
         <div class="Hero-section">
@@ -141,6 +143,6 @@
 </script>
 
          </div>
-    
+    <script src="../Js/Index.js"></script>
 </body>
 </html>

@@ -47,8 +47,8 @@ body{
   align-items: center;
 }
 
-/* Button Base */
-.btn{
+/* Buttons Base for all <a> and <button> */
+.buttons a, .buttons button {
   -webkit-appearance: none;
   appearance: none;
   border: 0;
@@ -58,7 +58,6 @@ body{
   font-size: 0.95rem;
   line-height: 1;
   border-radius: 10px;
-  transition: transform var(--transition) ease, box-shadow var(--transition) ease, background-color var(--transition) ease, color var(--transition) ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -68,56 +67,61 @@ body{
   letter-spacing: 0.6px;
   user-select: none;
   will-change: transform, box-shadow;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none; /* Remove underline for <a> links */
 }
 
-/* Login Button Primary Outline */
-.btn-login{
+/* Login Button (Outline) */
+.buttons a#loginBtn{
   background: transparent;
   color: var(--text-light);
   border: 2px solid rgba(255,255,255,0.18);
   box-shadow: none;
 }
+.buttons a#loginBtn:hover{
+  background: rgba(255,255,255,0.12);
+  color: var(--text-light);
+}
 
-/* Register Button Filled */
-.btn-register{
+/* Register Button (Filled) */
+.buttons a#registerBtn{
   background: var(--text-light);
   color: var(--primary-dark);
   border: 2px solid rgba(255,255,255,0.06);
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
-
-/* Hover and Focus States */
-.btn:hover,
-.btn:focus{
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-  outline: none;
-}
-
-/* Specific hover tweaks */
-.btn-login:hover{
-  background: rgba(255,255,255,0.12);
-}
-
-.btn-register:hover{
+.buttons a#registerBtn:hover{
   background: linear-gradient(180deg, var(--primary-light), var(--primary-dark));
   color: var(--text-light);
   border-color: rgba(255,255,255,0.08);
 }
 
-/* Focus ring for keyboard users */
-.btn:focus-visible{
-  box-shadow: 0 0 0 4px rgba(122,31,31,0.18), 0 8px 20px rgba(0,0,0,0.12);
+/* Logout Button */
+.buttons button#logoutBtn{
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+.buttons button#logoutBtn:hover{
+  background: #e84335;
 }
 
-/* Active state */
-.btn:active{
+/* Hover and Focus Effects */
+.buttons a:hover, .buttons a:focus, .buttons button:hover, .buttons button:focus{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  outline: none;
+}
+
+/* Active State */
+.buttons a:active, .buttons button:active{
   transform: translateY(0);
   box-shadow: 0 6px 12px rgba(0,0,0,0.12);
 }
 
-/* Disabled */
-.btn:disabled{
+/* Disabled State */
+.buttons a:disabled, .buttons button:disabled{
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
@@ -133,7 +137,7 @@ body{
   .brand{
     font-size: 1.125rem;
   }
-  .btn{
+  .buttons a, .buttons button{
     padding: 0.5rem 0.9rem;
     font-size: 0.9rem;
     min-width: 80px;
@@ -151,7 +155,7 @@ body{
     width: 100%;
     justify-content: center;
   }
-  .btn{
+  .buttons a, .buttons button{
     flex: 1 1 auto;
     min-width: 0;
   }
@@ -159,12 +163,11 @@ body{
 
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce){
-  .btn, .btn:hover, .btn:active, .btn:focus{
+  .buttons a, .buttons button, .buttons a:hover, .buttons a:active, .buttons a:focus, .buttons button:hover, .buttons button:active, .buttons button:focus{
     transition: none;
     transform: none;
   }
 }
-
 /* Hero Header */
 /* Hero Section - Full Width */
 .Hero-section {
