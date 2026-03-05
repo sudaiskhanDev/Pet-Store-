@@ -1,71 +1,317 @@
-/* General page styling */
+/* =========================================
+   ULTRA-MODERN REGISTRATION FORM
+   - CSS custom properties for easy theming
+   - Fluid typography & spacing with clamp()
+   - Native CSS nesting for cleaner code
+   - Fully responsive: mobile → 4K
+   - Smooth animations (with reduced motion support)
+   - Accessibility: focus-visible, contrast fallback
+   - Glassmorphism-inspired card design
+   ========================================= */
+
+/* ------------------------------------------------------------------
+   1. CUSTOM PROPERTIES (THEME)
+------------------------------------------------------------------ */
+:root {
+  /* Colors */
+  --color-primary: #2ecc71;
+  --color-primary-hover: #27ae60;
+  --color-accent: #3498db;
+  --color-text-dark: #2c3e50;
+  --color-text-light: #ffffff;
+  --color-message-error: #e74c3c;
+  --color-bg-start: #e0f2fe;   /* soft blue */
+  --color-bg-end: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --input-border: #ccc;
+  --input-focus-border: var(--color-accent);
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+  /* Spacing & sizing – fluid values */
+  --space-unit: clamp(0.5rem, 2vw, 1rem);
+  --form-padding: clamp(1.5rem, 5vw, 2.5rem);
+  --input-padding: clamp(0.6rem, 2vw, 0.8rem) clamp(0.7rem, 3vw, 1rem);
+  --border-radius: clamp(0.5rem, 2vw, 1rem);
+  --border-radius-pill: 100vmax;        /* for buttons */
+
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-size-base: clamp(0.9rem, 2.5vw, 1rem);
+  --font-size-h1: clamp(1.8rem, 6vw, 2.5rem);
+  --font-size-button: clamp(1rem, 3vw, 1.1rem);
+  --font-size-message: clamp(0.85rem, 2vw, 0.95rem);
+
+  /* Transitions */
+  --transition-duration: 0.3s;
+}
+
+/* ------------------------------------------------------------------
+   2. RESET & BASE STYLES
+------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input {
+  font: inherit;
+  border: none;
+  background: none;
+}
+
+/* ------------------------------------------------------------------
+   3. BODY – SOFT GRADIENT BACKGROUND
+------------------------------------------------------------------ */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-base);
+  background: linear-gradient(145deg, var(--color-bg-start), var(--color-bg-end));
+  padding: 1rem;
 }
 
-/* Page title */
+/* ------------------------------------------------------------------
+   4. PAGE TITLE
+------------------------------------------------------------------ */
 h1 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
+  color: var(--color-text-dark);
+  font-size: var(--font-size-h1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-block-end: 1.5rem;
+  text-align: center;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  animation: fadeInDown 0.6s ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
-/* Form container */
+/* ------------------------------------------------------------------
+   5. FORM CARD – GLASSMORPHISM INSPIRED
+------------------------------------------------------------------ */
 form {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    width: 320px;
-    text-align: center;
+  width: min(100%, 400px);
+  background: var(--card-bg);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: var(--border-radius);
+  padding: var(--form-padding);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  text-align: center;
+  animation: slideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
-/* Input fields */
+/* ------------------------------------------------------------------
+   6. INPUT FIELDS
+------------------------------------------------------------------ */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
-    width: 100%;
-    padding: 0.7rem;
-    margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
+  width: 100%;
+  padding: var(--input-padding);
+  margin-block: 0.6rem;
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  background: rgba(255, 255, 255, 0.8);
+  transition: border-color var(--transition-duration) ease,
+              box-shadow var(--transition-duration) ease;
 
-form input:focus {
-    border-color: #3498db;
+  &:focus {
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     outline: none;
+  }
+
+  @media (forced-colors: active) {
+    border: 1px solid ButtonText;
+    &:focus {
+      outline: 2px solid Highlight;
+    }
+  }
 }
 
-/* Register button */
+/* ------------------------------------------------------------------
+   7. REGISTER BUTTON – GRADIENT, HOVER EFFECT
+------------------------------------------------------------------ */
 form button {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #2ecc71; /* green */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: var(--input-padding);
+  margin-block-start: 1rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  border-radius: var(--border-radius-pill);
+  color: var(--color-text-light);
+  font-size: var(--font-size-button);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform var(--transition-duration) ease,
+              box-shadow var(--transition-duration) ease,
+              background var(--transition-duration) ease;
+  box-shadow: var(--shadow-sm);
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--color-primary-hover), #219150);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
-form button:hover {
-    background-color: #27ae60;
-}
-
-/* Message text */
+/* ------------------------------------------------------------------
+   8. MESSAGE AREA
+------------------------------------------------------------------ */
 #message {
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    color: #e74c3c; /* red for error messages */
+  margin-block-start: 1.2rem;
+  font-size: var(--font-size-message);
+  color: var(--color-message-error);
+  min-block-size: 1.5rem;
+  animation: fadeIn 0.4s ease-out;
+  transition: color var(--transition-duration) ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   9. KEYFRAME ANIMATIONS
+------------------------------------------------------------------ */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ------------------------------------------------------------------
+   10. RESPONSIVE FINE-TUNING
+------------------------------------------------------------------ */
+/* Extra small devices (<= 360px) */
+@media (max-width: 360px) {
+  :root {
+    --form-padding: 1.2rem;
+  }
+  form {
+    width: 100%;
+  }
+}
+
+/* Landscape mode on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    justify-content: flex-start;
+    padding-block: 2rem;
+  }
+}
+
+/* Tablets and up */
+@media (min-width: 768px) {
+  form {
+    width: min(100%, 450px);
+  }
+}
+
+/* Large desktops / 4K */
+@media (min-width: 1600px) {
+  :root {
+    --font-size-base: 1.1rem;
+    --font-size-h1: 3rem;
+    --font-size-button: 1.2rem;
+  }
+  form {
+    width: min(100%, 500px);
+  }
+}
+
+/* ------------------------------------------------------------------
+   11. DARK MODE SUPPORT (OPTIONAL)
+------------------------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-dark: #ecf0f1;
+    --card-bg: rgba(30, 30, 30, 0.9);
+    --input-border: #444;
+    --color-bg-start: #1a2634;
+    --color-bg-end: #2c3e50;
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  form input {
+    background: rgba(50, 50, 50, 0.9);
+    color: #ecf0f1;
+  }
+  h1 {
+    color: #ecf0f1;
+  }
+}
+
+/* ------------------------------------------------------------------
+   12. PRINT STYLES
+------------------------------------------------------------------ */
+@media print {
+  body {
+    background: none;
+  }
+  form {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    background: white;
+  }
+  h1, #message {
+    color: black;
+  }
+  button {
+    background: #ddd;
+    color: black;
+  }
 }
