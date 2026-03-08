@@ -1,60 +1,59 @@
 /* ============================================================
-   PRODUCTS MANAGEMENT — Professional CSS Stylesheet
-   Senior CSS Architect & Motion Designer | v1.0
-   Theme: Dark Industrial Luxury Admin Panel
+   PRODUCTS MANAGEMENT — Light Premium Theme (White & Yellow)
+   Senior CSS Architect & Motion Designer | v1.0 - Light Variant
    ============================================================ */
 
 /* ─────────────────────────────────────────────────────────────
-   § 1. DESIGN TOKENS — CSS Custom Properties
+   § 1. DESIGN TOKENS — Light Mode CSS Custom Properties
    ───────────────────────────────────────────────────────────── */
 :root {
-  /* Color Palette */
-  --clr-bg-root:        #08090d;
-  --clr-bg-surface:     #0f1117;
-  --clr-bg-card:        #161a24;
-  --clr-bg-card-hover:  #1c2132;
-  --clr-bg-input:       #12151f;
-  --clr-bg-input-focus: #191d2b;
-  --clr-bg-thead:       #0d1020;
+  /* Color Palette — Light & Premium */
+  --clr-bg-root:        #f8f9fc;           /* Soft off-white background */
+  --clr-bg-surface:     #ffffff;            /* Pure white surface */
+  --clr-bg-card:        #ffffff;            /* Card background */
+  --clr-bg-card-hover:  #f1f4fa;            /* Slight hover tint */
+  --clr-bg-input:       #ffffff;            /* Input background */
+  --clr-bg-input-focus: #ffffff;            /* Focus stays white */
+  --clr-bg-thead:       #f2f4f8;            /* Table header background */
 
-  /* Accent — Warm Amber Gold */
-  --clr-accent:         #e8a020;
-  --clr-accent-glow:    rgba(232, 160, 32, 0.18);
-  --clr-accent-dim:     rgba(232, 160, 32, 0.08);
-  --clr-accent-dark:    #c5881a;
+  /* Accent — Premium Yellow (like fine gold/butter) */
+  --clr-accent:         #f5b342;            /* Warm, rich yellow */
+  --clr-accent-glow:    rgba(245, 179, 66, 0.15);
+  --clr-accent-dim:     rgba(245, 179, 66, 0.08);
+  --clr-accent-dark:    #e09e2e;            /* Deeper yellow for hover */
 
-  /* Text */
-  --clr-text-primary:   #edf0f8;
-  --clr-text-secondary: #8b92a8;
-  --clr-text-muted:     #4a5168;
-  --clr-text-label:     #a0a8bf;
+  /* Text — High contrast, dark & elegant */
+  --clr-text-primary:   #1e2432;            /* Nearly black */
+  --clr-text-secondary: #4a5168;            /* Dark gray-blue */
+  --clr-text-muted:     #7f8a9e;            /* Soft muted */
+  --clr-text-label:     #5f6b82;            /* Label text */
 
   /* Semantic */
-  --clr-success:        #22c984;
-  --clr-success-dim:    rgba(34, 201, 132, 0.12);
-  --clr-danger:         #f04f5f;
-  --clr-danger-dim:     rgba(240, 79, 95, 0.12);
-  --clr-warning:        #f0a44e;
+  --clr-success:        #1e8f5e;            /* Deeper green for light bg */
+  --clr-success-dim:    rgba(30, 143, 94, 0.1);
+  --clr-danger:         #d1455a;             /* Rich red */
+  --clr-danger-dim:     rgba(209, 69, 90, 0.1);
+  --clr-warning:        #e89f42;             /* Orange-yellow */
 
-  /* Borders */
-  --clr-border:         rgba(255, 255, 255, 0.06);
-  --clr-border-input:   rgba(255, 255, 255, 0.09);
-  --clr-border-focus:   rgba(232, 160, 32, 0.55);
-  --clr-border-accent:  rgba(232, 160, 32, 0.22);
+  /* Borders & Shadows — subtle, refined */
+  --clr-border:         rgba(0, 0, 0, 0.08);
+  --clr-border-input:   rgba(0, 0, 0, 0.12);
+  --clr-border-focus:   rgba(245, 179, 66, 0.7);
+  --clr-border-accent:  rgba(245, 179, 66, 0.25);
 
-  /* Shadows */
-  --shadow-sm:          0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md:          0 6px 24px rgba(0, 0, 0, 0.5);
-  --shadow-lg:          0 16px 48px rgba(0, 0, 0, 0.65);
-  --shadow-accent:      0 4px 24px rgba(232, 160, 32, 0.22);
-  --shadow-glow-sm:     0 0 16px rgba(232, 160, 32, 0.15);
+  /* Shadows — light mode */
+  --shadow-sm:          0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md:          0 6px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg:          0 16px 48px rgba(0, 0, 0, 0.08);
+  --shadow-accent:      0 4px 24px rgba(245, 179, 66, 0.25);
+  --shadow-glow-sm:     0 0 16px rgba(245, 179, 66, 0.2);
 
-  /* Typography */
+  /* Typography — unchanged, elegant */
   --font-display:       'Playfair Display', 'Georgia', serif;
   --font-body:          'DM Sans', 'Segoe UI', sans-serif;
   --font-mono:          'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Type Scale */
+  /* Type Scale (unchanged) */
   --fs-xs:    0.72rem;
   --fs-sm:    0.825rem;
   --fs-base:  0.9375rem;
@@ -63,7 +62,7 @@
   --fs-xl:    1.55rem;
   --fs-2xl:   2rem;
 
-  /* Spacing Scale */
+  /* Spacing (unchanged) */
   --sp-1:  0.25rem;
   --sp-2:  0.5rem;
   --sp-3:  0.75rem;
@@ -74,14 +73,14 @@
   --sp-10: 2.5rem;
   --sp-12: 3rem;
 
-  /* Radius */
+  /* Radius (unchanged) */
   --radius-sm:   6px;
   --radius-md:   10px;
   --radius-lg:   16px;
   --radius-xl:   22px;
   --radius-pill: 999px;
 
-  /* Transitions */
+  /* Transitions (unchanged) */
   --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-soft:   cubic-bezier(0.4, 0, 0.2, 1);
@@ -90,9 +89,8 @@
   --dur-slow:    480ms;
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 2. GLOBAL RESET & BASE
+   § 2. GLOBAL RESET & BASE (Light Mode Adaptations)
    ───────────────────────────────────────────────────────────── */
 *,
 *::before,
@@ -114,10 +112,10 @@ body {
   color: var(--clr-text-primary);
   background-color: var(--clr-bg-root);
 
-  /* Subtle noise texture overlay */
+  /* Subtle noise texture (light version) */
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232, 160, 32, 0.06) 0%, transparent 70%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245, 179, 66, 0.04) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
   min-height: 100vh;
 
   padding: var(--sp-8) var(--sp-6);
@@ -127,31 +125,26 @@ body {
   animation: pageReveal var(--dur-slow) var(--ease-out) both;
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 3. TYPOGRAPHY
+   § 3. TYPOGRAPHY (Light mode adjustments)
    ───────────────────────────────────────────────────────────── */
 
-/* Google Fonts import — place in <head> or keep here for convenience */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* Page Title */
 body > h2 {
   font-family: var(--font-display);
   font-size: var(--fs-2xl);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--clr-text-primary);
-
   position: relative;
   display: inline-block;
   margin-bottom: var(--sp-10);
   padding-bottom: var(--sp-4);
-
   animation: slideDown 0.6s var(--ease-out) 0.1s both;
 }
 
-/* Golden underline bar */
+/* Golden underline bar (now yellow) */
 body > h2::after {
   content: '';
   position: absolute;
@@ -174,7 +167,6 @@ body > h2::before {
   animation: pulse 3s ease-in-out infinite;
 }
 
-/* Section headings */
 section h3 {
   font-family: var(--font-body);
   font-size: var(--fs-md);
@@ -182,7 +174,6 @@ section h3 {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--clr-text-secondary);
-
   display: flex;
   align-items: center;
   gap: var(--sp-3);
@@ -199,9 +190,8 @@ section h3::before {
   flex-shrink: 0;
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 4. LAYOUT — SECTIONS
+   § 4. LAYOUT — SECTIONS (Light cards)
    ───────────────────────────────────────────────────────────── */
 
 section {
@@ -213,11 +203,10 @@ section {
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
-
   animation: cardReveal 0.6s var(--ease-out) both;
 }
 
-/* Glassy top sheen */
+/* Glassy top sheen (light version) */
 section::before {
   content: '';
   position: absolute;
@@ -229,8 +218,8 @@ section::before {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.12) 40%,
-    rgba(255, 255, 255, 0.04) 60%,
+    rgba(255, 255, 255, 0.8) 40%,
+    rgba(255, 255, 255, 0.4) 60%,
     transparent
   );
   pointer-events: none;
@@ -240,12 +229,10 @@ section::before {
 .add-product {
   animation-delay: 0.2s;
 }
-
 .product-list {
   animation-delay: 0.35s;
 }
 
-/* HR Divider */
 hr {
   border: none;
   height: 1px;
@@ -253,16 +240,15 @@ hr {
     90deg,
     transparent,
     var(--clr-border) 20%,
-    rgba(232, 160, 32, 0.2) 50%,
+    rgba(245, 179, 66, 0.25) 50%,
     var(--clr-border) 80%,
     transparent
   );
   margin: var(--sp-8) 0;
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 5. FORM — ADD PRODUCT
+   § 5. FORM — ADD PRODUCT (Light inputs)
    ───────────────────────────────────────────────────────────── */
 
 #productForm {
@@ -277,20 +263,17 @@ hr {
   grid-column: 1 / -1;
 }
 
-/* Submit button also full row */
 #productForm #addProductBtn {
   grid-column: 1 / -1;
   justify-self: start;
 }
 
-/* Form Group */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
 }
 
-/* Labels */
 .form-group label {
   font-size: var(--fs-sm);
   font-weight: 500;
@@ -304,7 +287,7 @@ hr {
   color: var(--clr-accent);
 }
 
-/* ── Input Base Styles ── */
+/* Input Base Styles — Light */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -312,24 +295,21 @@ hr {
   font-size: var(--fs-base);
   font-weight: 400;
   color: var(--clr-text-primary);
-
   background: var(--clr-bg-input);
   border: 1px solid var(--clr-border-input);
   border-radius: var(--radius-md);
   padding: var(--sp-3) var(--sp-4);
-
   outline: none;
   transition:
     border-color var(--dur-base) var(--ease-soft),
     background var(--dur-base) var(--ease-soft),
     box-shadow var(--dur-base) var(--ease-soft),
     transform var(--dur-fast) var(--ease-spring);
-
   -webkit-appearance: none;
   appearance: none;
 }
 
-/* Focus Ring */
+/* Focus Ring — Yellow accent */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -343,28 +323,28 @@ hr {
 .form-group input:hover:not(:focus),
 .form-group select:hover:not(:focus),
 .form-group textarea:hover:not(:focus) {
-  border-color: rgba(255, 255, 255, 0.14);
-  background: rgba(18, 21, 31, 0.9);
+  border-color: rgba(0, 0, 0, 0.2);
+  background: #fcfcfc;
 }
 
 /* Placeholder */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: var(--clr-text-muted);
+  color: #b0b8c5;
   font-weight: 300;
 }
 
-/* Select — custom arrow */
+/* Select — custom arrow (dark arrow for light bg) */
 .form-group select {
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b92a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5168' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--sp-3) center;
   padding-right: var(--sp-10);
 }
 
 .form-group select option {
-  background: #1a1f30;
+  background: #ffffff;
   color: var(--clr-text-primary);
 }
 
@@ -384,21 +364,21 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* File Input */
+/* File Input — Light mode */
 input[type="file"] {
   cursor: pointer;
   padding: var(--sp-3) var(--sp-4);
   border-style: dashed;
-  border-color: rgba(232, 160, 32, 0.25);
-  background: var(--clr-accent-dim);
+  border-color: rgba(245, 179, 66, 0.4);
+  background: rgba(245, 179, 66, 0.04);
   color: var(--clr-text-secondary);
   font-size: var(--fs-sm);
 }
 
 input[type="file"]:hover {
   border-color: var(--clr-accent);
-  background: rgba(232, 160, 32, 0.1);
-  color: var(--clr-accent);
+  background: rgba(245, 179, 66, 0.08);
+  color: var(--clr-accent-dark);
 }
 
 input[type="file"]::file-selector-button {
@@ -407,7 +387,7 @@ input[type="file"]::file-selector-button {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--clr-bg-root);
+  color: #ffffff;
   background: var(--clr-accent);
   border: none;
   border-radius: var(--radius-sm);
@@ -421,20 +401,17 @@ input[type="file"]::file-selector-button:hover {
   background: var(--clr-accent-dark);
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 6. BUTTONS
+   § 6. BUTTONS — Premium Yellow Primary
    ───────────────────────────────────────────────────────────── */
 
-/* ── Primary — Add Product ── */
 #addProductBtn {
   font-family: var(--font-body);
   font-size: var(--fs-sm);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--clr-bg-root);
-
+  color: #ffffff;
   background: linear-gradient(135deg, var(--clr-accent) 0%, var(--clr-accent-dark) 100%);
   border: none;
   border-radius: var(--radius-md);
@@ -442,16 +419,13 @@ input[type="file"]::file-selector-button:hover {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-
   transition:
     transform var(--dur-fast) var(--ease-spring),
     box-shadow var(--dur-base) var(--ease-soft),
     filter var(--dur-base) var(--ease-soft);
-
-  box-shadow: 0 4px 20px rgba(232, 160, 32, 0.28), inset 0 1px 0 rgba(255,255,255,0.18);
+  box-shadow: 0 4px 20px rgba(245, 179, 66, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
-/* Shimmer sweep on hover */
 #addProductBtn::before {
   content: '';
   position: absolute;
@@ -462,7 +436,7 @@ input[type="file"]::file-selector-button:hover {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.5),
     transparent
   );
   skewX(-20deg);
@@ -471,8 +445,8 @@ input[type="file"]::file-selector-button:hover {
 
 #addProductBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(232, 160, 32, 0.42);
-  filter: brightness(1.08);
+  box-shadow: 0 8px 32px rgba(245, 179, 66, 0.4);
+  filter: brightness(1.05);
 }
 
 #addProductBtn:hover::before {
@@ -481,11 +455,11 @@ input[type="file"]::file-selector-button:hover {
 
 #addProductBtn:active {
   transform: translateY(0px) scale(0.98);
-  box-shadow: 0 2px 10px rgba(232, 160, 32, 0.2);
+  box-shadow: 0 2px 10px rgba(245, 179, 66, 0.2);
   transition-duration: 80ms;
 }
 
-/* ── Table Action Buttons — Edit ── */
+/* Table Action Buttons — Edit / Delete (light mode) */
 .edit-btn,
 .delete-btn {
   font-family: var(--font-body);
@@ -508,29 +482,29 @@ input[type="file"]::file-selector-button:hover {
 .edit-btn {
   color: var(--clr-success);
   background: var(--clr-success-dim);
-  border-color: rgba(34, 201, 132, 0.28);
+  border-color: rgba(30, 143, 94, 0.3);
 }
 
 .edit-btn:hover {
   background: var(--clr-success);
-  color: #05160d;
+  color: #ffffff;
   border-color: var(--clr-success);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(34, 201, 132, 0.3);
+  box-shadow: 0 4px 14px rgba(30, 143, 94, 0.25);
 }
 
 .delete-btn {
   color: var(--clr-danger);
   background: var(--clr-danger-dim);
-  border-color: rgba(240, 79, 95, 0.28);
+  border-color: rgba(209, 69, 90, 0.3);
 }
 
 .delete-btn:hover {
   background: var(--clr-danger);
-  color: #fff;
+  color: #ffffff;
   border-color: var(--clr-danger);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(240, 79, 95, 0.32);
+  box-shadow: 0 4px 14px rgba(209, 69, 90, 0.25);
 }
 
 .edit-btn:active,
@@ -539,22 +513,19 @@ input[type="file"]::file-selector-button:hover {
   transition-duration: 60ms;
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 7. TABLE — PRODUCT LIST
+   § 7. TABLE — PRODUCT LIST (Light mode)
    ───────────────────────────────────────────────────────────── */
 
 .product-list {
   overflow: visible;
 }
 
-/* Scrollable wrapper for small screens */
 .product-list > h3 + * ,
 .product-list table {
   max-width: 100%;
 }
 
-/* Outer scroll wrapper (applied to table's parent) */
 #productsList {
   width: 100%;
   border-collapse: separate;
@@ -562,20 +533,16 @@ input[type="file"]::file-selector-button:hover {
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  display: table; /* keep native table layout */
+  display: table;
   font-size: var(--fs-sm);
-
-  /* Allow scroll on overflow */
   overflow-x: auto;
 }
 
-/* If table needs horizontal scroll, wrap in a div via JS if needed.
-   Adding overflow directly to section: */
 .product-list {
   overflow-x: auto;
 }
 
-/* ── Table Head ── */
+/* Table Head */
 #productsList thead {
   background: var(--clr-bg-thead);
 }
@@ -587,7 +554,6 @@ input[type="file"]::file-selector-button:hover {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--clr-text-muted);
-
   padding: var(--sp-4) var(--sp-5);
   text-align: left;
   border-bottom: 1px solid var(--clr-border);
@@ -612,13 +578,12 @@ input[type="file"]::file-selector-button:hover {
   content: none;
 }
 
-/* ── Table Body ── */
+/* Table Body */
 #productsList tbody tr {
   border-bottom: 1px solid var(--clr-border);
   transition:
     background var(--dur-fast) var(--ease-soft),
     transform var(--dur-fast) var(--ease-soft);
-
   animation: rowReveal 0.45s var(--ease-out) both;
 }
 
@@ -631,9 +596,9 @@ input[type="file"]::file-selector-button:hover {
 #productsList tbody tr:nth-child(6)  { animation-delay: 0.3s;  }
 #productsList tbody tr:nth-child(n+7){ animation-delay: 0.35s; }
 
-/* Striped rows */
+/* Striped rows — very subtle */
 #productsList tbody tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.018);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 /* Row hover */
@@ -646,7 +611,7 @@ input[type="file"]::file-selector-button:hover {
   border-bottom: none;
 }
 
-/* ── Table Cells ── */
+/* Table Cells */
 #productsList tbody td {
   padding: var(--sp-4) var(--sp-5);
   color: var(--clr-text-secondary);
@@ -661,11 +626,11 @@ input[type="file"]::file-selector-button:hover {
   font-family: var(--font-body);
 }
 
-/* Price cell — monospace accent */
+/* Price cell — monospace yellow */
 #productsList tbody td:nth-child(2) {
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
-  color: var(--clr-accent);
+  color: var(--clr-accent-dark);
   font-weight: 500;
 }
 
@@ -755,9 +720,8 @@ input[type="file"]::file-selector-button:hover {
   letter-spacing: 0.04em;
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 8. SCROLLBAR STYLING
+   § 8. SCROLLBAR STYLING (Light mode)
    ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
@@ -769,21 +733,19 @@ input[type="file"]::file-selector-button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(232, 160, 32, 0.25);
+  background: rgba(245, 179, 66, 0.4);
   border-radius: var(--radius-pill);
   transition: background var(--dur-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(232, 160, 32, 0.5);
+  background: rgba(245, 179, 66, 0.7);
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 9. KEYFRAME ANIMATIONS
+   § 9. KEYFRAME ANIMATIONS (unchanged)
    ───────────────────────────────────────────────────────────── */
 
-/* Page entrance */
 @keyframes pageReveal {
   from {
     opacity: 0;
@@ -795,7 +757,6 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-/* Card entrance */
 @keyframes cardReveal {
   from {
     opacity: 0;
@@ -807,7 +768,6 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-/* Heading slide */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -819,7 +779,6 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-/* Table row entrance */
 @keyframes rowReveal {
   from {
     opacity: 0;
@@ -831,21 +790,18 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-/* Ambient pulse (title dot) */
 @keyframes pulse {
   0%, 100% { opacity: 1;   transform: scale(1);    }
   50%       { opacity: 0.4; transform: scale(0.7); }
 }
 
-/* Loading shimmer (for future skeleton states) */
 @keyframes shimmer {
   from { background-position: -400px 0; }
   to   { background-position:  400px 0; }
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 10. REDUCED MOTION — ACCESSIBILITY
+   § 10. REDUCED MOTION — ACCESSIBILITY (unchanged)
    ───────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -857,9 +813,8 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-
 /* ─────────────────────────────────────────────────────────────
-   § 11. RESPONSIVE — MOBILE FIRST BREAKPOINTS
+   § 11. RESPONSIVE — MOBILE FIRST BREAKPOINTS (light mode)
    ───────────────────────────────────────────────────────────── */
 
 /* ── Tablet ── */
@@ -867,15 +822,12 @@ input[type="file"]::file-selector-button:hover {
   body {
     padding: var(--sp-6) var(--sp-4);
   }
-
   section {
     padding: var(--sp-6) var(--sp-5);
   }
-
   body > h2 {
     font-size: var(--fs-xl);
   }
-
   #productForm {
     grid-template-columns: 1fr 1fr;
   }
@@ -886,54 +838,43 @@ input[type="file"]::file-selector-button:hover {
   body {
     padding: var(--sp-4) var(--sp-3);
   }
-
   section {
     padding: var(--sp-5) var(--sp-4);
     border-radius: var(--radius-lg);
   }
-
   body > h2 {
     font-size: var(--fs-lg);
     margin-bottom: var(--sp-6);
   }
-
   #productForm {
     grid-template-columns: 1fr;
   }
-
   #productForm .form-group:has(#description),
   #productForm .form-group:has(#image) {
     grid-column: 1;
   }
-
   #addProductBtn {
     width: 100%;
     text-align: center;
     justify-self: stretch;
   }
-
-  /* Table horizontal scroll on mobile */
   .product-list {
     padding: var(--sp-5) 0;
   }
-
   .product-list > h3 {
     padding: 0 var(--sp-4);
     margin-bottom: var(--sp-4);
   }
-
   #productsList {
     border-radius: 0;
     border-left: none;
     border-right: none;
     font-size: var(--fs-xs);
   }
-
   #productsList thead th,
   #productsList tbody td {
     padding: var(--sp-3) var(--sp-4);
   }
-
   #productsList tbody td:last-child {
     flex-direction: column;
     gap: var(--sp-1);

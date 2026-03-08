@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -169,6 +169,130 @@ async function editProduct(id) {
 fetchCategories();
 fetchAnimals();
 fetchProducts();
+</script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 80%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        input { width: 50px; }
+        button { cursor: pointer; padding: 5px 10px; margin-left: 5px; }
+    </style>
+</head>
+<body>
+
+<h2>Cart Items</h2>
+
+<!-- Form to add new cart item -->
+<form id="addCartForm">
+    <label>User ID: <input type="number" name="user_id" required></label>
+    <label>Product ID: <input type="number" name="product_id" required></label>
+    <label>Quantity: <input type="number" name="quantity" value="1" required></label>
+    <button type="submit">Add to Cart</button>
+</form>
+
+<!-- Cart items table -->
+<table id="cartTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Product ID</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+const apiUrl = 'http://localhost:8000/api/carts'; // Update if backend URL is different
+
+// Function to fetch cart items
+function fetchCart() {
+    axios.get(apiUrl)
+        .then(res => {
+            const tbody = document.querySelector('#cartTable tbody');
+            tbody.innerHTML = '';
+            res.data.forEach(item => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.cart_id}</td>
+                        <td>${item.user_id}</td>
+                        <td>${item.product_id}</td>
+                        <td><input type="number" value="${item.quantity}" min="1" data-id="${item.cart_id}" class="quantityInput"></td>
+                        <td>
+                            <button onclick="updateCart(${item.cart_id})">Update</button>
+                            <button onclick="deleteCart(${item.cart_id})">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        })
+        .catch(err => console.error(err));
+}
+
+// Function to add new cart item
+document.getElementById('addCartForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = {
+        user_id: formData.get('user_id'),
+        product_id: formData.get('product_id'),
+        quantity: formData.get('quantity')
+    };
+
+    axios.post(apiUrl, data)
+        .then(res => {
+            alert(res.data.message);
+            this.reset();
+            fetchCart();
+        })
+        .catch(err => {
+            alert(JSON.stringify(err.response.data));
+        });
+});
+
+// Function to update cart item
+function updateCart(id) {
+    const quantity = document.querySelector(`.quantityInput[data-id='${id}']`).value;
+    axios.put(`${apiUrl}/${id}`, { quantity })
+        .then(res => {
+            alert(res.data.message);
+            fetchCart();
+        })
+        .catch(err => {
+            alert(JSON.stringify(err.response.data));
+        });
+}
+
+// Function to delete cart item
+function deleteCart(id) {
+    if(confirm('Are you sure to delete this cart item?')) {
+        axios.delete(`${apiUrl}/${id}`)
+            .then(res => {
+                alert(res.data.message);
+                fetchCart();
+            })
+            .catch(err => {
+                alert(JSON.stringify(err.response.data));
+            });
+    }
+}
+
+// Initial fetch
+fetchCart();
 </script>
 
 </body>
