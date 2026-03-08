@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animals Categories</title>
+</head>
+<body>
+
+  <h2>Animals Categories</h2>
+
+  <!-- Form -->
+  <form id="simple-form">
+    <label for="name">Animal Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter animal name" required>
+    <button type="submit" id="save-btn">Save</button>
+  </form>
+
+  <!-- List of Animals -->
+  <table id="animals-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Animal Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Example row with buttons in HTML -->
+      <!-- Actual rows will be replaced dynamically by JS -->
+      <tr>
+        <td>1</td>
+        <!-- <td>Example Animal</td> -->
+        <td>
+          <button class="btn btn-update" onclick="editAnimal(1, 'Example Animal')">Update</button>
+          <button class="btn btn-delete" onclick="deleteAnimal(1)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script src="../../js/Categories/Animals.js"></script>
+</body>
+</html>

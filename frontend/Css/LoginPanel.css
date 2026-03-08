@@ -1,450 +1,91 @@
-/* =========================================
-   ULTRA-MODERN GLASSMORPHIC LOGIN FORM
-   - CSS custom properties (theming)
-   - Fluid typography & spacing with clamp()
-   - Native CSS nesting
-   - Logical properties for RTL support
-   - Advanced animations (respects reduced motion)
-   - Fully responsive: mobile → 4K displays
-   - Accessibility: focus-visible, high contrast fallback
-   - Performance optimised (will-change, transform)
-   ========================================= */
-
-/* ------------------------------------------------------------------
-   1. CUSTOM PROPERTIES (THEME)
-   Easily tweak colours, gradients, shadows, animations globally.
------------------------------------------------------------------- */
-:root {
-  /* Color palette */
-  --color-primary-start: #ff6b6b;
-  --color-primary-end: #4ecdc4;
-  --color-primary-hover-start: #ff8a8a;
-  --color-primary-hover-end: #6cd4cc;
-  --color-bg-start: #ee7752;
-  --color-bg-mid1: #e73c7e;
-  --color-bg-mid2: #23a6d5;
-  --color-bg-end: #23d5ab;
-  --color-text: #ffffff;
-  --color-message: #ffeaa7;
-  --glass-border: rgba(255, 255, 255, 0.3);
-  --glass-bg: rgba(255, 255, 255, 0.2);
-  --input-bg: rgba(255, 255, 255, 0.3);
-  --input-focus-bg: rgba(255, 255, 255, 0.4);
-  --placeholder-color: rgba(255, 255, 255, 0.7);
-  --placeholder-focus-color: rgba(255, 255, 255, 0.9);
-  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 8px 12px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 15px 25px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 15px 35px rgba(0, 0, 0, 0.2);
-  --focus-ring: 0 0 0 3px rgba(255, 255, 255, 0.3);
-
-  /* Spacing & sizing – fluid values using clamp() */
-  --space-unit: clamp(0.5rem, 2vw, 1rem);
-  --form-padding: clamp(1.5rem, 5vw, 2.5rem);
-  --input-padding: clamp(0.7rem, 2vw, 0.9rem) clamp(0.8rem, 3vw, 1.2rem);
-  --border-radius-pill: 100vmax;      /* fully rounded but adapts */
-  --border-radius-card: clamp(1rem, 3vw, 2rem);
-
-  /* Typography */
-  --font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-size-base: clamp(0.9rem, 2.5vw, 1rem);
-  --font-size-h1: clamp(1.8rem, 6vw, 2.5rem);
-  --font-size-button: clamp(1rem, 3vw, 1.1rem);
-  --font-size-message: clamp(0.85rem, 2vw, 0.95rem);
-
-  /* Animation speeds */
-  --transition-duration: 0.3s;
-  --animation-gradient-duration: 15s;
-  --animation-form-duration: 0.6s;
-
-  /* Z-index layering */
-  --z-base: 1;
-  --z-ripple: 0;
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Segoe UI', Tahoma, sans-serif;
 }
 
-/* ------------------------------------------------------------------
-   2. RESET & BASE STYLES
-   Modern, consistent, and border-box everywhere.
------------------------------------------------------------------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Remove default button styles */
-button {
-  background: none;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-}
-
-/* ------------------------------------------------------------------
-   3. GLOBAL & BODY
-   Animated gradient background, flex centering, dynamic viewport.
------------------------------------------------------------------- */
 body {
-  min-height: 100dvh;                /* dynamic viewport */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-family-base);
-  background: linear-gradient(
-    -45deg,
-    var(--color-bg-start),
-    var(--color-bg-mid1),
-    var(--color-bg-mid2),
-    var(--color-bg-end)
-  );
-  background-size: 400% 400%;
-  animation: gradientBG var(--animation-gradient-duration) ease infinite;
-  /* Improve animation performance */
-  will-change: background-position;
-  padding: 1rem;
+    background-color: #000000; /* Fully black background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #ffffff;
 }
 
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  body {
-    animation: none;
-    background-size: 100% 100%;       /* fallback static */
-  }
-}
-
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ------------------------------------------------------------------
-   4. PAGE TITLE
-   Fluid font size, glow effect, fade‑in animation.
------------------------------------------------------------------- */
-h1 {
-  color: var(--color-text);
-  font-size: var(--font-size-h1);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  margin-block-end: 1.5rem;           /* logical margin */
-  text-align: center;
-  animation: fadeInDown 0.8s ease-out;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-/* ------------------------------------------------------------------
-   5. FORM CONTAINER – GLASSMORPHISM + ENTRANCE
-   Fully responsive width using clamp(), backdrop‑filter with fallback.
------------------------------------------------------------------- */
-form {
-  width: min(100%, 400px);            /* never exceed 400px, always fit */
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: var(--border-radius-card);
-  padding: var(--form-padding);
-  box-shadow: var(--shadow-xl);
-  border: 1px solid var(--glass-border);
-  text-align: center;
-  animation: slideUp var(--animation-form-duration) cubic-bezier(0.23, 1, 0.32, 1);
-
-  /* Fallback for browsers without backdrop-filter */
-  @supports not (backdrop-filter: blur(1px)) {
-    background: rgba(0, 0, 0, 0.5);   /* solid fallback */
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-/* ------------------------------------------------------------------
-   6. INPUT FIELDS
-   Modern, pill‑shaped, with floating‑placeholder simulation.
-   Uses :focus and :not(:placeholder-shown) to create a floating effect.
------------------------------------------------------------------- */
-form input[type="email"],
-form input[type="password"] {
-  width: 100%;
-  padding: var(--input-padding);
-  margin-block: 0.5rem;                /* logical margin */
-  border: none;
-  border-radius: var(--border-radius-pill);
-  background: var(--input-bg);
-  color: var(--color-text);
-  font-size: var(--font-size-base);
-  font-weight: 400;
-  outline: none;
-  border: 1px solid transparent;
-  transition: 
-    background var(--transition-duration) ease,
-    box-shadow var(--transition-duration) ease,
-    border-color var(--transition-duration) ease;
-  box-shadow: var(--shadow-sm);
-
-  /* Placeholder styling */
-  &::placeholder {
-    color: var(--placeholder-color);
-    font-weight: 300;
-    transition: 
-      transform var(--transition-duration) ease,
-      font-size var(--transition-duration) ease,
-      color var(--transition-duration) ease,
-      opacity var(--transition-duration) ease;
-  }
-
-  /* Focus state: glow and deeper background */
-  &:focus {
-    background: var(--input-focus-bg);
-    box-shadow: var(--shadow-md), var(--focus-ring);
-    border-color: var(--color-text);
-  }
-
-  /* When input is focused OR has content, move placeholder up (floating effect) */
-  &:focus::placeholder,
-  &:not(:placeholder-shown)::placeholder {
-    transform: translateY(-1.2em);
-    font-size: 0.7rem;
-    color: var(--placeholder-focus-color);
-    opacity: 0.9;
-  }
-
-  /* High contrast / Windows high contrast mode outline fallback */
-  @media (forced-colors: active) {
-    border: 1px solid ButtonText;
-    &:focus {
-      outline: 2px solid Highlight;
-    }
-  }
-}
-
-/* ------------------------------------------------------------------
-   7. LOGIN BUTTON
-   Gradient background, lift on hover, ripple effect on click.
-   Disabled state included for future use.
------------------------------------------------------------------- */
-form button {
-  width: 100%;
-  padding: var(--input-padding);
-  margin-block-start: 1rem;
-  background: linear-gradient(
-    45deg,
-    var(--color-primary-start),
-    var(--color-primary-end)
-  );
-  border: none;
-  border-radius: var(--border-radius-pill);
-  color: var(--color-text);
-  font-size: var(--font-size-button);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: 
-    transform var(--transition-duration) ease,
-    box-shadow var(--transition-duration) ease,
-    background var(--transition-duration) ease;
-  box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;                  /* for proper ripple layering */
-
-  /* Hover state */
-  &:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-    background: linear-gradient(
-      45deg,
-      var(--color-primary-hover-start),
-      var(--color-primary-hover-end)
-    );
-  }
-
-  /* Active (click) state */
-  &:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.05s;       /* quick press */
-  }
-
-  /* Focus-visible: accessible outline for keyboard navigation */
-  &:focus-visible {
-    outline: 2px solid var(--color-text);
-    outline-offset: 2px;
-  }
-
-  /* Disabled state (example) */
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    filter: grayscale(0.5);
-  }
-
-  /* Ripple effect (simulated with pseudo‑element) */
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;                          /* cover entire button */
-    background: radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, transparent 70%);
-    border-radius: inherit;
-    opacity: 0;
-    transform: scale(0);
-    transition: transform 0.4s, opacity 0.6s;
-    z-index: var(--z-ripple);
-    pointer-events: none;               /* let clicks pass through */
-  }
-
-  /* Trigger ripple on active (or could use :active) */
-  &:active::after {
-    opacity: 1;
-    transform: scale(2);
-    transition: 0s;                     /* instant on click */
-  }
-}
-
-/* ------------------------------------------------------------------
-   8. MESSAGE DISPLAY
-   Entrance animation, subtle transitions.
------------------------------------------------------------------- */
-#message {
-  margin-block-start: 1.2rem;
-  font-size: var(--font-size-message);
-  color: var(--color-message);
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  min-block-size: 1.5rem;               /* prevent layout shift */
-  animation: fadeIn 0.5s ease-out;
-  transition: color var(--transition-duration) ease;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-/* ------------------------------------------------------------------
-   9. KEYFRAME ANIMATIONS
------------------------------------------------------------------- */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* ------------------------------------------------------------------
-   10. RESPONSIVE TWEAKS FOR ALL DEVICES
-   - Extra small phones
-   - Landscape orientation
-   - Tablets and above
-   - High‑resolution (4K) screens
------------------------------------------------------------------- */
-
-/* Extra small devices (<= 360px) */
-@media (max-width: 360px) {
-  :root {
-    --form-padding: 1rem;
-    --input-padding: 0.6rem 0.8rem;
-  }
-  form {
+/* Form Container (The "Card") */
+#loginForm {
+    background-color: #121212; /* Dark charcoal card */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     width: 100%;
-  }
-  h1 {
-    font-size: 1.6rem;
-  }
+    max-width: 400px;
+    border-top: 10px solid #4285f4; /* Google Blue accent bar */
 }
 
-/* Landscape orientation for phones */
-@media (max-height: 500px) and (orientation: landscape) {
-  body {
-    justify-content: flex-start;       /* more room for content */
-    padding-block: 2rem;
-  }
-  form {
-    margin-block: 1rem;
-  }
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 500;
+    color: #e8eaed;
 }
 
-/* Tablets (portrait and landscape) */
-@media (min-width: 768px) {
-  form {
-    width: min(100%, 450px);
-  }
+/* Input Styling */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 0;
+    margin-bottom: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #3c4043;
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
-/* Large desktops / 4K screens */
-@media (min-width: 1600px) {
-  :root {
-    --font-size-base: 1.1rem;
-    --font-size-h1: 3rem;
-    --font-size-button: 1.2rem;
-    --space-unit: 1.2rem;
-  }
-  form {
-    width: min(100%, 500px);
-  }
+/* Material Design Focus Effect */
+input:focus {
+    border-bottom: 2px solid #4285f4;
 }
 
-/* ------------------------------------------------------------------
-   11. DARK MODE SUPPORT (optional but professional)
-   If user prefers dark scheme, we adapt the glass colors.
------------------------------------------------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --glass-bg: rgba(0, 0, 0, 0.3);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --input-bg: rgba(255, 255, 255, 0.15);
-    --input-focus-bg: rgba(255, 255, 255, 0.25);
-    --shadow-xl: 0 15px 35px rgba(0, 0, 0, 0.5);
-    --focus-ring: 0 0 0 3px rgba(255, 255, 255, 0.2);
-  }
+input::placeholder {
+    color: #9aa0a6;
 }
 
-/* ------------------------------------------------------------------
-   12. PRINT STYLES (keep it clean)
------------------------------------------------------------------- */
-@media print {
-  body {
-    background: none;
-    animation: none;
-    color: black;
-  }
-  form {
-    box-shadow: none;
-    border: 1px solid #ccc;
-    background: white;
-  }
-  h1, #message {
-    color: black;
-    text-shadow: none;
-  }
-  button {
-    background: #ddd;
-    color: black;
-  }
+/* Button Styling */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    background-color: #357ae8;
+    box-shadow: 0 1px 3px rgba(66, 133, 244, 0.3);
+}
+
+button:active {
+    background-color: #1a73e8;
+}
+
+/* Message Text */
+#message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #8ab4f8;
 }

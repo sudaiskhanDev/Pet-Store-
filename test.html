@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products Management</title>
+</head>
+<body>
+
+<h2>Products Management</h2>
+
+<!-- Add New Product -->
+<h3>Add New Product</h3>
+<form id="productForm">
+    <label>Category:</label>
+    <select id="categorySelect"></select>
+
+    <label>Animal:</label>
+    <select id="animalSelect"></select>
+
+    <label>Product Name:</label>
+    <input type="text" id="name" required />
+
+    <label>Description:</label>
+    <textarea id="description"></textarea>
+
+    <label>Price:</label>
+    <input type="number" step="0.01" id="price" required />
+
+    <label>Stock Quantity:</label>
+    <input type="number" id="stock_quantity" required />
+
+    <label>Image:</label>
+    <input type="file" id="image" />
+
+    <button type="button" onclick="addProduct()">Add Product</button>
+</form>
+
+<hr>
+
+<h3>All Products</h3>
+<div id="productsList"></div>
+
+<script>
+const API_URL = "http://localhost:8000/api/products";
+const CATEGORY_URL = "http://localhost:8000/api/categories";
+const ANIMAL_URL = "http://localhost:8000/api/animal";
+
+// Fetch categories and populate dropdown
+async function fetchCategories() {
+    const res = await fetch(CATEGORY_URL);
+    const categories = await res.json();
+    const select = document.getElementById('categorySelect');
+    select.innerHTML = '';
+    categories.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.category_id;
+        opt.textContent = c.category_name;
+        select.appendChild(opt);
+    });
+}
+
+// Fetch animals and populate dropdown
+async function fetchAnimals() {
+    const res = await fetch(ANIMAL_URL);
+    const animals = await res.json();
+    const select = document.getElementById('animalSelect');
+    select.innerHTML = '';
+
+    animals.forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a.animal_id;
+        opt.textContent = a.animal_name;
+        select.appendChild(opt);
+    });
+}
+
+// Fetch and display all products
+async function fetchProducts() {
+    const res = await fetch(API_URL);
+    const products = await res.json();
+    const container = document.getElementById('productsList');
+    container.innerHTML = '';
+    products.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+            <strong>${p.name}</strong> - $${p.price} - Stock: ${p.stock_quantity}
+            <br>
+            Category: ${p.category_id}, Animal: ${p.animal_id}
+            <br>
+            Description: ${p.description || 'N/A'}
+            <br>
+            <img src="http://localhost:8000/storage/${p.image}" alt="Product Image" onerror="this.src='https://via.placeholder.com/150';" />
+            <br>
+            <button onclick="deleteProduct(${p.product_id})">Delete</button>
+            <button onclick="editProduct(${p.product_id})">Edit</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// Add new product
+async function addProduct() {
+    const formData = new FormData();
+    formData.append('category_id', document.getElementById('categorySelect').value);
+    formData.append('animal_id', document.getElementById('animalSelect').value);
+    formData.append('name', document.getElementById('name').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('price', document.getElementById('price').value);
+    formData.append('stock_quantity', document.getElementById('stock_quantity').value);
+
+    const imageInput = document.getElementById('image');
+    if (imageInput.files.length > 0) {
+        formData.append('image', imageInput.files[0]);
+    }
+
+    const res = await fetch(API_URL, {
+        method: 'POST',
+        body: formData
+    });
+    const data = await res.json();
+    if (res.status === 201) {
+        alert(data.message);
+        document.getElementById('productForm').reset();
+        fetchProducts();
+    } else {
+        alert(JSON.stringify(data));
+    }
+}
+
+// Delete product
+async function deleteProduct(id) {
+    if (!confirm('Are you sure to delete this product?')) return;
+    const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    alert(data.message);
+    fetchProducts();
+}
+
+// Edit / update product
+async function editProduct(id) {
+    const name = prompt('New Product Name');
+    if (!name) return;
+    const price = prompt('New Price');
+    const stock = prompt('New Stock Quantity');
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('stock_quantity', stock);
+
+    // Optional: upload new image
+    const imageInput = document.createElement('input');
+    imageInput.type = 'file';
+    imageInput.onchange = async () => {
+        if (imageInput.files.length > 0) {
+            formData.append('image', imageInput.files[0]);
+        }
+        const res = await fetch(`${API_URL}/${id}`, { method: 'PUT', body: formData });
+        const data = await res.json();
+        alert(data.message);
+        fetchProducts();
+    };
+    imageInput.click();
+}
+
+// Initialize
+fetchCategories();
+fetchAnimals();
+fetchProducts();
+</script>
+
+</body>
+</html>

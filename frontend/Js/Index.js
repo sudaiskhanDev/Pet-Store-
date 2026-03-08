@@ -122,7 +122,7 @@ if(logoutBtn){
             alert("Logged Out!");
 
             // Reload navbar page to update buttons
-            location.href = "../index.html"; 
+            location.href = "../../index.html"; 
 
         } catch(err){
             console.error(err);
