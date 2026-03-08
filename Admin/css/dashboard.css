@@ -1,0 +1,268 @@
+/* ============================================
+   SENIOR DESIGNER'S STYLESHEET
+   Project: Admin Dashboard
+   Author: Dedicated Senior Designer & Animator
+   Description: White & Yellow theme for a clean,
+                functional admin dashboard with
+                responsive layout and subtle motion.
+   ============================================ */
+
+/* ---------- CSS CUSTOM PROPERTIES (DESIGN TOKENS) ---------- */
+:root {
+    /* Color Palette - White & Yellow (consistent with login) */
+    --color-bg-body: #f7f7f7;        /* Soft off-white background */
+    --color-bg-surface: #ffffff;      /* Pure white for cards/surfaces */
+    --color-primary: #f5b042;         /* Warm yellow - primary action */
+    --color-primary-light: #ffc55a;   /* Lighter yellow for hover */
+    --color-text-primary: #2d2d2d;    /* Dark gray for headings */
+    --color-text-secondary: #5a5a5a;  /* Medium gray for secondary text */
+    --color-text-inverse: #1e1e1e;    /* Dark text for yellow backgrounds */
+    --color-border: #e0e0e0;          /* Light gray border */
+    --color-focus-ring: rgba(245, 176, 66, 0.4); /* Yellow focus glow */
+
+    /* Typography */
+    --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --font-size-base: 1rem;            /* 16px */
+    --font-size-h2: 1.75rem;           /* 28px - slightly smaller for dashboard */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 600;
+
+    /* Spacing */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-sm: 1rem;     /* 16px */
+    --space-md: 1.5rem;   /* 24px */
+    --space-lg: 2rem;     /* 32px */
+    --space-xl: 2.5rem;   /* 40px */
+
+    /* Borders & Shadows */
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --box-shadow-topbar: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --box-shadow-focus: 0 0 0 4px var(--color-focus-ring);
+    --box-shadow-button-hover: 0 4px 12px rgba(245, 176, 66, 0.3);
+
+    /* Transitions */
+    --transition-duration: 200ms;
+    --transition-timing: ease-out;
+}
+
+/* ---------- RESET & BASE STYLES ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--color-bg-body);
+    font-family: var(--font-family-base);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- TOPBAR (HEADER) ---------- */
+.topbar {
+    background-color: var(--color-bg-surface);
+    padding: var(--space-sm) var(--space-lg);
+    box-shadow: var(--box-shadow-topbar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--color-primary); /* Yellow accent line */
+}
+
+.topbar h2 {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+/* ---------- LOGOUT BUTTON ---------- */
+#logoutBtn {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-xs) var(--space-md);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-duration) var(--transition-timing),
+                transform var(--transition-duration) var(--transition-timing),
+                box-shadow var(--transition-duration) var(--transition-timing);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+#logoutBtn:hover {
+    background-color: var(--color-primary-light);
+    box-shadow: var(--box-shadow-button-hover);
+    transform: translateY(-2px);
+}
+
+#logoutBtn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+#logoutBtn:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 2px;
+}
+
+/* ---------- NAVIGATION ---------- */
+.nav {
+    background-color: var(--color-bg-surface);
+    margin: var(--space-md) var(--space-lg) 0; /* Top margin to separate from topbar */
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--color-border);
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-xs) 0;
+    position: relative;
+    transition: color var(--transition-duration) var(--transition-timing);
+}
+
+/* Animated underline effect */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-duration) var(--transition-timing);
+}
+
+.nav-link:hover {
+    color: var(--color-text-primary);
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+/* ---------- MAIN CONTENT AREA (for future expansion) ---------- */
+/* 
+   Since the HTML only includes header and nav, we prepare a main area 
+   that can be used when content is added. 
+*/
+.main-content {
+    flex: 1;
+    padding: var(--space-lg);
+    background: transparent; /* Inherits body background */
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: 640px) {
+    .topbar {
+        padding: var(--space-sm) var(--space-md);
+        flex-direction: column;
+        align-items: start;
+        gap: var(--space-sm);
+    }
+
+    #logoutBtn {
+        align-self: flex-end;
+    }
+
+    .nav {
+        margin: var(--space-sm) var(--space-md) 0;
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .nav-list {
+        gap: var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .nav-link {
+        display: inline-block;
+        padding: var(--space-xs) 0;
+    }
+}
+
+/* ---------- UTILITY & ACCESSIBILITY ---------- */
+/* Ensure button has consistent focus for keyboard navigation */
+button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Smooth entrance animation for page */
+body {
+    animation: fade-in 0.5s var(--transition-timing);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Subtle background pattern (same as login) */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 30%),
+                      radial-gradient(circle at 70% 60%, rgba(245,176,66,0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ---------- SCRIPT NOTE ---------- */
+/* The included script (../js/dashboard.js) can add dynamic functionality.
+   For a complete experience, consider styling any dynamic states (loading, error, etc.) */

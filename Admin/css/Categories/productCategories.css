@@ -1,0 +1,361 @@
+/* ============================================
+   SENIOR DESIGNER'S STYLESHEET
+   Project: Categories Page (Admin)
+   Author: Dedicated Senior Designer & Animator
+   Description: White & Yellow theme for a clean
+                category management interface with
+                form inputs and data table.
+   ============================================ */
+
+/* ---------- CSS CUSTOM PROPERTIES (DESIGN TOKENS) ---------- */
+:root {
+    /* Color Palette - White & Yellow (consistent with admin suite) */
+    --color-bg-body: #f7f7f7;        /* Soft off-white background */
+    --color-bg-surface: #ffffff;      /* Pure white for cards/surfaces */
+    --color-primary: #f5b042;         /* Warm yellow - primary action */
+    --color-primary-light: #ffc55a;   /* Lighter yellow for hover */
+    --color-error-bg: #fff2f0;        /* Soft red background for errors */
+    --color-error-border: #ffccc7;    /* Light red border */
+    --color-error-text: #b33c2e;      /* Dark red for error text */
+    --color-text-primary: #2d2d2d;    /* Dark gray for headings */
+    --color-text-secondary: #5a5a5a;  /* Medium gray for secondary text */
+    --color-text-inverse: #1e1e1e;    /* Dark text for yellow backgrounds */
+    --color-border: #e0e0e0;          /* Light gray border */
+    --color-table-header-bg: #fafafa; /* Very light gray for table header */
+    --color-table-row-hover: #f5f5f5; /* Light gray for row hover */
+    --color-focus-ring: rgba(245, 176, 66, 0.4); /* Yellow focus glow */
+
+    /* Typography */
+    --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --font-size-base: 1rem;            /* 16px */
+    --font-size-h1: 2rem;              /* 32px */
+    --font-size-small: 0.875rem;       /* 14px */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 600;
+
+    /* Spacing */
+    --space-xs: 0.5rem;   /* 8px */
+    --space-sm: 1rem;     /* 16px */
+    --space-md: 1.5rem;   /* 24px */
+    --space-lg: 2rem;     /* 32px */
+    --space-xl: 3rem;     /* 48px */
+
+    /* Borders & Shadows */
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --box-shadow-focus: 0 0 0 4px var(--color-focus-ring);
+    --box-shadow-button-hover: 0 4px 12px rgba(245, 176, 66, 0.3);
+
+    /* Transitions */
+    --transition-duration: 200ms;
+    --transition-timing: ease-out;
+}
+
+/* ---------- RESET & BASE STYLES ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--color-bg-body);
+    font-family: var(--font-family-base);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Subtle background pattern (consistent with other pages) */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 30%),
+                      radial-gradient(circle at 70% 60%, rgba(245,176,66,0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ---------- PAGE TITLE ---------- */
+h1 {
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+    letter-spacing: -0.02em;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* ---------- INPUT SECTION (FORM CARD) ---------- */
+.input {
+    background-color: var(--color-bg-surface);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-card);
+    padding: var(--space-lg);
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: var(--space-lg);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: flex-start;
+    border: 1px solid var(--color-border);
+}
+
+/* Input fields */
+.input input[type="text"] {
+    flex: 1 1 250px;
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    padding: var(--space-sm) var(--space-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-primary);
+    transition: border-color var(--transition-duration) var(--transition-timing),
+                box-shadow var(--transition-duration) var(--transition-timing);
+    outline: none;
+}
+
+.input input[type="text"]::placeholder {
+    color: #b0b0b0;
+    opacity: 1;
+}
+
+.input input[type="text"]:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--box-shadow-focus);
+}
+
+/* Save button */
+#saveBtn {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-duration) var(--transition-timing),
+                transform var(--transition-duration) var(--transition-timing),
+                box-shadow var(--transition-duration) var(--transition-timing);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    min-width: 120px;
+}
+
+#saveBtn:hover {
+    background-color: var(--color-primary-light);
+    box-shadow: var(--box-shadow-button-hover);
+    transform: translateY(-2px);
+}
+
+#saveBtn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+#saveBtn:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 2px;
+}
+
+/* Error message */
+.error {
+    display: block;
+    width: 100%;
+    font-size: var(--font-size-small);
+    color: var(--color-error-text);
+    background-color: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+    border-radius: var(--border-radius-sm);
+    padding: var(--space-xs) var(--space-sm);
+    margin-top: var(--space-xs);
+    animation: shake 0.3s var(--transition-timing);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* ---------- TABLE SECTION ---------- */
+.list {
+    background-color: var(--color-bg-surface);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-card);
+    padding: var(--space-lg);
+    width: 100%;
+    max-width: 1200px;
+    overflow-x: auto; /* Horizontal scroll on small screens */
+    border: 1px solid var(--color-border);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-base);
+    min-width: 600px; /* Ensures table doesn't squish on small screens */
+}
+
+th {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-table-header-bg);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-bold);
+    border-bottom: 3px solid var(--color-primary); /* Yellow accent line */
+    white-space: nowrap;
+}
+
+td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+/* Zebra striping for better readability */
+tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+tbody tr:hover {
+    background-color: var(--color-table-row-hover);
+    transition: background-color var(--transition-duration) ease;
+}
+
+/* Actions column styling (for buttons added via JS) */
+td:last-child {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+}
+
+/* Generic action button style (can be used for edit/delete) */
+.action-btn {
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-duration) var(--transition-timing);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.action-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow-button-hover);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.action-btn:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 2px;
+}
+
+/* Delete button variant (optional red style) */
+.action-btn.delete {
+    border-color: #b33c2e;
+    color: #b33c2e;
+}
+
+.action-btn.delete:hover {
+    background-color: #b33c2e;
+    border-color: #b33c2e;
+    color: white;
+    box-shadow: 0 4px 12px rgba(179, 60, 46, 0.3);
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: 768px) {
+    body {
+        padding: var(--space-md);
+    }
+
+    h1 {
+        font-size: 1.75rem;
+        margin-bottom: var(--space-md);
+    }
+
+    .input {
+        padding: var(--space-md);
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .input input[type="text"] {
+        width: 100%;
+    }
+
+    #saveBtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: var(--space-sm);
+    }
+
+    .list {
+        padding: var(--space-sm);
+    }
+
+    th, td {
+        padding: var(--space-xs) var(--space-sm);
+    }
+}
+
+/* ---------- ACCESSIBILITY & UTILITY ---------- */
+button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Fade-in animation for page */
+body {
+    animation: fade-in 0.5s var(--transition-timing);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ---------- SCRIPT NOTE ---------- */
+/* The included script (../../js/Categories/Product Categories.js) will populate
+   the table and handle actions. The .action-btn styles are provided for any
+   edit/delete buttons that may be generated dynamically. */

@@ -1,0 +1,942 @@
+/* ============================================================
+   PRODUCTS MANAGEMENT — Professional CSS Stylesheet
+   Senior CSS Architect & Motion Designer | v1.0
+   Theme: Dark Industrial Luxury Admin Panel
+   ============================================================ */
+
+/* ─────────────────────────────────────────────────────────────
+   § 1. DESIGN TOKENS — CSS Custom Properties
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* Color Palette */
+  --clr-bg-root:        #08090d;
+  --clr-bg-surface:     #0f1117;
+  --clr-bg-card:        #161a24;
+  --clr-bg-card-hover:  #1c2132;
+  --clr-bg-input:       #12151f;
+  --clr-bg-input-focus: #191d2b;
+  --clr-bg-thead:       #0d1020;
+
+  /* Accent — Warm Amber Gold */
+  --clr-accent:         #e8a020;
+  --clr-accent-glow:    rgba(232, 160, 32, 0.18);
+  --clr-accent-dim:     rgba(232, 160, 32, 0.08);
+  --clr-accent-dark:    #c5881a;
+
+  /* Text */
+  --clr-text-primary:   #edf0f8;
+  --clr-text-secondary: #8b92a8;
+  --clr-text-muted:     #4a5168;
+  --clr-text-label:     #a0a8bf;
+
+  /* Semantic */
+  --clr-success:        #22c984;
+  --clr-success-dim:    rgba(34, 201, 132, 0.12);
+  --clr-danger:         #f04f5f;
+  --clr-danger-dim:     rgba(240, 79, 95, 0.12);
+  --clr-warning:        #f0a44e;
+
+  /* Borders */
+  --clr-border:         rgba(255, 255, 255, 0.06);
+  --clr-border-input:   rgba(255, 255, 255, 0.09);
+  --clr-border-focus:   rgba(232, 160, 32, 0.55);
+  --clr-border-accent:  rgba(232, 160, 32, 0.22);
+
+  /* Shadows */
+  --shadow-sm:          0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md:          0 6px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg:          0 16px 48px rgba(0, 0, 0, 0.65);
+  --shadow-accent:      0 4px 24px rgba(232, 160, 32, 0.22);
+  --shadow-glow-sm:     0 0 16px rgba(232, 160, 32, 0.15);
+
+  /* Typography */
+  --font-display:       'Playfair Display', 'Georgia', serif;
+  --font-body:          'DM Sans', 'Segoe UI', sans-serif;
+  --font-mono:          'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Type Scale */
+  --fs-xs:    0.72rem;
+  --fs-sm:    0.825rem;
+  --fs-base:  0.9375rem;
+  --fs-md:    1.05rem;
+  --fs-lg:    1.25rem;
+  --fs-xl:    1.55rem;
+  --fs-2xl:   2rem;
+
+  /* Spacing Scale */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+
+  /* Radius */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   22px;
+  --radius-pill: 999px;
+
+  /* Transitions */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-soft:   cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:    160ms;
+  --dur-base:    280ms;
+  --dur-slow:    480ms;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 2. GLOBAL RESET & BASE
+   ───────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: var(--clr-text-primary);
+  background-color: var(--clr-bg-root);
+
+  /* Subtle noise texture overlay */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232, 160, 32, 0.06) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  min-height: 100vh;
+
+  padding: var(--sp-8) var(--sp-6);
+  max-width: 1280px;
+  margin: 0 auto;
+
+  animation: pageReveal var(--dur-slow) var(--ease-out) both;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 3. TYPOGRAPHY
+   ───────────────────────────────────────────────────────────── */
+
+/* Google Fonts import — place in <head> or keep here for convenience */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Page Title */
+body > h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--clr-text-primary);
+
+  position: relative;
+  display: inline-block;
+  margin-bottom: var(--sp-10);
+  padding-bottom: var(--sp-4);
+
+  animation: slideDown 0.6s var(--ease-out) 0.1s both;
+}
+
+/* Golden underline bar */
+body > h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--clr-accent), transparent);
+  border-radius: var(--radius-pill);
+}
+
+/* Accent dot on title */
+body > h2::before {
+  content: '◆';
+  font-size: var(--fs-xs);
+  color: var(--clr-accent);
+  position: absolute;
+  top: 6px;
+  right: -18px;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* Section headings */
+section h3 {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-text-secondary);
+
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+
+section h3::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: linear-gradient(180deg, var(--clr-accent), var(--clr-accent-dark));
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 4. LAYOUT — SECTIONS
+   ───────────────────────────────────────────────────────────── */
+
+section {
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-8) var(--sp-8);
+  margin-bottom: var(--sp-6);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+
+  animation: cardReveal 0.6s var(--ease-out) both;
+}
+
+/* Glassy top sheen */
+section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12) 40%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Stagger section animations */
+.add-product {
+  animation-delay: 0.2s;
+}
+
+.product-list {
+  animation-delay: 0.35s;
+}
+
+/* HR Divider */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--clr-border) 20%,
+    rgba(232, 160, 32, 0.2) 50%,
+    var(--clr-border) 80%,
+    transparent
+  );
+  margin: var(--sp-8) 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 5. FORM — ADD PRODUCT
+   ───────────────────────────────────────────────────────────── */
+
+#productForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-5) var(--sp-6);
+}
+
+/* Description spans full width */
+#productForm .form-group:has(#description),
+#productForm .form-group:has(#image) {
+  grid-column: 1 / -1;
+}
+
+/* Submit button also full row */
+#productForm #addProductBtn {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+/* Labels */
+.form-group label {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-label);
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+
+.form-group:focus-within label {
+  color: var(--clr-accent);
+}
+
+/* ── Input Base Styles ── */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: 400;
+  color: var(--clr-text-primary);
+
+  background: var(--clr-bg-input);
+  border: 1px solid var(--clr-border-input);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+
+  outline: none;
+  transition:
+    border-color var(--dur-base) var(--ease-soft),
+    background var(--dur-base) var(--ease-soft),
+    box-shadow var(--dur-base) var(--ease-soft),
+    transform var(--dur-fast) var(--ease-spring);
+
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Focus Ring */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--clr-border-focus);
+  background: var(--clr-bg-input-focus);
+  box-shadow: 0 0 0 3px var(--clr-accent-dim), var(--shadow-glow-sm);
+  transform: translateY(-1px);
+}
+
+/* Hover (not focused) */
+.form-group input:hover:not(:focus),
+.form-group select:hover:not(:focus),
+.form-group textarea:hover:not(:focus) {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(18, 21, 31, 0.9);
+}
+
+/* Placeholder */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--clr-text-muted);
+  font-weight: 300;
+}
+
+/* Select — custom arrow */
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b92a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--sp-3) center;
+  padding-right: var(--sp-10);
+}
+
+.form-group select option {
+  background: #1a1f30;
+  color: var(--clr-text-primary);
+}
+
+/* Textarea */
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* Number inputs — hide spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* File Input */
+input[type="file"] {
+  cursor: pointer;
+  padding: var(--sp-3) var(--sp-4);
+  border-style: dashed;
+  border-color: rgba(232, 160, 32, 0.25);
+  background: var(--clr-accent-dim);
+  color: var(--clr-text-secondary);
+  font-size: var(--fs-sm);
+}
+
+input[type="file"]:hover {
+  border-color: var(--clr-accent);
+  background: rgba(232, 160, 32, 0.1);
+  color: var(--clr-accent);
+}
+
+input[type="file"]::file-selector-button {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-bg-root);
+  background: var(--clr-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--sp-1) var(--sp-3);
+  margin-right: var(--sp-3);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-soft);
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--clr-accent-dark);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 6. BUTTONS
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Primary — Add Product ── */
+#addProductBtn {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-bg-root);
+
+  background: linear-gradient(135deg, var(--clr-accent) 0%, var(--clr-accent-dark) 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-8);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-base) var(--ease-soft),
+    filter var(--dur-base) var(--ease-soft);
+
+  box-shadow: 0 4px 20px rgba(232, 160, 32, 0.28), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+/* Shimmer sweep on hover */
+#addProductBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  skewX(-20deg);
+  transition: left 0.55s var(--ease-out);
+}
+
+#addProductBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232, 160, 32, 0.42);
+  filter: brightness(1.08);
+}
+
+#addProductBtn:hover::before {
+  left: 160%;
+}
+
+#addProductBtn:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 2px 10px rgba(232, 160, 32, 0.2);
+  transition-duration: 80ms;
+}
+
+/* ── Table Action Buttons — Edit ── */
+.edit-btn,
+.delete-btn {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  padding: 5px var(--sp-3);
+  transition:
+    background var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-soft);
+}
+
+.edit-btn {
+  color: var(--clr-success);
+  background: var(--clr-success-dim);
+  border-color: rgba(34, 201, 132, 0.28);
+}
+
+.edit-btn:hover {
+  background: var(--clr-success);
+  color: #05160d;
+  border-color: var(--clr-success);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(34, 201, 132, 0.3);
+}
+
+.delete-btn {
+  color: var(--clr-danger);
+  background: var(--clr-danger-dim);
+  border-color: rgba(240, 79, 95, 0.28);
+}
+
+.delete-btn:hover {
+  background: var(--clr-danger);
+  color: #fff;
+  border-color: var(--clr-danger);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(240, 79, 95, 0.32);
+}
+
+.edit-btn:active,
+.delete-btn:active {
+  transform: scale(0.96);
+  transition-duration: 60ms;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 7. TABLE — PRODUCT LIST
+   ───────────────────────────────────────────────────────────── */
+
+.product-list {
+  overflow: visible;
+}
+
+/* Scrollable wrapper for small screens */
+.product-list > h3 + * ,
+.product-list table {
+  max-width: 100%;
+}
+
+/* Outer scroll wrapper (applied to table's parent) */
+#productsList {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: table; /* keep native table layout */
+  font-size: var(--fs-sm);
+
+  /* Allow scroll on overflow */
+  overflow-x: auto;
+}
+
+/* If table needs horizontal scroll, wrap in a div via JS if needed.
+   Adding overflow directly to section: */
+.product-list {
+  overflow-x: auto;
+}
+
+/* ── Table Head ── */
+#productsList thead {
+  background: var(--clr-bg-thead);
+}
+
+#productsList thead th {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+
+  padding: var(--sp-4) var(--sp-5);
+  text-align: left;
+  border-bottom: 1px solid var(--clr-border);
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Accent line on first th */
+#productsList thead th:first-child {
+  color: var(--clr-text-secondary);
+}
+
+/* Sortable indicator hint */
+#productsList thead th::after {
+  content: ' ↕';
+  font-size: 0.6rem;
+  opacity: 0.3;
+  margin-left: 2px;
+}
+
+#productsList thead th:last-child::after {
+  content: none;
+}
+
+/* ── Table Body ── */
+#productsList tbody tr {
+  border-bottom: 1px solid var(--clr-border);
+  transition:
+    background var(--dur-fast) var(--ease-soft),
+    transform var(--dur-fast) var(--ease-soft);
+
+  animation: rowReveal 0.45s var(--ease-out) both;
+}
+
+/* Stagger rows */
+#productsList tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+#productsList tbody tr:nth-child(2)  { animation-delay: 0.1s;  }
+#productsList tbody tr:nth-child(3)  { animation-delay: 0.15s; }
+#productsList tbody tr:nth-child(4)  { animation-delay: 0.2s;  }
+#productsList tbody tr:nth-child(5)  { animation-delay: 0.25s; }
+#productsList tbody tr:nth-child(6)  { animation-delay: 0.3s;  }
+#productsList tbody tr:nth-child(n+7){ animation-delay: 0.35s; }
+
+/* Striped rows */
+#productsList tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+/* Row hover */
+#productsList tbody tr:hover {
+  background: var(--clr-bg-card-hover);
+}
+
+/* Remove border on last row */
+#productsList tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* ── Table Cells ── */
+#productsList tbody td {
+  padding: var(--sp-4) var(--sp-5);
+  color: var(--clr-text-secondary);
+  vertical-align: middle;
+  line-height: 1.45;
+}
+
+/* Name cell — emphasised */
+#productsList tbody td:nth-child(1) {
+  font-weight: 500;
+  color: var(--clr-text-primary);
+  font-family: var(--font-body);
+}
+
+/* Price cell — monospace accent */
+#productsList tbody td:nth-child(2) {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--clr-accent);
+  font-weight: 500;
+}
+
+/* Price — prefix $ */
+#productsList tbody td:nth-child(2)::before {
+  content: '$';
+  opacity: 0.55;
+  font-size: 0.7rem;
+  margin-right: 1px;
+}
+
+/* Stock cell */
+#productsList tbody td:nth-child(3) {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--clr-success);
+}
+
+/* Category / Animal badge treatment */
+#productsList tbody td:nth-child(4),
+#productsList tbody td:nth-child(5) {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* Description cell — capped width */
+#productsList tbody td:nth-child(6) {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+}
+
+/* Image cell */
+#productsList tbody td:nth-child(7) {
+  text-align: center;
+}
+
+#productsList tbody td:nth-child(7) img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--clr-border);
+  transition:
+    transform var(--dur-base) var(--ease-spring),
+    box-shadow var(--dur-base) var(--ease-soft);
+}
+
+#productsList tbody td:nth-child(7) img:hover {
+  transform: scale(2.4) translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--clr-border-accent);
+  z-index: 10;
+  position: relative;
+}
+
+/* No image fallback text */
+#productsList tbody td:nth-child(7):not(:has(img)) {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+  font-style: italic;
+}
+
+/* Actions cell */
+#productsList tbody td:last-child {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding-top: var(--sp-4);
+  padding-bottom: var(--sp-4);
+}
+
+/* Empty table state */
+#productsList tbody:empty::after {
+  content: 'No products found — add your first product above.';
+  display: table-cell;
+  text-align: center;
+  padding: var(--sp-12);
+  color: var(--clr-text-muted);
+  font-style: italic;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 8. SCROLLBAR STYLING
+   ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--clr-bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(232, 160, 32, 0.25);
+  border-radius: var(--radius-pill);
+  transition: background var(--dur-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 160, 32, 0.5);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 9. KEYFRAME ANIMATIONS
+   ───────────────────────────────────────────────────────────── */
+
+/* Page entrance */
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card entrance */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Heading slide */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Table row entrance */
+@keyframes rowReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Ambient pulse (title dot) */
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* Loading shimmer (for future skeleton states) */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position:  400px 0; }
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 10. REDUCED MOTION — ACCESSIBILITY
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   § 11. RESPONSIVE — MOBILE FIRST BREAKPOINTS
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Tablet ── */
+@media (max-width: 960px) {
+  body {
+    padding: var(--sp-6) var(--sp-4);
+  }
+
+  section {
+    padding: var(--sp-6) var(--sp-5);
+  }
+
+  body > h2 {
+    font-size: var(--fs-xl);
+  }
+
+  #productForm {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 620px) {
+  body {
+    padding: var(--sp-4) var(--sp-3);
+  }
+
+  section {
+    padding: var(--sp-5) var(--sp-4);
+    border-radius: var(--radius-lg);
+  }
+
+  body > h2 {
+    font-size: var(--fs-lg);
+    margin-bottom: var(--sp-6);
+  }
+
+  #productForm {
+    grid-template-columns: 1fr;
+  }
+
+  #productForm .form-group:has(#description),
+  #productForm .form-group:has(#image) {
+    grid-column: 1;
+  }
+
+  #addProductBtn {
+    width: 100%;
+    text-align: center;
+    justify-self: stretch;
+  }
+
+  /* Table horizontal scroll on mobile */
+  .product-list {
+    padding: var(--sp-5) 0;
+  }
+
+  .product-list > h3 {
+    padding: 0 var(--sp-4);
+    margin-bottom: var(--sp-4);
+  }
+
+  #productsList {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    font-size: var(--fs-xs);
+  }
+
+  #productsList thead th,
+  #productsList tbody td {
+    padding: var(--sp-3) var(--sp-4);
+  }
+
+  #productsList tbody td:last-child {
+    flex-direction: column;
+    gap: var(--sp-1);
+    align-items: flex-start;
+  }
+}
