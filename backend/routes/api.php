@@ -5,3 +5,4 @@ require __DIR__.'/user.php';   // new user routes
 require __DIR__.'/animal.php'; // Animals Category
 require __DIR__.'/categories.php'; //Categories of Product
 require __DIR__.'/products.php'; // Products API routes
+require __DIR__.'/cart.php'; // Cart routes
