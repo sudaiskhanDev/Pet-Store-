@@ -1,0 +1,548 @@
+/* ============================================================
+   DESIGN TOKENS — White & Gold/Yellow Luxury Theme
+   Senior CSS Architect | v2.0
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  /* ── Color Palette ── */
+  --primary:          #f5c518;       /* Rich amber-yellow */
+  --primary-deep:     #d4a017;       /* Darker gold for hover depth */
+  --primary-glow:     #ffe066;       /* Luminous yellow for glows */
+  --accent:           #fff7d6;       /* Warm cream accent */
+  --bg-base:          #fafaf7;       /* Warm off-white base */
+  --bg-card:          rgba(255, 255, 255, 0.85);
+  --bg-image:         #f0ede3;       /* Warm parchment for image area */
+  --text-primary:     #1a1608;       /* Near-black warm ink */
+  --text-secondary:   #5c5438;       /* Warm brown-grey */
+  --text-muted:       #9c9070;       /* Muted warm tone */
+  --border-soft:      rgba(245, 197, 24, 0.25);
+  --border-hard:      rgba(245, 197, 24, 0.6);
+  --shadow-yellow:    rgba(245, 197, 24, 0.35);
+  --shadow-dark:      rgba(26, 22, 8, 0.12);
+
+  /* ── Typography ── */
+  --font-display:     'Playfair Display', Georgia, serif;
+  --font-body:        'DM Sans', 'Segoe UI', sans-serif;
+
+  /* ── Spacing Scale ── */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   40px;
+  --space-2xl:  64px;
+
+  /* ── Radii ── */
+  --radius-sm:  8px;
+  --radius-md:  14px;
+  --radius-lg:  22px;
+  --radius-xl:  32px;
+
+  /* ── Transitions ── */
+  --ease-spring:  cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:     180ms;
+  --dur-med:      320ms;
+  --dur-slow:     560ms;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   BODY — Warm White Atmospheric Background
+   ============================================================ */
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-base);
+
+  /* Layered warm radial mesh */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 10%,  rgba(255, 224, 102, 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 80%,  rgba(245, 197, 24,  0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(250, 248, 236, 1)    0%, #fafaf7 100%);
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+
+  /* Subtle grain texture overlay */
+  position: relative;
+}
+
+/* Grain overlay via pseudo-element */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   CONTAINER — Glassmorphism Card on White
+   ============================================================ */
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 1000px;
+
+  background: var(--bg-card);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: var(--space-xl);
+
+  /* Layered shadow system */
+  box-shadow:
+    0 1px 2px   var(--shadow-dark),
+    0 4px 8px   var(--shadow-dark),
+    0 20px 40px rgba(26, 22, 8, 0.08),
+    0 0 0 1px   rgba(255, 255, 255, 0.7) inset,
+    /* Yellow inner glow at top */
+    0 -1px 0 0  rgba(245, 197, 24, 0.3) inset;
+
+  /* Entry animation */
+  animation: cardReveal var(--dur-slow) var(--ease-spring) both;
+}
+
+/* Decorative yellow top-border stripe */
+.container::before {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  left: 15%;
+  right: 15%;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--primary-glow),
+    var(--primary),
+    var(--primary-glow),
+    transparent
+  );
+  border-radius: 0 0 4px 4px;
+  animation: shimmerBar 3s ease-in-out infinite;
+}
+
+/* ============================================================
+   IMAGE SECTION
+   ============================================================ */
+
+.image-section {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--bg-image);
+  min-height: 320px;
+
+  /* Warm golden border */
+  border: 1.5px solid var(--border-soft);
+  box-shadow:
+    0 8px 24px rgba(26, 22, 8, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+
+  animation: cardReveal var(--dur-slow) var(--ease-spring) 120ms both;
+}
+
+/* Sheen overlay on image section */
+.image-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 224, 102, 0.15) 0%,
+    transparent 50%,
+    rgba(245, 197, 24, 0.08) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  transition: opacity var(--dur-med) var(--ease-smooth);
+}
+
+.image-section:hover::before {
+  opacity: 0;
+}
+
+/* Corner badge accent */
+.image-section::after {
+  content: '';
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.25);
+  z-index: 2;
+  animation: pulseDot 2.5s ease-in-out infinite;
+}
+
+#image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform  var(--dur-slow) var(--ease-spring),
+    filter     var(--dur-med)  var(--ease-smooth);
+  border-radius: inherit;
+}
+
+.image-section:hover #image {
+  transform: scale(1.08) rotate(1.5deg);
+  filter: brightness(1.04) saturate(1.1);
+}
+
+/* ============================================================
+   INFO SECTION
+   ============================================================ */
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-sm);
+  animation: cardReveal var(--dur-slow) var(--ease-spring) 200ms both;
+}
+
+/* ── Category tag above name ── */
+.info-section::before {
+  content: 'FEATURED PRODUCT';
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--primary-deep);
+  background: rgba(245, 197, 24, 0.12);
+  border: 1px solid var(--border-hard);
+  border-radius: 100px;
+  padding: 4px 12px;
+  width: fit-content;
+  margin-bottom: var(--space-xs);
+  animation: tagSlide var(--dur-slow) var(--ease-bounce) 350ms both;
+}
+
+/* ── Name ── */
+#name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+
+  /* White-to-warm-grey gradient text */
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    #3d3520 50%,
+    var(--text-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Price ── */
+#price {
+  font-family: var(--font-body);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--primary-deep);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  letter-spacing: -0.01em;
+
+  /* Subtle shimmer on price */
+  background: linear-gradient(
+    90deg,
+    var(--primary-deep),
+    var(--primary),
+    var(--primary-deep)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: priceShimmer 4s linear infinite;
+}
+
+/* Currency symbol styling */
+#price::before {
+  content: attr(data-currency, '$');
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.7;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+/* ── Divider ── */
+.info-section hr,
+#name + * > *:first-child {
+  border: none;
+}
+
+/* Thin yellow rule between name and body */
+#price::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin-top: 2px;
+  align-self: center;
+}
+
+/* ── Description ── */
+#description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+
+  /* Subtle first-line emphasis */
+  &::first-line {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+}
+
+/* ============================================================
+   BUY BUTTON — Yellow Primary CTA
+   ============================================================ */
+
+.buy-btn {
+  position: relative;
+  overflow: hidden;
+
+  padding: 14px 36px;
+  width: fit-content;
+
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 6px   rgba(245, 197, 24, 0.25),
+    0 10px 20px rgba(245, 197, 24, 0.3),
+    0 1px 0     rgba(255, 255, 255, 0.4) inset;
+
+  transition:
+    transform     var(--dur-fast) var(--ease-bounce),
+    box-shadow    var(--dur-med)  var(--ease-smooth),
+    background    var(--dur-fast) var(--ease-smooth),
+    letter-spacing var(--dur-med) var(--ease-smooth);
+}
+
+/* Liquid shine sweep on hover */
+.buy-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 80%
+  );
+  transform: skewX(-20deg);
+  transition: left var(--dur-slow) var(--ease-smooth);
+  pointer-events: none;
+}
+
+/* Ripple ring on hover */
+.buy-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.6);
+  transition: box-shadow var(--dur-med) var(--ease-smooth);
+}
+
+.buy-btn:hover {
+  background: var(--primary-deep);
+  transform: translateY(-3px) scale(1.02);
+  letter-spacing: 0.15em;
+  box-shadow:
+    0 6px 12px  rgba(212, 160, 23, 0.3),
+    0 18px 36px rgba(212, 160, 23, 0.4),
+    0 1px 0     rgba(255, 255, 255, 0.3) inset;
+}
+
+.buy-btn:hover::before {
+  left: 120%;
+}
+
+.buy-btn:hover::after {
+  box-shadow: 0 0 0 6px rgba(245, 197, 24, 0.15);
+}
+
+.buy-btn:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow:
+    0 2px 6px   rgba(212, 160, 23, 0.25),
+    0 6px 14px  rgba(212, 160, 23, 0.3);
+  transition-duration: 80ms;
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+/* Card entrance */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Tag slide in from left */
+@keyframes tagSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Decorative top shimmer bar */
+@keyframes shimmerBar {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.6); }
+  50%       { opacity: 1;   transform: scaleX(1); }
+}
+
+/* Price gradient sweep */
+@keyframes priceShimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 200% center; }
+}
+
+/* Image corner dot pulse */
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.25);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(245, 197, 24, 0.12);
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY — Reduced Motion
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg);
+    margin: var(--space-md);
+    gap: var(--space-lg);
+    border-radius: var(--radius-lg);
+  }
+
+  .image-section {
+    min-height: 240px;
+  }
+
+  #name {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+
+  #price {
+    font-size: 1.5rem;
+  }
+
+  .buy-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    margin: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+  }
+
+  .info-section::before {
+    font-size: 0.6rem;
+  }
+}

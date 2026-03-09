@@ -269,268 +269,193 @@ body {
 }
 /* Hero Header */
 /* Hero Section - Full Width */
-.Hero-section {
-    width: 100%;
-    margin: 3rem 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 
-        0 20px 60px rgba(91, 13, 13, 0.2),
-        0 8px 24px rgba(91, 13, 13, 0.15);
-    transition: var(--transition);
+/* =========================================
+   HERO BANNER — FULL WIDTH
+========================================= */
+
+.Hero-section{
+
+width:100vw;                 /* full screen width */
+margin-left:calc(50% - 50vw); /* break container limit */
+
+position:relative;
+overflow:hidden;
+
 }
 
-.Hero-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 3px;
-    background: linear-gradient(
-        135deg,
-        rgba(122, 31, 31, 0.4),
-        rgba(91, 13, 13, 0.2),
-        rgba(154, 51, 51, 0.3)
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 2;
+/* Banner Image */
+
+.Hero-section img{
+
+width:100%;
+height:520px;
+
+object-fit:cover;
+display:block;
+
+filter:brightness(.92);
+
+transition:
+transform 1.2s cubic-bezier(.22,1,.36,1),
+filter .5s ease;
+
 }
 
-.Hero-section::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.1) 0%,
-        transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-    z-index: 1;
+/* Hover Zoom Effect */
+
+.Hero-section:hover img{
+
+transform:scale(1.05);
+filter:brightness(1);
+
 }
 
-.Hero-section:hover {
-    box-shadow: 
-        0 30px 80px rgba(91, 13, 13, 0.25),
-        0 12px 32px rgba(91, 13, 13, 0.2);
+/* Cinematic Overlay */
+
+.Hero-section::after{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,0) 40%,
+rgba(0,0,0,.35) 100%
+);
+
+pointer-events:none;
+
 }
 
-.Hero-section:hover::after {
-    opacity: 1;
-    animation: shine 2s ease-in-out;
+/* Entrance Animation */
+
+.Hero-section{
+
+animation:heroFade .9s cubic-bezier(.22,1,.36,1);
+
 }
 
-.Hero-section img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 1;
+@keyframes heroFade{
+
+from{
+opacity:0;
+transform:translateY(40px);
 }
 
-.Hero-section:hover img {
-    transform: scale(1.02);
+to{
+opacity:1;
+transform:translateY(0);
 }
 
-/* Shine Animation */
-@keyframes shine {
-    0% {
-        transform: translate(-100%, -100%) rotate(45deg);
-    }
-    100% {
-        transform: translate(100%, 100%) rotate(45deg);
-    }
 }
 
-/* Optional: Loading Skeleton */
-.Hero-section.loading {
-    background: linear-gradient(
-        90deg,
-        #f0f0f0 25%,
-        #e0e0e0 50%,
-        #f0f0f0 75%
-    );
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    min-height: 500px;
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width:900px){
+
+.Hero-section img{
+height:380px;
 }
 
-@keyframes loading {
-    0% {
-        background-position: 200% 0;
-    }
-    100% {
-        background-position: -200% 0;
-    }
 }
 
-/* Aspect Ratio Control */
-.Hero-section {
-    aspect-ratio: 16 / 7;
+@media (max-width:600px){
+
+.Hero-section img{
+height:260px;
 }
 
-.Hero-section img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Performance Optimization */
-.Hero-section img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-}
-
-/* Lazy Loading Support */
-.Hero-section img[loading="lazy"] {
-    opacity: 0;
-    transition: opacity 0.5s ease-in;
-}
-
-.Hero-section img[loading="lazy"].loaded {
-    opacity: 1;
-}
-
-/* Alternative: With Overlay Text Support */
-.Hero-section-with-content {
-    position: relative;
-}
-
-.Hero-section-with-content::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(91, 13, 13, 0.3) 0%,
-        transparent 50%,
-        rgba(91, 13, 13, 0.5) 100%
-    );
-    z-index: 2;
-    pointer-events: none;
-}
-
-.hero-content {
-    position: absolute;
-    bottom: 3rem;
-    left: 3rem;
-    right: 3rem;
-    z-index: 3;
-    color: var(--text-light);
-}
-
-.hero-content h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 800;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.6);
-}
-
-.hero-content p {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    margin-bottom: 2rem;
-    text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .Hero-section {
-        margin: 2.5rem 0;
-        aspect-ratio: 16 / 8;
-    }
-}
-
-@media (max-width: 768px) {
-    .Hero-section {
-        margin: 2rem 0;
-        aspect-ratio: 16 / 9;
-    }
-
-    .Hero-section::before {
-        padding: 2px;
-    }
-
-    .hero-content {
-        bottom: 2rem;
-        left: 2rem;
-        right: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .Hero-section {
-        margin: 1.5rem 0;
-        aspect-ratio: 4 / 3;
-    }
-
-    .Hero-section:hover {
-        box-shadow: 
-            0 15px 40px rgba(91, 13, 13, 0.2),
-            0 6px 16px rgba(91, 13, 13, 0.15);
-    }
-
-    .hero-content {
-        bottom: 1.5rem;
-        left: 1.5rem;
-        right: 1.5rem;
-    }
 }
 
 /* ============================================
    ALL PRODUCTS SECTION
    ============================================ */
-.products{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:20px;
-    margin-top:40px;
-}
-
-.product-card{
-    border:1px solid #ddd;
-    padding:15px;
-    text-align:center;
-    background:#fff;
-}
-
-.product-card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
-
-.product-card h3{
-    font-size:18px;
-    margin:10px 0;
-}
-
-.product-card p{
-    color:#444;
-}
+/* =========================================
+   VIEW ALL PRODUCTS BUTTON
+========================================= */
 
 .view-all-container{
-    text-align:center;
-    margin-top:30px;
+
+width:100%;
+
+display:flex;
+
+justify-content:center;
+
+margin:70px 0 90px;
+
 }
+
+/* Button */
 
 .view-all-btn{
-    padding:10px 20px;
-    background:black;
-    color:white;
-    border:none;
-    cursor:pointer;
+
+font-family: "Inter", sans-serif;
+
+font-size:0.9rem;
+
+letter-spacing:.12em;
+
+text-transform:uppercase;
+
+padding:14px 34px;
+
+border-radius:40px;
+
+border:2px solid #c8a14b;
+
+background:transparent;
+
+color:#c8a14b;
+
+cursor:pointer;
+
+transition:
+background .35s ease,
+color .35s ease,
+transform .25s ease,
+box-shadow .35s ease;
+
 }
 
+/* Hover */
 
+.view-all-btn:hover{
+
+background:#c8a14b;
+
+color:#fff;
+
+transform:translateY(-3px);
+
+box-shadow:0 10px 25px rgba(200,161,75,.35);
+
+}
+
+/* Active click */
+
+.view-all-btn:active{
+
+transform:translateY(0);
+
+box-shadow:none;
+
+}
+
+/* Focus accessibility */
+
+.view-all-btn:focus{
+
+outline:none;
+
+box-shadow:0 0 0 4px rgba(200,161,75,.25);
+
+}
 /* CAtegory Section */
 /* ============================================
    CATEGORY SECTION
