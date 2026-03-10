@@ -1,0 +1,87 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #2c3e50;
+}
+
+/* Checkout Container */
+#checkoutContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Form Styling */
+#checkoutForm {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#checkoutForm h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #34495e;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+/* Input Fields */
+#checkoutForm input,
+#checkoutForm select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+#checkoutForm input:focus,
+#checkoutForm select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52,152,219,0.3);
+}
+
+/* Button Styling */
+#checkoutForm button {
+    width: 100%;
+    padding: 14px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+#checkoutForm button:hover {
+    background: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #checkoutForm {
+        padding: 15px;
+    }
+
+    #checkoutForm input,
+    #checkoutForm select,
+    #checkoutForm button {
+        font-size: 14px;
+    }
+}

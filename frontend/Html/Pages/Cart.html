@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Cart</title>
+<link rel="stylesheet" href="../../Css/Pages/Cart.css">
+</head>
+<body>
+
+<h1>My Cart</h1>
+
+<div id="cartContainer" class="cart-container"></div>
+
+<!-- Proceed to Checkout Button -->
+<button id="checkoutBtn" style="margin-top:20px; padding:10px 20px; font-size:16px;">Proceed to Checkout</button>
+
+<!-- Hidden template -->
+<template id="cartTemplate">
+    <div class="cart-card">
+        <img class="productImage" src="" alt="">
+        <h3 class="productName"></h3>
+        <p><b>Price:</b> ₹<span class="productPrice"></span></p>
+        <p class="productDescription"></p>
+        <p><b>Quantity:</b> <span class="productQty"></span></p>
+        <div class="cart-actions">
+            <button class="increaseBtn">+</button>
+            <button class="decreaseBtn">-</button>
+            <button class="removeBtn">Remove</button>
+        </div>
+    </div>
+</template>
+
+<script src="../../Js/pages/cart.js"></script>
+</body>
+</html>
