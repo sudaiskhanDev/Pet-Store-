@@ -88,11 +88,6 @@ loadCart();
 
 
 
-
-
-
-
-
 // const API = "http://localhost:8000/api/carts";
 // const BASE = "http://localhost:8000";
 
