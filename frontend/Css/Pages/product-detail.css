@@ -1,686 +1,192 @@
-/* ================================================================
-   ✦ MAISON — SINGLE PRODUCT PAGE
-   ✦ Dark Luxury Editorial  |  Senior CSS Architect
-   ✦ Theme: Obsidian × 24K Gold
-   ================================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap');
-
-/* ================================================================
-   ✦ I. DESIGN TOKENS
-   ================================================================ */
-
-:root {
-  /* — Gold Spectrum — */
-  --gold-100:     #fef9d7;
-  --gold-200:     #fdeea0;
-  --gold-300:     #fce060;
-  --gold-400:     #f5c518;
-  --gold-500:     #d4a017;
-  --gold-600:     #a37810;
-  --gold-glow:    rgba(245, 197, 24, 0.55);
-  --gold-veil:    rgba(245, 197, 24, 0.10);
-  --gold-border:  rgba(245, 197, 24, 0.28);
-  --gold-border-vivid: rgba(245, 197, 24, 0.65);
-
-  /* — Obsidian Spectrum — */
-  --void:       #020202;
-  --obsidian:   #080808;
-  --charcoal:   #0e0e0e;
-  --graphite:   #141414;
-  --slate:      #1c1c1c;
-  --ash:        #282828;
-  --smoke:      #3a3a3a;
-  --mist:       #555555;
-  --haze:       #888888;
-  --fog:        #aaaaaa;
-  --pearl:      #e8e8e8;
-  --ivory:      #f5f5f2;
-  --white:      #ffffff;
-
-  /* — Semantic — */
-  --bg-page:        var(--obsidian);
-  --bg-card:        rgba(20, 20, 20, 0.85);
-  --bg-image:       var(--charcoal);
-  --bg-nav:         rgba(8, 8, 8, 0.92);
-  --text-hero:      var(--white);
-  --text-primary:   var(--ivory);
-  --text-secondary: var(--fog);
-  --text-muted:     var(--mist);
-  --border-ultra:   rgba(255, 255, 255, 0.04);
-  --border-soft:    rgba(255, 255, 255, 0.08);
-
-  /* — Shadows — */
-  --shadow-sm:   0 1px 3px  rgba(0,0,0,0.5);
-  --shadow-md:   0 8px 24px rgba(0,0,0,0.5);
-  --shadow-lg:   0 24px 64px rgba(0,0,0,0.6);
-  --shadow-gold: 0 8px 40px rgba(245, 197, 24, 0.30);
-  --shadow-card:
-    0 1px 2px   rgba(0,0,0,0.6),
-    0 8px 32px  rgba(0,0,0,0.5),
-    0 32px 80px rgba(0,0,0,0.4),
-    0 0 0 1px   rgba(255,255,255,0.04) inset;
-  --shadow-btn:
-    0 4px 16px rgba(245,197,24,0.40),
-    0 1px 0    rgba(255,255,255,0.22) inset;
-  --shadow-btn-hover:
-    0 8px 32px rgba(245,197,24,0.55),
-    0 1px 0    rgba(255,255,255,0.18) inset;
-
-  /* — Typography — */
-  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-  --font-body:    'Outfit', 'Segoe UI', sans-serif;
-
-  /* — Spacing — */
-  --sp-1:  4px;   --sp-2:  8px;   --sp-3:  12px;
-  --sp-4:  16px;  --sp-5:  20px;  --sp-6:  24px;
-  --sp-8:  32px;  --sp-10: 40px;  --sp-12: 48px;
-  --sp-16: 64px;  --sp-20: 80px;
-
-  /* — Radii — */
-  --r-sm:   6px;   --r-md:  12px;
-  --r-lg:   18px;  --r-xl:  26px;
-  --r-pill: 100px;
-
-  /* — Motion — */
-  --ease-silk:   cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.2,  0.8, 0.2, 1);
-  --ease-smooth: cubic-bezier(0.4,  0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-expo:   cubic-bezier(0.87, 0, 0.13, 1);
-
-  --dur-xs:  100ms;  --dur-sm:  200ms;
-  --dur-md:  380ms;  --dur-lg:  600ms;
-  --dur-xl:  900ms;  --dur-2xl: 1200ms;
-}
-
-/* ================================================================
-   ✦ II. RESET
-   ================================================================ */
-
-*, *::before, *::after {
-  box-sizing: border-box;
+/* ===== RESET & BASE ===== */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-
-html {
-  -webkit-font-smoothing:  antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* ================================================================
-   ✦ III. BODY — Deep Obsidian Atmosphere
-   ================================================================ */
 
 body {
-  font-family: var(--font-body);
-  font-size:   16px;
-  font-weight: 300;
-  line-height: 1.65;
-  color:       var(--text-primary);
-  background:  var(--bg-page);
-  min-height:  100vh;
-  overflow-x:  hidden;
-  position:    relative;
-
-  display:         flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F0F1F3;   /* neutral background */
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items:     center;
-
-  /* Layered ambient atmosphere */
-  background-image:
-    radial-gradient(ellipse 60% 50% at 10%  5%,  rgba(245,197,24,0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 90% 90%,  rgba(245,197,24,0.05) 0%, transparent 50%),
-    radial-gradient(ellipse 100% 100% at 50% 50%, #0e0e0e 0%, #020202 100%);
 }
 
-/* Scanline overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent      0px,
-    transparent      2px,
-    rgba(0,0,0,0.12) 2px,
-    rgba(0,0,0,0.12) 3px
-  );
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.35;
+/* ===== CSS VARIABLES ===== */
+:root {
+  --primary: #F8B02A;
+  --secondary: #FFC408;
+  --neutral: #F0F1F3;
+  --white: #ffffff;
+  --dark: #2c3e50;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
 }
 
-/* Fine grain */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");
-  background-size:   220px 220px;
-  pointer-events:    none;
-  z-index:           0;
-  mix-blend-mode:    overlay;
-}
-
-/* ================================================================
-   ✦ IV. CONTAINER — The Centrepiece
-   ================================================================ */
-
+/* ===== MAIN CONTAINER ===== */
 .container {
-  position:   relative;
-  z-index:    1;
-  width:      92%;
-  max-width:  1040px;
-  margin:     var(--sp-8) auto;
-
-  background: var(--bg-card);
-  backdrop-filter:         blur(24px) saturate(1.3) brightness(0.9);
-  -webkit-backdrop-filter: blur(24px) saturate(1.3) brightness(0.9);
-
-  border:        1px solid var(--gold-border);
-  border-radius: var(--r-xl);
-  padding:       var(--sp-10);
-
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap:     var(--sp-10);
-
-  box-shadow: var(--shadow-card);
-
-  /* Entry animation */
-  animation: containerReveal var(--dur-2xl) var(--ease-silk) both;
+  display: flex;
+  max-width: 1000px;
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid transparent;
 }
 
-/* Gold top hairline stripe */
-.container::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 12%;
-  right: 12%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--gold-300),
-    var(--gold-400),
-    var(--gold-300),
-    transparent
-  );
-  background-size: 200% auto;
-  border-radius: 0 0 2px 2px;
-  animation: hairlineScroll 4s linear infinite;
-  opacity: 0.8;
+.container:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary);
 }
 
-/* Corner ornament — top left */
-.container::after {
-  content:      '';
-  position:     absolute;
-  top:          -1px;
-  left:         -1px;
-  width:        28px;
-  height:       28px;
-  border-top:   1.5px solid var(--gold-400);
-  border-left:  1.5px solid var(--gold-400);
-  border-radius: var(--r-xl) 0 0 0;
-  opacity: 0.6;
-}
-
-/* ================================================================
-   ✦ V. IMAGE SECTION
-   ================================================================ */
-
+/* ===== IMAGE SECTION ===== */
 .image-section {
-  position:      relative;
-  overflow:      hidden;
-  border-radius: var(--r-lg);
-  background:    var(--bg-image);
-  min-height:    360px;
-  border:        1px solid var(--border-soft);
-
-  box-shadow:
-    var(--shadow-md),
-    0 0 0 1px rgba(255,255,255,0.03) inset;
-
-  animation: panelReveal var(--dur-2xl) var(--ease-silk) 160ms both;
+  flex: 1 1 50%;
+  background-color: var(--neutral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
-/* Gold sheen overlay */
-.image-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    140deg,
-    rgba(245,197,24,0.08)  0%,
-    transparent             45%,
-    rgba(245,197,24,0.05) 100%
-  );
-  z-index:    1;
-  pointer-events: none;
-  border-radius:  inherit;
-  transition: opacity var(--dur-md) var(--ease-smooth);
+.image-section img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  display: block;
+  transition: var(--transition);
 }
 
-.image-section:hover::before {
-  opacity: 0;
+.image-section img:hover {
+  transform: scale(1.02);
 }
 
-/* Pulsing gold dot — top right */
-.image-section::after {
-  content: '';
-  position: absolute;
-  top:    var(--sp-4);
-  right:  var(--sp-4);
-  width:  10px;
-  height: 10px;
-  background:    var(--gold-400);
-  border-radius: 50%;
-  z-index: 3;
-  box-shadow: 0 0 0 3px rgba(245,197,24,0.2);
-  animation: pulseDot 2.5s ease-in-out infinite;
-}
-
-/* Label badge — bottom left */
-.image-section > span,
-.image-section > .label {
-  position:   absolute;
-  bottom:     var(--sp-4);
-  left:       var(--sp-4);
-  z-index:    3;
-  font-family:    var(--font-body);
-  font-size:      0.6rem;
-  font-weight:    500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color:          var(--obsidian);
-  background:     var(--gold-400);
-  padding:        5px 12px;
-}
-
-#image {
-  width:         100%;
-  height:        100%;
-  object-fit:    cover;
-  display:       block;
-  border-radius: inherit;
-
-  filter: grayscale(12%) brightness(0.88);
-  transform-origin: center;
-
-  transition:
-    transform var(--dur-xl) var(--ease-silk),
-    filter    var(--dur-md) var(--ease-smooth);
-}
-
-.image-section:hover #image {
-  transform: scale(1.08) rotate(1deg);
-  filter:    grayscale(0%) brightness(1.04) saturate(1.12);
-}
-
-/* ================================================================
-   ✦ VI. INFO SECTION
-   ================================================================ */
-
+/* ===== INFO SECTION ===== */
 .info-section {
-  display:        flex;
+  flex: 1 1 50%;
+  padding: 2rem;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  gap:            var(--sp-3);
-
-  animation: panelReveal var(--dur-2xl) var(--ease-silk) 260ms both;
 }
 
-/* ── Edition tag ── */
-.info-section::before {
-  content:        'FEATURED PIECE';
-  display:        inline-block;
-  font-family:    var(--font-body);
-  font-size:      0.6rem;
-  font-weight:    500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color:          var(--gold-400);
-
-  background:     rgba(245, 197, 24, 0.08);
-  border:         1px solid var(--gold-border-vivid);
-  border-radius:  0; /* sharp — luxury editorial */
-  padding:        5px 14px;
-  width:          fit-content;
-  margin-bottom:  var(--sp-1);
-
-  animation: tagSlide var(--dur-xl) var(--ease-bounce) 420ms both;
-}
-
-/* ── Product Name ── */
+/* Product name */
 #name {
-  font-family:    var(--font-display);
-  font-size:      clamp(2rem, 3.5vw, 3rem);
-  font-weight:    300;
-  font-style:     italic;
-  line-height:    1.1;
-  letter-spacing: -0.02em;
-  margin-bottom:  var(--sp-1);
-
-  background: linear-gradient(
-    150deg,
-    var(--white)  0%,
-    var(--pearl)  45%,
-    var(--gold-300) 80%,
-    var(--gold-400) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: var(--dark);
 }
 
-/* Gold rule beneath name */
-#name::after {
-  content: '';
-  display: block;
-  width:      40px;
-  height:     1px;
-  background: var(--gold-500);
-  margin-top: var(--sp-3);
-  transition: width var(--dur-md) var(--ease-expo);
-}
-
-/* ── Price ── */
+/* Product price */
 #price {
-  font-family:    var(--font-body);
-  font-size:      2rem;
-  font-weight:    400;
-  letter-spacing: -0.01em;
-  margin-bottom:  var(--sp-2);
-  display:        flex;
-  align-items:    center;
-  gap:            var(--sp-2);
-
-  /* Animated gold sweep */
-  background: linear-gradient(
-    90deg,
-    var(--gold-500),
-    var(--gold-300),
-    var(--gold-400),
-    var(--gold-300),
-    var(--gold-500)
-  );
-  background-size: 300% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: priceShimmer 5s linear infinite;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
 }
 
-/* Currency superscript */
 #price::before {
-  content:        '$';
-  font-size:      0.9rem;
-  font-weight:    300;
-  align-self:     flex-start;
-  margin-top:     8px;
-  -webkit-text-fill-color: var(--gold-600);
-  background:     none;
-  animation:      none;
+  content: '₹';
+  font-weight: 400;
+  margin-right: 4px;
+  color: var(--primary);
 }
 
-/* Decorative dash after price */
-#price::after {
-  content: '';
-  display: block;
-  width:      36px;
-  height:     1px;
-  background: linear-gradient(90deg, var(--gold-400), transparent);
-  align-self: center;
-  margin-left: var(--sp-1);
-}
-
-/* ── Description — CLAMPED TO 3 LINES ── */
+/* Product description */
 #description {
-  font-family:    var(--font-body);
-  font-size:      0.875rem;
-  font-weight:    300;
-  line-height:    1.7;
-  color:          var(--text-secondary);
-  letter-spacing: 0.015em;
-  margin-bottom:  var(--sp-5);
-
-  /* ✦ Hard 3-line clamp */
-  display:            -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow:           hidden;
-  text-overflow:      ellipsis;
-
-  /* Belt-and-suspenders height cap */
-  max-height: calc(0.875rem * 1.7 * 3);
-  word-break: break-word;
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.7;
 }
 
-/* ================================================================
-   ✦ VII. BUY BUTTON — The Golden Trigger
-   ================================================================ */
-
+/* Add to Cart button */
 .buy-btn {
-  position:   relative;
-  overflow:   hidden;
-  display:    inline-flex;
-  align-items:     center;
-  justify-content: center;
-  gap: var(--sp-2);
-
-  padding:    14px 40px;
-  width:      fit-content;
-
-  font-family:    var(--font-body);
-  font-size:      0.68rem;
-  font-weight:    500;
-  letter-spacing: 0.22em;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
   text-transform: uppercase;
-  color:          var(--obsidian);
-
-  background:    var(--gold-400);
-  border:        none;
-  border-radius: 0; /* Sharp rectangular — couture */
-  cursor:        pointer;
-
-  box-shadow: var(--shadow-btn);
-
-  transition:
-    background     var(--dur-sm) var(--ease-smooth),
-    transform      var(--dur-xs) var(--ease-bounce),
-    box-shadow     var(--dur-md) var(--ease-smooth),
-    letter-spacing var(--dur-md) var(--ease-smooth);
-}
-
-/* Arrow icon — CSS only */
-.buy-btn::after {
-  content:    '→';
-  font-size:  1rem;
-  display:    inline-block;
-  transform:  translateX(0);
-  transition: transform var(--dur-md) var(--ease-bounce);
-}
-
-/* Metallic liquid sweep */
-.buy-btn::before {
-  content:  '';
-  position: absolute;
-  top: 0; left: -120%;
-  width:    80%;
-  height:   100%;
-  background: linear-gradient(
-    105deg,
-    transparent           15%,
-    rgba(255,255,255,0.42) 50%,
-    transparent           85%
-  );
-  transform:  skewX(-15deg);
-  transition: left var(--dur-lg) var(--ease-silk);
-  pointer-events: none;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 8px 20px rgba(248, 176, 42, 0.3);
+  background-size: 200% auto;
+  border: 2px solid transparent;
+  width: fit-content;
+  min-width: 200px;
 }
 
 .buy-btn:hover {
-  background:     var(--gold-300);
-  letter-spacing: 0.28em;
-  transform:      translateY(-3px) scale(1.02);
-  box-shadow:     var(--shadow-btn-hover);
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(248, 176, 42, 0.4);
 }
 
-.buy-btn:hover::before {
-  left: 130%;
+.buy-btn:focus {
+  outline: 3px solid rgba(248, 176, 42, 0.5);
+  outline-offset: 3px;
 }
 
-.buy-btn:hover::after {
-  transform: translateX(5px);
-}
-
-.buy-btn:active {
-  transform:    translateY(0px) scale(0.98);
-  box-shadow:   0 2px 8px rgba(245,197,24,0.3);
-  transition-duration: 60ms;
-}
-
-/* ================================================================
-   ✦ VIII. SCROLLBAR & SELECTION
-   ================================================================ */
-
-::-webkit-scrollbar       { width: 3px; background: var(--void); }
-::-webkit-scrollbar-track { background: var(--obsidian); }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--gold-400), var(--gold-600));
-  border-radius: 0;
-}
-
-::selection {
-  background: rgba(245, 197, 24, 0.22);
-  color:      var(--white);
-}
-
-/* ================================================================
-   ✦ IX. KEYFRAMES
-   ================================================================ */
-
-@keyframes containerReveal {
-  from {
-    opacity:   0;
-    transform: translateY(48px) scale(0.96);
-    filter:    blur(10px);
-  }
-  to {
-    opacity:   1;
-    transform: translateY(0) scale(1);
-    filter:    blur(0);
-  }
-}
-
-@keyframes panelReveal {
-  from {
-    opacity:   0;
-    transform: translateY(24px) scale(0.98);
-    filter:    blur(5px);
-  }
-  to {
-    opacity:   1;
-    transform: translateY(0) scale(1);
-    filter:    blur(0);
-  }
-}
-
-@keyframes tagSlide {
-  from { opacity: 0; transform: translateX(-18px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes hairlineScroll {
-  0%   { background-position: 0%   center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes priceShimmer {
-  0%   { background-position: 0%   center; }
-  100% { background-position: 300% center; }
-}
-
-@keyframes pulseDot {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 3px rgba(245,197,24,0.20);
-  }
-  50% {
-    transform: scale(1.3);
-    box-shadow: 0 0 0 6px rgba(245,197,24,0.08), 0 0 12px rgba(245,197,24,0.4);
-  }
-}
-
-/* ================================================================
-   ✦ X. REDUCED MOTION
-   ================================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration:        0.01ms !important;
-    animation-iteration-count: 1      !important;
-    transition-duration:       0.01ms !important;
-  }
-}
-
-/* ================================================================
-   ✦ XI. RESPONSIVE
-   ================================================================ */
-
-@media (max-width: 860px) {
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
   .container {
-    grid-template-columns: 1fr;
-    padding: var(--sp-8);
-    margin:  var(--sp-5) auto;
-    gap:     var(--sp-6);
-    border-radius: var(--r-lg);
+    flex-direction: column;
   }
 
-  .image-section { min-height: 280px; }
+  .image-section {
+    padding: 1.5rem 1.5rem 0;
+  }
 
-  #name  { font-size: clamp(1.8rem, 6vw, 2.4rem); }
-  #price { font-size: 1.7rem; }
+  .info-section {
+    padding: 1.5rem;
+  }
+
+  #name {
+    font-size: 1.8rem;
+  }
+
+  #price {
+    font-size: 1.5rem;
+  }
+
+  #description {
+    font-size: 1rem;
+  }
 
   .buy-btn {
-    width:           100%;
-    justify-content: center;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
   }
 }
 
-@media (max-width: 520px) {
-  .container {
-    width:         96%;
-    padding:       var(--sp-6);
-    border-radius: var(--r-md);
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
   }
 
-  .image-section { min-height: 220px; }
-
-  #name  { font-size: 1.7rem; }
-  #price { font-size: 1.4rem; }
-
-  .info-section::before {
-    font-size:      0.55rem;
-    letter-spacing: 0.2em;
+  .info-section {
+    padding: 1rem;
   }
 
-  #description { font-size: 0.82rem; }
-
-  .buy-btn {
-    font-size:      0.62rem;
-    padding:        13px var(--sp-6);
-    letter-spacing: 0.18em;
+  #name {
+    font-size: 1.5rem;
   }
-}
-
-@media (max-width: 360px) {
-  .container  { padding: var(--sp-4); }
-  #name       { font-size: 1.5rem; }
-  .buy-btn    { padding: 12px var(--sp-4); }
 }

@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class Payment extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'order_item_id';
-
-    protected $fillable = ['order_id','product_id','quantity','price'];
+    protected $fillable = ['order_id','amount','stripe_payment_id','status'];
 
     public function order() { return $this->belongsTo(Order::class,'order_id','order_id'); }
 }

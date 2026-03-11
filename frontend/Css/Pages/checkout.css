@@ -1,87 +1,239 @@
-/* General Page Styling */
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F0F1F3;   /* neutral background */
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* ===== CSS VARIABLES ===== */
+:root {
+  --primary: #F8B02A;
+  --secondary: #FFC408;
+  --neutral: #F0F1F3;
+  --white: #ffffff;
+  --dark: #2c3e50;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+/* ===== MAIN HEADING ===== */
 h1 {
-    text-align: center;
-    margin: 20px 0;
-    color: #2c3e50;
+  font-size: 2.5rem;
+  margin: 1rem 0 2rem;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }
 
-/* Checkout Container */
+h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--secondary);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* ===== CHECKOUT CONTAINER (Summary) ===== */
 #checkoutContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
 }
 
-/* Form Styling */
+/* Each item row */
+.checkout-item {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+  color: #555;
+}
+
+.checkout-item:last-of-type {
+  border-bottom: none;
+}
+
+/* The product info paragraph (name, quantity, price) */
+.checkout-item .productInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+/* Total box */
+.totalBox {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--primary);
+  text-align: right;
+}
+
+.totalPrice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.totalPrice::before {
+  content: 'Total: ';
+  font-weight: 400;
+  color: #777;
+  margin-right: 0.5rem;
+}
+
+/* ===== CHECKOUT FORM ===== */
 #checkoutForm {
-    background: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  transition: var(--transition);
+  border: 1px solid transparent;
 }
 
+#checkoutForm:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary);
+}
+
+/* Form headings */
 #checkoutForm h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #34495e;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 5px;
+  font-size: 1.5rem;
+  margin: 1.5rem 0 1rem;
+  color: var(--dark);
+  position: relative;
+  padding-bottom: 0.3rem;
 }
 
-/* Input Fields */
+#checkoutForm h3:first-of-type {
+  margin-top: 0;
+}
+
+#checkoutForm h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* Inputs and Select */
 #checkoutForm input,
 #checkoutForm select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+  background-color: var(--white);
 }
 
 #checkoutForm input:focus,
 #checkoutForm select:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 5px rgba(52,152,219,0.3);
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(248, 176, 42, 0.2);
 }
 
-/* Button Styling */
-#checkoutForm button {
-    width: 100%;
-    padding: 14px;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-top: 15px;
+#checkoutForm input::placeholder {
+  color: #aaa;
+  opacity: 1;
 }
 
-#checkoutForm button:hover {
-    background: #2980b9;
+/* Submit button */
+#checkoutForm button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--white);
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 8px 20px rgba(248, 176, 42, 0.3);
+  background-size: 200% auto;
+  border: 2px solid transparent;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-    #checkoutForm {
-        padding: 15px;
-    }
+#checkoutForm button[type="submit"]:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(248, 176, 42, 0.4);
+}
 
-    #checkoutForm input,
-    #checkoutForm select,
-    #checkoutForm button {
-        font-size: 14px;
-    }
+#checkoutForm button[type="submit"]:focus {
+  outline: 3px solid rgba(248, 176, 42, 0.5);
+  outline-offset: 3px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  #checkoutContainer,
+  #checkoutForm {
+    padding: 1.5rem;
+  }
+
+  #checkoutForm h3 {
+    font-size: 1.3rem;
+  }
+
+  .checkout-item .productInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  #checkoutForm button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .totalPrice {
+    font-size: 1.3rem;
+  }
 }

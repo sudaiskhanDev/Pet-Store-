@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('order_id'); // Primary Key
-            $table->unsignedBigInteger('user_id'); // Foreign Key
+            $table->id('order_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('order_date');
             $table->string('status')->default('pending');
             $table->decimal('total_amount', 10, 2);
@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('phone', 20);
             $table->timestamps();
 
-            // Foreign key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

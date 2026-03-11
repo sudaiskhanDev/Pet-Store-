@@ -5,93 +5,58 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use Illuminate\Support\Facades\Validator;
+use App\Models\OrderItem;
+use App\Models\Cart;
+use App\Models\Payment;
 
-class OrderController extends Controller
+class CheckoutController extends Controller
 {
-    // List all orders
-    public function index()
+    public function placeOrder(Request $request)
     {
-        $orders = Order::with('user')->get();
-        return response()->json($orders);
-    }
+        $user = auth()->user();
+        $carts = Cart::with('product')->where('user_id',$user->id)->get();
 
-    // Create new order
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
-            'order_date' => 'required|date',
-            'status' => 'nullable|string',
-            'total_amount' => 'required|numeric',
-            'payment_method' => 'required|string',
-            'shipping_address' => 'required|string',
-            'phone' => 'required|string|max:20',
+        if($carts->isEmpty()) return response()->json(['message'=>'Cart is empty'],400);
+
+        $total = $carts->sum(fn($item)=> $item->product->price * $item->quantity);
+        $shipping_address = $request->shipping_address;
+        $phone = $request->phone;
+        $payment_method = $request->payment_method;
+
+        // Create order
+        $order = Order::create([
+            'user_id'=>$user->id,
+            'total_amount'=>$total,
+            'payment_method'=>$payment_method,
+            'shipping_address'=>$shipping_address,
+            'phone'=>$phone,
+            'order_date'=>now()->toDateString(),
+            'status'=>'pending'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        // Create order items
+        foreach($carts as $item){
+            OrderItem::create([
+                'order_id'=>$order->order_id,
+                'product_id'=>$item->product_id,
+                'quantity'=>$item->quantity,
+                'price'=>$item->product->price
+            ]);
         }
 
-        $order = Order::create($request->all());
+        // Create payment (for COD pending or Stripe later)
+        Payment::create([
+            'order_id'=>$order->order_id,
+            'amount'=>$total,
+            'status'=>$payment_method=='cod'?'pending':'pending'
+        ]);
+
+        // Clear user cart
+        Cart::where('user_id',$user->id)->delete();
 
         return response()->json([
-            'message' => 'Order created successfully',
-            'order' => $order
-        ], 201);
-    }
-
-    // Show single order
-    public function show($id)
-    {
-        $order = Order::with('user')->find($id);
-        if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
-        }
-
-        return response()->json($order);
-    }
-
-    // Update order
-    public function update(Request $request, $id)
-    {
-        $order = Order::find($id);
-        if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'sometimes|required|exists:users,id',
-            'order_date' => 'sometimes|required|date',
-            'status' => 'nullable|string',
-            'total_amount' => 'sometimes|required|numeric',
-            'payment_method' => 'sometimes|required|string',
-            'shipping_address' => 'sometimes|required|string',
-            'phone' => 'sometimes|required|string|max:20',
+            'message'=>'Order placed successfully',
+            'order'=>$order
         ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        $order->update($request->all());
-
-        return response()->json([
-            'message' => 'Order updated successfully',
-            'order' => $order
-        ]);
-    }
-
-    // Delete order
-    public function destroy($id)
-    {
-        $order = Order::find($id);
-        if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
-        }
-
-        $order->delete();
-
-        return response()->json(['message' => 'Order deleted successfully']);
     }
 }

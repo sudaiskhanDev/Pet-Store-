@@ -50,6 +50,10 @@ return [
         'driver' => 'jwt',
         'provider' => 'users',
     ],
+     'api' => [
+        'driver' => 'jwt',    // agar JWT package use kar rahe ho
+        'provider' => 'users',
+    ],
 ],
 
     /*
@@ -80,6 +84,10 @@ return [
     'admins' => [
         'driver' => 'eloquent',
         'model' => App\Models\Admin::class,
+    ],
+     'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
 ],
 

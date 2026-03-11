@@ -9,3 +9,11 @@ Route::prefix('orders')->group(function () {
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
 });
+
+ 
+
+use App\Http\Controllers\Api\CheckoutController;
+
+Route::middleware('auth:api')->group(function(){
+    Route::post('/checkout', [CheckoutController::class,'placeOrder']);
+});

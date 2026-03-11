@@ -1,822 +1,272 @@
-/* ================================================================
-   ✦ MAISON CART — YOUR PRIVATE COLLECTION
-   ✦ Light Luxury Editorial  |  Senior CSS Architect
-   ✦ Theme: Champagne × Warm Gold  |  Seamless extension of Maison
-   ================================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap');
-
-/* ================================================================
-   ✦ I. DESIGN TOKENS — Consistent with Maison Light Theme
-   ================================================================ */
-
-:root {
-  --gold-50:       #fefbf5;
-  --gold-100:      #fcf5e8;
-  --gold-200:      #f9e7cf;
-  --gold-300:      #f3d6b0;
-  --gold-400:      #e5bc88;   /* primary warm gold */
-  --gold-500:      #d4a26b;
-  --gold-600:      #b88248;
-  --gold-700:      #9b6637;
-  --gold-glow:     rgba(229, 188, 136, 0.5);
-  --gold-whisper:  rgba(229, 188, 136, 0.12);
-  --gold-veil:     rgba(229, 188, 136, 0.2);
-
-  --snow:          #ffffff;
-  --ivory:         #fefcf9;
-  --cream:         #faf7f2;
-  --linen:         #f5f0e8;
-  --shell:         #ede7de;
-  --pearl:         #e5ddd2;
-  --driftwood:     #cbc1b4;
-  --stone:         #aaa197;
-  --ash:           #8a837b;
-  --slate:         #5f5a54;
-  --charcoal:      #3a3733;
-  --ink:           #2c2a27;
-  --black-soft:    #1e1c1a;
-
-  --bg-page:       var(--cream);
-  --bg-card:       var(--snow);
-  --bg-card-hover: var(--ivory);
-  --bg-nav:        rgba(255, 255, 255, 0.88);
-  --text-hero:     var(--ink);
-  --text-primary:  var(--charcoal);
-  --text-body:     var(--slate);
-  --text-muted:    var(--ash);
-  --text-ghost:    var(--driftwood);
-
-  --border-ultra:      rgba(0, 0, 0, 0.05);
-  --border-soft:       rgba(0, 0, 0, 0.1);
-  --border-gold:       rgba(229, 188, 136, 0.5);
-  --border-gold-vivid: rgba(229, 188, 136, 0.9);
-
-  --shadow-card:   0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
-  --shadow-hover:  0 12px 28px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(229, 188, 136, 0.15);
-  --shadow-gold:   0 8px 32px rgba(229, 188, 136, 0.3);
-  --shadow-btn:    0 2px 8px rgba(229, 188, 136, 0.25), 0 1px 0 rgba(255,255,255,0.8) inset;
-  --shadow-btn-hover: 0 6px 20px rgba(229, 188, 136, 0.45), 0 1px 0 rgba(255,255,255,0.6) inset;
-
-  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
-  --font-body:    'Outfit', 'Segoe UI', sans-serif;
-
-  --sp-1:  4px;  --sp-2:  8px;   --sp-3:  12px;
-  --sp-4:  16px; --sp-5:  20px;  --sp-6:  24px;
-  --sp-8:  32px; --sp-10: 40px;  --sp-12: 48px;
-  --sp-16: 64px; --sp-20: 80px;  --sp-24: 96px;
-
-  --r-xs:  4px;   --r-sm:  8px;
-  --r-md:  14px;  --r-lg:  20px;
-  --r-xl:  28px;  --r-pill: 100px;
-
-  --ease-silk:   cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.2,  0.8, 0.2, 1);
-  --ease-smooth: cubic-bezier(0.4,  0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-expo:   cubic-bezier(0.87, 0, 0.13, 1);
-
-  --dur-xs:  100ms;  --dur-sm:  200ms;
-  --dur-md:  380ms;  --dur-lg:  600ms;
-  --dur-xl:  900ms;  --dur-2xl: 1200ms;
-
-  --nav-h:    72px;
-  --page-max: 1320px;
-}
-
-/* ================================================================
-   ✦ II. RESET & BASE — Consistent with Maison
-   ================================================================ */
-
-*, *::before, *::after {
-  box-sizing: border-box;
+/* ===== RESET & BASE ===== */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing:  antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-/* ================================================================
-   ✦ III. BODY — Soft Cream Atmosphere (same as collection)
-   ================================================================ */
 
 body {
-  font-family: var(--font-body);
-  font-size:   16px;
-  font-weight: 300;
-  line-height: 1.65;
-  color:       var(--text-primary);
-  background:  var(--bg-page);
-  min-height:  100vh;
-  overflow-x:  hidden;
-
-  background-image:
-    radial-gradient(ellipse 55% 45% at 90%  5%,  rgba(229,188,136,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 8%  92%,  rgba(229,188,136,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 100% 80% at 50% 50%, #faf5ef 0%, #f5efe7 100%);
-
-  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F0F1F3;   /* neutral background */
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Soft scanline texture (barely visible) */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent         0px,
-    transparent         2px,
-    rgba(0,0,0,0.02)    2px,
-    rgba(0,0,0,0.02)    3px
-  );
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.25;
+/* ===== CSS VARIABLES ===== */
+:root {
+  --primary: #F8B02A;
+  --secondary: #FFC408;
+  --neutral: #F0F1F3;
+  --white: #ffffff;
+  --dark: #2c3e50;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
 }
 
-/* Fine grain overlay — very light */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
-  background-size:   240px 240px;
-  pointer-events:    none;
-  z-index:           0;
-  mix-blend-mode:    multiply;
-}
-
-/* ================================================================
-   ✦ IV. PAGE HEADER — My Cart (elevated)
-   ================================================================ */
-
+/* ===== MAIN HEADING ===== */
 h1 {
-  font-family:    var(--font-display);
-  font-size:      clamp(2.8rem, 8vw, 5rem);
-  font-weight:    300;
-  font-style:     italic;
-  line-height:    1.1;
-  letter-spacing: -0.02em;
-  color:          var(--text-hero);
-  text-align:     center;
-
-  max-width: var(--page-max);
-  width:     100%;
-  margin:    var(--sp-16) auto var(--sp-10);
-  padding:   0 var(--sp-10);
-  position:  relative;
-
-  background: linear-gradient(
-    160deg,
-    var(--charcoal) 0%,
-    var(--ink)      40%,
-    var(--gold-500) 70%,
-    var(--gold-400) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-
-  animation: heroReveal var(--dur-2xl) var(--ease-silk) 100ms both;
-}
-
-h1::before {
-  content:        '— Your Selection —';
-  display:        block;
-  font-family:    var(--font-body);
-  font-size:      0.65rem;
-  font-weight:    400;
-  font-style:     normal;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  -webkit-text-fill-color: var(--gold-600);
-  color:          var(--gold-600);
-  background:     none;
-  margin-bottom:  var(--sp-3);
-  animation: fadeUp var(--dur-xl) var(--ease-silk) 300ms both;
+  font-size: 2.5rem;
+  margin: 1rem 0 2rem;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }
 
 h1::after {
-  content:    '';
-  display:    block;
-  width:      1px;
-  height:     40px;
-  background: linear-gradient(180deg, var(--gold-400), transparent);
-  margin:     var(--sp-4) auto 0;
-  animation:  lineGrow var(--dur-xl) var(--ease-expo) 600ms both;
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--secondary);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
 }
 
-/* ================================================================
-   ✦ V. CART CONTAINER — Gallery of Chosen Pieces
-   ================================================================ */
-
+/* ===== CART CONTAINER ===== */
 .cart-container {
-  max-width: calc(var(--page-max) * 0.9);
   width: 100%;
-  margin: 0 auto var(--sp-24);
-  padding: 0 var(--sp-6);
-
-  display: flex;
-  flex-direction: column;
-  gap: 2px; /* matches grid gap from collection */
-  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;        /* single column by default */
+  gap: 1.5rem;
+  padding: 1rem;
 }
 
-/* Decorative corner ornaments (subtle nod to collection) */
-.cart-container::before,
-.cart-container::after {
-  content:      '';
-  position:     absolute;
-  width:        20px;
-  height:       20px;
-  border-color: var(--gold-500);
-  border-style: solid;
-  opacity:      0.5;
-  z-index:      2;
-  pointer-events: none;
-}
-
-.cart-container::before {
-  top: -6px; left: -6px;
-  border-width: 1px 0 0 1px;
-}
-
-.cart-container::after {
-  bottom: -6px; right: -6px;
-  border-width: 0 1px 1px 0;
-}
-
-/* Staggered entrance for cart cards (optional) */
-.cart-container .cart-card {
-  animation: cardAppear var(--dur-lg) var(--ease-silk) both;
-}
-
-/* If you want staggered delays based on child index, you can add via JS or keep as is.
-   We'll provide a simple sequential delay in case cards are dynamically added. */
-.cart-container .cart-card:nth-child(1) { animation-delay: 80ms; }
-.cart-container .cart-card:nth-child(2) { animation-delay: 140ms; }
-.cart-container .cart-card:nth-child(3) { animation-delay: 200ms; }
-.cart-container .cart-card:nth-child(4) { animation-delay: 260ms; }
-.cart-container .cart-card:nth-child(5) { animation-delay: 320ms; }
-/* extend as needed */
-
-/* ================================================================
-   ✦ VI. CART CARD — Individual Item (Horizontal on desktop)
-   ================================================================ */
-
+/* ===== CART CARD ===== */
 .cart-card {
-  display: flex;
-  flex-direction: column; /* stacked on mobile */
-  background: var(--bg-card);
-  border: none;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
   overflow: hidden;
-  cursor: default; /* not clickable like product cards, but we keep interactions subtle */
-  transition:
-    background var(--dur-md) var(--ease-smooth),
-    box-shadow var(--dur-md) var(--ease-smooth);
-  position: relative;
-  min-height: 160px; /* ensures consistency */
-}
-
-/* Hover state: subtle elevation */
-.cart-card:hover {
-  background: var(--bg-card-hover);
-  box-shadow: var(--shadow-hover);
-  z-index: 5;
-}
-
-/* Ambient inner glow (warm) */
-.cart-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(229,188,136,0.0)  0%,
-    rgba(229,188,136,0.0)  60%,
-    rgba(229,188,136,0.03) 100%
-  );
-  z-index: 1;
-  transition: opacity var(--dur-md) var(--ease-smooth);
-  pointer-events: none;
-}
-
-.cart-card:hover::before {
-  background: linear-gradient(
-    160deg,
-    rgba(229,188,136,0.04) 0%,
-    rgba(229,188,136,0.00) 50%,
-    rgba(229,188,136,0.08) 100%
-  );
-}
-
-/* Spotlight sweep on hover (delight) */
-.cart-card::after {
-  content:  '';
-  position: absolute;
-  top: 0; left: -100%;
-  width:    60%;
-  height:   100%;
-  background: linear-gradient(
-    105deg,
-    transparent         20%,
-    rgba(255,255,255,0.5) 50%,
-    transparent         80%
-  );
-  transition: left var(--dur-lg) var(--ease-silk);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.cart-card:hover::after {
-  left: 160%;
-}
-
-/* ================================================================
-   ✦ VII. CARD IMAGE
-   ================================================================ */
-
-.cart-card .productImage {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* square on mobile, will adjust on desktop */
-  object-fit: cover;
-  display: block;
-  background: var(--pearl);
-  filter: grayscale(10%) brightness(1.02);
-  transition:
-    transform var(--dur-xl) var(--ease-silk),
-    filter var(--dur-md) var(--ease-smooth);
-}
-
-.cart-card:hover .productImage {
-  transform: scale(1.03);
-  filter: grayscale(0%) brightness(1.05) saturate(1.05);
-}
-
-/* ================================================================
-   ✦ VIII. CARD CONTENT
-   ================================================================ */
-
-.cart-card > :not(img) {
-  padding: var(--sp-5) var(--sp-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-  flex: 1;
-  position: relative;
-  z-index: 3;
-  border-top: 1px solid var(--border-ultra);
-}
-
-/* Product Name */
-.cart-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.2;
-  color: var(--text-primary);
-  margin-bottom: var(--sp-1);
-  transition: color var(--dur-sm) var(--ease-smooth);
-}
-
-.cart-card:hover h3 {
-  color: var(--ink);
-}
-
-/* Gold rule under title (shorter width, like collection) */
-.cart-card h3::after {
-  content: '';
-  display: block;
-  width: 30px;
-  height: 1px;
-  background: var(--gold-500);
-  margin-top: var(--sp-2);
-  transition: width var(--dur-md) var(--ease-expo);
-}
-
-.cart-card:hover h3::after {
-  width: 48px;
-}
-
-/* Price line */
-.cart-card p {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--text-body);
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin: 0;
-  line-height: 1.5;
-}
-
-.cart-card p b {
-  font-weight: 500;
-  color: var(--text-primary);
-  letter-spacing: 0.03em;
-}
-
-/* Price value */
-.cart-card .productPrice {
-  font-weight: 500;
-  background: linear-gradient(90deg, var(--gold-600), var(--gold-400));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Description */
-.cart-card .productDescription {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  max-width: 45ch;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Quantity line */
-.cart-card p:has(.productQty) {
-  font-size: 0.9rem;
-}
-
-.productQty {
-  font-weight: 500;
-  color: var(--ink);
-  background: var(--gold-whisper);
-  padding: 0.1rem 0.6rem;
-  border-radius: var(--r-pill);
-  display: inline-block;
-  margin-left: var(--sp-1);
-}
-
-/* ================================================================
-   ✦ IX. CART ACTIONS — Buttons for quantity & removal
-   ================================================================ */
-
-.cart-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--sp-2);
-  margin-top: var(--sp-3);
+  gap: 1.5rem;
+  padding: 1.5rem;
+  transition: var(--transition);
+  border: 1px solid transparent;
 }
 
-/* Base button style (consistent with collection but adapted) */
-.cart-actions button {
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-1);
-  padding: 8px 14px;
-  min-width: 40px;
-
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink);
-
-  background: var(--gold-200);
-  border: 1px solid var(--border-gold);
-  border-radius: 0; /* sharp, editorial */
-  cursor: pointer;
-
-  transition:
-    background var(--dur-sm) var(--ease-smooth),
-    transform var(--dur-xs) var(--ease-bounce),
-    box-shadow var(--dur-md) var(--ease-smooth),
-    border-color var(--dur-sm) var(--ease-smooth);
+.cart-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  border-color: var(--primary);
 }
 
-/* Increase / decrease buttons (rounder, subtle) */
-.cart-actions .increaseBtn,
-.cart-actions .decreaseBtn {
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 8px 14px;
-  background: var(--snow);
-  border-color: var(--border-soft);
-  box-shadow: none;
+/* Product image */
+.productImage {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  background: var(--neutral);
+  flex-shrink: 0;
 }
 
-.cart-actions .increaseBtn:hover,
-.cart-actions .decreaseBtn:hover {
-  background: var(--gold-100);
-  border-color: var(--gold-400);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(229,188,136,0.2);
+/* Product details */
+.cart-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+  flex: 1 1 200px;
 }
 
-.cart-actions .increaseBtn:active,
-.cart-actions .decreaseBtn:active {
-  transform: translateY(1px) scale(0.98);
-  box-shadow: none;
+.cart-card p {
+  margin-bottom: 0.3rem;
+  color: #555;
 }
 
-/* Remove button — more prominent */
-.cart-actions .removeBtn {
-  background: transparent;
-  color: var(--ash);
-  border-color: var(--border-soft);
-  letter-spacing: 0.1em;
-  margin-left: auto; /* push to right if needed */
+.cart-card .productDescription {
+  font-size: 0.95rem;
+  color: #777;
+  max-width: 300px;
 }
 
-.cart-actions .removeBtn:hover {
-  background: rgba(229,188,136,0.1);
-  color: var(--gold-700);
-  border-color: var(--gold-500);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(229,188,136,0.15);
+.cart-card b {
+  color: var(--dark);
 }
 
-/* Liquid sweep effect on buttons (optional, but keeps brand language) */
-.cart-actions button::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -120%;
-  width: 80%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 15%,
-    rgba(255,255,255,0.6) 50%,
-    transparent 85%
-  );
-  transform: skewX(-15deg);
-  transition: left var(--dur-lg) var(--ease-silk);
-  pointer-events: none;
+.productPrice {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.2rem;
 }
 
-.cart-actions button:hover::before {
-  left: 130%;
+/* Quantity display */
+.productQty {
+  font-weight: 600;
+  background: var(--neutral);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  display: inline-block;
 }
 
-/* Remove the sweep for remove button if desired (optional) */
-.cart-actions .removeBtn::before {
-  opacity: 0.3;
-}
-
-/* ================================================================
-   ✦ X. RESPONSIVE LAYOUT — Horizontal cards on larger screens
-   ================================================================ */
-
-@media (min-width: 640px) {
-  .cart-card {
-    flex-direction: row;
-    align-items: stretch;
-    min-height: 200px;
-  }
-
-  .cart-card .productImage {
-    width: 200px;
-    aspect-ratio: 1 / 1;
-    flex-shrink: 0;
-    border-right: 1px solid var(--border-ultra);
-  }
-
-  .cart-card > :not(img) {
-    border-top: none;
-    padding: var(--sp-6);
-  }
-
-  .cart-actions {
-    margin-top: auto; /* push to bottom of card */
-    justify-content: flex-start;
-  }
-
-  .cart-actions .removeBtn {
-    margin-left: 0; /* reset */
-  }
-}
-
-/* Optional: for very large screens, increase image size */
-@media (min-width: 1024px) {
-  .cart-card .productImage {
-    width: 240px;
-  }
-
-  .cart-card h3 {
-    font-size: 1.5rem;
-  }
-}
-
-/* ================================================================
-   ✦ XI. EMPTY CART STATE (when #cartContainer has no children)
-   ================================================================ */
-
-.cart-container:empty {
-  min-height: 300px;
+/* ===== CART ACTIONS (BUTTONS) ===== */
+.cart-actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
   align-items: center;
-  justify-content: center;
-  border: 1px dashed var(--border-gold);
-  background: var(--bg-card);
-  margin-bottom: var(--sp-24);
 }
 
-.cart-container:empty::after {
-  content:        'Your collection awaits. Add pieces to begin.';
-  font-family:    var(--font-display);
-  font-size:      1.5rem;
-  font-style:     italic;
-  font-weight:    300;
-  color:          var(--text-ghost);
-  letter-spacing: 0.03em;
-  text-align:     center;
-  padding:        var(--sp-12);
+.cart-actions button {
+  border: none;
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  min-width: 40px;
 }
 
-/* ================================================================
-   ✦ XII. ERROR MESSAGE (if you ever need to display one)
-   ================================================================ */
-
-.error-message {
-  display: none;
-  width: 100%;
-  max-width: 480px;
-  margin: var(--sp-10) auto var(--sp-20);
-  padding: var(--sp-5) var(--sp-8) var(--sp-5) var(--sp-12);
-
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  color: var(--text-body);
-  line-height: 1.7;
-
-  background: rgba(229, 188, 136, 0.04);
-  border: 1px solid var(--border-gold);
-  border-left: 3px solid var(--gold-400);
-  border-radius: 0;
-
-  box-shadow: 0 0 0 1px rgba(229,188,136,0.08) inset, var(--shadow-gold);
-
-  position: relative;
-  animation: errorIn var(--dur-md) var(--ease-silk) both;
+.cart-actions button:hover {
+  background-color: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(248, 176, 42, 0.3);
 }
 
-.error-message::before {
-  content: '✦';
-  position: absolute;
-  left: var(--sp-4);
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gold-400);
-  font-size: 0.9rem;
-  animation: spinSlow 8s linear infinite;
+.cart-actions button:focus {
+  outline: 3px solid rgba(248, 176, 42, 0.5);
+  outline-offset: 2px;
 }
 
-.error-message:not(:empty),
-.error-message.visible {
-  display: block;
+/* Special style for remove button */
+.removeBtn {
+  background-color: #e74c3c !important;
 }
 
-/* ================================================================
-   ✦ XIII. SCROLLBAR — Light & Thin (same as collection)
-   ================================================================ */
-
-::-webkit-scrollbar       { width: 3px; background: var(--cream); }
-::-webkit-scrollbar-track { background: var(--linen); }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--gold-400), var(--gold-600));
-  border-radius: 0;
+.removeBtn:hover {
+  background-color: #c0392b !important;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3) !important;
 }
 
-/* ================================================================
-   ✦ XIV. SELECTION
-   ================================================================ */
-
-::selection {
-  background: rgba(229, 188, 136, 0.25);
-  color: var(--ink);
+/* Increase / decrease buttons can be slightly different */
+.increaseBtn,
+.decreaseBtn {
+  background-color: var(--dark) !important;
 }
 
-/* ================================================================
-   ✦ XV. KEYFRAMES (same as collection)
-   ================================================================ */
+.increaseBtn:hover,
+.decreaseBtn:hover {
+  background-color: var(--primary) !important;
+}
 
-@keyframes heroReveal {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    filter: blur(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+/* ===== CHECKOUT BUTTON ===== */
+#checkoutBtn {
+  display: inline-block;
+  margin: 2rem auto 3rem;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: var(--white);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 8px 20px rgba(248, 176, 42, 0.3);
+  background-size: 200% auto;
+  border: 2px solid transparent;
+}
+
+#checkoutBtn:hover {
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(248, 176, 42, 0.4);
+}
+
+#checkoutBtn:focus {
+  outline: 3px solid rgba(248, 176, 42, 0.5);
+  outline-offset: 3px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (min-width: 768px) {
+  /* On tablets and up, we can show cards in a more flexible row layout */
+  .cart-card {
+    flex-wrap: nowrap;
   }
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes lineGrow {
-  from { transform: scaleY(0); opacity: 0; }
-  to   { transform: scaleY(1); opacity: 1; }
-}
-
-@keyframes cardAppear {
-  from {
-    opacity: 0;
-    transform: translateY(32px) scale(0.97);
-    filter: blur(4px) brightness(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0) brightness(1);
-  }
-}
-
-@keyframes errorIn {
-  from { opacity: 0; transform: translateX(-12px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes spinSlow {
-  from { transform: translateY(-50%) rotate(0deg); }
-  to   { transform: translateY(-50%) rotate(360deg); }
-}
-
-/* ================================================================
-   ✦ XVI. REDUCED MOTION
-   ================================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ================================================================
-   ✦ XVII. ADDITIONAL RESPONSIVE TWEAKS
-   ================================================================ */
-
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   h1 {
-    font-size: clamp(2rem, 12vw, 2.8rem);
-    margin: var(--sp-12) auto var(--sp-6);
-    padding: 0 var(--sp-4);
+    font-size: 2rem;
   }
 
-  .cart-container {
-    padding: 0 var(--sp-3);
+  .cart-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1rem;
   }
 
-  .cart-card .productImage {
-    aspect-ratio: 4 / 3; /* slightly landscape on tiny screens */
+  .productImage {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
   }
 
   .cart-actions {
-    gap: var(--sp-1);
+    width: 100%;
+    justify-content: space-between;
   }
 
   .cart-actions button {
-    padding: 8px 10px;
-    font-size: 0.7rem;
+    flex: 1;
   }
 
-  .cart-actions .increaseBtn,
-  .cart-actions .decreaseBtn {
-    padding: 8px 12px;
-  }
-
-  .cart-container::before,
-  .cart-container::after {
-    width: 12px;
-    height: 12px;
+  #checkoutBtn {
+    width: 90%;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.1rem;
   }
 }
 
-@media (max-width: 360px) {
-  .cart-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .cart-actions button {
-    width: 100%;
-  }
-
-  .cart-actions .removeBtn {
-    margin-left: 0;
-  }
+/* ===== EMPTY CART STATE (optional) ===== */
+.cart-container:empty::before {
+  content: 'Your cart is empty. Start shopping!';
+  display: block;
+  text-align: center;
+  padding: 3rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  color: #999;
+  font-size: 1.2rem;
+  border: 2px dashed var(--primary);
 }
