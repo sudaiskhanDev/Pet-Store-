@@ -16,3 +16,11 @@ use App\Http\Controllers\Api\CheckoutController;
 Route::middleware('auth:api')->group(function() {
     Route::post('/checkout', [CheckoutController::class, 'checkout']);
 });
+
+
+
+// routes/api.php
+use App\Http\Controllers\Api\PaymentController;
+
+Route::post('payments/create-payment-intent', [PaymentController::class, 'createPaymentIntent']);
+Route::post('payments', [PaymentController::class, 'store']);

@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
             $table->decimal('amount', 10, 2);
             $table->string('stripe_payment_id')->nullable();
             $table->enum('status',['pending','completed','failed'])->default('pending');

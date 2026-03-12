@@ -1,298 +1,108 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Products Management</title>
-</head>
-<body>
-
-<h2>Products Management</h2>
-
-<!-- Add New Product -->
-<h3>Add New Product</h3>
-<form id="productForm">
-    <label>Category:</label>
-    <select id="categorySelect"></select>
-
-    <label>Animal:</label>
-    <select id="animalSelect"></select>
-
-    <label>Product Name:</label>
-    <input type="text" id="name" required />
-
-    <label>Description:</label>
-    <textarea id="description"></textarea>
-
-    <label>Price:</label>
-    <input type="number" step="0.01" id="price" required />
-
-    <label>Stock Quantity:</label>
-    <input type="number" id="stock_quantity" required />
-
-    <label>Image:</label>
-    <input type="file" id="image" />
-
-    <button type="button" onclick="addProduct()">Add Product</button>
-</form>
-
-<hr>
-
-<h3>All Products</h3>
-<div id="productsList"></div>
-
-<script>
-const API_URL = "http://localhost:8000/api/products";
-const CATEGORY_URL = "http://localhost:8000/api/categories";
-const ANIMAL_URL = "http://localhost:8000/api/animal";
-
-// Fetch categories and populate dropdown
-async function fetchCategories() {
-    const res = await fetch(CATEGORY_URL);
-    const categories = await res.json();
-    const select = document.getElementById('categorySelect');
-    select.innerHTML = '';
-    categories.forEach(c => {
-        const opt = document.createElement('option');
-        opt.value = c.category_id;
-        opt.textContent = c.category_name;
-        select.appendChild(opt);
-    });
-}
-
-// Fetch animals and populate dropdown
-async function fetchAnimals() {
-    const res = await fetch(ANIMAL_URL);
-    const animals = await res.json();
-    const select = document.getElementById('animalSelect');
-    select.innerHTML = '';
-
-    animals.forEach(a => {
-        const opt = document.createElement('option');
-        opt.value = a.animal_id;
-        opt.textContent = a.animal_name;
-        select.appendChild(opt);
-    });
-}
-
-// Fetch and display all products
-async function fetchProducts() {
-    const res = await fetch(API_URL);
-    const products = await res.json();
-    const container = document.getElementById('productsList');
-    container.innerHTML = '';
-    products.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'product';
-        div.innerHTML = `
-            <strong>${p.name}</strong> - $${p.price} - Stock: ${p.stock_quantity}
-            <br>
-            Category: ${p.category_id}, Animal: ${p.animal_id}
-            <br>
-            Description: ${p.description || 'N/A'}
-            <br>
-            <img src="http://localhost:8000/storage/${p.image}" alt="Product Image" onerror="this.src='https://via.placeholder.com/150';" />
-            <br>
-            <button onclick="deleteProduct(${p.product_id})">Delete</button>
-            <button onclick="editProduct(${p.product_id})">Edit</button>
-        `;
-        container.appendChild(div);
-    });
-}
-
-// Add new product
-async function addProduct() {
-    const formData = new FormData();
-    formData.append('category_id', document.getElementById('categorySelect').value);
-    formData.append('animal_id', document.getElementById('animalSelect').value);
-    formData.append('name', document.getElementById('name').value);
-    formData.append('description', document.getElementById('description').value);
-    formData.append('price', document.getElementById('price').value);
-    formData.append('stock_quantity', document.getElementById('stock_quantity').value);
-
-    const imageInput = document.getElementById('image');
-    if (imageInput.files.length > 0) {
-        formData.append('image', imageInput.files[0]);
-    }
-
-    const res = await fetch(API_URL, {
-        method: 'POST',
-        body: formData
-    });
-    const data = await res.json();
-    if (res.status === 201) {
-        alert(data.message);
-        document.getElementById('productForm').reset();
-        fetchProducts();
-    } else {
-        alert(JSON.stringify(data));
-    }
-}
-
-// Delete product
-async function deleteProduct(id) {
-    if (!confirm('Are you sure to delete this product?')) return;
-    const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-    const data = await res.json();
-    alert(data.message);
-    fetchProducts();
-}
-
-// Edit / update product
-async function editProduct(id) {
-    const name = prompt('New Product Name');
-    if (!name) return;
-    const price = prompt('New Price');
-    const stock = prompt('New Stock Quantity');
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('price', price);
-    formData.append('stock_quantity', stock);
-
-    // Optional: upload new image
-    const imageInput = document.createElement('input');
-    imageInput.type = 'file';
-    imageInput.onchange = async () => {
-        if (imageInput.files.length > 0) {
-            formData.append('image', imageInput.files[0]);
-        }
-        const res = await fetch(`${API_URL}/${id}`, { method: 'PUT', body: formData });
-        const data = await res.json();
-        alert(data.message);
-        fetchProducts();
-    };
-    imageInput.click();
-}
-
-// Initialize
-fetchCategories();
-fetchAnimals();
-fetchProducts();
-</script>
-
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Cart Page</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stripe Payment Demo Fixed</title>
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 80%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        input { width: 50px; }
-        button { cursor: pointer; padding: 5px 10px; margin-left: 5px; }
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input { margin: 5px 0; padding: 8px; width: 300px; }
+        button { padding: 10px 20px; margin-top: 10px; }
+        #card-element { margin-top: 20px; width: 300px; }
     </style>
 </head>
 <body>
 
-<h2>Cart Items</h2>
+<h2>Make a Payment</h2>
 
-<!-- Form to add new cart item -->
-<form id="addCartForm">
-    <label>User ID: <input type="number" name="user_id" required></label>
-    <label>Product ID: <input type="number" name="product_id" required></label>
-    <label>Quantity: <input type="number" name="quantity" value="1" required></label>
-    <button type="submit">Add to Cart</button>
-</form>
+<label>Amount (USD)</label><br>
+<input type="number" id="amount" placeholder="Enter Amount" value="10"><br>
 
-<!-- Cart items table -->
-<table id="cartTable">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>User ID</th>
-            <th>Product ID</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<button id="payBtn">Pay Now</button>
+
+<div id="card-element"></div>
+<button id="confirmBtn" style="display:none;">Confirm Payment</button>
 
 <script>
-const apiUrl = 'http://localhost:8000/api/carts'; // Update if backend URL is different
+const stripe = Stripe("pk_test_51T3YGjPubxVvHrmFHvOK8ut1lXw8X7nL77iYk0Y47aj4G6758ndZDGRnWu54qEuv2mk3feOfbRNTKZmwRe9A8Cbx00VNTxBm5d");
+const elements = stripe.elements();
+const card = elements.create("card");
+card.mount("#card-element");
 
-// Function to fetch cart items
-function fetchCart() {
-    axios.get(apiUrl)
-        .then(res => {
-            const tbody = document.querySelector('#cartTable tbody');
-            tbody.innerHTML = '';
-            res.data.forEach(item => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${item.cart_id}</td>
-                        <td>${item.user_id}</td>
-                        <td>${item.product_id}</td>
-                        <td><input type="number" value="${item.quantity}" min="1" data-id="${item.cart_id}" class="quantityInput"></td>
-                        <td>
-                            <button onclick="updateCart(${item.cart_id})">Update</button>
-                            <button onclick="deleteCart(${item.cart_id})">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        })
-        .catch(err => console.error(err));
-}
+let clientSecret = "";
 
-// Function to add new cart item
-document.getElementById('addCartForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const data = {
-        user_id: formData.get('user_id'),
-        product_id: formData.get('product_id'),
-        quantity: formData.get('quantity')
-    };
+document.getElementById("payBtn").addEventListener("click", async () => {
+    const amount = document.getElementById("amount").value;
 
-    axios.post(apiUrl, data)
-        .then(res => {
-            alert(res.data.message);
-            this.reset();
-            fetchCart();
-        })
-        .catch(err => {
-            alert(JSON.stringify(err.response.data));
+    if (!amount) {
+        alert("Enter Amount");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/api/payments/create-payment-intent", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: parseFloat(amount) })
         });
+
+        if (!response.ok) throw new Error("API error");
+
+        const data = await response.json();
+        clientSecret = data.clientSecret;
+        document.getElementById("confirmBtn").style.display = "block";
+
+    } catch (err) {
+        console.error(err);
+        alert("Error creating payment intent. Check console for details.");
+    }
 });
 
-// Function to update cart item
-function updateCart(id) {
-    const quantity = document.querySelector(`.quantityInput[data-id='${id}']`).value;
-    axios.put(`${apiUrl}/${id}`, { quantity })
-        .then(res => {
-            alert(res.data.message);
-            fetchCart();
-        })
-        .catch(err => {
-            alert(JSON.stringify(err.response.data));
-        });
-}
+document.getElementById("confirmBtn").addEventListener("click", async () => {
+    const amount = parseFloat(document.getElementById("amount").value);
 
-// Function to delete cart item
-function deleteCart(id) {
-    if(confirm('Are you sure to delete this cart item?')) {
-        axios.delete(`${apiUrl}/${id}`)
-            .then(res => {
-                alert(res.data.message);
-                fetchCart();
-            })
-            .catch(err => {
-                alert(JSON.stringify(err.response.data));
-            });
+    if (!clientSecret) {
+        alert("Click Pay Now first");
+        return;
     }
-}
 
-// Initial fetch
-fetchCart();
+    try {
+        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: { card: card }
+        });
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        const storeResponse = await fetch("http://127.0.0.1:8000/api/payments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                amount: amount,
+                stripe_payment_id: paymentIntent.id,
+                status: 'completed'
+            })
+        });
+
+        if (!storeResponse.ok) {
+            const errData = await storeResponse.json();
+            console.error(errData);
+            alert("Failed to store payment. Check console for details.");
+            return;
+        }
+
+        alert("Payment Successful!");
+        document.getElementById("confirmBtn").style.display = "none";
+        document.getElementById("amount").value = "10";
+
+    } catch (err) {
+        console.error(err);
+        alert("Unexpected error occurred. Check console.");
+    }
+});
 </script>
 
 </body>
