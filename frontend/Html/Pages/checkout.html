@@ -3,6 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <title>Checkout</title>
+<link rel="stylesheet" href="../../Css/Pages/checkout.css">
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<h1>Checkout</h1>
+
+<div id="checkoutContainer"></div>
+
+<form id="checkoutForm">
+    <h3>Shipping Details</h3>
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="text" name="address" placeholder="Address" required>
+    <input type="text" name="city" placeholder="City" required>
+    <input type="text" name="zip" placeholder="Zip Code" required>
+    <input type="text" name="phone" placeholder="Phone Number" required>
+
+    <h3>Payment Method</h3>
+    <select name="payment_method" id="paymentMethod" required>
+        <option value="cod">Cash on Delivery</option>
+        <option value="card">Credit / Debit Card</option>
+    </select>
+
+    <div id="card-container" style="display:none;">
+        <label>Card Details</label>
+        <div id="card-element"></div>
+    </div>
+
+    <button type="submit" id="placeOrderBtn">Place Order</button>
+    <div id="loader">Processing...</div>
+</form>
+
+<script>
+(async function() {  // ✅ Wrap in async IIFE to allow await
+const TOKEN = localStorage.getItem("token");
+const CHECKOUT_API = "http://localhost:8000/api/checkout";
+const STRIPE_API = "http://localhost:8000/api/payments/create-payment-intent";
+
+let stripe, card, clientSecret;
+
+// Initialize Stripe
+stripe = Stripe("pk_test_51T3YGjPubxVvHrmFHvOK8ut1lXw8X7nL77iYk0Y47aj4G6758ndZDGRnWu54qEuv2mk3feOfbRNTKZmwRe9A8Cbx00VNTxBm5d");
+const elements = stripe.elements();
+card = elements.create('card');
+card.mount('#card-element');
+
+// Toggle card container visibility based on payment method
+document.getElementById("paymentMethod").addEventListener("change", function() {
+    document.getElementById("card-container").style.display = this.value === 'card' ? 'block' : 'none';
+});
+
+// Load cart and total
+async function loadCheckoutCart(){
+    const res = await fetch("http://localhost:8000/api/carts", {
+        headers: { "Authorization": "Bearer " + TOKEN }
+    });
+    const carts = await res.json();
+
+    const container = document.getElementById("checkoutContainer");
+    container.innerHTML = "";
+
+    let total = 0;
+    carts.forEach(item => {
+        const div = document.createElement("div");
+        div.innerHTML = `<p>${item.product.name} - ₹${item.product.price} x ${item.quantity}</p>`;
+        container.appendChild(div);
+        total += item.product.price * item.quantity;
+    });
+
+    const totalDiv = document.createElement("div");
+    totalDiv.innerHTML = `<h3>Total: ₹${total}</h3>`;
+    container.appendChild(totalDiv);
+
+    return total;
+}
+
+let totalAmount = await loadCheckoutCart();  // ✅ Now allowed inside async function
+
+// Form submit handler
+document.getElementById("checkoutForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("placeOrderBtn");
+    const loader = document.getElementById("loader");
+    btn.disabled = true;
+    loader.style.display = 'block';
+
+    const formData = new FormData(e.target);
+    const shipping_address = `${formData.get('address')}, ${formData.get('city')}, ${formData.get('zip')}`;
+    const phone = formData.get('phone');
+    const payment_method = formData.get('payment_method');
+
+    try {
+        let payment_id = null;
+
+        if(payment_method === 'card') {
+            // Create PaymentIntent
+            const piRes = await fetch(STRIPE_API, {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Authorization":"Bearer "+TOKEN
+                },
+                body: JSON.stringify({amount: totalAmount})
+            });
+            const piData = await piRes.json();
+            clientSecret = piData.clientSecret;
+
+            // Confirm card payment
+            const {paymentIntent, error} = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: { card }
+            });
+
+            if(error){
+                alert(error.message);
+                btn.disabled = false;
+                loader.style.display = 'none';
+                return;
+            }
+            payment_id = paymentIntent.id;
+        }
+
+        // Place order
+        const res = await fetch(CHECKOUT_API, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+TOKEN
+            },
+            body: JSON.stringify({shipping_address, phone, payment_method, payment_id})
+        });
+
+        const data = await res.json();
+
+        if(res.ok){
+            alert("Order placed successfully!");
+            window.location.href="/pages/thankyou.html";
+        } else {
+            alert("Error: "+(data.message || ""));
+        }
+
+    } catch(err){
+        console.error(err);
+        alert("Unexpected error occurred");
+    } finally {
+        btn.disabled = false;
+        loader.style.display = 'none';
+    }
+});
+})();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Checkout</title>
 <link rel="stylesheet" href="../../Css/Pages/Checkout.css">
 </head>
 <body>
@@ -30,4 +193,4 @@
 
 <script src="../../Js/pages/checkout.js"></script>
 </body>
-</html>
+</html> -->
