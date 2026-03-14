@@ -1,227 +1,170 @@
-/* ===== RESET & BASE ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =========================================
+   PRODUCTS GRID (ECOMMERCE STYLE)
+========================================= */
+
+#products{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #F0F1F3;   /* neutral background */
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
-  min-height: 100vh;
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
+
+.product-card{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    border:1px solid #eee;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
 
-/* ===== CSS VARIABLES ===== */
-:root {
-  --primary: #F8B02A;
-  --secondary: #FFC408;
-  --neutral: #F0F1F3;
-  --white: #ffffff;
-  --dark: #2c3e50;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --border-radius: 12px;
-  --transition: all 0.3s ease;
+
+/* hover effect */
+
+.product-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 12px 25px rgba(0,0,0,0.08);
+
+    border-color:#FFC300;
+
 }
 
-/* ===== MAIN CONTAINER ===== */
-.mian-all-products {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
+
+.product-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    background:#f9f9f9;
+
 }
 
-/* ===== NAV/LOGO PLACEHOLDER ===== */
-.nav-logo {
-  padding: 1rem 0;
-  /* If you add actual logo or nav, style here */
+
+/* =========================================
+   PRODUCT CONTENT
+========================================= */
+
+.product-info{
+
+    padding:14px;
+
 }
 
-/* ===== PAGE HEADING ===== */
-h1 {
-  font-size: 2.5rem;
-  margin: 1rem 0 2rem;
-  color: var(--primary);
-  position: relative;
-  display: inline-block;
+
+.product-title{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#1e293b;
+
+    margin-bottom:6px;
+
 }
 
-h1::after {
-  content: '';
-  display: block;
-  width: 80px;
-  height: 4px;
-  background: var(--secondary);
-  margin: 0.5rem 0 0;
-  border-radius: 2px;
+
+.product-price{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#FFC300;
+
 }
 
-/* ===== PRODUCTS GRID ===== */
-#products {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  margin: 2rem 0;
+
+/* =========================================
+   ADD TO CART BUTTON
+========================================= */
+
+.add-cart-btn{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:9px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:#FFC300;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
-/* ===== PRODUCT CARD ===== */
-.product-card {
-  background: var(--white);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  border: 1px solid transparent;
+
+.add-cart-btn:hover{
+
+    background:#e6ad00;
+
 }
 
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-  border-color: var(--primary);
+
+/* =========================================
+   RESPONSIVE (LIKE REAL STORES)
+========================================= */
+
+@media (max-width:1100px){
+
+    #products{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
 }
 
-/* Product image */
-.product-image {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  background-color: var(--neutral);
-  display: block;
+@media (max-width:800px){
+
+    #products{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
 }
 
-/* Product details container */
-.product-details {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
+@media (max-width:500px){
 
-/* Product name */
-.product-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--dark);
-}
+    #products{
 
-/* Product price */
-.product-price {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-}
+        grid-template-columns:1fr;
 
-.product-price::before {
-  content: '₹';
-  font-weight: 400;
-  margin-right: 2px;
-}
+    }
 
-/* Product description (optional) */
-.product-description {
-  color: #666;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  line-height: 1.5;
-  flex-grow: 1;
-}
-
-/* Add to cart button */
-.add-to-cart-btn {
-  background-color: var(--primary);
-  color: var(--white);
-  border: none;
-  padding: 0.8rem 1.2rem;
-  border-radius: 30px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  width: 100%;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border: 2px solid transparent;
-  margin-top: 0.5rem;
-}
-
-.add-to-cart-btn:hover {
-  background-color: var(--secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(248, 176, 42, 0.3);
-}
-
-.add-to-cart-btn:focus {
-  outline: 3px solid rgba(248, 176, 42, 0.5);
-  outline-offset: 2px;
-}
-
-/* ===== ERROR MESSAGE ===== */
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  border-radius: var(--border-radius);
-  padding: 1rem 1.5rem;
-  margin: 2rem 0;
-  text-align: center;
-  font-size: 1.1rem;
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  #products {
-    gap: 1.5rem;
-  }
-
-  .product-image {
-    height: 180px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .product-details {
-    padding: 1rem;
-  }
-
-  .product-name {
-    font-size: 1.2rem;
-  }
-
-  .product-price {
-    font-size: 1.2rem;
-  }
-
-  .add-to-cart-btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
-  }
-}
-
-/* ===== LOADING STATE (optional) ===== */
-#products:empty::before {
-  content: 'Loading products...';
-  display: block;
-  text-align: center;
-  padding: 3rem;
-  background: var(--white);
-  border-radius: var(--border-radius);
-  color: #999;
-  font-size: 1.2rem;
-  border: 2px dashed var(--primary);
-  grid-column: 1 / -1;
 }

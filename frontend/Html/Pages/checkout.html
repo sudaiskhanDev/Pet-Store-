@@ -138,7 +138,7 @@ document.getElementById("checkoutForm").addEventListener("submit", async (e) => 
 
         if(res.ok){
             alert("Order placed successfully!");
-            window.location.href="/pages/thankyou.html";
+            window.location.href="../../Html/pages/thankyou.html";
         } else {
             alert("Error: "+(data.message || ""));
         }
