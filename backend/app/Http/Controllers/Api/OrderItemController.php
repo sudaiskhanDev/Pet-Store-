@@ -12,11 +12,11 @@ class OrderItemController extends Controller
     // List all order items
     public function index()
     {
-        $orderItems = OrderItem::all();
-        return response()->json($orderItems);
+        $items = OrderItem::with('order')->get();
+        return response()->json($items);
     }
 
-    // Store a new order item
+    // Store new order item
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -30,30 +30,32 @@ class OrderItemController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $orderItem = OrderItem::create($request->all());
+        $item = OrderItem::create($request->all());
 
         return response()->json([
             'message' => 'Order item created successfully',
-            'order_item' => $orderItem
+            'item' => $item
         ], 201);
     }
 
-    // Show a single order item
+    // Show single item
     public function show($id)
     {
-        $orderItem = OrderItem::find($id);
-        if (!$orderItem) {
+        $item = OrderItem::find($id);
+
+        if (!$item) {
             return response()->json(['message' => 'Order item not found'], 404);
         }
 
-        return response()->json($orderItem);
+        return response()->json($item);
     }
 
-    // Update an order item
+    // Update item
     public function update(Request $request, $id)
     {
-        $orderItem = OrderItem::find($id);
-        if (!$orderItem) {
+        $item = OrderItem::find($id);
+
+        if (!$item) {
             return response()->json(['message' => 'Order item not found'], 404);
         }
 
@@ -68,24 +70,27 @@ class OrderItemController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $orderItem->update($request->all());
+        $item->update($request->all());
 
         return response()->json([
             'message' => 'Order item updated successfully',
-            'order_item' => $orderItem
+            'item' => $item
         ]);
     }
 
-    // Delete an order item
+    // Delete item
     public function destroy($id)
     {
-        $orderItem = OrderItem::find($id);
-        if (!$orderItem) {
+        $item = OrderItem::find($id);
+
+        if (!$item) {
             return response()->json(['message' => 'Order item not found'], 404);
         }
 
-        $orderItem->delete();
+        $item->delete();
 
-        return response()->json(['message' => 'Order item deleted successfully']);
+        return response()->json([
+            'message' => 'Order item deleted successfully'
+        ]);
     }
 }

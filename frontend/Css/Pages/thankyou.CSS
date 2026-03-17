@@ -1,0 +1,141 @@
+/* ========== THANK YOU PAGE STYLES – PetNest ========== */
+/* Theme colors: #FE4600 (primary orange), #FFFFFF (white) */
+
+/* ---------- Base reset & variables ---------- */
+:root {
+  --primary: #FE4600;
+  --white: #FFFFFF;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-600: #6c757d;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --shadow-md: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease;
+  --border-radius: 32px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: linear-gradient(145deg, #fff5f0 0%, #ffffff 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  line-height: 1.5;
+  color: var(--gray-900);
+}
+
+/* ---------- Thank you card ---------- */
+.thank-you-card {
+  background-color: var(--white);
+  max-width: 520px;
+  width: 100%;
+  padding: 3rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 1px solid var(--gray-200);
+  transition: var(--transition);
+}
+
+.thank-you-card:hover {
+  box-shadow: 0 30px 50px -20px rgba(254, 70, 0, 0.15);
+}
+
+/* ---------- Success icon (SVG) ---------- */
+.success-icon {
+  width: 80px;
+  height: 80px;
+  color: #28a745;  /* green for success – you can change to orange if preferred */
+  margin: 0 auto 1.5rem;
+  stroke-width: 2;
+  filter: drop-shadow(0 4px 8px rgba(40, 167, 69, 0.2));
+}
+
+/* If you want the icon in your brand orange, replace the color above with: */
+/* color: var(--primary); */
+
+/* ---------- Heading ---------- */
+.thank-you-card h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+/* ---------- Message paragraph ---------- */
+.thank-you-card p {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+  margin-bottom: 2.5rem;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- Continue shopping button ---------- */
+.btn-continue {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  border-radius: 40px;
+  transition: var(--transition);
+  border: 1px solid transparent;
+  box-shadow: 0 8px 16px -6px rgba(254, 70, 0, 0.3);
+}
+
+.btn-continue:hover,
+.btn-continue:focus-visible {
+  background-color: #e03e00;  /* slightly darker orange */
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px -8px rgba(254, 70, 0, 0.4);
+}
+
+.btn-continue:active {
+  transform: translateY(0);
+}
+
+/* ---------- Focus styles for accessibility ---------- */
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 480px) {
+  .thank-you-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .thank-you-card h1 {
+    font-size: 1.8rem;
+  }
+
+  .thank-you-card p {
+    font-size: 1rem;
+  }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .btn-continue {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+}

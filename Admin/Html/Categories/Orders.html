@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Page</title>
+    <link rel="stylesheet" href="../../css/Categories/Order.css">
+    
+</head>
+<body>
+    <h1>Orders Page</h1>
+
+    <div class="input">
+        <!-- <input type="number" id="userId" placeholder="User ID"> -->
+        <!-- <input type="date" id="orderDate"> -->
+        <!-- <input type="text" id="status" placeholder="Status"> -->
+        <!-- <input type="number" step="0.01" id="totalAmount" placeholder="Total Amount"> -->
+        <!-- <input type="text" id="paymentMethod" placeholder="Payment Method"> -->
+        <!-- <input type="text" id="shippingAddress" placeholder="Shipping Address"> -->
+        <!-- <input type="text" id="phone" placeholder="Phone"> -->
+        <button id="saveBtn">Save</button>
+        <span class="error" id="errorMsg"></span>
+    </div>
+
+    <div class="list">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>Shipping Address</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+                <tr data-id="">
+                    <td class="td-id"></td>
+                    <td class="td-user"></td>
+                    <td class="td-date"></td>
+                    <td class="td-status"></td>
+                    <td class="td-amount"></td>
+                    <td class="td-payment"></td>
+                    <td class="td-shipping"></td>
+                    <td class="td-phone"></td>
+                    <td class="td-actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../js/Categories/Order.js"></script>
+</body>
+</html>

@@ -48,13 +48,19 @@ h1::after {
 }
 
 .input input {
-  flex: 1 1 200px;
+  flex: 1 1 180px;
   padding: 0.8rem 1.2rem;
   border: 2px solid #e2e8f0;
   border-radius: 50px;
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   background-color: #f8fafc;
+}
+
+/* Remove number input spinners (optional, for cleaner look) */
+.input input[type="number"]::-webkit-inner-spin-button,
+.input input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.5;
 }
 
 .input input:focus {
@@ -85,11 +91,10 @@ h1::after {
   gap: 10px;
 }
 
-/* Add save icon (floppy disk) via pseudo-element */
 #saveBtn::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f0c7";
+  content: "\f0c7"; /* floppy disk (save) */
   font-size: 1.1rem;
 }
 
@@ -162,7 +167,7 @@ tbody tr:hover {
   flex-wrap: wrap;
 }
 
-/* Edit and Delete buttons (using classes .edit and .delete) */
+/* Edit and Delete buttons */
 .edit,
 .delete {
   display: inline-flex;
@@ -183,13 +188,13 @@ tbody tr:hover {
 .edit::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f044"; /* edit icon */
+  content: "\f044"; /* pencil (edit) */
 }
 
 .delete::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed"; /* trash icon */
+  content: "\f2ed"; /* trash (delete) */
 }
 
 .edit:hover {

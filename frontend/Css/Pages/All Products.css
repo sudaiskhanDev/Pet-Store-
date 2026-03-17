@@ -1,170 +1,84 @@
-/* =========================================
-   PRODUCTS GRID (ECOMMERCE STYLE)
-========================================= */
+/* ===== PRODUCT GRID ===== */
 
 #products{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:25px;
-
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:20px;
 }
 
-
-/* =========================================
-   PRODUCT CARD
-========================================= */
+/* ===== PRODUCT CARD ===== */
 
 .product-card{
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  border:1px solid #eee;
 
-    background:#fff;
-
-    border-radius:12px;
-
-    border:1px solid #eee;
-
-    overflow:hidden;
-
-    transition:.3s;
-
-    display:flex;
-
-    flex-direction:column;
-
+  transition:0.2s;
 }
-
-
-/* hover effect */
 
 .product-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 12px 25px rgba(0,0,0,0.08);
-
-    border-color:#FFC300;
-
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+  transform:translateY(-3px);
 }
 
+/* ===== IMAGE CONTAINER ===== */
 
-/* =========================================
-   PRODUCT IMAGE
-========================================= */
-
-.product-card img{
-
-    width:100%;
-
-    height:220px;
-
-    object-fit:cover;
-
-    background:#f9f9f9;
-
+.product-image{
+  width:100%;
+  height:220px;
+  object-fit:contain;   /* IMPORTANT */
+  padding:20px;
+  background:#fff;
 }
 
-
-/* =========================================
-   PRODUCT CONTENT
-========================================= */
+/* ===== PRODUCT INFO ===== */
 
 .product-info{
-
-    padding:14px;
-
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
+/* ===== NAME ===== */
 
-.product-title{
+.product-name{
+  font-size:14px;
+  line-height:1.4;
+  color:#222;
 
-    font-size:15px;
-
-    font-weight:600;
-
-    color:#1e293b;
-
-    margin-bottom:6px;
-
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
 }
 
+/* ===== PRICE ===== */
 
 .product-price{
-
-    font-size:16px;
-
-    font-weight:700;
-
-    color:#FFC300;
-
+  font-size:18px;
+  font-weight:600;
+  color:#FE4600;
 }
 
+/* ===== BUTTON ===== */
 
-/* =========================================
-   ADD TO CART BUTTON
-========================================= */
+.add-to-cart{
+  margin-top:8px;
+  padding:10px;
+  border:none;
+  border-radius:6px;
 
-.add-cart-btn{
+  background:#FE4600;
+  color:#fff;
 
-    width:100%;
-
-    margin-top:10px;
-
-    padding:9px;
-
-    border:none;
-
-    border-radius:6px;
-
-    background:#FFC300;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
+  font-size:14px;
+  cursor:pointer;
 }
 
-
-.add-cart-btn:hover{
-
-    background:#e6ad00;
-
-}
-
-
-/* =========================================
-   RESPONSIVE (LIKE REAL STORES)
-========================================= */
-
-@media (max-width:1100px){
-
-    #products{
-
-        grid-template-columns:repeat(3,1fr);
-
-    }
-
-}
-
-@media (max-width:800px){
-
-    #products{
-
-        grid-template-columns:repeat(2,1fr);
-
-    }
-
-}
-
-@media (max-width:500px){
-
-    #products{
-
-        grid-template-columns:1fr;
-
-    }
-
+.add-to-cart:hover{
+  background:#e03e00;
 }

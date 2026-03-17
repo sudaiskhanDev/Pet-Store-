@@ -1,366 +1,252 @@
-/* ============================================
-   SENIOR DESIGNER'S STYLESHEET
-   Project: Animals Categories Page
-   Author: Dedicated Senior Designer & Animator
-   Description: White & Yellow theme for animal
-                categories management. Includes
-                a form with label, input, button,
-                and a data table with action buttons.
-   ============================================ */
-
-/* ---------- CSS CUSTOM PROPERTIES (DESIGN TOKENS) ---------- */
-:root {
-    /* Color Palette - White & Yellow (consistent with admin suite) */
-    --color-bg-body: #f7f7f7;        /* Soft off-white background */
-    --color-bg-surface: #ffffff;      /* Pure white for cards/surfaces */
-    --color-primary: #f5b042;         /* Warm yellow - primary action */
-    --color-primary-light: #ffc55a;   /* Lighter yellow for hover */
-    --color-error-bg: #fff2f0;        /* Soft red background for errors */
-    --color-error-border: #ffccc7;    /* Light red border */
-    --color-error-text: #b33c2e;      /* Dark red for error text */
-    --color-text-primary: #2d2d2d;    /* Dark gray for headings */
-    --color-text-secondary: #5a5a5a;  /* Medium gray for secondary text */
-    --color-text-inverse: #1e1e1e;    /* Dark text for yellow backgrounds */
-    --color-border: #e0e0e0;          /* Light gray border */
-    --color-table-header-bg: #fafafa; /* Very light gray for table header */
-    --color-table-row-hover: #f5f5f5; /* Light gray for row hover */
-    --color-focus-ring: rgba(245, 176, 66, 0.4); /* Yellow focus glow */
-
-    /* Typography */
-    --font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    --font-size-base: 1rem;            /* 16px */
-    --font-size-h2: 1.75rem;           /* 28px */
-    --font-size-small: 0.875rem;       /* 14px */
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --font-weight-bold: 600;
-
-    /* Spacing */
-    --space-xs: 0.5rem;   /* 8px */
-    --space-sm: 1rem;     /* 16px */
-    --space-md: 1.5rem;   /* 24px */
-    --space-lg: 2rem;     /* 32px */
-    --space-xl: 2.5rem;   /* 40px */
-
-    /* Borders & Shadows */
-    --border-radius-sm: 6px;
-    --border-radius-md: 8px;
-    --box-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --box-shadow-focus: 0 0 0 4px var(--color-focus-ring);
-    --box-shadow-button-hover: 0 4px 12px rgba(245, 176, 66, 0.3);
-
-    /* Transitions */
-    --transition-duration: 200ms;
-    --transition-timing: ease-out;
-}
-
-/* ---------- RESET & BASE STYLES ---------- */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    font-size: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    scroll-behavior: smooth;
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background: var(--color-bg-body);
-    font-family: var(--font-family-base);
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-    min-height: 100vh;
-    padding: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: fade-in 0.5s var(--transition-timing);
+  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  line-height: 1.6;
+  padding: 2rem;
 }
 
-/* Subtle background pattern (consistent with other pages) */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 30%),
-                      radial-gradient(circle at 70% 60%, rgba(245,176,66,0.03) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: -1;
-}
-
-@keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* ---------- PAGE TITLE ---------- */
+/* ===== HEADING ===== */
 h2 {
-    font-size: var(--font-size-h2);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-lg);
-    text-align: center;
-    letter-spacing: -0.02em;
-    width: 100%;
-    max-width: 800px;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
 }
 
-/* ---------- FORM SECTION ---------- */
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background-color: #FE4600;
+  border-radius: 4px;
+}
+
+/* ===== FORM CARD ===== */
 #simple-form {
-    background-color: var(--color-bg-surface);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--box-shadow-card);
-    padding: var(--space-lg);
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: var(--space-lg);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: var(--space-sm);
-    border: 1px solid var(--color-border);
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
 }
 
-/* Label styling */
 #simple-form label {
-    flex: 0 0 100%; /* Full width on its own line */
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-    margin-bottom: calc(var(--space-xs) * -0.5); /* Adjust spacing */
-    font-size: var(--font-size-small);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+  width: 100%;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: -0.5rem;
 }
 
-/* Input field */
-#simple-form input[type="text"] {
-    flex: 1 1 250px;
-    font-family: inherit;
-    font-size: var(--font-size-base);
-    padding: var(--space-sm) var(--space-md);
-    border: 2px solid var(--color-border);
-    border-radius: var(--border-radius-sm);
-    background-color: var(--color-bg-surface);
-    color: var(--color-text-primary);
-    transition: border-color var(--transition-duration) var(--transition-timing),
-                box-shadow var(--transition-duration) var(--transition-timing);
-    outline: none;
+#simple-form input {
+  flex: 1 1 250px;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #f8fafc;
 }
 
-#simple-form input[type="text"]::placeholder {
-    color: #b0b0b0;
-    opacity: 1;
+#simple-form input:focus {
+  outline: none;
+  border-color: #FE4600;
+  box-shadow: 0 0 0 4px rgba(254, 70, 0, 0.1);
+  background-color: #fff;
 }
 
-#simple-form input[type="text"]:focus {
-    border-color: var(--color-primary);
-    box-shadow: var(--box-shadow-focus);
+#simple-form input::placeholder {
+  color: #94a3b8;
 }
 
-/* Save button */
+/* ===== SAVE BUTTON ===== */
 #save-btn {
-    background-color: var(--color-primary);
-    color: var(--color-text-inverse);
-    font-family: inherit;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    padding: var(--space-sm) var(--space-lg);
-    border: none;
-    border-radius: var(--border-radius-sm);
-    cursor: pointer;
-    transition: background-color var(--transition-duration) var(--transition-timing),
-                transform var(--transition-duration) var(--transition-timing),
-                box-shadow var(--transition-duration) var(--transition-timing);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    min-width: 120px;
+  background-color: #FE4600;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 120px;
+}
+
+/* Add save icon (floppy disk) */
+#save-btn::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f0c7";
+  font-size: 1.1rem;
 }
 
 #save-btn:hover {
-    background-color: var(--color-primary-light);
-    box-shadow: var(--box-shadow-button-hover);
-    transform: translateY(-2px);
+  background-color: #e03e00;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(254, 70, 0, 0.2);
 }
 
 #save-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
+  transform: translateY(0);
 }
 
-#save-btn:focus-visible {
-    outline: 3px solid var(--color-primary-light);
-    outline-offset: 2px;
-}
-
-/* ---------- TABLE SECTION ---------- */
+/* ===== TABLE CARD ===== */
 #animals-table {
-    width: 100%;
-    max-width: 800px;
-    background-color: var(--color-bg-surface);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--box-shadow-card);
-    padding: 0; /* Table itself doesn't need padding */
-    border-collapse: collapse;
-    overflow: hidden; /* Ensures border-radius clips the table */
-    border: 1px solid var(--color-border);
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-#animals-table thead tr {
-    background-color: var(--color-table-header-bg);
+#animals-table thead {
+  background-color: #f1f5f9;
 }
 
 #animals-table th {
-    text-align: left;
-    padding: var(--space-sm) var(--space-md);
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-bold);
-    border-bottom: 3px solid var(--color-primary); /* Yellow accent line */
-    white-space: nowrap;
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  color: #334155;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #cbd5e1;
 }
 
 #animals-table td {
-    padding: var(--space-sm) var(--space-md);
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-}
-
-/* Zebra striping for better readability */
-#animals-table tbody tr:nth-child(even) {
-    background-color: #fcfcfc;
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
 }
 
 #animals-table tbody tr:hover {
-    background-color: var(--color-table-row-hover);
-    transition: background-color var(--transition-duration) ease;
+  background-color: #fff1e6; /* light orange tint */
 }
 
-/* Actions column - contains buttons */
+/* Actions column (buttons container) */
 #animals-table td:last-child {
-    display: flex;
-    gap: var(--space-xs);
-    flex-wrap: wrap;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-/* ---------- BUTTON STYLES (base & variants) ---------- */
+/* Common button styles for Update and Delete */
 .btn {
-    background-color: transparent;
-    border: 2px solid var(--color-primary);
-    color: var(--color-text-primary);
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-medium);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--border-radius-sm);
-    cursor: pointer;
-    transition: all var(--transition-duration) var(--transition-timing);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #f1f5f9;
+  color: #334155;
 }
 
-.btn:hover {
-    background-color: var(--color-primary);
-    color: var(--color-text-inverse);
-    transform: translateY(-2px);
-    box-shadow: var(--box-shadow-button-hover);
+/* Update button icon */
+.btn-update::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f044"; /* edit icon (pencil) */
 }
 
-.btn:active {
-    transform: translateY(0);
-    box-shadow: none;
+/* Delete button icon */
+.btn-delete::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f2ed"; /* trash icon */
 }
 
-.btn:focus-visible {
-    outline: 3px solid var(--color-primary-light);
-    outline-offset: 2px;
-}
-
-/* Update button uses default yellow style (already matches .btn) */
-/* Delete button variant */
-.btn-delete {
-    border-color: #b33c2e;
-    color: #b33c2e;
+.btn-update:hover {
+  background-color: #3b82f6;
+  color: white;
 }
 
 .btn-delete:hover {
-    background-color: #b33c2e;
-    border-color: #b33c2e;
-    color: white;
-    box-shadow: 0 4px 12px rgba(179, 60, 46, 0.3);
+  background-color: #ef4444;
+  color: white;
 }
 
-/* ---------- RESPONSIVE DESIGN ---------- */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    body {
-        padding: var(--space-md);
-    }
+  body {
+    padding: 1rem;
+  }
 
-    h2 {
-        font-size: 1.5rem;
-        margin-bottom: var(--space-md);
-    }
+  h2 {
+    font-size: 2rem;
+  }
 
-    #simple-form {
-        padding: var(--space-md);
-    }
+  #simple-form {
+    padding: 1.5rem;
+  }
 
-    #simple-form input[type="text"] {
-        flex: 1 1 100%;
-    }
+  #simple-form input {
+    flex: 1 1 100%;
+  }
 
-    #save-btn {
-        width: 100%;
-    }
+  #save-btn {
+    width: 100%;
+  }
+
+  #animals-table th,
+  #animals-table td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  #animals-table td:last-child {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
-    body {
-        padding: var(--space-sm);
-    }
+  h2 {
+    font-size: 1.75rem;
+  }
 
-    #animals-table {
-        font-size: var(--font-size-small);
-    }
+  #simple-form {
+    padding: 1rem;
+  }
 
-    #animals-table th,
-    #animals-table td {
-        padding: var(--space-xs) var(--space-sm);
-    }
-
-    #animals-table td:last-child {
-        flex-direction: column;
-        gap: var(--space-xs);
-    }
-
-    .btn {
-        width: 100%;
-    }
+  #animals-table th,
+  #animals-table td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
 }
-
-/* ---------- ACCESSIBILITY ---------- */
-button:focus:not(:focus-visible) {
-    outline: none;
-}
-
-/* Remove default button styles for consistency */
-button {
-    background: none;
-    border: none;
-    font-family: inherit;
-}
-
-/* ---------- SCRIPT NOTE ---------- */
-/* The included script (../../js/Categories/Animals.js) will populate
-   the table and handle update/delete actions. The .btn, .btn-update,
-   and .btn-delete classes are provided for dynamically created buttons. */

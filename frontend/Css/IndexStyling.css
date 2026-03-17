@@ -1114,3 +1114,296 @@ h1:has(+ .types-shop-secion)::after {
   outline: 3px solid var(--primary);
   outline-offset: 4px;
 }
+
+
+
+
+
+
+
+
+
+/* ========== FOOTER STYLES – PetNest ========== */
+/* Theme colors: #FE4600 (primary orange), #FFFFFF (white) */
+
+/* ---------- Base reset & variables ---------- */
+:root {
+  --primary: #FE4600;
+  --white: #FFFFFF;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-600: #6c757d;
+  --gray-900: #212529;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --transition: all 0.2s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- Footer container ---------- */
+.site-footer {
+  background-color: var(--white);
+  border-top: 1px solid var(--gray-200);
+  padding: 3rem 1.5rem 1.5rem;
+  font-family: var(--font-sans);
+  color: var(--gray-900);
+  line-height: 1.5;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+/* ---------- Brand block ---------- */
+.footer-brand .brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.brand-icon {
+  font-size: 2rem;  /* paw emoji */
+}
+
+.brand-name {
+  color: var(--primary);
+}
+
+.brand-tag {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  max-width: 220px;
+}
+
+/* ---------- Details / summary (collapsible blocks) ---------- */
+.footer-block details {
+  width: 100%;
+}
+
+.footer-summary {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--gray-900);
+  padding: 0.5rem 0;
+  cursor: pointer;
+  list-style: none; /* remove default triangle */
+  position: relative;
+  user-select: none;
+}
+
+/* Remove default marker for Safari */
+.footer-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Add custom arrow indicator using Font Awesome (optional) */
+.footer-summary::after {
+  content: '\f078';  /* fa-chevron-down */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: var(--primary);
+  margin-left: 0.75rem;
+  transition: var(--transition);
+}
+
+details[open] .footer-summary::after {
+  transform: rotate(180deg);
+}
+
+/* ---------- Links lists ---------- */
+.links-list {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+.links-list li {
+  margin-bottom: 0.6rem;
+}
+
+.links-list a {
+  color: var(--gray-600);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  display: inline-block;
+  position: relative;
+}
+
+.links-list a:hover,
+.links-list a:focus {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+/* ---------- Contact block ---------- */
+.footer-heading {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--gray-900);
+}
+
+.contact-info address {
+  font-style: normal;
+}
+
+.contact-info div {
+  margin-bottom: 0.75rem;
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Add icons via pseudo-elements (Font Awesome) */
+.contact-info div::before {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: var(--primary);
+  width: 1.2rem;
+  text-align: center;
+}
+
+.contact-info div:nth-child(1)::before {
+  content: '\f0e0'; /* fa-envelope */
+}
+
+.contact-info div:nth-child(2)::before {
+  content: '\f095'; /* fa-phone */
+}
+
+.contact-info div:nth-child(3)::before {
+  content: '\f3c5'; /* fa-location-dot */
+}
+
+.contact-info a {
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.contact-info a:hover,
+.contact-info a:focus {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* ---------- Social links ---------- */
+.social {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.social-link {
+  color: var(--gray-600);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.social-link::before {
+  font-family: 'Font Awesome 6 Brands';
+  font-weight: 400;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.social-link[aria-label="Facebook"]::before {
+  content: '\f09a'; /* fa-facebook-f */
+}
+
+.social-link[aria-label="Instagram"]::before {
+  content: '\f16d'; /* fa-instagram */
+}
+
+.social-link[aria-label="Twitter"]::before {
+  content: '\f099'; /* fa-twitter */
+}
+
+.social-link:hover,
+.social-link:focus {
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ---------- Footer bottom ---------- */
+.footer-bottom {
+  text-align: center;
+  padding-top: 2.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--gray-200);
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.footer-bottom strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ---------- Responsive design ---------- */
+@media (max-width: 900px) {
+  .footer-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    text-align: center;
+  }
+
+  .brand-tag {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-summary::after {
+    float: right;
+  }
+
+  .social {
+    justify-content: center;
+  }
+
+  .contact-info div {
+    justify-content: center;
+  }
+}
+
+/* ---------- Focus styles for accessibility ---------- */
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}

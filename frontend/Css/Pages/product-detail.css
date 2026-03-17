@@ -6,160 +6,191 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #F0F1F3;   /* neutral background */
+  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+  background-color: #f8f9fa;  /* light grey background to contrast white card */
   color: #333;
   line-height: 1.6;
-  padding: 20px;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ===== CSS VARIABLES ===== */
-:root {
-  --primary: #F8B02A;
-  --secondary: #FFC408;
-  --neutral: #F0F1F3;
-  --white: #ffffff;
-  --dark: #2c3e50;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --border-radius: 12px;
-  --transition: all 0.3s ease;
-}
-
-/* ===== MAIN CONTAINER ===== */
-.container {
-  display: flex;
-  max-width: 1000px;
-  width: 100%;
-  background: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: var(--transition);
-  border: 1px solid transparent;
-}
-
-.container:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-color: var(--primary);
-}
-
-/* ===== IMAGE SECTION ===== */
-.image-section {
-  flex: 1 1 50%;
-  background-color: var(--neutral);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
 }
 
+/* ===== MAIN CONTAINER (CARD) ===== */
+.container {
+  max-width: 1200px;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* ===== IMAGE SECTION ===== */
+.image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 400px;
+}
+
 .image-section img {
   width: 100%;
-  height: auto;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: var(--border-radius);
+  height: 100%;
+  object-fit: contain;  /* Keeps product image fully visible */
+  max-height: 500px;
   display: block;
-  transition: var(--transition);
+  transition: transform 0.3s ease;
 }
 
 .image-section img:hover {
   transform: scale(1.02);
 }
 
+/* Placeholder styling while image loads (JS will set src) */
+.image-section img:not([src]) {
+  opacity: 0.6;
+  background: linear-gradient(135deg, #eee 25%, #f9f9f9 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* ===== INFO SECTION ===== */
 .info-section {
-  flex: 1 1 50%;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 1.5rem;
 }
 
 /* Product name */
 #name {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
-  color: var(--dark);
+  line-height: 1.2;
+  color: #1e1e1e;
+  margin-bottom: 0.25rem;
 }
 
-/* Product price */
+/* Price */
 #price {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 1rem;
-  position: relative;
-  display: inline-block;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #FE4600;  /* primary color */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+/* Optional currency symbol or styling */
 #price::before {
-  content: '₹';
-  font-weight: 400;
-  margin-right: 4px;
-  color: var(--primary);
+  content: 'Rs. ';
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #777;
 }
 
-/* Product description */
+/* Description */
 #description {
   font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 2rem;
+  color: #555;
+  margin: 0.5rem 0 1rem;
   line-height: 1.7;
+  border-left: 4px solid #FE4600;
+  padding-left: 1.25rem;
+  background-color: #fef8f2;
+  padding: 1rem 1.5rem;
+  border-radius: 0 12px 12px 0;
 }
 
-/* Add to Cart button */
+/* ===== BUY BUTTON ===== */
 .buy-btn {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: var(--white);
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FE4600;
+  color: #FFFFFF;
+  font-size: 1.25rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
   cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 8px 20px rgba(248, 176, 42, 0.3);
-  background-size: 200% auto;
-  border: 2px solid transparent;
-  width: fit-content;
-  min-width: 200px;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 16px rgba(254, 70, 0, 0.25);
+  align-self: flex-start;  /* button doesn't stretch full width */
+  margin-top: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Add to Cart icon (Font Awesome) */
+.buy-btn::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f07a";  /* shopping-cart icon */
+  margin-right: 10px;
+  font-size: 1.2rem;
 }
 
 .buy-btn:hover {
-  background-position: right center;
+  background-color: #e03e00;  /* slightly darker shade */
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(248, 176, 42, 0.4);
+  box-shadow: 0 16px 24px rgba(254, 70, 0, 0.3);
 }
 
-.buy-btn:focus {
-  outline: 3px solid rgba(248, 176, 42, 0.5);
-  outline-offset: 3px;
+.buy-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.4);
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .container {
-    flex-direction: column;
-  }
-
-  .image-section {
-    padding: 1.5rem 1.5rem 0;
-  }
-
-  .info-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
     padding: 1.5rem;
   }
 
+  .image-section {
+    min-height: 300px;
+  }
+
   #name {
-    font-size: 1.8rem;
+    font-size: 2rem;
+  }
+
+  #price {
+    font-size: 1.75rem;
+  }
+
+  .buy-btn {
+    align-self: stretch;  /* full width on mobile */
+    justify-content: center;
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  #name {
+    font-size: 1.75rem;
   }
 
   #price {
@@ -168,25 +199,11 @@ body {
 
   #description {
     font-size: 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .buy-btn {
-    width: 100%;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: 10px;
-  }
-
-  .info-section {
-    padding: 1rem;
-  }
-
-  #name {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    padding: 0.875rem 1.25rem;
   }
 }

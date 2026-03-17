@@ -1,6 +1,8 @@
 <?php
-
+ 
+ 
 use App\Http\Controllers\Api\OrderController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('orders')->group(function () {
     Route::get('/', [OrderController::class, 'index']);
@@ -9,9 +11,6 @@ Route::prefix('orders')->group(function () {
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
 });
-
- 
-
 use App\Http\Controllers\Api\CheckoutController;
 
 Route::middleware('auth:api')->group(function(){

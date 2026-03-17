@@ -67,13 +67,13 @@ async function loadCheckoutCart(){
     let total = 0;
     carts.forEach(item => {
         const div = document.createElement("div");
-        div.innerHTML = `<p>${item.product.name} - ₹${item.product.price} x ${item.quantity}</p>`;
+        div.innerHTML = `<p>${item.product.name} - PKR ${item.product.price} x ${item.quantity}</p>`;
         container.appendChild(div);
         total += item.product.price * item.quantity;
     });
 
     const totalDiv = document.createElement("div");
-    totalDiv.innerHTML = `<h3>Total: ₹${total}</h3>`;
+    totalDiv.innerHTML = `<h3>Total: PKR ${total}</h3>`;
     container.appendChild(totalDiv);
 
     return total;

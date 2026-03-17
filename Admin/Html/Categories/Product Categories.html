@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories Page</title>
-   <link rel="stylesheet" href="../../css/Categories/productCategories.css">
+    <link rel="stylesheet" href="../../css/Categories/productCategories.css">
 </head>
 <body>
     <h1>Categories Page</h1>
@@ -27,7 +27,17 @@
                 </tr>
             </thead>
             <tbody id="categoriesTableBody">
-                <!-- Categories will be populated here -->
+                <!-- Rows will be here, JS will populate values only -->
+                <!-- Example row -->
+                <tr data-id="">
+                    <td class="td-id"></td>
+                    <td class="td-name"></td>
+                    <td class="td-desc"></td>
+                    <td class="td-actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -35,3 +45,34 @@
     <script src="../../js/Categories/Product Categories.js"></script>
 </body>
 </html>
+
+
+
+<!-- <body>
+    <h1>Categories Page</h1>
+
+    <div class="input">
+        <input type="text" id="categoryName" placeholder="Enter category name">
+        <input type="text" id="categoryDescription" placeholder="Enter description (optional)">
+        <button id="saveBtn">Save</button>
+        <span class="error" id="errorMsg"></span>
+    </div>
+
+    <div class="list">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="categoriesTableBody">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../js/Categories/Product Categories.js"></script>
+</body> -->

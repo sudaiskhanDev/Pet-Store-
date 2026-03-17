@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -11,7 +12,42 @@ use Stripe\PaymentIntent;
 
 class PaymentController extends Controller
 {
-    // Create Stripe PaymentIntent
+    // List all payments
+    public function index()
+    {
+        $payments = Payment::all();
+        return response()->json($payments);
+    }
+
+    // Show single payment
+    public function show($id)
+    {
+        $payment = Payment::find($id);
+
+        if (!$payment) {
+            return response()->json(['message' => 'Payment not found'], 404);
+        }
+
+        return response()->json($payment);
+    }
+
+    // Delete payment
+    public function destroy($id)
+    {
+        $payment = Payment::find($id);
+
+        if (!$payment) {
+            return response()->json(['message' => 'Payment not found'], 404);
+        }
+
+        $payment->delete();
+
+        return response()->json(['message' => 'Payment deleted successfully']);
+    }
+
+    // -----------------------------
+    // Stripe PaymentIntent Logic
+    // -----------------------------
     public function createPaymentIntent(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -32,11 +68,10 @@ class PaymentController extends Controller
         return response()->json(['clientSecret' => $paymentIntent->client_secret]);
     }
 
-    // Store payment after Stripe confirmation
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'order_id' => 'required|exists:orders,order_id', // ✅ Added: validate order
+            'order_id' => 'required|exists:orders,order_id',
             'amount' => 'required|numeric',
             'stripe_payment_id' => 'required|string|unique:payments,stripe_payment_id',
         ]);
@@ -45,7 +80,6 @@ class PaymentController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // ✅ Important: status always set server-side
         $payment = Payment::create([
             'order_id' => $request->order_id,
             'amount' => $request->amount,
@@ -59,6 +93,65 @@ class PaymentController extends Controller
         ], 201);
     }
 }
+// namespace App\Http\Controllers\Api;
+
+// use App\Http\Controllers\Controller;
+// use Illuminate\Http\Request;
+// use App\Models\Payment;
+// use Illuminate\Support\Facades\Validator;
+// use Stripe\Stripe;
+// use Stripe\PaymentIntent;
+
+// class PaymentController extends Controller
+// {
+//     // Create Stripe PaymentIntent
+//     public function createPaymentIntent(Request $request)
+//     {
+//         $validator = Validator::make($request->all(), [
+//             'amount' => 'required|numeric|min:0.5'
+//         ]);
+
+//         if ($validator->fails()) {
+//             return response()->json($validator->errors(), 422);
+//         }
+
+//         Stripe::setApiKey(env('STRIPE_SECRET'));
+
+//         $paymentIntent = PaymentIntent::create([
+//             'amount' => $request->amount * 100,
+//             'currency' => 'usd',
+//         ]);
+
+//         return response()->json(['clientSecret' => $paymentIntent->client_secret]);
+//     }
+
+//     // Store payment after Stripe confirmation
+//     public function store(Request $request)
+//     {
+//         $validator = Validator::make($request->all(), [
+//             'order_id' => 'required|exists:orders,order_id', // ✅ Added: validate order
+//             'amount' => 'required|numeric',
+//             'stripe_payment_id' => 'required|string|unique:payments,stripe_payment_id',
+//         ]);
+
+//         if ($validator->fails()) {
+//             return response()->json($validator->errors(), 422);
+//         }
+
+//         // ✅ Important: status always set server-side
+//         $payment = Payment::create([
+//             'order_id' => $request->order_id,
+//             'amount' => $request->amount,
+//             'stripe_payment_id' => $request->stripe_payment_id,
+//             'status' => 'completed',
+//         ]);
+
+//         return response()->json([
+//             'message' => 'Payment created successfully',
+//             'payment' => $payment
+//         ], 201);
+//     }
+// }
 
 
 // namespace App\Http\Controllers\Api;

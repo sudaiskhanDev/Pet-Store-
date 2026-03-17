@@ -34,8 +34,9 @@ h1::after {
   border-radius: 4px;
 }
 
-/* ===== INPUT SECTION ===== */
-.input {
+/* ===== INPUT CONTAINER ===== */
+/* Wrap the div that holds inputs and button – no class, so target directly */
+body > div:first-of-type {
   background-color: #FFFFFF;
   border-radius: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -47,8 +48,8 @@ h1::after {
   gap: 1rem;
 }
 
-.input input {
-  flex: 1 1 200px;
+body > div:first-of-type input {
+  flex: 1 1 180px;
   padding: 0.8rem 1.2rem;
   border: 2px solid #e2e8f0;
   border-radius: 50px;
@@ -57,14 +58,20 @@ h1::after {
   background-color: #f8fafc;
 }
 
-.input input:focus {
+/* Remove number spinners (optional) */
+body > div:first-of-type input[type="number"]::-webkit-inner-spin-button,
+body > div:first-of-type input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.5;
+}
+
+body > div:first-of-type input:focus {
   outline: none;
   border-color: #FE4600;
   box-shadow: 0 0 0 4px rgba(254, 70, 0, 0.1);
   background-color: #fff;
 }
 
-.input input::placeholder {
+body > div:first-of-type input::placeholder {
   color: #94a3b8;
 }
 
@@ -85,11 +92,10 @@ h1::after {
   gap: 10px;
 }
 
-/* Add save icon (floppy disk) via pseudo-element */
 #saveBtn::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f0c7";
+  content: "\f0c7"; /* floppy disk (save) */
   font-size: 1.1rem;
 }
 
@@ -104,7 +110,7 @@ h1::after {
 }
 
 /* ===== ERROR MESSAGE ===== */
-.error {
+#errorMsg {
   width: 100%;
   color: #ef4444;
   font-size: 0.95rem;
@@ -112,22 +118,15 @@ h1::after {
   padding-left: 0.5rem;
 }
 
-/* ===== TABLE SECTION ===== */
-.list {
-  background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  overflow-x: auto;
-}
-
+/* ===== TABLE STYLES ===== */
 table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #e2e8f0;
-  border-radius: 20px;
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  background-color: white;
+  margin-top: 2rem;
 }
 
 thead {
@@ -155,14 +154,14 @@ tbody tr:hover {
   background-color: #fff1e6; /* light orange tint */
 }
 
-/* Actions column */
-.td-actions {
+/* Actions column (the last td) */
+td:last-child {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-/* Edit and Delete buttons (using classes .edit and .delete) */
+/* Edit and Delete buttons */
 .edit,
 .delete {
   display: inline-flex;
@@ -183,13 +182,13 @@ tbody tr:hover {
 .edit::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f044"; /* edit icon */
+  content: "\f044"; /* pencil (edit) */
 }
 
 .delete::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed"; /* trash icon */
+  content: "\f2ed"; /* trash (delete) */
 }
 
 .edit:hover {
@@ -212,11 +211,11 @@ tbody tr:hover {
     font-size: 2rem;
   }
 
-  .input {
+  body > div:first-of-type {
     padding: 1.5rem;
   }
 
-  .input input {
+  body > div:first-of-type input {
     flex: 1 1 100%;
   }
 
@@ -229,7 +228,7 @@ tbody tr:hover {
     font-size: 0.9rem;
   }
 
-  .td-actions {
+  td:last-child {
     flex-direction: column;
   }
 
@@ -245,12 +244,11 @@ tbody tr:hover {
     font-size: 1.75rem;
   }
 
-  .list {
-    padding: 1rem;
+  table {
+    font-size: 0.85rem;
   }
 
   th, td {
     padding: 0.5rem;
-    font-size: 0.85rem;
   }
 }
