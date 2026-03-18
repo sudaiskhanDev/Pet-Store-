@@ -12,14 +12,29 @@ class ProductController extends Controller
 {
     // List all products with category and animal names
     public function index()
-    {
-        $products = Product::with(['category','animal'])->get();
+{
+    $products = Product::with(['category','animal'])->get()->map(function($product) {
+        return [
+            'product_id'    => $product->product_id,
+            'name'          => $product->name,
+            'description'   => $product->description ?? 'NA',
+            'price'         => $product->price,
+            'stock_quantity'=> $product->stock_quantity ?? 'NA',
+            'image'         => $product->image ?? 'NA',
+            'category_id'   => $product->category_id,
+            'category_name' => $product->category?->category_name ?? 'NA',
+            'animal_id'     => $product->animal_id,
+            'animal_name'   => $product->animal?->animal_name ?? 'NA',
+            'created_at'    => $product->created_at,
+            'updated_at'    => $product->updated_at,
+        ];
+    });
 
-        return response()->json([
-            'status' => true,
-            'products' => $products
-        ]);
-    }
+    return response()->json([
+        'status' => true,
+        'products' => $products
+    ]);
+}
 
     // Store a new product
     public function store(Request $request)
@@ -54,14 +69,38 @@ class ProductController extends Controller
 
     // Show a single product
     public function show($id)
-    {
-        $product = Product::with(['category','animal'])->find($id);
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
-        }
-
-        return response()->json($product);
+{
+    $product = Product::with(['category','animal'])->find($id);
+    if (!$product) {
+        return response()->json(['message' => 'Product not found'], 404);
     }
+
+    $data = [
+        'product_id'    => $product->product_id,
+        'name'          => $product->name,
+        'description'   => $product->description ?? 'NA',
+        'price'         => $product->price,
+        'stock_quantity'=> $product->stock_quantity ?? 'NA',
+        'image'         => $product->image ?? 'NA',
+        'category_id'   => $product->category_id,
+        'category_name' => $product->category?->category_name ?? 'NA',
+        'animal_id'     => $product->animal_id,
+        'animal_name'   => $product->animal?->animal_name ?? 'NA',
+        'created_at'    => $product->created_at,
+        'updated_at'    => $product->updated_at,
+    ];
+
+    return response()->json($data);
+}
+    // public function show($id)
+    // {
+    //     $product = Product::with(['category','animal'])->find($id);
+    //     if (!$product) {
+    //         return response()->json(['message' => 'Product not found'], 404);
+    //     }
+
+    //     return response()->json($product);
+    // }
 
     // Update a product
     public function update(Request $request, $id)

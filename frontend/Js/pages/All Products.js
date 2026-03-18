@@ -1,7 +1,6 @@
 const API_URL = "http://localhost:8000/api/products";
 
 async function fetchProducts() {
-
     const productsContainer = document.getElementById("products");
     const errorDiv = document.getElementById("error");
 
@@ -9,12 +8,8 @@ async function fetchProducts() {
     errorDiv.textContent = "";
 
     try {
-
         const response = await fetch(API_URL);
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch products");
-        }
+        if (!response.ok) throw new Error("Failed to fetch products");
 
         const data = await response.json();
         const products = data.products || [];
@@ -25,51 +20,136 @@ async function fetchProducts() {
         }
 
         products.forEach(product => {
+            const card = document.createElement("div");
+            card.className = "product-card";
 
-    const card = document.createElement("div");
-    card.className = "product-card";
+            // Click → Product Detail
+            card.addEventListener("click", () => {
+                window.location.href = `product-detail.html?id=${product.product_id}`;
+            });
 
-    card.addEventListener("click", () => {
-        window.location.href = `product-detail.html?id=${product.product_id}`;
-    });
-
-    const img = document.createElement("img");
+            // Product Image
+            const img = document.createElement("img");
             img.src = product.image
                 ? `http://localhost:8000/storage/${product.image}`
                 : "https://via.placeholder.com/200";
-
             img.alt = product.name;
 
+            // Name
             const name = document.createElement("div");
             name.className = "product-name";
             name.textContent = product.name;
 
+            // Price
             const price = document.createElement("div");
             price.className = "product-price";
             price.textContent = `Price: ₹${parseFloat(product.price).toLocaleString()}`;
 
+            // Description
             const description = document.createElement("div");
             description.className = "product-description";
-            description.textContent = product.description
-                ? product.description
-                : "No description available";
+            description.textContent = product.description || "No description available";
 
+           // Extra fields: Category & Animal
+const category = document.createElement("div");
+category.className = "product-category";
+category.textContent = "Category: " + (product.category_name || "N/A");
+
+const animal = document.createElement("div");
+animal.className = "product-animal";
+animal.textContent = "Animal: " + (product.animal_name || "N/A");
+
+            // Append all to card
             card.appendChild(img);
             card.appendChild(name);
             card.appendChild(price);
             card.appendChild(description);
+            card.appendChild(category);
+            card.appendChild(animal);
 
+            // Append card to container
             productsContainer.appendChild(card);
-
         });
 
     } catch (error) {
-
         console.error(error);
         errorDiv.textContent = "Error loading products. Please try again later.";
-
     }
-
 }
 
 window.addEventListener("DOMContentLoaded", fetchProducts);
+// const API_URL = "http://localhost:8000/api/products";
+
+// async function fetchProducts() {
+
+//     const productsContainer = document.getElementById("products");
+//     const errorDiv = document.getElementById("error");
+
+//     productsContainer.innerHTML = "";
+//     errorDiv.textContent = "";
+
+//     try {
+
+//         const response = await fetch(API_URL);
+
+//         if (!response.ok) {
+//             throw new Error("Failed to fetch products");
+//         }
+
+//         const data = await response.json();
+//         const products = data.products || [];
+
+//         if (products.length === 0) {
+//             errorDiv.textContent = "No products available.";
+//             return;
+//         }
+
+//         products.forEach(product => {
+
+//     const card = document.createElement("div");
+//     card.className = "product-card";
+
+//     card.addEventListener("click", () => {
+//         window.location.href = `product-detail.html?id=${product.product_id}`;
+//     });
+
+//     const img = document.createElement("img");
+//             img.src = product.image
+//                 ? `http://localhost:8000/storage/${product.image}`
+//                 : "https://via.placeholder.com/200";
+
+//             img.alt = product.name;
+
+//             const name = document.createElement("div");
+//             name.className = "product-name";
+//             name.textContent = product.name;
+
+//             const price = document.createElement("div");
+//             price.className = "product-price";
+//             price.textContent = `Price: ₹${parseFloat(product.price).toLocaleString()}`;
+
+//             const description = document.createElement("div");
+//             description.className = "product-description";
+//             description.textContent = product.description
+//                 ? product.description
+//                 : "No description available";
+
+//             card.appendChild(img);
+//             card.appendChild(name);
+//             card.appendChild(price);
+//             card.appendChild(description);
+
+//             productsContainer.appendChild(card);
+
+//         });
+
+//     } catch (error) {
+
+//         console.error(error);
+//         errorDiv.textContent = "Error loading products. Please try again later.";
+
+//     }
+
+// }
+
+// window.addEventListener("DOMContentLoaded", fetchProducts);

@@ -8,16 +8,7 @@
 
 <h1>Payments</h1>
 
-<div>
-    <input type="number" id="orderId" placeholder="Order ID">
-    <input type="number" id="amount" placeholder="Amount">
-    <input type="text" id="stripeId" placeholder="Stripe Payment ID">
-    <input type="text" id="status" placeholder="Status (pending/completed/failed)">
-    <button id="saveBtn">Save</button>
-    <span id="errorMsg"></span>
-</div>
-
-<table>
+<table border="1">
     <thead>
         <tr>
             <th>ID</th>
@@ -25,19 +16,19 @@
             <th>Amount</th>
             <th>Stripe ID</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th>Action</th>
         </tr>
     </thead>
 
     <tbody id="paymentsTable">
-        <tr data-id="">
+        <!-- Template Row -->
+        <tr id="templateRow" style="display:none;">
             <td class="td-id"></td>
             <td class="td-order"></td>
             <td class="td-amount"></td>
             <td class="td-stripe"></td>
             <td class="td-status"></td>
             <td>
-                <button class="edit">Edit</button>
                 <button class="delete">Delete</button>
             </td>
         </tr>

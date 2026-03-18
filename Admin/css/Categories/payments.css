@@ -7,198 +7,126 @@
 
 body {
   font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-  background-color: #f8fafc;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf2 100%);
   color: #1e293b;
   line-height: 1.6;
+  min-height: 100vh;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ===== HEADING ===== */
 h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
+  font-size: 2.8rem;
+  font-weight: 700;
   color: #0f172a;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   position: relative;
   display: inline-block;
+  letter-spacing: -0.02em;
 }
 
 h1::after {
   content: '';
   position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 80px;
-  height: 4px;
-  background-color: #FE4600;
-  border-radius: 4px;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 5px;
+  background: linear-gradient(90deg, #FE4600, #ff8a5c);
+  border-radius: 6px;
 }
 
-/* ===== INPUT CONTAINER ===== */
-/* Wrap the div that holds inputs and button – no class, so target directly */
-body > div:first-of-type {
-  background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-body > div:first-of-type input {
-  flex: 1 1 180px;
-  padding: 0.8rem 1.2rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 50px;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  background-color: #f8fafc;
-}
-
-/* Remove number spinners (optional) */
-body > div:first-of-type input[type="number"]::-webkit-inner-spin-button,
-body > div:first-of-type input[type="number"]::-webkit-outer-spin-button {
-  opacity: 0.5;
-}
-
-body > div:first-of-type input:focus {
-  outline: none;
-  border-color: #FE4600;
-  box-shadow: 0 0 0 4px rgba(254, 70, 0, 0.1);
-  background-color: #fff;
-}
-
-body > div:first-of-type input::placeholder {
-  color: #94a3b8;
-}
-
-/* ===== SAVE BUTTON ===== */
-#saveBtn {
-  background-color: #FE4600;
-  color: white;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-#saveBtn::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f0c7"; /* floppy disk (save) */
-  font-size: 1.1rem;
-}
-
-#saveBtn:hover {
-  background-color: #e03e00;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(254, 70, 0, 0.2);
-}
-
-#saveBtn:active {
-  transform: translateY(0);
-}
-
-/* ===== ERROR MESSAGE ===== */
-#errorMsg {
-  width: 100%;
-  color: #ef4444;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding-left: 0.5rem;
-}
-
-/* ===== TABLE STYLES ===== */
+/* ===== TABLE CARD ===== */
 table {
   width: 100%;
+  max-width: 1200px;
   border-collapse: collapse;
   background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-radius: 28px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
-  margin-top: 2rem;
+  border: none; /* remove default border from border="1" */
+  transition: transform 0.3s ease;
+}
+
+table:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px -12px rgba(254, 70, 0, 0.2);
 }
 
 thead {
-  background-color: #f1f5f9;
+  background: linear-gradient(90deg, #f1f5f9 0%, #e9edf3 100%);
 }
 
 th {
   text-align: left;
-  padding: 1rem;
-  font-weight: 600;
-  color: #334155;
+  padding: 1.2rem 1rem;
+  font-weight: 700;
+  color: #1e293b;
   text-transform: uppercase;
   font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid #cbd5e1;
+  letter-spacing: 0.8px;
+  border-bottom: 3px solid #FE4600;
 }
 
 td {
-  padding: 1rem;
+  padding: 1.2rem 1rem;
   border-bottom: 1px solid #e2e8f0;
   vertical-align: middle;
+  font-size: 1rem;
+}
+
+tbody tr {
+  transition: background-color 0.2s ease;
 }
 
 tbody tr:hover {
-  background-color: #fff1e6; /* light orange tint */
+  background-color: #fff4ec; /* soft orange */
+  cursor: pointer;
 }
 
-/* Actions column (the last td) */
-td:last-child {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-/* Edit and Delete buttons */
-.edit,
+/* ===== DELETE BUTTON ===== */
 .delete {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 0.5rem 1rem;
+  gap: 8px;
+  padding: 0.6rem 1.2rem;
   border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
-  background-color: #f1f5f9;
-  color: #334155;
-}
-
-.edit::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f044"; /* pencil (edit) */
+  transition: all 0.2s ease;
+  background-color: #fee2e2;
+  color: #b91c1c;
 }
 
 .delete::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed"; /* trash (delete) */
-}
-
-.edit:hover {
-  background-color: #3b82f6;
-  color: white;
+  content: "\f2ed"; /* trash icon */
+  font-size: 1rem;
 }
 
 .delete:hover {
   background-color: #ef4444;
   color: white;
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px -8px rgba(239, 68, 68, 0.6);
+}
+
+.delete:active {
+  transform: scale(0.98);
+}
+
+/* ===== TEMPLATE ROW HIDDEN ===== */
+#templateRow {
+  display: none !important;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -208,47 +136,38 @@ td:last-child {
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
-  body > div:first-of-type {
-    padding: 1.5rem;
-  }
-
-  body > div:first-of-type input {
-    flex: 1 1 100%;
-  }
-
-  #saveBtn {
-    width: 100%;
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-radius: 20px;
   }
 
   th, td {
-    padding: 0.75rem;
+    padding: 1rem;
     font-size: 0.9rem;
   }
 
-  td:last-child {
-    flex-direction: column;
-  }
-
-  .edit,
   .delete {
-    width: 100%;
-    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 480px) {
   h1 {
-    font-size: 1.75rem;
-  }
-
-  table {
-    font-size: 0.85rem;
+    font-size: 1.8rem;
   }
 
   th, td {
-    padding: 0.5rem;
+    padding: 0.8rem;
+  }
+
+  .delete {
+    width: 100%;
+    justify-content: center;
   }
 }
