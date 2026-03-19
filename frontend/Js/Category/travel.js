@@ -29,7 +29,7 @@ async function fetchProducts() {
 
             // Click to go product detail
             card.addEventListener("click", () => {
-                window.location.href = `product-detail.html?id=${product.product_id}`;
+                window.location.href = `../../Html/Pages/product-detail.html?id=${product.product_id}`;
             });
 
             // Image

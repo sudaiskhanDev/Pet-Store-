@@ -895,339 +895,286 @@ nav ul li a:active {
 
 
 
-
-
-
 /* ========================================
-   CATEGORY SECTION
-   Product categories with circular images
+   CATEGORY SECTION NAV (PET CATEGORIES)
    ======================================== */
 
+/* Category section container */
 .Category {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-2xl) var(--spacing-lg);
-  text-align: center;
-  background-color: var(--white);
+    max-width: 1400px;
+    margin: 3rem auto;          /* spacing from other sections */
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--white); /* or transparent, but white looks clean */
+    border-radius: var(--border-radius);
 }
 
+/* Heading style - consistent with previous section but can be customized */
 .Category h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--gray-800);
-  margin-bottom: var(--spacing-xl);
-  position: relative;
-  display: inline-block;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.75rem;
 }
 
-/* Add decorative underline using brand color */
 .Category h1::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: var(--primary);
-  border-radius: 2px;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 4px;
 }
 
+/* Flex container for category logos */
 .category-img-logo {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
-  gap: var(--spacing-xl);
-  justify-content: center;
-  align-items: start;
-  margin-top: var(--spacing-xl);
+    display: flex;
+    flex-wrap: wrap;            /* allow wrapping on smaller screens */
+    justify-content: center;    /* center items horizontally */
+    align-items: center;        /* align vertically */
+    gap: 2.5rem;                /* space between items */
+    padding: 1rem 0;
 }
 
-/* Individual category item styling */
-.category-img-logo > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-md);
-  transition: var(--transition);
-  cursor: pointer;
+/* Each link - removes underline, makes block for clickable area */
+.category-img-logo a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 150px;               /* fixed width for consistency */
+    transition: var(--transition);
 }
 
+/* The card div inside link */
+.category-img-logo a > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent; /* no background for minimalist look */
+    border-radius: 50%;          /* make the whole card circular if needed? */
+    transition: var(--transition);
+}
+
+/* Image styling - circular */
 .category-img-logo img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%; /* circular images */
-  border: 4px solid transparent;
-  box-shadow: var(--box-shadow);
-  transition: var(--transition);
+    width: 120px;
+    height: 120px;
+    object-fit: cover;           /* ensures image fills the circle without distortion */
+    border-radius: 50%;          /* makes image circular */
+    border: 3px solid transparent; /* placeholder for hover effect */
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    background-color: var(--light-bg); /* fallback while image loads */
 }
 
+/* Hover effect on image: scale and primary border */
+.category-img-logo a:hover img {
+    transform: scale(1.1);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Category name styling */
 .category-img-logo h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--gray-700);
-  margin: 0;
-  transition: var(--transition);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-top: 0.75rem;
+    transition: var(--transition);
 }
 
-/* Hover effects */
-.category-img-logo > div:hover img {
-  border-color: var(--primary);
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(254, 70, 0, 0.2);
+/* Hover effect on text: primary color */
+.category-img-logo a:hover h3 {
+    color: var(--primary);
 }
 
-.category-img-logo > div:hover h3 {
-  color: var(--primary);
+/* Optional: if you want the whole card to have a background on hover */
+.category-img-logo a:hover > div {
+    /* you can add a subtle background if desired */
 }
 
-/* Optional: if you want different classes to have specific styling, you can add variations */
-.cat img { /* specific to cat */ }
-.dog img { /* specific to dog */ }
-/* but we keep consistent */
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .Category h1 {
+        font-size: 2rem;
+    }
 
-/* ---------- Horizontal Rule Styling ---------- */
-hr {
-  border: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary), transparent);
-  margin: 0 auto;
-  max-width: 1200px;
-  opacity: 0.3;
+    .category-img-logo {
+        gap: 1.5rem;
+    }
+
+    .category-img-logo a {
+        width: 120px;           /* slightly smaller on tablets */
+    }
+
+    .category-img-logo img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .category-img-logo h3 {
+        font-size: 1rem;
+    }
 }
 
-/* ---------- Responsive Design ---------- */
-@media screen and (max-width: 992px) {
-  .category-img-logo {
-    gap: var(--spacing-lg);
-  }
+@media (max-width: 480px) {
+    .category-img-logo {
+        gap: 1rem;
+    }
 
-  .category-img-logo img {
-    width: 160px;
-    height: 160px;
-  }
+    .category-img-logo a {
+        width: 100px;           /* smaller on phones */
+    }
 
-  .Category h1 {
-    font-size: 2.2rem;
-  }
+    .category-img-logo img {
+        width: 80px;
+        height: 80px;
+    }
 }
-
-@media screen and (max-width: 768px) {
-  .category-img-logo {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
-    gap: var(--spacing-xl) var(--spacing-md);
-  }
-
-  .category-img-logo img {
-    width: 180px;
-    height: 180px;
-  }
-
-  .Category {
-    padding: var(--spacing-xl) var(--spacing-md);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .category-img-logo {
-    grid-template-columns: 1fr; /* 1 column on mobile */
-    gap: var(--spacing-xl);
-  }
-
-  .category-img-logo img {
-    width: 220px;
-    height: 220px;
-  }
-
-  .Category h1 {
-    font-size: 2rem;
-  }
-
-  .Category h1::after {
-    width: 60px;
-  }
-}
-
-/* Accessibility */
-.category-img-logo > div:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 4px;
-  border-radius: 50%;
-}
-
-
-
-
 
 
 
 
 
 /* ========================================
-   PETS TYPES SHOPPING SECTION
-   Heading separate from grid container
+   TYPES SECTION STYLES (UPDATED FOR ANCHORS)
    ======================================== */
 
-/* Heading styling (outside the grid) */
-.types-shop-secion + h1, /* if h1 comes immediately after, but better to target directly */
-h1:has(+ .types-shop-secion) {
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--gray-800);
-  margin: var(--spacing-2xl) auto var(--spacing-xl);
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+/* CSS Variables for easy theming */
+:root {
+    --primary: #F8B02A;          /* Main accent color */
+    --light-bg: #F0F1F3;         /* Light background for sections */
+    --white: #FFFFFF;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+    --border-radius: 16px;
+    --transition: all 0.3s ease;
 }
 
-/* Decorative underline for heading */
-h1:has(+ .types-shop-secion)::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background-color: var(--primary);
-  border-radius: 2px;
+/* Section heading styling */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.75rem;
 }
 
-/* Grid container for product cards */
+/* Underline effect with primary color */
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 4px;
+}
+
+/* Container for category cards - using grid */
 .types-shop-secion {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-xl);
-  max-width: 1200px;
-  margin: 0 auto var(--spacing-2xl);
-  padding: 0 var(--spacing-lg);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
 }
 
-/* Individual card styling */
-.types-shop-secion > div {
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: var(--box-shadow);
-  transition: var(--transition);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
+/* Anchor tags - make them block and remove default styles */
+.types-shop-secion a {
+    text-decoration: none;
+    color: inherit;           /* Inherit text color for h3 */
+    display: block;
+    height: 100%;             /* Ensure full height for consistent card sizes */
 }
 
-.types-shop-secion > div:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(254, 70, 0, 0.15);
+/* Individual category card (the div inside anchor) */
+.types-shop-secion a > div {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-align: center;
+    padding-bottom: 1.5rem;
+    cursor: pointer;
+    height: 100%;              /* Fill the anchor height */
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid transparent;  /* Placeholder for hover border */
 }
 
+/* Card hover effect - applied to the card div */
+.types-shop-secion a:hover > div {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+    border-top-color: var(--primary);
+}
+
+/* Image styling */
 .types-shop-secion img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-  display: block;
+    width: 100%;
+    height: 200px;              /* Slightly reduced for more consistent heights */
+    object-fit: cover;
+    display: block;
+    transition: var(--transition);
 }
 
-.types-shop-secion > div:hover img {
-  transform: scale(1.05);
+/* Slight zoom on image when card is hovered */
+.types-shop-secion a:hover img {
+    transform: scale(1.05);
 }
 
+/* Category title */
 .types-shop-secion h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--gray-700);
-  margin: 0;
-  padding: var(--spacing-md) var(--spacing-sm);
-  background-color: var(--white);
-  transition: var(--transition);
-  border-top: 2px solid transparent;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin: 1rem 0 0.5rem;
+    transition: var(--transition);
+    padding: 0 0.5rem;         /* Add some side padding for long text */
+    word-break: break-word;    /* Ensure long words don't overflow */
 }
 
-.types-shop-secion > div:hover h3 {
-  color: var(--primary);
-  border-top-color: var(--primary);
+/* Change title color on hover (primary) */
+.types-shop-secion a:hover h3 {
+    color: var(--primary);
 }
 
-/* Subtle overlay on hover */
-.types-shop-secion > div {
-  position: relative;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .types-shop-secion {
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+    .types-shop-secion img {
+        height: 180px;
+    }
 }
 
-.types-shop-secion > div::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(254, 70, 0, 0.1));
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+@media (max-width: 480px) {
+    .types-shop-secion {
+        grid-template-columns: 1fr;  /* single column on very small screens */
+    }
 }
 
-.types-shop-secion > div:hover::after {
-  opacity: 1;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 992px) {
-  .types-shop-secion {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-lg);
-  }
-
-  h1:has(+ .types-shop-secion) {
-    font-size: 2.2rem;
-  }
-
-  .types-shop-secion img {
-    height: 220px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .types-shop-secion {
-    padding: 0 var(--spacing-md);
-    gap: var(--spacing-md);
-  }
-
-  .types-shop-secion img {
-    height: 200px;
-  }
-
-  .types-shop-secion h3 {
-    font-size: 1.1rem;
-    padding: var(--spacing-sm);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .types-shop-secion {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-  }
-
-  h1:has(+ .types-shop-secion) {
-    font-size: 2rem;
-  }
-
-  h1:has(+ .types-shop-secion)::after {
-    width: 70px;
-  }
-
-  .types-shop-secion img {
-    height: 250px;
-  }
-}
-
-/* Accessibility */
-.types-shop-secion > div:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 4px;
-}
 
 
 
