@@ -1,0 +1,117 @@
+
+/* ===== CATEGORY NAVIGATION ===== */
+nav {
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 60px; /* pill shape */
+  margin: 1rem auto;
+  max-width: fit-content;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0;
+}
+
+nav ul li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1.2rem;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 40px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Icons for each category using attribute selectors (based on href) */
+nav ul li a[href*="toys"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f1e0"; /* puzzle-piece (toys) */
+  color: #FE4600;
+}
+
+nav ul li a[href*="food"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f2e7"; /* bowl-food (food) */
+  color: #FE4600;
+}
+
+nav ul li a[href*="accessories"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f0eb"; /* lightbulb (accessories) – or use a different icon */
+  color: #FE4600;
+}
+
+nav ul li a[href*="grooming"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f0f4"; /* scissors (grooming) */
+  color: #FE4600;
+}
+
+nav ul li a[href*="housing"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f1ad"; /* building (housing) */
+  color: #FE4600;
+}
+
+nav ul li a[href*="travel"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f5b4"; /* suitcase (travel) */
+  color: #FE4600;
+}
+
+nav ul li a[href*="clothing"]::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f4fc"; /* shirt (clothing) */
+  color: #FE4600;
+}
+
+nav ul li a:hover {
+  background-color: #fff1e6;
+  color: #FE4600;
+  transform: translateY(-2px);
+}
+
+nav ul li a:active {
+  transform: translateY(0);
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 768px) {
+  nav {
+    border-radius: 30px;
+    max-width: 100%;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  nav ul li a {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
