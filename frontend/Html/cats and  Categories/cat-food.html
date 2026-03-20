@@ -1,0 +1,63 @@
+ 
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cat Toys</title>
+<link rel="stylesheet" href="../../Css/Pages/All Products.css">
+</head>
+<body>
+
+<h1>Cat food</h1>
+<div id="products"></div>
+<div id="error"></div>
+
+<template id="product-template">
+<div class="product-card">
+<img class="product-image">
+<div class="product-name"></div>
+<div class="product-price"></div>
+<div class="product-category"></div>
+<div class="product-animal"></div>
+</div>
+</template>
+
+<script>
+const API_URL="http://localhost:8000/api/products";
+const ANIMAL_NAME="Cats";
+const CATEGORY_NAME="Food";
+
+async function fetchProducts(){
+    let res = await fetch(API_URL);
+    let data = await res.json();
+    let products = data.products || [];
+
+    // Filter by animal and category
+    products = products.filter(p => p.animal_name === ANIMAL_NAME && p.category_name === CATEGORY_NAME);
+
+    let container = document.getElementById("products");
+    let template = document.getElementById("product-template");
+
+    products.forEach(p => {
+        let clone = template.content.cloneNode(true);
+
+        clone.querySelector(".product-image").src = p.image ? `http://localhost:8000/storage/${p.image}` : "https://via.placeholder.com/200";
+        clone.querySelector(".product-name").textContent = p.name;
+        clone.querySelector(".product-price").textContent = "Price: $" + p.price;
+        clone.querySelector(".product-category").textContent = "Category: " + p.category_name;
+        clone.querySelector(".product-animal").textContent = "Animal: " + p.animal_name;
+
+        // Add click event to navigate to product detail page
+        clone.querySelector(".product-card").addEventListener("click", () => {
+            window.location.href = `../../Html/Pages/product-detail.html?id=${p.product_id}`;
+        });
+
+        container.appendChild(clone);
+    });
+
+}
+fetchProducts();
+</script>
+
+</body>
+</html>
