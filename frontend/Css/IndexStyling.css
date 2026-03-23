@@ -1,330 +1,267 @@
-/* ========================================
-   GUARDIAN TAILS - MAIN STYLESHEET
-   Author: Your Senior CSS Designer
-   Theme Colors: #FE4600 (primary), #FFFFFF (background)
-   Includes: Reset, Variables, Navbar Styling, Icons, Responsive
-   ======================================== */
-
-/* ---------- 1. Import Font Awesome for Icons ---------- */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-
-/* ---------- 2. CSS Reset / Normalization ---------- */
-*,
-*::before,
-*::after {
+/* ========== GLOBAL RESET & VARIABLES ========== */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
-
 body {
-  font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-  background-color: #ffffff; /* base background */
-  color: #1e1e2f; /* dark text for contrast */
-  line-height: 1.5;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #fff;
 }
 
-/* ---------- 3. CSS Custom Properties (Design System) ---------- */
 :root {
   --primary: #FE4600;
-  --primary-light: #ff6a2e;
-  --primary-dark: #cc3800;
   --white: #FFFFFF;
-  --gray-100: #f8f9fa;
-  --gray-200: #e9ecef;
-  --gray-300: #dee2e6;
-  --gray-400: #ced4da;
-  --gray-500: #adb5bd;
-  --gray-600: #6c757d;
-  --gray-700: #495057;
-  --gray-800: #343a40;
-  --gray-900: #212529;
-
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-
-  --border-radius: 0.375rem;
-  --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --transition: all 0.2s ease-in-out;
+  --gray-light: #f5f5f5;
+  --shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
 }
 
-/* ---------- 4. Navbar Styling ---------- */
+/* ========== NAVBAR STYLES ========== */
 .nav-bar {
+  background: var(--white);
+  padding: 1rem 2rem;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--white);
-  padding: var(--spacing-md) var(--spacing-xl);
-  box-shadow: var(--box-shadow);
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid rgba(254, 70, 0, 0.2);
 }
 
 /* Brand / Logo */
 .brand {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: var(--primary);
-  letter-spacing: -0.02em;
-  margin-right: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--primary) 0%, #ff6a2c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
+  margin: 0;
   white-space: nowrap;
 }
 
-/* Search Bar Form */
+/* Search Form */
 .search-bar {
   display: flex;
-  flex: 1 1 300px;
-  max-width: 500px;
-  margin: var(--spacing-sm) 0;
-}
-
-.search-bar input[type="text"] {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--gray-300);
-  border-right: none;
-  border-radius: var(--border-radius) 0 0 var(--border-radius);
-  font-size: 1rem;
-  outline: none;
+  align-items: center;
+  background: var(--gray-light);
+  border-radius: 50px;
+  padding: 0.2rem 0.2rem 0.2rem 1rem;
   transition: var(--transition);
+  flex: 1 1 300px;
+  max-width: 400px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.03);
 }
 
-.search-bar input[type="text"]:focus {
-  border-color: var(--primary);
+.search-bar:focus-within {
+  background: var(--white);
   box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.2);
 }
 
-.search-bar button[type="submit"] {
-  background-color: var(--primary);
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+  outline: none;
+  color: #1e1e1e;
+}
+
+.search-bar input::placeholder {
+  color: #aaa;
+  font-weight: 400;
+}
+
+.search-bar button {
+  background: var(--primary);
+  border: none;
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
   color: var(--white);
-  border: 2px solid var(--primary);
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  white-space: nowrap;
+  font-size: 0.9rem;
 }
 
-.search-bar button[type="submit"]:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
+.search-bar button:hover {
+  background: #e03f00;
+  transform: scale(0.97);
 }
 
-/* Buttons Container */
+/* Buttons container */
 .buttons {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 0.8rem;
   flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
-/* General Link & Button Styles */
-.buttons a {
-  text-decoration: none;
-}
-
+.buttons a,
 .buttons button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
+  text-decoration: none;
   font-weight: 600;
   padding: 0.6rem 1.2rem;
-  border-radius: var(--border-radius);
+  border-radius: 40px;
   transition: var(--transition);
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  white-space: nowrap;
 }
 
-/* Login Link */
-#loginBtn {
-  color: var(--gray-700);
-  background-color: transparent;
-  border: 2px solid transparent;
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  transition: var(--transition);
-}
-
-#loginBtn:hover {
+/* Login & Register links */
+.buttons a:first-of-type,
+.buttons a:nth-of-type(2) {
   color: var(--primary);
-  background-color: rgba(254, 70, 0, 0.05);
-  border-color: var(--primary);
+  background: transparent;
+  border: 1.5px solid var(--primary);
 }
 
-/* Register Link */
-#registerBtn {
-  background-color: var(--primary);
+.buttons a:first-of-type:hover,
+.buttons a:nth-of-type(2):hover {
+  background: var(--primary);
   color: var(--white);
-  border: 2px solid var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
+}
+
+/* Cart button (inside anchor) */
+.buttons a:last-of-type button {
+  background: var(--primary);
+  color: var(--white);
   padding: 0.6rem 1.2rem;
-  border-radius: var(--border-radius);
+  border: none;
+  border-radius: 40px;
   font-weight: 600;
-  transition: var(--transition);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-#registerBtn:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
+.buttons a:last-of-type button:hover {
+  background: #e03f00;
+  transform: translateY(-2px);
 }
 
-/* Logout Button (hidden by default) */
+/* Logout button (hidden by default) */
 #logoutBtn {
-  background-color: var(--gray-200);
-  color: var(--gray-700);
-  border: 2px solid var(--gray-300);
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  font-weight: 600;
 }
 
 #logoutBtn:hover {
-  background-color: var(--gray-300);
-  color: var(--gray-900);
+  background: #c0392b;
 }
 
-/* Cart Button (inside a link) */
-.buttons a:last-child button {
-  background-color: var(--white);
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  position: relative;
-  padding-left: 2.5rem; /* space for icon */
-}
-
-/* Add cart icon via pseudo-element */
-.buttons a:last-child button::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f07a"; /* shopping-cart icon */
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  color: var(--primary);
-  transition: var(--transition);
-}
-
-.buttons a:last-child button:hover {
-  background-color: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
-}
-
-.buttons a:last-child button:hover::before {
-  color: var(--white);
-}
-
-/* Remove default button background from cart link button */
-.buttons a button {
-  margin: 0;
-}
-
-/* ---------- 5. Responsive Design ---------- */
-@media screen and (max-width: 992px) {
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
   .nav-bar {
-    padding: var(--spacing-md);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    gap: 1rem;
   }
 
   .brand {
-    font-size: 1.6rem;
+    text-align: center;
+    white-space: normal;
+    font-size: 1.4rem;
   }
 
   .search-bar {
-    order: 3;
-    flex: 1 1 100%;
     max-width: 100%;
-    margin-top: var(--spacing-md);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .nav-bar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .brand {
-    text-align: center;
-    margin-right: 0;
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .search-bar {
-    margin: var(--spacing-sm) 0;
+    width: 100%;
+    margin: 0;
   }
 
   .buttons {
     justify-content: center;
     width: 100%;
+    gap: 0.6rem;
   }
 
-  .buttons button,
-  #loginBtn,
-  #registerBtn {
-    flex: 1 1 auto;
+  .buttons a,
+  .buttons button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    flex-wrap: wrap;
+  }
+  
+  .buttons a,
+  .buttons button {
+    flex: 1 0 auto;
     text-align: center;
     justify-content: center;
   }
-}
-
-@media screen and (max-width: 480px) {
-  .buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .buttons button,
-  #loginBtn,
-  #registerBtn {
-    width: 100%;
+  
+  .search-bar button {
+    padding: 0.5rem 1rem;
   }
 }
 
-/* ---------- 6. Accessibility & Utility ---------- */
-:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 2px;
-}
-
-/* Ensure hidden logout button remains hidden */
-#logoutBtn[style*="display:none"] {
-  display: none !important;
-}
 
 
-/* ===== CATEGORY NAVIGATION ===== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== CATEGORY NAVIGATION ========== */
 nav {
-  background-color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 0.5rem 1rem;
-  border-radius: 60px; /* pill shape */
-  margin: 1rem auto;
-  max-width: fit-content;
+  background: var(--white);
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(254, 70, 0, 0.1);
+  position: relative;
+  z-index: 999;
 }
 
 nav ul {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -335,1180 +272,507 @@ nav ul li {
 }
 
 nav ul li a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.6rem 1.2rem;
-  color: #333;
-  font-weight: 500;
   text-decoration: none;
-  border-radius: 40px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+  color: #2c2c2c;
+  transition: var(--transition);
+  position: relative;
+  display: inline-block;
 }
 
-/* Icons for each category using attribute selectors (based on href) */
-nav ul li a[href*="toys"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f1e0"; /* puzzle-piece (toys) */
-  color: #FE4600;
-}
-
-nav ul li a[href*="food"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f2e7"; /* bowl-food (food) */
-  color: #FE4600;
-}
-
-nav ul li a[href*="accessories"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f0eb"; /* lightbulb (accessories) – or use a different icon */
-  color: #FE4600;
-}
-
-nav ul li a[href*="grooming"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f0f4"; /* scissors (grooming) */
-  color: #FE4600;
-}
-
-nav ul li a[href*="housing"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f1ad"; /* building (housing) */
-  color: #FE4600;
-}
-
-nav ul li a[href*="travel"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f5b4"; /* suitcase (travel) */
-  color: #FE4600;
-}
-
-nav ul li a[href*="clothing"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f4fc"; /* shirt (clothing) */
-  color: #FE4600;
+/* Hover effect with primary color underline */
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
 }
 
 nav ul li a:hover {
-  background-color: #fff1e6;
-  color: #FE4600;
-  transform: translateY(-2px);
+  color: var(--primary);
 }
 
-nav ul li a:active {
-  transform: translateY(0);
+nav ul li a:hover::after {
+  width: 100%;
 }
 
-/* Responsive: stack on small screens */
+/* Active page indication (optional, you can add class 'active' to current page link) */
+nav ul li a.active {
+  color: var(--primary);
+}
+
+nav ul li a.active::after {
+  width: 100%;
+}
+
+/* ========== RESPONSIVE: MOBILE ========== */
 @media (max-width: 768px) {
   nav {
-    border-radius: 30px;
-    max-width: 100%;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
 
   nav ul {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-bottom: 0.25rem;
   }
 
   nav ul li a {
-    justify-content: center;
-    width: 100%;
+    white-space: nowrap;
+    font-size: 0.85rem;
+  }
+
+  /* Horizontal scroll hint (optional) */
+  nav::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  nav:hover::after {
+    opacity: 1;
+  }
+}
+
+/* For very small screens, allow wrapping if preferred, but scroll is better for many items */
+@media (max-width: 480px) {
+  nav ul {
+    gap: 0.8rem;
   }
 }
 
 
 
 
-/* ============================================
-   GUARDIAN TAILS - HERO SECTION AUTO SLIDER
-   ============================================
-   Features:
-   - Auto-rotating image slider (3 images)
-   - Smooth fade transitions
-   - Responsive design
-   - Professional animations
-   - Optional overlay and content
-   ============================================ */
 
-/* ========== CSS VARIABLES ========== */
-:root {
-    --primary-color: #FE4600;
-    --secondary-color: #FFFFFF;
-    --text-dark: #1a1a1a;
-    --transition-speed: 0.8s;
-    --slider-duration: 15s;
-}
 
-/* ========== HERO SECTION CONTAINER ========== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== HERO SLIDER ========== */
 .Hero-section {
-    position: relative;
-    width: 100%;
-    height: 600px;
-    max-width: 100%;
-    overflow: hidden;
-    background: var(--secondary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ========== HERO IMAGES ========== */
-.Hero-section img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0;
-    
-    /* Smooth fade in/out animation */
-    animation: heroSlideshow var(--slider-duration) infinite;
-    
-    /* Subtle zoom effect for visual interest */
-    transform: scale(1);
-    transition: transform 0.1s ease;
-}
-
-/* Image stagger - each appears at different time */
-.Hero-section img:nth-child(1) {
-    animation-delay: 0s;
-    z-index: 1;
-}
-
-.Hero-section img:nth-child(2) {
-    animation-delay: calc(var(--slider-duration) / 3);
-    z-index: 1;
-}
-
-.Hero-section img:nth-child(3) {
-    animation-delay: calc(var(--slider-duration) * 2 / 3);
-    z-index: 1;
-}
-
-/* ========== KEYFRAME ANIMATIONS ========== */
-
-/* Main slideshow animation - smooth fade transition */
-@keyframes heroSlideshow {
-    0% {
-        opacity: 0;
-        transform: scale(1);
-    }
-    
-    5% {
-        opacity: 1;
-        transform: scale(1.02);
-    }
-    
-    33% {
-        opacity: 1;
-        transform: scale(1.02);
-    }
-    
-    38% {
-        opacity: 0;
-        transform: scale(1);
-    }
-    
-    100% {
-        opacity: 0;
-        transform: scale(1);
-    }
-}
-
-/* Subtle zoom effect on active image */
-@keyframes heroZoom {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.05);
-    }
-}
-
-/* ========== OPTIONAL: OVERLAY (For Better Text Readability) ========== */
-.Hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgba(254, 70, 0, 0.1) 0%,
-        rgba(254, 70, 0, 0.05) 100%
-    );
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* ========== OPTIONAL: SLIDER INDICATORS/DOTS ========== */
-.slider-indicators {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 12px;
-    z-index: 10;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    border: 2px solid var(--secondary-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dot.active {
-    background: var(--primary-color);
-    transform: scale(1.2);
-}
-
-.dot:hover {
-    background: var(--primary-color);
-    transform: scale(1.15);
-}
-
-/* ========== OPTIONAL: HERO CONTENT OVERLAY ========== */
-.hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 5;
-    width: 90%;
-    max-width: 700px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    letter-spacing: 1px;
-}
-
-.hero-content p {
-    font-size: 1.3rem;
-    color: var(--secondary-color);
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    line-height: 1.6;
-}
-
-.hero-cta {
-    display: inline-flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.hero-cta .btn {
-    padding: 0.9rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 50px;
-    border: 2px solid var(--secondary-color);
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.hero-cta .btn:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(254, 70, 0, 0.3);
-}
-
-.hero-cta .btn:active {
-    transform: translateY(-1px);
-}
-
-.hero-cta .btn.secondary {
-    background: transparent;
-    border-color: var(--secondary-color);
-}
-
-.hero-cta .btn.secondary:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-}
-
-/* ========== FADE IN UP ANIMATION ========== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -40%);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-}
-
-/* ========== RESPONSIVE DESIGN ========== */
-
-/* Large Desktop (1200px+) */
-@media (max-width: 1200px) {
-    .Hero-section {
-        height: 550px;
-    }
-
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-
-    .hero-content p {
-        font-size: 1.2rem;
-    }
-}
-
-/* Tablet (768px - 1199px) */
-@media (max-width: 768px) {
-    .Hero-section {
-        height: 450px;
-    }
-
-    .hero-content h1 {
-        font-size: 2rem;
-        margin-bottom: 0.8rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .hero-cta .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.95rem;
-    }
-
-    .slider-indicators {
-        bottom: 20px;
-        gap: 8px;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-    }
-}
-
-/* Mobile (480px - 767px) */
-@media (max-width: 480px) {
-    .Hero-section {
-        height: 300px;
-    }
-
-    .hero-content h1 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .hero-content p {
-        font-size: 0.9rem;
-        margin-bottom: 1rem;
-    }
-
-    .hero-cta {
-        gap: 0.75rem;
-    }
-
-    .hero-cta .btn {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.85rem;
-    }
-
-    .slider-indicators {
-        bottom: 15px;
-        gap: 6px;
-    }
-
-    .dot {
-        width: 8px;
-        height: 8px;
-    }
-}
-
-/* Extra Small (< 480px) */
-@media (max-width: 360px) {
-    .Hero-section {
-        height: 250px;
-    }
-
-    .hero-content h1 {
-        font-size: 1.2rem;
-    }
-
-    .hero-content p {
-        font-size: 0.85rem;
-        display: none;
-    }
-
-    .hero-cta .btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.75rem;
-    }
-}
-
-/* ========== ACCESSIBILITY ========== */
-@media (prefers-reduced-motion: reduce) {
-    .Hero-section img {
-        animation: none;
-        opacity: 1;
-    }
-
-    .hero-content {
-        animation: none;
-        opacity: 1;
-    }
-
-    .hero-cta .btn:hover {
-        transform: none;
-    }
-}
-
-/* Focus states for accessibility */
-.hero-cta .btn:focus {
-    outline: 3px solid rgba(254, 70, 0, 0.5);
-    outline-offset: 2px;
-}
-
-/* ========== THEME VARIABLES ========== */
-/* Keeping strict White (#FFFFFF) + Orange (#FE4600) theme only */
-
-
-/* ========================================
-   VIEW ALL PRODUCTS BUTTON
-   Call-to-action section
-   ======================================== */
-
-.view-all-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   width: 100%;
-  padding: var(--spacing-xl) var(--spacing-lg);
-  background-color: var(--white); /* or a light background if you prefer */
-  margin: 0 auto;
+  height: 90vh; /* Adjust as needed */
+  min-height: 400px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+/* All images share the same absolute positioning */
+.Hero-section img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  opacity: 0;
+  animation: fadeAnimation 15s infinite;
+  z-index: 1;
+}
+
+/* Add a dark/primary gradient overlay for better text contrast (optional) */
+.Hero-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    rgba(254, 70, 0, 0.2) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Individual image animation delays */
+.Hero-section img:nth-child(1) {
+  animation-delay: 0s;
+}
+.Hero-section img:nth-child(2) {
+  animation-delay: 5s;
+}
+.Hero-section img:nth-child(3) {
+  animation-delay: 10s;
+}
+
+/* Keyframes for fading */
+@keyframes fadeAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  35% {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+/* ========== RESPONSIVE ADJUSTMENTS ========== */
+@media (max-width: 768px) {
+  .Hero-section {
+    height: 70vh;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Hero-section {
+    height: 50vh;
+    min-height: 250px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ALL PRODUCT BUTTON  */
+/* ========== VIEW ALL BUTTON (with arrow icon) ========== */
+.view-all-container {
+  text-align: center;
+  margin: 3rem 0 4rem 0;
+  padding: 0 1rem;
 }
 
 .view-all-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem; /* space between text and icon */
-  background-color: var(--primary);
+  gap: 0.75rem;
+  background: var(--primary);
   color: var(--white);
-  font-size: 1.25rem;
-  font-weight: 600;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
   padding: 1rem 2.5rem;
-  border-radius: 50px; /* pill shape */
-  border: 2px solid var(--primary);
-  cursor: pointer;
-  transition: var(--transition);
+  border-radius: 50px;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(254, 70, 0, 0.3);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
   position: relative;
   overflow: hidden;
 }
 
-/* Add arrow icon using pseudo-element */
-.view-all-btn::after {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f061"; /* arrow-right icon */
+/* Optional shine effect */
+.view-all-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+  z-index: 1;
+}
+
+.view-all-btn span,
+.view-all-btn i {
+  position: relative;
+  z-index: 2;
+}
+
+.view-all-btn i {
   font-size: 1rem;
   transition: transform 0.3s ease;
 }
 
-/* Hover effect: background becomes white, text becomes primary */
+/* Hover effects */
 .view-all-btn:hover {
-  background-color: var(--white);
-  color: var(--primary);
-  border-color: var(--primary);
+  background: #e03f00;
+  transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(254, 70, 0, 0.4);
-  transform: translateY(-2px);
 }
 
-/* Animate arrow on hover */
-.view-all-btn:hover::after {
-  transform: translateX(5px);
+.view-all-btn:hover::before {
+  left: 100%;
 }
 
-/* Active state (when clicked) */
-.view-all-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.3);
-}
-
-/* Focus state for accessibility */
-.view-all-btn:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 3px;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-  .view-all-container {
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .view-all-btn {
-    font-size: 1.1rem;
-    padding: 0.875rem 2rem;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .view-all-btn {
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    width: 100%; /* full width on very small screens */
-    max-width: 300px;
-  }
-}
-
-
-
-/* ========================================
-   CATEGORY SECTION NAV (PET CATEGORIES)
-   ======================================== */
-
-/* Category section container */
-.Category {
-    max-width: 1400px;
-    margin: 3rem auto;          /* spacing from other sections */
-    padding: 1rem;
-    text-align: center;
-    background-color: var(--white); /* or transparent, but white looks clean */
-    border-radius: var(--border-radius);
-}
-
-/* Heading style - consistent with previous section but can be customized */
-.Category h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 2rem;
-    position: relative;
-    padding-bottom: 0.75rem;
-}
-
-.Category h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: var(--primary);
-    border-radius: 4px;
-}
-
-/* Flex container for category logos */
-.category-img-logo {
-    display: flex;
-    flex-wrap: wrap;            /* allow wrapping on smaller screens */
-    justify-content: center;    /* center items horizontally */
-    align-items: center;        /* align vertically */
-    gap: 2.5rem;                /* space between items */
-    padding: 1rem 0;
-}
-
-/* Each link - removes underline, makes block for clickable area */
-.category-img-logo a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 150px;               /* fixed width for consistency */
-    transition: var(--transition);
-}
-
-/* The card div inside link */
-.category-img-logo a > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: transparent; /* no background for minimalist look */
-    border-radius: 50%;          /* make the whole card circular if needed? */
-    transition: var(--transition);
-}
-
-/* Image styling - circular */
-.category-img-logo img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;           /* ensures image fills the circle without distortion */
-    border-radius: 50%;          /* makes image circular */
-    border: 3px solid transparent; /* placeholder for hover effect */
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    background-color: var(--light-bg); /* fallback while image loads */
-}
-
-/* Hover effect on image: scale and primary border */
-.category-img-logo a:hover img {
-    transform: scale(1.1);
-    border-color: var(--primary);
-    box-shadow: var(--shadow-hover);
-}
-
-/* Category name styling */
-.category-img-logo h3 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--text-dark);
-    margin-top: 0.75rem;
-    transition: var(--transition);
-}
-
-/* Hover effect on text: primary color */
-.category-img-logo a:hover h3 {
-    color: var(--primary);
-}
-
-/* Optional: if you want the whole card to have a background on hover */
-.category-img-logo a:hover > div {
-    /* you can add a subtle background if desired */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .Category h1 {
-        font-size: 2rem;
-    }
-
-    .category-img-logo {
-        gap: 1.5rem;
-    }
-
-    .category-img-logo a {
-        width: 120px;           /* slightly smaller on tablets */
-    }
-
-    .category-img-logo img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .category-img-logo h3 {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .category-img-logo {
-        gap: 1rem;
-    }
-
-    .category-img-logo a {
-        width: 100px;           /* smaller on phones */
-    }
-
-    .category-img-logo img {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-
-
-
-
-/* ========================================
-   TYPES SECTION STYLES (UPDATED FOR ANCHORS)
-   ======================================== */
-
-/* CSS Variables for easy theming */
-:root {
-    --primary: #F8B02A;          /* Main accent color */
-    --light-bg: #F0F1F3;         /* Light background for sections */
-    --white: #FFFFFF;
-    --text-dark: #333333;
-    --text-light: #666666;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
-    --border-radius: 16px;
-    --transition: all 0.3s ease;
-}
-
-/* Section heading styling */
-h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    text-align: center;
-    margin-bottom: 2rem;
-    position: relative;
-    padding-bottom: 0.75rem;
-}
-
-/* Underline effect with primary color */
-h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background-color: var(--primary);
-    border-radius: 4px;
-}
-
-/* Container for category cards - using grid */
-.types-shop-secion {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    background-color: var(--light-bg);
-    border-radius: var(--border-radius);
-}
-
-/* Anchor tags - make them block and remove default styles */
-.types-shop-secion a {
-    text-decoration: none;
-    color: inherit;           /* Inherit text color for h3 */
-    display: block;
-    height: 100%;             /* Ensure full height for consistent card sizes */
-}
-
-/* Individual category card (the div inside anchor) */
-.types-shop-secion a > div {
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    text-align: center;
-    padding-bottom: 1.5rem;
-    cursor: pointer;
-    height: 100%;              /* Fill the anchor height */
-    display: flex;
-    flex-direction: column;
-    border-top: 4px solid transparent;  /* Placeholder for hover border */
-}
-
-/* Card hover effect - applied to the card div */
-.types-shop-secion a:hover > div {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-hover);
-    border-top-color: var(--primary);
-}
-
-/* Image styling */
-.types-shop-secion img {
-    width: 100%;
-    height: 200px;              /* Slightly reduced for more consistent heights */
-    object-fit: cover;
-    display: block;
-    transition: var(--transition);
-}
-
-/* Slight zoom on image when card is hovered */
-.types-shop-secion a:hover img {
-    transform: scale(1.05);
-}
-
-/* Category title */
-.types-shop-secion h3 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--text-dark);
-    margin: 1rem 0 0.5rem;
-    transition: var(--transition);
-    padding: 0 0.5rem;         /* Add some side padding for long text */
-    word-break: break-word;    /* Ensure long words don't overflow */
-}
-
-/* Change title color on hover (primary) */
-.types-shop-secion a:hover h3 {
-    color: var(--primary);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-    }
-    .types-shop-secion {
-        gap: 1.5rem;
-        padding: 0.5rem;
-    }
-    .types-shop-secion img {
-        height: 180px;
-    }
-}
-
-@media (max-width: 480px) {
-    .types-shop-secion {
-        grid-template-columns: 1fr;  /* single column on very small screens */
-    }
-}
-
-
-
-
-
-
-
-
-
-
-/* ========== FOOTER STYLES – PetNest ========== */
-/* Theme colors: #FE4600 (primary orange), #FFFFFF (white) */
-
-/* ---------- Base reset & variables ---------- */
-:root {
-  --primary: #FE4600;
-  --white: #FFFFFF;
-  --gray-100: #f8f9fa;
-  --gray-200: #e9ecef;
-  --gray-600: #6c757d;
-  --gray-900: #212529;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-  --transition: all 0.2s ease;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ---------- Footer container ---------- */
-.site-footer {
-  background-color: var(--white);
-  border-top: 1px solid var(--gray-200);
-  padding: 3rem 1.5rem 1.5rem;
-  font-family: var(--font-sans);
-  color: var(--gray-900);
-  line-height: 1.5;
-}
-
-.footer-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-}
-
-/* ---------- Brand block ---------- */
-.footer-brand .brand-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--gray-900);
-  margin-bottom: 1rem;
-}
-
-.brand-icon {
-  font-size: 2rem;  /* paw emoji */
-}
-
-.brand-name {
-  color: var(--primary);
-}
-
-.brand-tag {
-  color: var(--gray-600);
-  font-size: 0.95rem;
-  max-width: 220px;
-}
-
-/* ---------- Details / summary (collapsible blocks) ---------- */
-.footer-block details {
-  width: 100%;
-}
-
-.footer-summary {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--gray-900);
-  padding: 0.5rem 0;
-  cursor: pointer;
-  list-style: none; /* remove default triangle */
-  position: relative;
-  user-select: none;
-}
-
-/* Remove default marker for Safari */
-.footer-summary::-webkit-details-marker {
-  display: none;
-}
-
-/* Add custom arrow indicator using Font Awesome (optional) */
-.footer-summary::after {
-  content: '\f078';  /* fa-chevron-down */
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  font-size: 0.8rem;
-  color: var(--primary);
-  margin-left: 0.75rem;
-  transition: var(--transition);
-}
-
-details[open] .footer-summary::after {
-  transform: rotate(180deg);
-}
-
-/* ---------- Links lists ---------- */
-.links-list {
-  list-style: none;
-  margin-top: 0.5rem;
-}
-
-.links-list li {
-  margin-bottom: 0.6rem;
-}
-
-.links-list a {
-  color: var(--gray-600);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: var(--transition);
-  display: inline-block;
-  position: relative;
-}
-
-.links-list a:hover,
-.links-list a:focus {
-  color: var(--primary);
+.view-all-btn:hover i {
   transform: translateX(4px);
 }
 
-/* ---------- Contact block ---------- */
-.footer-heading {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  color: var(--gray-900);
+/* Focus state for accessibility */
+.view-all-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.3);
 }
 
-.contact-info address {
-  font-style: normal;
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .view-all-container {
+    margin: 2rem 0 3rem 0;
+  }
+
+  .view-all-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    gap: 0.6rem;
+  }
+
+  .view-all-btn i {
+    font-size: 0.9rem;
+  }
 }
 
-.contact-info div {
-  margin-bottom: 0.75rem;
-  color: var(--gray-600);
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
+@media (max-width: 480px) {
+  .view-all-btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 280px;
+  }
 }
 
-/* Add icons via pseudo-elements (Font Awesome) */
-.contact-info div::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  color: var(--primary);
-  width: 1.2rem;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========== PET CATEGORIES SECTION ========== */
+.Category {
+  padding: 4rem 2rem;
+  background: var(--white);
   text-align: center;
 }
 
-.contact-info div:nth-child(1)::before {
-  content: '\f0e0'; /* fa-envelope */
+.Category h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #1e1e1e;
+  position: relative;
+  display: inline-block;
 }
 
-.contact-info div:nth-child(2)::before {
-  content: '\f095'; /* fa-phone */
-}
-
-.contact-info div:nth-child(3)::before {
-  content: '\f3c5'; /* fa-location-dot */
-}
-
-.contact-info a {
-  color: var(--gray-600);
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.contact-info a:hover,
-.contact-info a:focus {
-  color: var(--primary);
-  text-decoration: underline;
-}
-
-/* ---------- Social links ---------- */
-.social {
-  display: flex;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
-}
-
-.social-link {
-  color: var(--gray-600);
-  text-decoration: none;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: var(--transition);
-}
-
-.social-link::before {
-  font-family: 'Font Awesome 6 Brands';
-  font-weight: 400;
-  color: var(--primary);
-  font-size: 1.2rem;
-}
-
-.social-link[aria-label="Facebook"]::before {
-  content: '\f09a'; /* fa-facebook-f */
-}
-
-.social-link[aria-label="Instagram"]::before {
-  content: '\f16d'; /* fa-instagram */
-}
-
-.social-link[aria-label="Twitter"]::before {
-  content: '\f099'; /* fa-twitter */
-}
-
-.social-link:hover,
-.social-link:focus {
-  color: var(--primary);
-  transform: translateY(-2px);
-}
-
-/* ---------- Footer bottom ---------- */
-.footer-bottom {
-  text-align: center;
-  padding-top: 2.5rem;
-  margin-top: 2rem;
-  border-top: 1px solid var(--gray-200);
-  color: var(--gray-600);
-  font-size: 0.9rem;
-}
-
-.footer-bottom strong {
-  color: var(--primary);
-  font-weight: 600;
-}
-
-/* ---------- Responsive design ---------- */
-@media (max-width: 900px) {
-  .footer-inner {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .site-footer {
-    padding: 2rem 1rem 1rem;
-  }
-
-  .footer-inner {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .footer-brand {
-    text-align: center;
-  }
-
-  .brand-tag {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .footer-summary::after {
-    float: right;
-  }
-
-  .social {
-    justify-content: center;
-  }
-
-  .contact-info div {
-    justify-content: center;
-  }
-}
-
-/* ---------- Focus styles for accessibility ---------- */
-a:focus-visible,
-summary:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 4px;
+/* Underline accent with primary color */
+.Category h1::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--primary);
   border-radius: 2px;
 }
 
-
-
-
-
-/* =========================
-   GLOBAL TOAST SYSTEM
-========================= */
-#toast-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
+/* Grid layout for category items */
+.category-img-logo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.toast {
-    background: #333;
-    color: #fff;
-    padding: 12px 18px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    font-size: 14px;
-    min-width: 220px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.4s ease;
+/* Individual category card */
+.category-img-logo a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
 }
 
-.toast.show {
-    opacity: 1;
-    transform: translateX(0);
+.category-img-logo a > div {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.toast.success {
-    background: #28a745;
+.category-img-logo a:hover > div {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(254, 70, 0, 0.15);
 }
 
-.toast.error {
-    background: #dc3545;
+/* Image container with aspect ratio */
+.category-img-logo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
 }
+
+.category-img-logo a:hover img {
+  transform: scale(1.05);
+}
+
+/* Category title */
+.category-img-logo h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 0.5rem;
+  margin: 0;
+  color: #2c2c2c;
+  transition: color 0.3s ease;
+  text-align: center;
+  background: var(--white);
+}
+
+.category-img-logo a:hover h3 {
+  color: var(--primary);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+  .category-img-logo {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .Category {
+    padding: 3rem 1.5rem;
+  }
+  
+  .Category h1 {
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .category-img-logo {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 320px;
+  }
+  
+  .Category {
+    padding: 2.5rem 1rem;
+  }
+  
+  .Category h1 {
+    font-size: 1.75rem;
+  }
+  
+  .category-img-logo h3 {
+    font-size: 1.1rem;
+    padding: 0.75rem 0.5rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
