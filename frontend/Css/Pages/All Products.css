@@ -1,9 +1,12 @@
 /* ===== PRODUCT GRID ===== */
 
-#products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:20px;
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 /* ===== PRODUCT CARD ===== */
@@ -61,7 +64,7 @@
 .product-price{
   font-size:18px;
   font-weight:600;
-  color:#FE4600;
+  color:#ff4800;
 }
 
 /* ===== BUTTON ===== */

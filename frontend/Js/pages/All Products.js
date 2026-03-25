@@ -45,10 +45,10 @@ async function fetchProducts() {
             price.className = "product-price";
             price.textContent = `Price: ₹${parseFloat(product.price).toLocaleString()}`;
 
-            // Description
-            const description = document.createElement("div");
-            description.className = "product-description";
-            description.textContent = product.description || "No description available";
+            // // Description
+            // const description = document.createElement("div");
+            // description.className = "product-description";
+            // description.textContent = product.description || "No description available";
 
            // Extra fields: Category & Animal
 const category = document.createElement("div");
@@ -63,7 +63,7 @@ animal.textContent = "Animal: " + (product.animal_name || "N/A");
             card.appendChild(img);
             card.appendChild(name);
             card.appendChild(price);
-            card.appendChild(description);
+            // card.appendChild(description);
             card.appendChild(category);
             card.appendChild(animal);
 

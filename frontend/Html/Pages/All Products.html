@@ -4,16 +4,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>All Products</title>
 <!-- put in <head> once -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="../../Css/IndexStyling.css">
 
 <link rel="stylesheet" href="../../Css/Pages/All Products.css">
 </head>
 
 <body>
+   <!-- Navbar -->
+<nav class="nav-bar">
+    <h1 class="brand">Happy Paws Haven</h1>
 
+    <!-- Search Bar -->
+    <form class="search-bar" action="../Html/Pages/search.html" method="GET">
+        <input type="text" name="q" placeholder="Search..." aria-label="Search">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="buttons">
+        <a href="../UserAuth/login.html" id="loginBtn">Login</a>
+        <a href="../UserAuth/register.html" id="registerBtn">Register</a>
+        <button id="logoutBtn" style="display:none;">Logout</button>
+        <a href="../Pages/Cart.html"><button>Cart</button></a>
+    </div>
+</nav>
+<!-- فرض کریں کہ آپ کا HTML کچھ یوں ہے -->
+ <!-- فرض کریں کہ آپ کا HTML کچھ یوں ہے -->
+<nav>
+  <ul>
+            <li><a href="../index.html">Home</a></li>
+
+    <li><a href="../Category/toys.html">Toys</a></li>
+    <li><a href="../Category/food.html">Food</a></li>
+    <li><a href="../Category/accessories.html">Accessories</a></li>
+    <li><a href="../Category/grooming.html">Grooming</a></li>
+    <li><a href="../Category/housing.html">Housing</a></li>
+    <li><a href="../Category/travel.html">Travel</a></li>
+    <li><a href="../Category/clothing.html">Clothing</a></li>
+  </ul>
+</nav>
 <div class="mian-all-products">
 <h1>All Products</h1>
 
@@ -23,6 +56,7 @@
 </div>
 
 <script src="../../Js/pages/All Products.js"></script>
+<script src="../../Js/Index.js"></script>
 
 </body>
 </html>
