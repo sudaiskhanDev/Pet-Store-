@@ -1,13 +1,18 @@
-const API_BASE = "http://localhost:8000/api";
-const API_URL = `${API_BASE}/products`;
-const CATEGORY_URL = `${API_BASE}/categories`;
-const ANIMAL_URL = `${API_BASE}/animal`;
+const API_BASE = "http://localhost:8000";
+const API_URL = `${API_BASE}/api/products`;
+const CATEGORY_URL = `${API_BASE}/api/categories`;
+const ANIMAL_URL = `${API_BASE}/api/animal`;
 
 const categorySelect = document.getElementById("categorySelect");
 const animalSelect = document.getElementById("animalSelect");
 const productListBody = document.querySelector("#productsList tbody");
 const productForm = document.getElementById("productForm");
 
+// Mapping for IDs → Names
+let categoriesMap = {};
+let animalsMap = {};
+
+// Form submit
 productForm.addEventListener("submit", (e) => {
     e.preventDefault();
     addProduct();
@@ -21,6 +26,7 @@ async function fetchCategories() {
 
         categorySelect.innerHTML = '<option value="">Select Category</option>';
         categories.forEach(cat => {
+            categoriesMap[cat.category_id] = cat.category_name; // save mapping
             const option = document.createElement("option");
             option.value = cat.category_id;
             option.textContent = cat.category_name;
@@ -40,6 +46,7 @@ async function fetchAnimals() {
 
         animalSelect.innerHTML = '<option value="">Select Animal</option>';
         animals.forEach(animal => {
+            animalsMap[animal.animal_id] = animal.animal_name; // save mapping
             const option = document.createElement("option");
             option.value = animal.animal_id;
             option.textContent = animal.animal_name;
@@ -63,18 +70,19 @@ async function fetchProducts() {
         products.forEach(product => {
             const tr = document.createElement("tr");
 
+            // Correct image path
             let image = product.image
-                ? `http://localhost:8000/storage/${product.image}`
+                ? `${API_BASE}/storage/${product.image}`
                 : '';
 
             tr.innerHTML = `
                 <td>${product.name}</td>
                 <td>${product.price}</td>
                 <td>${product.stock_quantity}</td>
-                <td>${product.category?.category_name ?? ''}</td>
-                <td>${product.animal?.animal_name ?? ''}</td>
+                <td>${categoriesMap[product.category_id] ?? ''}</td>
+                <td>${animalsMap[product.animal_id] ?? ''}</td>
                 <td>${product.description ?? ''}</td>
-                <td>${image ? `<img src="${image}" width="50">` : 'No Image'}</td>
+                <td>${image ? `<img src="${image}" width="50" />` : 'No Image'}</td>
                 <td>
                     <button class="edit-btn" data-id="${product.product_id}">Edit</button>
                     <button class="delete-btn" data-id="${product.product_id}">Delete</button>
@@ -84,12 +92,12 @@ async function fetchProducts() {
             productListBody.appendChild(tr);
         });
 
-        // Attach event listeners for edit/delete
-        document.querySelectorAll(".delete-btn").forEach(btn => {
+        // Event delegation for Edit/Delete
+        productListBody.querySelectorAll(".delete-btn").forEach(btn => {
             btn.addEventListener("click", () => deleteProduct(btn.dataset.id));
         });
 
-        document.querySelectorAll(".edit-btn").forEach(btn => {
+        productListBody.querySelectorAll(".edit-btn").forEach(btn => {
             btn.addEventListener("click", () => editProduct(btn.dataset.id));
         });
 
@@ -112,7 +120,7 @@ async function addProduct() {
         const data = await res.json();
 
         if (res.status === 201) {
-            alert(data.message);
+            alert(data.message || "Product added successfully!");
             productForm.reset();
             fetchProducts();
         } else {
@@ -131,7 +139,7 @@ async function deleteProduct(id) {
     try {
         const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
         const data = await res.json();
-        alert(data.message);
+        alert(data.message || "Deleted successfully!");
         fetchProducts();
     } catch (err) {
         alert("Failed to delete product");
@@ -139,14 +147,18 @@ async function deleteProduct(id) {
     }
 }
 
-// Edit Product
+// Edit Product (simple prompt)
 async function editProduct(id) {
     const tr = [...productListBody.children].find(row => row.querySelector(".edit-btn").dataset.id == id);
 
     const name = prompt("New Product Name", tr.children[0].textContent);
-    if (!name) return;
+    if (name === null) return;
+
     const price = prompt("New Price", tr.children[1].textContent);
+    if (price === null) return;
+
     const stock = prompt("New Stock", tr.children[2].textContent);
+    if (stock === null) return;
 
     try {
         const formData = new FormData();
@@ -156,7 +168,7 @@ async function editProduct(id) {
 
         const res = await fetch(`${API_URL}/${id}`, { method: "PUT", body: formData });
         const data = await res.json();
-        alert(data.message);
+        alert(data.message || "Product updated!");
         fetchProducts();
     } catch (err) {
         alert("Failed to edit product");
@@ -165,15 +177,29 @@ async function editProduct(id) {
 }
 
 // Initial Load
-fetchCategories();
-fetchAnimals();
-fetchProducts();
+async function init() {
+    await fetchCategories();
+    await fetchAnimals();
+    await fetchProducts();
+}
+
+init();
 
 
 
-// const API_URL = "http://localhost:8000/api/products";
-// const CATEGORY_URL = "http://localhost:8000/api/categories";
-// const ANIMAL_URL = "http://localhost:8000/api/animal";
+
+
+
+
+
+
+
+
+
+// const API_BASE = "http://localhost:8000/api";
+// const API_URL = `${API_BASE}/products`;
+// const CATEGORY_URL = `${API_BASE}/categories`;
+// const ANIMAL_URL = `${API_BASE}/animal`;
 
 // const categorySelect = document.getElementById("categorySelect");
 // const animalSelect = document.getElementById("animalSelect");
@@ -185,9 +211,7 @@ fetchProducts();
 //     addProduct();
 // });
 
-// /* ================================
-//    FETCH CATEGORIES
-// ================================ */
+// // Fetch Categories
 // async function fetchCategories() {
 //     try {
 //         const res = await fetch(CATEGORY_URL);
@@ -206,9 +230,7 @@ fetchProducts();
 //     }
 // }
 
-// /* ================================
-//    FETCH ANIMALS
-// ================================ */
+// // Fetch Animals
 // async function fetchAnimals() {
 //     try {
 //         const res = await fetch(ANIMAL_URL);
@@ -227,27 +249,30 @@ fetchProducts();
 //     }
 // }
 
-// /* ================================
-//    FETCH PRODUCTS
-// ================================ */
+// // Fetch Products
 // async function fetchProducts() {
 //     try {
 //         const res = await fetch(API_URL);
-//         const products = await res.json();
+//         const data = await res.json();
+//         const products = data.products;
 
 //         productListBody.innerHTML = "";
 
 //         products.forEach(product => {
 //             const tr = document.createElement("tr");
 
+//             let image = product.image
+//                 ? `http://localhost:8000/storage/${product.image}`
+//                 : '';
+
 //             tr.innerHTML = `
 //                 <td>${product.name}</td>
 //                 <td>${product.price}</td>
 //                 <td>${product.stock_quantity}</td>
-//                 <td>${product.category_name || product.category_id}</td>
-//                 <td>${product.animal_name || product.animal_id}</td>
-//                 <td>${product.description || "N/A"}</td>
-//                 <td><img src="http://localhost:8000/storage/${product.image}" width="50" onerror="this.src='https://via.placeholder.com/50'"></td>
+//                 <td>${product.category?.category_name ?? ''}</td>
+//                 <td>${product.animal?.animal_name ?? ''}</td>
+//                 <td>${product.description ?? ''}</td>
+//                 <td>${image ? `<img src="${image}" width="50">` : 'No Image'}</td>
 //                 <td>
 //                     <button class="edit-btn" data-id="${product.product_id}">Edit</button>
 //                     <button class="delete-btn" data-id="${product.product_id}">Delete</button>
@@ -272,9 +297,7 @@ fetchProducts();
 //     }
 // }
 
-// /* ================================
-//    ADD PRODUCT
-// ================================ */
+// // Add Product
 // async function addProduct() {
 //     try {
 //         const formData = new FormData(productForm);
@@ -299,9 +322,7 @@ fetchProducts();
 //     }
 // }
 
-// /* ================================
-//    DELETE PRODUCT
-// ================================ */
+// // Delete Product
 // async function deleteProduct(id) {
 //     if (!confirm("Delete this product?")) return;
 
@@ -316,9 +337,7 @@ fetchProducts();
 //     }
 // }
 
-// /* ================================
-//    EDIT PRODUCT
-// ================================ */
+// // Edit Product
 // async function editProduct(id) {
 //     const tr = [...productListBody.children].find(row => row.querySelector(".edit-btn").dataset.id == id);
 
@@ -343,9 +362,9 @@ fetchProducts();
 //     }
 // }
 
-// /* ================================
-//    INITIAL LOAD
-// ================================ */
+// // Initial Load
 // fetchCategories();
 // fetchAnimals();
 // fetchProducts();
+
+ 

@@ -1,256 +1,272 @@
-/* ===== RESET & BASE ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ===== CATEGORIES PAGE STYLES ===== */
+/* Modern design matching admin dashboard */
 
-body {
-  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-  background-color: #f8fafc;
-  color: #1e293b;
-  line-height: 1.6;
+.main-product-categories {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fb 0%, #eef2f9 100%);
+  min-height: 100vh;
+  animation: fadeInUp 0.5s ease-out;
 }
 
-/* ===== HEADING ===== */
-h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #0f172a;
+/* Page Heading */
+.main-product-categories h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
   margin-bottom: 2rem;
+  color: #0f172a;
   position: relative;
   display: inline-block;
+  letter-spacing: -0.3px;
 }
 
-h1::after {
+.main-product-categories h1::after {
   content: '';
   position: absolute;
   bottom: -8px;
   left: 0;
-  width: 80px;
+  width: 60px;
   height: 4px;
-  background-color: #FE4600;
+  background: linear-gradient(90deg, #FE4600, #ff8c5a);
   border-radius: 4px;
 }
 
-/* ===== INPUT SECTION ===== */
+/* Input Section */
 .input {
-  background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
+  background: #FFFFFF;
+  border-radius: 28px;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+  padding: 1.5rem;
   margin-bottom: 2rem;
+  transition: all 0.3s ease;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 1rem;
 }
 
+.input:hover {
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+  border-color: #FE4600;
+  transform: translateY(-3px);
+}
+
 .input input {
-  flex: 1 1 200px;
-  padding: 0.8rem 1.2rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 50px;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  background-color: #f8fafc;
+  flex: 1;
+  min-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: #fefefe;
 }
 
 .input input:focus {
   outline: none;
   border-color: #FE4600;
-  box-shadow: 0 0 0 4px rgba(254, 70, 0, 0.1);
-  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.1);
 }
 
-.input input::placeholder {
-  color: #94a3b8;
-}
-
-/* ===== SAVE BUTTON ===== */
 #saveBtn {
-  background-color: #FE4600;
+  background: #FE4600;
   color: white;
   border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 0.75rem 1.8rem;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  gap: 8px;
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
 }
 
-/* Add save icon (floppy disk) via pseudo-element */
 #saveBtn::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   content: "\f0c7";
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 }
 
 #saveBtn:hover {
-  background-color: #e03e00;
+  background: #e03e00;
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(254, 70, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(254, 70, 0, 0.3);
 }
 
-#saveBtn:active {
-  transform: translateY(0);
-}
-
-/* ===== ERROR MESSAGE ===== */
 .error {
+  display: block;
   width: 100%;
-  color: #ef4444;
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding-left: 0.5rem;
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #fee2e2;
+  border-radius: 12px;
+  text-align: center;
 }
 
-/* ===== TABLE SECTION ===== */
+/* Table Section */
 .list {
-  background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  overflow-x: auto;
+  background: #FFFFFF;
+  border-radius: 28px;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-table {
+.list:hover {
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+  border-color: #FE4600;
+  transform: translateY(-3px);
+}
+
+.list table {
   width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #e2e8f0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #eef2f6;
   border-radius: 20px;
   overflow: hidden;
-  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
-thead {
-  background-color: #f1f5f9;
-}
-
-th {
+.list th,
+.list td {
+  padding: 1rem;
   text-align: left;
-  padding: 1rem;
-  font-weight: 600;
-  color: #334155;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid #cbd5e1;
-}
-
-td {
-  padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #eef2f6;
   vertical-align: middle;
 }
 
-tbody tr:hover {
-  background-color: #fff1e6; /* light orange tint */
+.list th {
+  background: #f8fafc;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Actions column */
+.list tr:last-child td {
+  border-bottom: none;
+}
+
+.list tr:hover td {
+  background: #fffaf5;
+}
+
+/* Action Buttons */
 .td-actions {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
-/* Edit and Delete buttons (using classes .edit and .delete) */
-.edit,
-.delete {
+.edit, .delete {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 30px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  background-color: #f1f5f9;
-  color: #334155;
+  gap: 4px;
+}
+
+.edit {
+  color: #3b82f6;
 }
 
 .edit::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f044"; /* edit icon */
+  content: "\f044";
+  font-size: 0.9rem;
+}
+
+.delete {
+  color: #ef4444;
 }
 
 .delete::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed"; /* trash icon */
+  content: "\f2ed";
+  font-size: 0.9rem;
 }
 
 .edit:hover {
-  background-color: #3b82f6;
-  color: white;
+  background: #eff6ff;
+  transform: scale(1.05);
 }
 
 .delete:hover {
-  background-color: #ef4444;
-  color: white;
+  background: #fee2e2;
+  transform: scale(1.05);
 }
 
-/* ===== RESPONSIVE ===== */
+/* Responsive */
 @media (max-width: 768px) {
-  body {
+  .main-product-categories {
     padding: 1rem;
   }
 
-  h1 {
-    font-size: 2rem;
-  }
-
   .input {
-    padding: 1.5rem;
+    flex-direction: column;
+    padding: 1rem;
   }
 
   .input input {
-    flex: 1 1 100%;
+    width: 100%;
   }
 
   #saveBtn {
     width: 100%;
-  }
-
-  th, td {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  .td-actions {
-    flex-direction: column;
-  }
-
-  .edit,
-  .delete {
-    width: 100%;
     justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.75rem;
   }
 
   .list {
     padding: 1rem;
   }
 
-  th, td {
-    padding: 0.5rem;
-    font-size: 0.85rem;
+  .list table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .list th,
+  .list td {
+    padding: 0.75rem;
+  }
+
+  .td-actions {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .edit, .delete {
+    justify-content: center;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

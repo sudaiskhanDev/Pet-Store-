@@ -1,343 +1,272 @@
-/* ========================================
-   ORDER ITEMS PAGE - PROFESSIONAL CSS
-   Color Theme: #FE4600 (Orange) | #FFFFFF (White)
-   ======================================== */
+/* ===== ORDER ITEMS PAGE – ULTRA DETAILED STYLES ===== */
+/* Purpose: Professional admin panel with clean aesthetics, smooth interactions,
+   and full responsiveness. Uses #FE4600 as primary accent, white cards, and a
+   subtle gradient background. */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* ===== GLOBAL CONTAINER ===== */
+.main-orderitems {
+  max-width: 1300px;               /* Constrains content on large screens */
+  margin: 0 auto;                  /* Centers the container */
+  padding: 2rem;                   /* Inner spacing for comfort */
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  min-height: 100vh;               /* Full viewport height */
+  animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  position: relative;
 }
 
-:root {
-    --primary-color: #FE4600;
-    --secondary-color: #FFFFFF;
-    --dark-bg: #0f1419;
-    --light-bg: #f8f9fa;
-    --text-dark: #1a1a1a;
-    --text-light: #666666;
-    --border-color: #e8e8e8;
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 16px rgba(254, 70, 0, 0.15);
-    --shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.12);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* ===== PAGE HEADER ===== */
+.main-orderitems h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  /* Gradient text effect */
+  background: linear-gradient(135deg, #1e293b, #2d3a4a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+  position: relative;
+  display: inline-block;
 }
 
-/* ========== BODY & GLOBAL STYLES ========== */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    color: var(--text-dark);
-    line-height: 1.6;
-    min-height: 100vh;
-    padding: 20px;
+/* Animated underline under the heading */
+.main-orderitems h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 70px;
+  height: 4px;
+  background: linear-gradient(90deg, #FE4600, #ff8c5a);
+  border-radius: 4px;
+  transition: width 0.3s ease;
 }
 
-/* ========== HEADER SECTION ========== */
-h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 30px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, #ff6b35 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.5px;
-    animation: slideDown 0.6s ease-out;
+/* Hover effect: underline expands to full width */
+.main-orderitems h1:hover::after {
+  width: 100%;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ========== CONTAINER ========== */
+/* ===== TABLE CARD (wraps the table) ===== */
 .list {
-    max-width: 1200px;
-    margin: 0 auto;
-    animation: fadeIn 0.8s ease-out;
+  background: #FFFFFF;
+  border-radius: 28px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+  padding: 0;                     /* No internal padding – table fills the card */
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  overflow: hidden;               /* Keeps the border radius intact */
+  backdrop-filter: blur(2px);
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* Lift effect on card hover */
+.list:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+  border-color: #FE4600;
 }
 
-/* ========== TABLE STYLING ========== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--secondary-color);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-dark);
-    border: none !important;
+/* ===== TABLE STYLES ===== */
+.list table {
+  width: 100%;
+  border-collapse: separate;      /* Allows individual cell borders */
+  border-spacing: 0;
+  background: white;
+  font-size: 0.95rem;
 }
 
-/* TABLE HEADER */
-thead {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #ff6b35 100%);
-    color: var(--secondary-color);
+/* Header cells */
+.list th {
+  background: #fafcff;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 1.2rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid #eef2f6;
+  position: sticky;               /* Makes header sticky on vertical scroll */
+  top: 0;
+  z-index: 1;
 }
 
-thead tr th {
-    padding: 18px 16px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-    border: none !important;
-    transition: var(--transition);
+/* Table data cells */
+.list td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid #eef2f6;
+  vertical-align: middle;
+  transition: background 0.2s ease;
 }
 
-thead tr th:first-child {
-    border-radius: 12px 0 0 0;
+/* Remove border from last row */
+.list tbody tr:last-child td {
+  border-bottom: none;
 }
 
-thead tr th:last-child {
-    border-radius: 0 12px 0 0;
-    text-align: center;
+/* Row hover effect */
+.list tbody tr:hover td {
+  background: #fffaf5;            /* Very light orange tint */
 }
 
-/* TABLE BODY */
-tbody tr {
-    border-bottom: 1px solid var(--border-color);
-    transition: var(--transition);
-}
-
-tbody tr:hover {
-    background-color: #fff5f1;
-    box-shadow: inset 0 0 20px rgba(254, 70, 0, 0.05);
-    transform: scale(1.01);
-}
-
-tbody tr:last-child {
-    border-bottom: none;
-}
-
-/* TABLE CELLS */
-tbody td {
-    padding: 16px;
-    border: none !important;
-    color: var(--text-dark);
-    font-size: 0.95rem;
-    vertical-align: middle;
-}
-
-tbody td:first-child {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-/* ID STYLING */
-.td-id {
-    background: linear-gradient(135deg, rgba(254, 70, 0, 0.1) 0%, rgba(254, 70, 0, 0.05) 100%);
-    border-radius: 6px;
-    padding: 8px 12px !important;
-    font-weight: 700;
-}
-
-/* ORDER ID STYLING */
-.td-order {
-    color: #0066cc;
-    font-weight: 600;
-}
-
-/* PRODUCT ID STYLING */
+/* ===== COLUMN‑SPECIFIC STYLES ===== */
+.td-id,
+.td-order,
 .td-product {
-    color: #666666;
-    font-weight: 500;
+  font-weight: 500;
+  color: #334155;
 }
 
-/* QUANTITY STYLING */
 .td-quantity {
-    background-color: #f0f0f0;
-    border-radius: 6px;
-    padding: 8px 12px !important;
-    font-weight: 600;
-    text-align: center;
+  font-weight: 600;
+  color: #0f172a;
 }
 
-/* PRICE STYLING */
 .td-price {
-    color: var(--primary-color);
-    font-weight: 700;
-    font-size: 1.1rem;
+  font-weight: 700;
+  color: #FE4600;
+  font-size: 1rem;
+  letter-spacing: -0.2px;
 }
 
-/* ========== ACTION BUTTON STYLING ========== */
+/* Adds a dollar sign before the price */
+.td-price::before {
+  content: '$';
+  font-size: 0.85rem;
+  margin-right: 2px;
+  opacity: 0.8;
+}
+
+/* ===== DELETE BUTTON ===== */
 .delete {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.4rem 1rem;
+  border-radius: 40px;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
 }
 
+/* Trash icon via Font Awesome */
 .delete::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
-    transition: left 0.3s ease;
-    z-index: -1;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f2ed";
+  font-size: 0.9rem;
+  transition: transform 0.2s;
 }
 
 .delete:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(255, 68, 68, 0.4);
-    background: linear-gradient(135deg, #ff6666 0%, #dd0000 100%);
+  background: #fee2e2;
+  color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.2);
 }
 
 .delete:hover::before {
-    left: 100%;
+  transform: scale(1.1);
 }
 
 .delete:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+  transform: translateY(0);
 }
 
-/* ========== ICON STYLING ========== */
-.delete svg {
-    width: 16px;
-    height: 16px;
-    stroke-width: 2.5;
+/* ===== EMPTY STATE ===== */
+/* When the tbody is empty, we show a placeholder message */
+#orderItemsTableBody:empty::before {
+  content: "No order items found";
+  display: block;
+  text-align: center;
+  padding: 3rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-style: italic;
+  background: #fefefe;
+  border-radius: 20px;
 }
 
-/* ========== RESPONSIVE DESIGN ========== */
+/* ===== RESPONSIVE DESIGN ===== */
+/* Medium screens: reduce padding */
+@media (max-width: 1024px) {
+  .main-orderitems {
+    padding: 1.5rem;
+  }
+  .list th,
+  .list td {
+    padding: 1rem;
+  }
+}
+
+/* Tablet and smaller: stack layout, horizontal scroll for table */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    table {
-        font-size: 0.85rem;
-    }
-
-    thead tr th {
-        padding: 12px 8px;
-        font-size: 0.8rem;
-    }
-
-    tbody td {
-        padding: 12px 8px;
-    }
-
-    .delete {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
-
-    .delete svg {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-    }
-
-    .list {
-        overflow-x: auto;
-    }
-
-    table {
-        font-size: 0.75rem;
-        min-width: 500px;
-    }
-
-    thead tr th {
-        padding: 10px 6px;
-    }
-
-    tbody td {
-        padding: 10px 6px;
-    }
-}
-
-/* ========== SCROLL BAR STYLING ========== */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--light-bg);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #ff6b35;
-}
-
-/* ========== ANIMATION FOR TABLE ROWS ========== */
-tbody tr {
-    animation: rowSlideIn 0.4s ease-out backwards;
-}
-
-tbody tr:nth-child(1) { animation-delay: 0.1s; }
-tbody tr:nth-child(2) { animation-delay: 0.2s; }
-tbody tr:nth-child(3) { animation-delay: 0.3s; }
-tbody tr:nth-child(4) { animation-delay: 0.4s; }
-tbody tr:nth-child(5) { animation-delay: 0.5s; }
-
-@keyframes rowSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* ========== EMPTY STATE ========== */
-tbody:empty::after {
-    content: 'No data available';
+  .main-orderitems {
+    padding: 1rem;
+  }
+  .main-orderitems h1 {
+    font-size: 1.6rem;
+  }
+  .list {
+    border-radius: 20px;
+  }
+  /* Allow table to scroll horizontally */
+  .list table {
     display: block;
-    text-align: center;
-    padding: 40px;
-    color: var(--text-light);
-    font-style: italic;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .list th,
+  .list td {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+  .delete {
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+/* Mobile: further reduce font and spacing */
+@media (max-width: 480px) {
+  .main-orderitems h1 {
+    font-size: 1.4rem;
+  }
+  .list th,
+  .list td {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional shimmer effect for loading rows (add .loading-row to tr) */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.loading-row td {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }

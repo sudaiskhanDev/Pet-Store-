@@ -1,163 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stripe Payment Demo Fixed</title>
-    <script src="https://js.stripe.com/v3/"></script>
-    <style>
-        :root {
-            --primary-color: #635bff;
-            --primary-hover: #5851e0;
-            --bg-color: #f6f9fc;
-            --text-color: #32325d;
-        }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .payment-card {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 7px 14px 0 rgba(60, 66, 87, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 { margin-top: 0; font-size: 24px; font-weight: 600; }
-        label { font-size: 14px; font-weight: 500; margin-bottom: 8px; display: block; }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #e6ebf1; 
-            border-radius: 4px; 
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            font-size: 16px;
-            transition: border-color 0.2s;
-        }
-        input:focus { border-color: var(--primary-color); outline: none; }
-        button { 
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        button:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
-        #card-element { 
-            margin: 20px 0; 
-            padding: 12px; 
-            border: 1px solid #e6ebf1; 
-            border-radius: 4px; 
-        }
-    </style>
-</head>
-<body>
-
-<div class="payment-card">
-<h2>Make a Payment</h2>
-
-<label>Amount (USD)</label><br>
-<input type="number" id="amount" placeholder="Enter Amount" value="10"><br>
-
-<button id="payBtn">Pay Now</button>
-
-<div id="card-element"></div>
-<button id="confirmBtn" style="display:none;">Confirm Payment</button>
-</div>
+<div class="stat-box" id="totalUsers">Customers</div>
 
 <script>
-const stripe = Stripe("pk_test_51T3YGjPubxVvHrmFHvOK8ut1lXw8X7nL77iYk0Y47aj4G6758ndZDGRnWu54qEuv2mk3feOfbRNTKZmwRe9A8Cbx00VNTxBm5d");
-const elements = stripe.elements();
-const card = elements.create("card");
-card.mount("#card-element");
+const apiBase = 'http://127.0.0.1:8000/api';
 
-let clientSecret = "";
-
-document.getElementById("payBtn").addEventListener("click", async () => {
-    const amount = document.getElementById("amount").value;
-
-    if (!amount) {
-        alert("Enter Amount");
-        return;
-    }
-
+// Function to fetch total users
+async function fetchTotalUsers() {
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/payments/create-payment-intent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ amount: parseFloat(amount) })
-        });
-
-        if (!response.ok) throw new Error("API error");
+        const response = await fetch(`${apiBase}/users/total`);
+        if (!response.ok) throw new Error('Failed to fetch total users');
 
         const data = await response.json();
-        clientSecret = data.clientSecret;
-        document.getElementById("confirmBtn").style.display = "block";
-
-    } catch (err) {
-        console.error(err);
-        alert("Error creating payment intent. Check console for details.");
+        document.getElementById('totalUsers').innerText = data.total;
+    } catch (error) {
+        console.error(error);
+        document.getElementById('totalUsers').innerText = 'Error';
     }
-});
+}
 
-document.getElementById("confirmBtn").addEventListener("click", async () => {
-    const amount = parseFloat(document.getElementById("amount").value);
-
-    if (!clientSecret) {
-        alert("Click Pay Now first");
-        return;
-    }
-
-    try {
-        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: { card: card }
-        });
-
-        if (error) {
-            alert(error.message);
-            return;
-        }
-
-        const storeResponse = await fetch("http://127.0.0.1:8000/api/payments", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                amount: amount,
-                stripe_payment_id: paymentIntent.id,
-                status: 'completed'
-            })
-        });
-
-        if (!storeResponse.ok) {
-            const errData = await storeResponse.json();
-            console.error(errData);
-            alert("Failed to store payment. Check console for details.");
-            return;
-        }
-
-        alert("Payment Successful!");
-        document.getElementById("confirmBtn").style.display = "none";
-        document.getElementById("amount").value = "10";
-
-    } catch (err) {
-        console.error(err);
-        alert("Unexpected error occurred. Check console.");
-    }
-});
+// Load total users on page load
+fetchTotalUsers();
 </script>
-
-</body>
-</html>

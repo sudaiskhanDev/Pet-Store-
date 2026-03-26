@@ -1,252 +1,254 @@
-/* ===== RESET & BASE ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ===== ANIMALS CATEGORIES PAGE STYLES ===== */
+/* Consistent with admin dashboard design */
 
-body {
-  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-  background-color: #f8fafc;
-  color: #1e293b;
-  line-height: 1.6;
+.main-animals {
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fb 0%, #eef2f9 100%);
+  min-height: 100vh;
+  animation: fadeInUp 0.5s ease-out;
 }
 
-/* ===== HEADING ===== */
-h2 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #0f172a;
+/* Page Heading */
+.main-animals h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
   margin-bottom: 2rem;
+  color: #0f172a;
   position: relative;
   display: inline-block;
+  letter-spacing: -0.3px;
 }
 
-h2::after {
+.main-animals h2::after {
   content: '';
   position: absolute;
   bottom: -8px;
   left: 0;
-  width: 80px;
+  width: 60px;
   height: 4px;
-  background-color: #FE4600;
+  background: linear-gradient(90deg, #FE4600, #ff8c5a);
   border-radius: 4px;
 }
 
-/* ===== FORM CARD ===== */
+/* Form Card */
 #simple-form {
-  background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
+  background: #FFFFFF;
+  border-radius: 28px;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+  padding: 1.5rem;
   margin-bottom: 2rem;
+  transition: all 0.3s ease;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: 1rem;
 }
 
+#simple-form:hover {
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+  border-color: #FE4600;
+  transform: translateY(-3px);
+}
+
 #simple-form label {
-  width: 100%;
   font-weight: 600;
   color: #334155;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: -0.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.3rem;
+  display: block;
 }
 
 #simple-form input {
-  flex: 1 1 250px;
-  padding: 0.8rem 1.2rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 50px;
-  font-size: 1rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  background-color: #f8fafc;
+  width: 250px;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: #fefefe;
 }
 
 #simple-form input:focus {
   outline: none;
   border-color: #FE4600;
-  box-shadow: 0 0 0 4px rgba(254, 70, 0, 0.1);
-  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.1);
 }
 
-#simple-form input::placeholder {
-  color: #94a3b8;
-}
-
-/* ===== SAVE BUTTON ===== */
 #save-btn {
-  background-color: #FE4600;
+  background: #FE4600;
   color: white;
   border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 0.75rem 1.8rem;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-width: 120px;
+  gap: 8px;
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
+  margin-top: 1.5rem;
 }
 
-/* Add save icon (floppy disk) */
 #save-btn::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   content: "\f0c7";
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 }
 
 #save-btn:hover {
-  background-color: #e03e00;
+  background: #e03e00;
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(254, 70, 0, 0.2);
+  box-shadow: 0 8px 16px rgba(254, 70, 0, 0.3);
 }
 
-#save-btn:active {
-  transform: translateY(0);
-}
-
-/* ===== TABLE CARD ===== */
+/* Table Card */
 #animals-table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: #FFFFFF;
-  border-radius: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  background: #FFFFFF;
+  border-radius: 28px;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  border-collapse: separate;
+  border-spacing: 0;
   overflow: hidden;
 }
 
-#animals-table thead {
-  background-color: #f1f5f9;
+#animals-table:hover {
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+  border-color: #FE4600;
+  transform: translateY(-3px);
+}
+
+#animals-table th,
+#animals-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eef2f6;
 }
 
 #animals-table th {
-  text-align: left;
-  padding: 1rem;
-  font-weight: 600;
-  color: #334155;
+  background: #f8fafc;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  font-size: 0.85rem;
   letter-spacing: 0.5px;
-  border-bottom: 2px solid #cbd5e1;
 }
 
-#animals-table td {
-  padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
-  vertical-align: middle;
+#animals-table tr:last-child td {
+  border-bottom: none;
 }
 
-#animals-table tbody tr:hover {
-  background-color: #fff1e6; /* light orange tint */
+#animals-table tbody tr:hover td {
+  background: #fffaf5;
 }
 
-/* Actions column (buttons container) */
-#animals-table td:last-child {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-/* Common button styles for Update and Delete */
+/* Action Buttons */
 .btn {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 30px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  background-color: #f1f5f9;
-  color: #334155;
+  gap: 4px;
+  margin: 0 2px;
 }
 
-/* Update button icon */
+.btn-update {
+  color: #3b82f6;
+}
+
 .btn-update::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f044"; /* edit icon (pencil) */
+  content: "\f044";
+  font-size: 0.9rem;
 }
 
-/* Delete button icon */
+.btn-delete {
+  color: #ef4444;
+}
+
 .btn-delete::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed"; /* trash icon */
+  content: "\f2ed";
+  font-size: 0.9rem;
 }
 
 .btn-update:hover {
-  background-color: #3b82f6;
-  color: white;
+  background: #eff6ff;
+  transform: scale(1.05);
 }
 
 .btn-delete:hover {
-  background-color: #ef4444;
-  color: white;
+  background: #fee2e2;
+  transform: scale(1.05);
 }
 
-/* ===== RESPONSIVE ===== */
+/* Responsive */
 @media (max-width: 768px) {
-  body {
+  .main-animals {
     padding: 1rem;
   }
 
-  h2 {
-    font-size: 2rem;
+  #simple-form {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
   }
 
-  #simple-form {
-    padding: 1.5rem;
+  #simple-form label {
+    margin-bottom: 0.2rem;
   }
 
   #simple-form input {
-    flex: 1 1 100%;
+    width: 100%;
   }
 
   #save-btn {
     width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  #animals-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   #animals-table th,
   #animals-table td {
     padding: 0.75rem;
-    font-size: 0.9rem;
-  }
-
-  #animals-table td:last-child {
-    flex-direction: column;
   }
 
   .btn {
-    width: 100%;
-    justify-content: center;
+    padding: 0.3rem 0.6rem;
   }
 }
 
-@media (max-width: 480px) {
-  h2 {
-    font-size: 1.75rem;
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  #simple-form {
-    padding: 1rem;
-  }
-
-  #animals-table th,
-  #animals-table td {
-    padding: 0.5rem;
-    font-size: 0.85rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

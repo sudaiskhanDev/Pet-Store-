@@ -1,33 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 </head>
+
 <body>
+    <div class="main-dashboard">
 
-    <header class="topbar">
-        <h2>Admin Dashboard</h2>
-        <button id="logoutBtn">Logout</button>
-    </header>
+        <!-- Top Bar -->
+        <header class="topbar">
+            <h2>Admin Dashboard</h2>
+            <button id="logoutBtn">Logout</button>
+        </header>
 
-    <!-- nav-bar-items -->
-    <nav role="navigation" aria-label="Main navigation" class="nav">
-  <ul class="nav-list">
+        <!-- Navigation -->
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="nav-link" href="../Html/Categories/AddNewProducts.html">
+                        Add New Products
+                    </a>
+                </li>
 
-    <li class="nav-item"><a class="nav-link" href="../Html/Categories/AddNewProducts.html">Add New Products</a></li>
-    <li class="nav-item"><a class="nav-link" href="../Html/Categories/Product Categories.html">Products Categories</a></li>
-    <li class="nav-item"><a class="nav-link" href="../Html/Categories/Animals.html">Animals Categories</a></li>
-    <li><a class="nav-link" href="../Html/Categories/Orders.html">Orders</a></li>
-    <li><a class="nav-link" href="../Html/Categories/OrderItems.html">Order Items</a></li>
-    <li><a class="nav-link" href="../Html/Categories/payments.html">Payments</a></li>
-  </ul>
-</nav>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Html/Categories/Product Categories.html">
+                        Product Categories
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="../Html/Categories/Animals.html">
+                        Animal Categories
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="../Html/Categories/Orders.html">
+                        Orders
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../Html/Categories/OrderItems.html">
+                        Order Items
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../Html/Categories/payments.html">
+                        Payments
+                    </a>
+                </li>
+            </ul>
+        </nav>
+<main class="dashboard-content">
+
+    <!-- <div class="top-stats">
+        <div class="stat-box">Total Orders</div>
+        <div class="stat-box">Customers</div>
+    </div> -->
+
+    <div class="dashboard-grid">
+
+        <div class="box products">
+            <h3>Products</h3>
+            <a href="../Html/Categories/AddNewProducts.html">→</a>
+            <div class="products-list">
+                </div>
+        </div>
+
+        <div class="box order-items">
+            <h3>Order Items</h3>
+            <a href="../Html/Categories/OrderItems.html">→</a>
+            <div class="order-items-list">
+                </div>
+        </div>
+
+        <div class="right-side">
+            <div class="box orders">
+                <h3>Orders</h3>
+                <a href="../Html/Categories/Orders.html">→</a>
+                <div class="orders-list"></div>
+            </div>
+
+            <div class="box payments">
+                <h3>Payments</h3>
+                <a href="../Html/Categories/payments.html">→</a>
+                <div class="payments-list"></div>
+            </div>
+        </div>
+
+    </div>
+</main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/Dashboard Items/Products.js"></script>
+    <script src="../js/Dashboard Items/orders.js"></script>
+    <script src="../js/Dashboard Items/PAyments.js"></script>
+    <script src="../js/Dashboard Items/OrderItemsScrollable.js"></script>
     <script src="../js/dashboard.js"></script>
 </body>
 </html>

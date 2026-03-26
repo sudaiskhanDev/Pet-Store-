@@ -72,4 +72,10 @@ class UserAuthController extends Controller
     {
         return response()->json(auth('user')->user());
     }
+
+    public function totalUsers()
+{
+    $count = User::count();
+    return response()->json(['total' => $count]);
+}
 }
