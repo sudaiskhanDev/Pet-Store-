@@ -13,31 +13,74 @@ class UserAuthController extends Controller
 {
     // REGISTER
     public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'phone' => 'nullable|string',
-            'address' => 'nullable|string'
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6',
+        'phone' => 'nullable|string',
+        'address' => 'nullable|string'
+    ], [
+        'email.unique' => 'Email already exists. Try another one.'
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-            'address' => $request->address
-        ]);
-
+    // ==========================
+    // VALIDATION FAIL
+    // ==========================
+    if ($validator->fails()) {
         return response()->json([
-            'message' => 'User Registered Successfully'
-        ], 201);
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $validator->errors()
+        ], 422);
     }
+
+    // ==========================
+    // CREATE USER
+    // ==========================
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'phone' => $request->phone,
+        'address' => $request->address
+    ]);
+
+    // ==========================
+    // SUCCESS RESPONSE
+    // ==========================
+    return response()->json([
+        'success' => true,
+        'message' => 'User Registered Successfully',
+        'user' => $user
+    ], 201);
+}
+    // public function register(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|unique:users,email',
+    //         'password' => 'required|min:6',
+    //         'phone' => 'nullable|string',
+    //         'address' => 'nullable|string'
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors(), 422);
+    //     }
+
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'phone' => $request->phone,
+    //         'address' => $request->address
+    //     ]);
+
+    //     return response()->json([
+    //         'message' => 'User Registered Successfully'
+    //     ], 201);
+    // }
 
     // LOGIN
     public function login(Request $request)

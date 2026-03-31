@@ -1,276 +1,630 @@
-/* ========== CART PAGE STYLES – PetNest ========== */
-/* Theme colors: #FE4600 (primary orange), #FFFFFF (white) */
-
-/* ---------- Base reset & variables ---------- */
-:root {
-  --primary: #FE4600;
-  --white: #FFFFFF;
-  --gray-100: #f8f9fa;
-  --gray-200: #e9ecef;
-  --gray-600: #6c757d;
-  --gray-800: #343a40;
-  --gray-900: #212529;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
-  --transition: all 0.2s ease;
-  --border-radius: 16px;
+/* ============================================
+   GLOBAL RESET & CSS VARIABLES
+   ============================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+    /* Theme Colors */
+    --primary: #FE4600;
+    --primary-dark: #e03e00;
+    --primary-light: #ff7a3a;
+    --white: #FFFFFF;
+    --gray-50: #f9f9f9;
+    --gray-100: #f5f5f5;
+    --gray-200: #eaeaea;
+    --gray-600: #6b6b6b;
+    --gray-800: #2c2c2c;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.08);
+    --shadow-primary: 0 8px 20px rgba(254, 70, 0, 0.25);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s cubic-bezier(0.2, 0, 0, 1);
+
+    /* Borders */
+    --border-radius-card: 24px;
+    --border-radius-button: 40px;
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--gray-100);
-  color: var(--gray-900);
-  line-height: 1.5;
-  padding: 2rem 1.5rem;
-  min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: var(--white);
+    color: var(--gray-800);
+    line-height: 1.5;
+    padding: 0 1.5rem 3rem;
+    scroll-behavior: smooth;
 }
 
-/* ---------- Main heading with cart icon ---------- */
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--gray-900);
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+/* Custom scrollbar (modern browsers) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-/* Add cart icon via pseudo-element */
-h1::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f07a'; /* fa-shopping-cart */
-  color: var(--primary);
-  font-size: 2.2rem;
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: 10px;
 }
 
-/* ---------- Cart container (grid) ---------- */
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* ============================================
+   CART PAGE WRAPPER
+   ============================================ */
+.cart-page {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   NAVBAR – Glassmorphic & Sticky
+   ============================================ */
+/* ============================================
+   NAVBAR – Glassmorphic & Sticky
+   ============================================ */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    margin: 0 -1.5rem 2rem -1.5rem; /* offset body padding */
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Brand gradient */
+.brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: transform var(--transition-fast);
+}
+
+.brand:hover {
+    transform: scale(1.02);
+}
+
+/* Buttons container (right side) */
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Home link styling */
+.buttons a:first-child {
+    text-decoration: none;
+    color: var(--gray-800);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-button);
+}
+
+.buttons a:first-child i {
+    font-size: 1.1rem;
+    color: var(--primary);
+    transition: transform var(--transition-fast);
+}
+
+.buttons a:first-child:hover {
+    color: var(--primary);
+    background: rgba(254, 70, 0, 0.05);
+}
+
+.buttons a:first-child:hover i {
+    transform: translateY(-2px);
+}
+
+/* Cart button styling */
+.buttons a:last-child button {
+    background: var(--primary);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--border-radius-button);
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.buttons a:last-child button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(254, 70, 0, 0.3);
+}
+
+.buttons a:last-child button:active {
+    transform: translateY(1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .buttons {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .brand {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons {
+        gap: 1rem;
+    }
+
+    .buttons a:last-child button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .buttons a:first-child {
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* ============================================
+   CART CONTAINER – Responsive Grid
+   ============================================ */
 .cart-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    min-height: 300px;
 }
 
-/* ---------- Cart card ---------- */
+/* ============================================
+   CART CARD – Elegant Product Card
+   ============================================ */
 .cart-card {
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--gray-200);
+    background: var(--white);
+    border-radius: var(--border-radius-card);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    animation: fadeSlideUp 0.5s ease forwards;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cart-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(254, 70, 0, 0.1);
+    border-color: rgba(254, 70, 0, 0.2);
 }
 
-/* Product image */
+/* Product image with zoom on hover */
 .productImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  background-color: var(--gray-200);
-  border-bottom: 1px solid var(--gray-200);
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    background: var(--gray-100);
+    transition: transform 0.4s ease;
 }
 
-/* Card content */
-.cart-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--gray-900);
-  margin: 1rem 1rem 0.5rem;
+.cart-card:hover .productImage {
+    transform: scale(1.02);
 }
 
-.cart-card p {
-  color: var(--gray-600);
-  font-size: 0.95rem;
-  margin: 0 1rem 0.5rem;
+/* Product name */
+.productName {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.2px;
 }
 
-.cart-card p b {
-  color: var(--gray-800);
-  font-weight: 600;
-}
-
+/* Description with truncation */
 .productDescription {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.4;
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin: 0.5rem 0 0.75rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* Quantity display */
+/* Price and quantity styling */
+.cart-card p {
+    margin: 0.4rem 0;
+    font-size: 0.9rem;
+}
+
+.cart-card b {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.productPrice {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
 .productQty {
-  font-weight: 600;
-  color: var(--primary);
-  background-color: rgba(254, 70, 0, 0.05);
-  padding: 0.2rem 0.6rem;
-  border-radius: 20px;
-  display: inline-block;
+    background: var(--gray-100);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-button);
+    font-weight: 500;
+    transition: all var(--transition-fast);
 }
 
-/* ---------- Cart action buttons ---------- */
+/* ============================================
+   ACTION BUTTONS (+, -, Remove)
+   ============================================ */
 .cart-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin: 1rem 1rem 1.5rem;
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
 }
 
 .cart-actions button {
-  flex: 1;
-  background-color: var(--gray-100);
-  border: 1px solid var(--gray-200);
-  border-radius: 40px;  /* pill shape */
-  padding: 0.6rem 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--gray-800);
-  cursor: pointer;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-button);
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Button icons via pseudo-elements (Font Awesome) */
-.increaseBtn::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f067'; /* fa-plus */
-  color: var(--primary);
-  font-size: 0.9rem;
+/* Tooltip on hover (requires data-tooltip attribute) */
+.cart-actions button[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gray-800);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10;
 }
 
-.decreaseBtn::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f068'; /* fa-minus */
-  color: var(--primary);
-  font-size: 0.9rem;
+.cart-actions button[data-tooltip]:hover::before {
+    opacity: 1;
 }
 
-.removeBtn::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f2ed'; /* fa-trash-can */
-  color: var(--primary);
-  font-size: 0.9rem;
+/* Quantity buttons */
+.increaseBtn,
+.decreaseBtn {
+    background: var(--gray-100);
+    color: var(--gray-800);
+    min-width: 48px;
 }
 
-/* Hover effects */
 .increaseBtn:hover,
-.decreaseBtn:hover,
+.decreaseBtn:hover {
+    background: var(--gray-200);
+    transform: scale(0.96);
+}
+
+/* Remove button */
+.removeBtn {
+    background: rgba(254, 70, 0, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(254, 70, 0, 0.2);
+}
+
 .removeBtn:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: var(--white);
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
 }
 
-.increaseBtn:hover::before,
-.decreaseBtn:hover::before,
-.removeBtn:hover::before {
-  color: var(--white);
+/* Active pulse effect */
+.increaseBtn:active,
+.decreaseBtn:active {
+    animation: pulseScale 0.2s ease-in-out;
 }
 
-/* Focus states for accessibility */
-.cart-actions button:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+@keyframes pulseScale {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); background: var(--primary); color: white; }
+    100% { transform: scale(1); }
 }
 
-/* ---------- Checkout button ---------- */
+/* ============================================
+   CHECKOUT BUTTON – with Shine Animation
+   ============================================ */
 #checkoutBtn {
-  display: block;
-  width: fit-content;
-  margin: 2rem auto 0;
-  background-color: var(--primary);
-  color: var(--white);
-  border: none;
-  border-radius: 40px;
-  padding: 0.9rem 2.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  border: 1px solid transparent;
-  box-shadow: var(--shadow-sm);
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: block;
+    margin: 2rem auto 1rem;
+    box-shadow: var(--shadow-primary);
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
 }
 
-#checkoutBtn:hover,
-#checkoutBtn:focus-visible {
-  background-color: #e03e00;  /* slightly darker */
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px -8px rgba(254, 70, 0, 0.4);
+/* Shine overlay */
+#checkoutBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+#checkoutBtn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(254, 70, 0, 0.4);
+}
+
+#checkoutBtn:hover::before {
+    left: 100%;
 }
 
 #checkoutBtn:active {
-  transform: translateY(0);
+    transform: translateY(2px);
 }
 
-/* ---------- Empty cart state (optional – can be added via JS) ---------- */
-.cart-container:empty::after {
-  content: 'Your cart is empty. Start shopping!';
-  display: block;
-  text-align: center;
-  padding: 3rem;
-  color: var(--gray-600);
-  font-size: 1.1rem;
-  grid-column: 1 / -1;
+/* Override inline styles */
+#checkoutBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    /* our styles take precedence due to specificity */
 }
 
-/* ---------- Responsive design ---------- */
-@media (max-width: 768px) {
-  body {
-    padding: 1.5rem 1rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  h1::before {
-    font-size: 1.8rem;
-  }
-
-  .cart-container {
-    grid-template-columns: 1fr;  /* single column on mobile */
-  }
-
-  .cart-actions {
-    flex-wrap: wrap;
-  }
-
-  .cart-actions button {
-    flex: 1 0 100px;
-  }
-
-  #checkoutBtn {
-    width: 100%;
+/* ============================================
+   EMPTY CART STATE
+   ============================================ */
+.cart-container:empty::before {
+    content: "🐾 Your cart is empty. Add some goodies!";
+    display: block;
     text-align: center;
-  }
+    font-size: 1.2rem;
+    color: var(--gray-600);
+    padding: 3rem;
+    background: var(--gray-50);
+    border-radius: 32px;
+    grid-column: 1 / -1;
+    animation: fadeIn 0.4s ease;
 }
 
-/* ---------- Focus styles for all interactive elements ---------- */
-a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ============================================
+   LOADING SKELETON (optional, triggered by JS)
+   ============================================ */
+.cart-container.loading .cart-card {
+    animation: shimmer 1.2s infinite linear;
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+/* Tablet */
+@media (max-width: 768px) {
+    body {
+        padding: 0 1rem 2rem;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .nav-bar ul {
+        gap: 1.5rem;
+    }
+
+    .brand {
+        font-size: 1.3rem;
+    }
+
+    .cart-page h1 {
+        font-size: 2rem;
+        text-align: center;
+        display: block;
+    }
+
+    .cart-page h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+    }
+
+    .cart-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .cart-card {
+        padding: 1.2rem;
+    }
+
+    .productImage {
+        height: 160px;
+    }
+
+    .cart-actions {
+        justify-content: space-between;
+    }
+
+    #checkoutBtn {
+        width: 100%;
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .buttons button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .cart-actions button {
+        flex: 1;
+    }
+
+    /* Disable tooltips on mobile for better touch */
+    .cart-actions button[data-tooltip]::before {
+        display: none;
+    }
+
+    .brand {
+        font-size: 1.2rem;
+    }
+
+    .cart-card {
+        padding: 1rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY & FOCUS STATES
+   ============================================ */
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ============================================
+   UTILITY ANIMATIONS (for JS interactions)
+   ============================================ */
+/* Bounce effect when quantity changes */
+.quantity-updated {
+    animation: bounce 0.3s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); background: var(--primary-light); color: white; }
+}
+
+/* Ripple effect for buttons (optional) */
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.ripple:active::after {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transition: 0s;
 }

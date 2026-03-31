@@ -3,11 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="../../Css/Pages/checkout.css">
+<!-- <link rel="stylesheet" href="../../Css/Pages/Cart.css"> -->
 <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
+
+<div class="checkout">
+                   <!-- Navbar -->
+<nav class="nav-bar">
+    <h1 class="brand">Happy Paws Haven</h1>
+
+   <div class="buttons"> 
+            <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+
+ 
+   
+        
+        <a href="../Pages/Cart.html"><button>Cart</button></a>
+    </div>
+</nav>
 <h1>Checkout</h1>
 
 <div id="checkoutContainer"></div>
@@ -34,6 +52,7 @@
     <button type="submit" id="placeOrderBtn">Place Order</button>
     <div id="loader">Processing...</div>
 </form>
+</div>
 
 <script>
 (async function() {  // ✅ Wrap in async IIFE to allow await

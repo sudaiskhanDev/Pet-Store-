@@ -92,6 +92,9 @@ if(loginForm){
 // ==========================
 // REGISTER
 // ==========================
+// ==========================
+// REGISTER
+// ==========================
 const registerForm = document.getElementById("registerForm");
 
 if(registerForm){
@@ -118,7 +121,12 @@ if(registerForm){
                 }, 1500);
 
             } else {
-                showToast(result.message || "Registration failed!", "error");
+                // Check for field-specific errors first
+                if(result.errors && result.errors.email){
+                    showToast(result.errors.email[0], "error"); // show email error
+                } else {
+                    showToast(result.message || "Registration failed!", "error");
+                }
             }
 
         } catch(err){
@@ -127,6 +135,41 @@ if(registerForm){
         }
     });
 }
+// const registerForm = document.getElementById("registerForm");
+
+// if(registerForm){
+//     registerForm.addEventListener("submit", async (e) => {
+//         e.preventDefault();
+
+//         const formData = new FormData(registerForm);
+//         const data = Object.fromEntries(formData.entries());
+
+//         try{
+//             const res = await fetch(API + "/register", {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify(data)
+//             });
+
+//             const result = await res.json();
+
+//             if(res.ok){
+//                 showToast("Registration Successful! Please login.", "success");
+
+//                 setTimeout(() => {
+//                     window.location.href = "login.html";
+//                 }, 1500);
+
+//             } else {
+//                 showToast(result.message || "Registration failed!", "error");
+//             }
+
+//         } catch(err){
+//             console.error(err);
+//             showToast("Network error!", "error");
+//         }
+//     });
+// }
 
 // ==========================
 // LOGOUT

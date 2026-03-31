@@ -4,10 +4,32 @@
 <html>
 <head>
 <title>Cat Toys</title>
-<link rel="stylesheet" href="../../Css/Pages/All Products.css">
+<link rel="stylesheet" href="../../Css/cat and Dog category/cat and Dog category.css">
 </head>
 <body>
+<div class="main-animals-catgegory">
+               <!-- Navbar -->
+<nav class="nav-bar">
+    <h1 class="brand">Happy Paws Haven</h1>
 
+    <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+
+    </ul>
+    <div class="buttons">
+        
+        <a href="../Pages/Cart.html"><button>Cart</button></a>
+    </div>
+</nav>
+   
+<nav>
+    <ul>
+        <li><a href="../cats and  Categories/cat-food.html">Cat Food</a></li>
+        <li><a href="../cats and  Categories/cat-grooming.html">Cat Grooming</a></li>
+        <li><a href="../cats and  Categories/cat-Accessories.html">Cat Accessories</a></li>
+        <li><a href="../cats and  Categories/cat-travel.html">Cat Travel</a></li>
+    </ul>
+</nav>
 <h1>Cat food</h1>
 <div id="products"></div>
 <div id="error"></div>
@@ -21,6 +43,7 @@
 <div class="product-animal"></div>
 </div>
 </template>
+</div>
 
 <script>
 const API_URL="http://localhost:8000/api/products";

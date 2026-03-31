@@ -11,10 +11,31 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../../Css/Pages/product-detail.css">
+    <!-- <link rel="stylesheet" href="../../Css/IndexStyling.css"> -->
 </head>
 <body>
 
+    <div class="main-product-detail-page">
+        
+           <!-- Navbar -->
+<nav class="nav-bar">
+    <h1 class="brand">Happy Paws Haven</h1>
+
+    <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+
+    </ul>
+    <div class="buttons">
+        
+        <a href="../Pages/Cart.html"><button>Cart</button></a>
+    </div>
+</nav>
+
+ 
 <div class="container">
+
+    <!-- Header Section -->
+
     <!-- Image Section -->
     <div class="image-section">
         <img id="image" alt="Product Image">
@@ -28,14 +49,19 @@
         <div id="animal"></div>
         <p id="description"></p>
         <button class="buy-btn">Add to Cart</button>
+                <a href="../Pages/Cart.html"><button>Cart</button></a>
+
     </div>
 </div>
 
-<!-- ✅ TOAST CONTAINER -->
+
+    </div>
+    <!-- ✅ TOAST CONTAINER -->
 <div id="toast-container"></div>
 
 <!-- JS -->
 <script src="../../Js/pages/product-detail.js"></script>
+<script src="../../Js/Index.js"></script>
 </body>
 </html>
 

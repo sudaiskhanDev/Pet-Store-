@@ -36,6 +36,50 @@ class ProductController extends Controller
     ]);
 }
 
+// Search products by name, category, or animal
+public function search(Request $request)
+{
+    $query = $request->query('q'); // ?q=term from frontend
+
+    if (!$query) {
+        return response()->json([
+            'status' => false,
+            'message' => 'No search term provided',
+            'products' => []
+        ]);
+    }
+
+    $products = Product::with(['category','animal'])
+        ->where('name', 'LIKE', "%{$query}%")
+        ->orWhereHas('category', function($q) use ($query) {
+            $q->where('category_name', 'LIKE', "%{$query}%");
+        })
+        ->orWhereHas('animal', function($q) use ($query) {
+            $q->where('animal_name', 'LIKE', "%{$query}%");
+        })
+        ->get()
+        ->map(function($product) {
+            return [
+                'product_id'    => $product->product_id,
+                'name'          => $product->name,
+                'description'   => $product->description ?? 'NA',
+                'price'         => $product->price,
+                'stock_quantity'=> $product->stock_quantity ?? 'NA',
+                'image'         => $product->image ?? 'NA',
+                'category_id'   => $product->category_id,
+                'category_name' => $product->category?->category_name ?? 'NA',
+                'animal_id'     => $product->animal_id,
+                'animal_name'   => $product->animal?->animal_name ?? 'NA',
+            ];
+        });
+
+    return response()->json([
+        'status' => true,
+        'products' => $products
+    ]);
+}
+
+
     // Store a new product
     public function store(Request $request)
     {

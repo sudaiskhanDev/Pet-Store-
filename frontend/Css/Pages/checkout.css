@@ -1,317 +1,500 @@
-/* ========== CHECKOUT PAGE STYLES – PetNest ========== */
-/* Theme colors: #FE4600 (primary orange), #FFFFFF (white) */
-
-/* ---------- Base reset & variables ---------- */
-:root {
-  --primary: #FE4600;
-  --white: #FFFFFF;
-  --gray-100: #f8f9fa;
-  --gray-200: #e9ecef;
-  --gray-600: #6c757d;
-  --gray-800: #343a40;
-  --gray-900: #212529;
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  --transition: all 0.2s ease;
-  --border-radius: 16px;
+/* ============================================
+   GLOBAL RESET & CSS VARIABLES
+   ============================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+    /* Theme Colors */
+    --primary: #FE4600;
+    --primary-dark: #e03e00;
+    --primary-light: #ff7a3a;
+    --white: #FFFFFF;
+    --gray-50: #f9f9f9;
+    --gray-100: #f5f5f5;
+    --gray-200: #eaeaea;
+    --gray-600: #6b6b6b;
+    --gray-800: #2c2c2c;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.08);
+    --shadow-primary: 0 8px 20px rgba(254, 70, 0, 0.25);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s cubic-bezier(0.2, 0, 0, 1);
+
+    /* Borders */
+    --border-radius-input: 12px;
+    --border-radius-button: 40px;
+    --border-radius-card: 24px;
 }
 
 body {
-  font-family: var(--font-sans);
-  background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
-  color: var(--gray-900);
-  line-height: 1.5;
-  min-height: 100vh;
-  padding: 2rem 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    background: var(--white);
+    color: var(--gray-800);
+    line-height: 1.5;
+    padding: 0 1.5rem 3rem;
+    scroll-behavior: smooth;
 }
 
-/* ---------- Main heading with cart icon ---------- */
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--gray-900);
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+/* Custom scrollbar (matches cart page) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
-h1::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f07a'; /* fa-shopping-cart */
-  color: var(--primary);
-  font-size: 2.2rem;
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+    border-radius: 10px;
 }
 
-/* ---------- Order summary container ---------- */
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* ============================================
+   CHECKOUT PAGE WRAPPER
+   ============================================ */
+.checkout {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   NAVBAR (same as cart page, but here for reference)
+   ============================================ */
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    margin: 0 -1.5rem 2rem -1.5rem;
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: transform var(--transition-fast);
+}
+
+.brand:hover {
+    transform: scale(1.02);
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.buttons a:first-child {
+    text-decoration: none;
+    color: var(--gray-800);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-button);
+}
+
+.buttons a:first-child i {
+    font-size: 1.1rem;
+    color: var(--primary);
+    transition: transform var(--transition-fast);
+}
+
+.buttons a:first-child:hover {
+    color: var(--primary);
+    background: rgba(254, 70, 0, 0.05);
+}
+
+.buttons a:first-child:hover i {
+    transform: translateY(-2px);
+}
+
+.buttons a:last-child button {
+    background: var(--primary);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--border-radius-button);
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.buttons a:last-child button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(254, 70, 0, 0.3);
+}
+
+.buttons a:last-child button:active {
+    transform: translateY(1px);
+}
+
+/* ============================================
+   PAGE HEADING
+   ============================================ */
+.checkout h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 1rem 0 2rem;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(120deg, var(--primary), var(--primary-light));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.checkout h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 4px;
+    transition: width var(--transition-normal);
+}
+
+.checkout h1:hover::after {
+    width: 100%;
+}
+
+/* ============================================
+   CHECKOUT CONTAINER (order summary)
+   ============================================ */
 #checkoutContainer {
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
-  padding: 1.5rem;
-  max-width: 600px;
-  margin: 0 auto 2rem;
-  border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    border-radius: var(--border-radius-card);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--gray-200);
+    animation: fadeSlideUp 0.4s ease;
 }
 
-#checkoutContainer > div {
-  border-bottom: 1px solid var(--gray-200);
-  padding: 0.75rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--gray-800);
+#checkoutContainer:empty::before {
+    content: "📦 No items to checkout. Please add items to your cart.";
+    display: block;
+    text-align: center;
+    color: var(--gray-600);
+    padding: 2rem;
 }
 
-#checkoutContainer > div:last-of-type {
-  border-bottom: none;
-}
-
-#checkoutContainer h3 {
-  color: var(--primary);
-  font-size: 1.25rem;
-  margin-top: 0.5rem;
-  font-weight: 600;
-}
-
-/* ---------- Checkout form ---------- */
+/* ============================================
+   CHECKOUT FORM
+   ============================================ */
 #checkoutForm {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-md);
-  padding: 2rem;
-  border: 1px solid var(--gray-200);
+    background: var(--white);
+    border-radius: var(--border-radius-card);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+    margin-top: 1rem;
 }
 
 #checkoutForm h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--gray-900);
-  margin: 1.5rem 0 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem;
+    color: var(--gray-800);
 }
 
 #checkoutForm h3:first-of-type {
-  margin-top: 0;
+    margin-top: 0;
 }
 
-#checkoutForm h3:nth-of-type(1)::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f0d1'; /* fa-truck (shipping) */
-  color: var(--primary);
-  font-size: 1.2rem;
-}
-
-#checkoutForm h3:nth-of-type(2)::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f09d'; /* fa-credit-card (payment) */
-  color: var(--primary);
-  font-size: 1.2rem;
-}
-
-/* ---------- Input fields ---------- */
+/* Input fields */
 #checkoutForm input,
 #checkoutForm select {
-  width: 100%;
-  padding: 0.9rem 1rem 0.9rem 2.8rem;  /* space for icon */
-  border: 1px solid var(--gray-200);
-  border-radius: 40px;  /* pill shape */
-  font-size: 1rem;
-  font-family: inherit;
-  background-color: var(--gray-100);
-  transition: var(--transition);
-  outline: none;
-  margin-bottom: 1rem;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--border-radius-input);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all var(--transition-fast);
+    background: var(--white);
 }
 
 #checkoutForm input:focus,
 #checkoutForm select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(254, 70, 0, 0.1);
-  background-color: var(--white);
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.1);
 }
 
+/* Input placeholder */
 #checkoutForm input::placeholder {
-  color: var(--gray-600);
-  opacity: 0.7;
+    color: var(--gray-600);
+    opacity: 0.7;
 }
 
-/* ---------- Icons for input fields (using pseudo-elements) ---------- */
-#checkoutForm input[name="name"] {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: left 1rem center;
-  background-size: 1.2rem;
-}
-
-#checkoutForm input[name="address"] {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: left 1rem center;
-  background-size: 1.2rem;
-}
-
-#checkoutForm input[name="city"] {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-1.88 6.54-5 9.93-3.12-3.39-5-7.05-5-9.93zM9 9c0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3-3-1.34-3-3z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: left 1rem center;
-  background-size: 1.2rem;
-}
-
-#checkoutForm input[name="zip"] {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M20 8h-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM4 16V6h12v2h-2v2h2v6H4zm16 4H8v-2h2v-2H8v-2h8v2h2v-2h2v4z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: left 1rem center;
-  background-size: 1.2rem;
-}
-
-#checkoutForm input[name="phone"] {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: left 1rem center;
-  background-size: 1.2rem;
-}
-
-/* ---------- Select dropdown ---------- */
+/* Select dropdown */
 #checkoutForm select {
-  appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 1rem center, left 1rem center;
-  background-size: 1.2rem, 1.2rem;
-  padding-left: 2.8rem;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>'), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FE4600" width="18px" height="18px"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-position: left 1rem center, right 1rem center;
-  background-repeat: no-repeat, no-repeat;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FE4600' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
 }
 
-/* ---------- Card container (Stripe) ---------- */
+/* Card container (hidden by default) */
 #card-container {
-  margin: 1rem 0;
-  padding: 1rem;
-  background-color: var(--gray-100);
-  border-radius: 40px;
-  border: 1px solid var(--gray-200);
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: var(--border-radius-input);
+    border: 1px solid var(--gray-200);
+    animation: fadeIn 0.3s ease;
 }
 
 #card-container label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: var(--gray-800);
-  font-weight: 500;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
 }
 
 #card-element {
-  padding: 0.8rem 1rem;
-  background-color: var(--white);
-  border-radius: 40px;
+    padding: 0.8rem;
+    background: white;
+    border-radius: var(--border-radius-input);
+    border: 2px solid var(--gray-200);
+    transition: border-color var(--transition-fast);
 }
 
-/* ---------- Place order button ---------- */
+#card-element:focus-within {
+    border-color: var(--primary);
+}
+
+/* Place Order Button */
 #placeOrderBtn {
-  width: 100%;
-  background-color: var(--primary);
-  color: var(--white);
-  border: none;
-  border-radius: 40px;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  margin: 1.5rem 0 0;
-  border: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-button);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-primary);
 }
 
 #placeOrderBtn::before {
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  content: '\f00c'; /* fa-check */
-  font-size: 1.2rem;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
 }
 
-#placeOrderBtn:hover,
-#placeOrderBtn:focus-visible {
-  background-color: #e03e00;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px -8px rgba(254, 70, 0, 0.4);
+#placeOrderBtn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(254, 70, 0, 0.3);
+}
+
+#placeOrderBtn:hover::before {
+    left: 100%;
 }
 
 #placeOrderBtn:active {
-  transform: translateY(0);
+    transform: translateY(1px);
 }
 
-#placeOrderBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-/* ---------- Loader ---------- */
+/* Loader (hidden by default) */
 #loader {
-  text-align: center;
-  margin-top: 1rem;
-  color: var(--primary);
-  font-weight: 500;
-  display: none;  /* hidden by default */
+    display: none;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    color: var(--primary);
+    font-weight: 500;
+    animation: pulse 1s infinite;
 }
 
-/* ---------- Focus styles for accessibility ---------- */
-a:focus-visible,
+#loader::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border: 2px solid var(--gray-200);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+}
+
+/* Show loader when processing order */
+#loader.active {
+    display: block;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding: 0 1rem 2rem;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .buttons {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .brand {
+        font-size: 1.3rem;
+    }
+
+    .checkout h1 {
+        font-size: 2rem;
+        text-align: center;
+        display: block;
+    }
+
+    .checkout h1::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+    }
+
+    #checkoutForm {
+        padding: 1.5rem;
+    }
+
+    #checkoutForm h3 {
+        font-size: 1.2rem;
+    }
+
+    #placeOrderBtn {
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons {
+        gap: 1rem;
+    }
+
+    .buttons a:last-child button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .buttons a:first-child {
+        padding: 0.4rem 0.6rem;
+    }
+
+    #checkoutForm {
+        padding: 1rem;
+    }
+
+    #checkoutForm input,
+    #checkoutForm select {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
 button:focus-visible,
+a:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
-/* ---------- Responsive design ---------- */
-@media (max-width: 768px) {
-  body {
-    padding: 1.5rem 1rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  h1::before {
-    font-size: 1.8rem;
-  }
-
-  #checkoutContainer,
-  #checkoutForm {
-    padding: 1.5rem;
-  }
-
-  #checkoutForm input,
-  #checkoutForm select {
-    padding: 0.8rem 1rem 0.8rem 2.5rem;
-    font-size: 0.95rem;
-  }
-
-  #placeOrderBtn {
-    padding: 0.9rem 1.5rem;
-    font-size: 1.1rem;
-  }
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+    outline: none;
 }
