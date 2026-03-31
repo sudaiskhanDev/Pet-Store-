@@ -7,18 +7,24 @@
 <link rel="stylesheet" href="../../Css/cat and Dog category/cat and Dog category.css">
 </head>
 <body>
+
+
+
 <div class="main-animals-catgegory">
                <!-- Navbar -->
 <nav class="nav-bar">
     <h1 class="brand">Happy Paws Haven</h1>
 
-    <ul>
-            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-
-    </ul>
-    <div class="buttons">
-        
-        <a href="../Pages/Cart.html"><button>Cart</button></a>
+    <div class="nav-links">
+        <a href="../index.html" class="nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="../Pages/Cart.html" class="cart-button">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Cart</span>
+            <!-- optional badge: <span class="cart-badge">3</span> -->
+        </a>
     </div>
 </nav>
    
@@ -44,6 +50,9 @@
 </div>
 </template>
 </div>
+
+
+
 
 <script>
 const API_URL="http://localhost:8000/api/products";

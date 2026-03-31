@@ -85,3 +85,78 @@
 .add-to-cart:hover{
   background:#e03e00;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================================
+   FILTER CATEGORY CONTAINER & DROPDOWN
+   ============================================ */
+
+.filter-category {
+    margin: 1.5rem 0 2rem;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+/* Modern select styling */
+#categoryFilter {
+    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+    border: 2px solid var(--gray-200, #eaeaea);
+    border-radius: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--gray-800, #2c2c2c);
+    background: var(--white, #ffffff);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FE4600' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    min-width: 220px;
+    margin: auto;
+}
+
+/* Hover state */
+#categoryFilter:hover {
+    border-color: var(--primary-light, #ff7a3a);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Focus state */
+#categoryFilter:focus {
+    outline: none;
+    border-color: var(--primary, #FE4600);
+    box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.1);
+}
+
+/* Optional: style for disabled/placeholder option */
+#categoryFilter option[value=""] {
+    color: var(--gray-600, #6b6b6b);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+    .filter-category {
+        justify-content: center;
+    }
+    #categoryFilter {
+        width: 100%;
+        min-width: auto;
+        font-size: 0.9rem;
+    }
+}

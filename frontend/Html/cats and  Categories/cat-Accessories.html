@@ -2,11 +2,38 @@
 <html>
 <head>
 <title>Cat Toys</title>
-<link rel="stylesheet" href="../../Css/Pages/All Products.css">
+<link rel="stylesheet" href="../../Css/cat and Dog category/cat and Dog category.css">
 </head>
 <body>
 
-<h1>Cat Accessories</h1>
+
+<div class="main-animals-catgegory">
+               <!-- Navbar -->
+<nav class="nav-bar">
+    <h1 class="brand">Happy Paws Haven</h1>
+
+    <div class="nav-links">
+        <a href="../index.html" class="nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="../Pages/Cart.html" class="cart-button">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Cart</span>
+            <!-- optional badge: <span class="cart-badge">3</span> -->
+        </a>
+    </div>
+</nav>
+   
+<nav>
+    <ul>
+        <li><a href="../cats and  Categories/cat-food.html">Cat Food</a></li>
+        <li><a href="../cats and  Categories/cat-grooming.html">Cat Grooming</a></li>
+        <li><a href="../cats and  Categories/cat-Accessories.html">Cat Accessories</a></li>
+        <li><a href="../cats and  Categories/cat-travel.html">Cat Travel</a></li>
+    </ul>
+</nav>
+    <h1>Cat Accessories</h1>
 <div id="products"></div>
 <div id="error"></div>
 
@@ -20,6 +47,7 @@
 </div>
 </template>
 
+</div>
 <script>
 const API_URL="http://localhost:8000/api/products";
 const ANIMAL_NAME="Cats";
