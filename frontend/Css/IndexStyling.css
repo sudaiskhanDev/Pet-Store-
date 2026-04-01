@@ -315,7 +315,7 @@ nav:not(.nav-bar) ul li a:hover {
 .Hero-section {
     position: relative;
     width: 100%;
-    height: min(66vh, 760px);
+    height: 400px;
     overflow: hidden;
     border-bottom: 1px solid rgba(255, 255, 255, .55);
     background: #f4e9e4;
