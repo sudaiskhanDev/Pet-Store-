@@ -13,12 +13,20 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('user')->get();
-        $userId = auth()->id(); // logged in user ka ID
-    $orders = Order::with('user')
-                   ->where('user_id', $userId) // sirf current user ke orders
-                   ->get();
-    return response()->json($orders);
+        return response()->json($orders);
     }
+
+    
+    public function myOrders()
+{
+    $userId = auth()->id();
+
+    $orders = Order::where('user_id', $userId)
+                   ->latest()
+                   ->get();
+
+    return response()->json($orders);
+}
 
     // Store a new order
     public function store(Request $request)
