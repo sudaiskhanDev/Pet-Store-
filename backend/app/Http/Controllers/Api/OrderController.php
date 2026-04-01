@@ -13,7 +13,11 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('user')->get();
-        return response()->json($orders);
+        $userId = auth()->id(); // logged in user ka ID
+    $orders = Order::with('user')
+                   ->where('user_id', $userId) // sirf current user ke orders
+                   ->get();
+    return response()->json($orders);
     }
 
     // Store a new order
