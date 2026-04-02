@@ -1,58 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products Management</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="../../css/dashboard.css">
-    <link rel="stylesheet" href="../../css/Categories/addnewproducts.css">
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products Management</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="../../css/dashboard.css">
+<link rel="stylesheet" href="../../css/Categories/addnewproducts.css">
 </head>
-
-
-</html><body>
+<body>
 <div class="main-newProduct">
- <!-- nav-bar-items -->
-    <nav role="navigation" aria-label="Main navigation" class="nav">
-  <ul class="nav-list">
 
-    <li class="nav-item"><a class="nav-link" href="AddNewProducts.html">Add New Products</a></li>
-    <li class="nav-item"><a class="nav-link" href="Product Categories.html">Products Categories</a></li>
-    <li class="nav-item"><a class="nav-link" href="Animals.html">Animals Categories</a></li>
-    <li><a class="nav-link" href="Orders.html">Orders</a></li>
-    <li><a class="nav-link" href="OrderItems.html">Order Items</a></li>
-    <li><a class="nav-link" href="payments.html">Payments</a></li>
-  </ul>
-</nav>
+     <!-- Navigation -->
+        <nav class="nav" role="navigation" aria-label="Main navigation">
 
+            <ul class="nav-list">
+                <li>
+                    <a href="../dashboard.html"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="AddNewProducts.html">
+                        Add New Products
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="Product Categories.html">
+                        Product Categories
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="Animals.html">
+                        Animal Categories
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="Orders.html">
+                        Orders
+                    </a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="OrderItems.html">
+                        Order Items
+                    </a>
+                </li>
 
-
-
-
+                <li class="nav-item">
+                    <a class="nav-link" href="payments.html">
+                        Payments
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
     <h2>Products Management</h2>
 
-    <!-- ADD PRODUCT -->
+    <!-- Product Form -->
     <section class="add-product">
-        <h3>Add New Product</h3>
+        <h3 id="formTitle">Add New Product</h3>
         <form id="productForm">
+            <input type="hidden" id="productId" value="">
+            
             <div class="form-group">
                 <label>Category</label>
-                <select id="categorySelect" name="category_id">
+                <select id="categorySelect" name="category_id" required>
                     <option value="">Select Category</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Animal</label>
-                <select id="animalSelect" name="animal_id">
+                <select id="animalSelect" name="animal_id" required>
                     <option value="">Select Animal</option>
                 </select>
             </div>
@@ -82,13 +103,13 @@
                 <input type="file" id="image" name="image" accept="image/*">
             </div>
 
-            <button type="submit" id="addProductBtn">Add Product</button>
+            <button type="submit" id="submitBtn">Add Product</button>
         </form>
     </section>
 
     <hr>
 
-    <!-- PRODUCT LIST -->
+    <!-- Products Table -->
     <section class="product-list">
         <h3>All Products</h3>
         <table id="productsList" border="1">
@@ -105,10 +126,39 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Products will be populated here by JS -->
+                <tr class="product-row" style="display:none;">
+                    <td class="name"></td>
+                    <td class="price"></td>
+                    <td class="stock"></td>
+                    <td class="category"></td>
+                    <td class="animal"></td>
+                    <td class="description"></td>
+                    <td class="image"></td>
+                    <td>
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </section>
+
 </div>
-    <script src="../../js/Categories/AddNewProducts.js"></script>
+
+<!-- Toast Container -->
+<div id="toastContainer"></div>
+
+<!-- Custom Confirm Modal -->
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <p id="confirmMessage">Are you sure?</p>
+    <div class="modal-actions">
+      <button id="confirmYes">Yes</button>
+      <button id="confirmNo">No</button>
+    </div>
+  </div>
+</div>
+
+<script src="../../js/Categories/AddNewProducts.js"></script>
 </body>
+</html>
