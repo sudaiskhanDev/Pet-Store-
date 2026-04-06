@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cat Travel & Outdoor</title>
+<link rel="stylesheet" href="../../Css/cat and Dog category/cat and Dog category.css">
+</head>
+<body>
+
+<div class="main-animals-catgegory">
+    
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <h1 class="brand">Happy Paws Haven</h1>
+
+        <div class="nav-links">
+            <a href="../index.html" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="../Pages/Cart.html" class="cart-button">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+            </a>
+        </div>
+    </nav>
+   
+    <!-- Category Navigation -->
+    <nav>
+        <ul>
+            <li><a href="../cats and Categories/cat-food.html">Cat Food</a></li>
+            <li><a href="../cats and Categories/cat-grooming.html">Cat Grooming</a></li>
+            <li><a href="../cats and Categories/cat-Accessories.html">Cat Accessories</a></li>
+            <li><a href="../cats and Categories/cat-travel.html">Cat Travel</a></li>
+        </ul>
+    </nav>
+
+    <h1>Cat Travel & Outdoor</h1>
+    <div id="products"></div>
+    <div id="error"></div>
+
+    <!-- Template for product card -->
+    <template id="product-template">
+        <div class="product-card">
+            <img class="product-image">
+            <div class="product-name"></div>
+            <div class="product-price"></div>
+            <div class="product-category"></div>
+            <div class="product-animal"></div>
+            <div class="product-stock"></div> <!-- Stock added -->
+        </div>
+    </template>
+</div>
+
+<script>
+const API_URL = "http://localhost:8000/api/products";
+const ANIMAL_NAME = "Cats";
+const CATEGORY_NAME = "Travel & Outdoor";
+
+async function fetchProducts() {
+    try {
+        let res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Failed to fetch products");
+
+        let data = await res.json();
+        let products = data.products || [];
+
+        // Filter by animal and category
+        products = products.filter(p => p.animal_name === ANIMAL_NAME && p.category_name === CATEGORY_NAME);
+
+        let container = document.getElementById("products");
+        container.innerHTML = "";
+        let template = document.getElementById("product-template");
+
+        if (products.length === 0) {
+            document.getElementById("error").textContent = "No products available in this category.";
+            return;
+        }
+
+        products.forEach(p => {
+            let clone = template.content.cloneNode(true);
+
+            clone.querySelector(".product-image").src = p.image ? `http://localhost:8000/storage/${p.image}` : "https://via.placeholder.com/200";
+            clone.querySelector(".product-name").textContent = p.name;
+            clone.querySelector(".product-price").textContent = "Price: ₹" + parseFloat(p.price).toLocaleString();
+            clone.querySelector(".product-category").textContent = "Category: " + p.category_name;
+            clone.querySelector(".product-animal").textContent = "Animal: " + p.animal_name;
+            clone.querySelector(".product-stock").textContent = "Stock: " + (p.stock_quantity ?? "N/A"); // Stock added
+
+            // Navigate to product detail
+            clone.querySelector(".product-card").addEventListener("click", () => {
+                window.location.href = `../../Html/Pages/product-detail.html?id=${p.product_id}`;
+            });
+
+            container.appendChild(clone);
+        });
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById("error").textContent = "Error loading products. Please try again later.";
+    }
+}
+
+fetchProducts();
+</script>
+
+</body>
+</html>

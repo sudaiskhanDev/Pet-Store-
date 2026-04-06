@@ -10,41 +10,45 @@
 </head>
 <body>
 <div class="cart-page">
-               <!-- Navbar -->
-<nav class="nav-bar">
-    <h1 class="brand">Happy Paws Haven</h1>
-
-   <div class="buttons"> 
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <h1 class="brand">Happy Paws Haven</h1>
+        <div class="buttons"> 
             <a href="../index.html"><i class="fas fa-home"></i> Home</a>
-
- 
-   
-        
-        <a href="../Pages/Cart.html"><button>Cart</button></a>
-    </div>
-</nav>
-<h1>My Cart</h1>
-
-<div id="cartContainer" class="cart-container"></div>
-
-<!-- Proceed to Checkout Button -->
-<button id="checkoutBtn" style="margin-top:20px; padding:10px 20px; font-size:16px;">Proceed to Checkout</button>
-
-<!-- Hidden template -->
-<template id="cartTemplate">
-    <div class="cart-card">
-        <img class="productImage" src="" alt="">
-        <h3 class="productName"></h3>
-        <p><b>Price:</b> $<span class="productPrice"></span></p>
-        <p class="productDescription"></p>
-        <p><b>Quantity:</b> <span class="productQty"></span></p>
-        <div class="cart-actions">
-            <button class="increaseBtn">+</button>
-            <button class="decreaseBtn">-</button>
-            <button class="removeBtn">Remove</button>
+            <a href="../Pages/Cart.html"><button>Cart</button></a>
         </div>
-    </div>
-</template>
+    </nav>
+
+    <h1>My Cart</h1>
+
+    <div id="cartContainer" class="cart-container"></div>
+
+    <!-- Proceed to Checkout Button -->
+    <button id="checkoutBtn" style="margin-top:20px; padding:10px 20px; font-size:16px;">Proceed to Checkout</button>
+
+    <!-- Notification container -->
+    <div id="notificationContainer" style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+    "></div>
+
+    <!-- Hidden template -->
+    <template id="cartTemplate">
+        <div class="cart-card">
+            <img class="productImage" src="" alt="">
+            <h3 class="productName"></h3>
+            <p><b>Price:</b> $<span class="productPrice"></span></p>
+            <p class="productDescription"></p>
+            <p><b>Quantity:</b> <span class="productQty"></span></p>
+            <div class="cart-actions">
+                <button class="increaseBtn">+</button>
+                <button class="decreaseBtn">-</button>
+                <button class="removeBtn">Remove</button>
+            </div>
+        </div>
+    </template>
 </div>
 
 <script src="../../Js/pages/cart.js"></script>
