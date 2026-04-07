@@ -1,162 +1,702 @@
-/* ===== PRODUCT GRID ===== */
+/* ==================================================================
+   ALL PRODUCTS PAGE - ULTRA DETAILED CSS
+   Brand Colors: #FE4600 (Primary Orange) | #FFFFFF (White)
+   Author: Happy Paws Haven
+   Description: Complete styling for product listing with filter,
+                navbar, category tabs, cards, stock badges, animations.
+   ================================================================== */
 
+/* ----------------------------------------------
+   1. GLOBAL RESET & BASE CONFIGURATION
+   ---------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #FFFFFF;
+  color: #1e293b;
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ----------------------------------------------
+   2. CSS CUSTOM PROPERTIES (THEME SYSTEM)
+   ---------------------------------------------- */
+:root {
+  /* Primary Brand Colors */
+  --primary: #FE4600;
+  --primary-dark: #d63a00;
+  --primary-light: #ff7a3c;
+  --primary-soft: rgba(254, 70, 0, 0.08);
+  --primary-glow: rgba(254, 70, 0, 0.3);
+  --primary-gradient: linear-gradient(135deg, #FE4600, #FF7A3C);
+  
+  /* Neutrals */
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+  --shadow-primary: 0 4px 12px rgba(254, 70, 0, 0.25);
+  --shadow-primary-lg: 0 8px 20px rgba(254, 70, 0, 0.3);
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  --transition-slow: 350ms ease;
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.2, 0.64, 1);
+  
+  /* Layout */
+  --container-max: 1400px;
+  --header-height: 70px;
+}
+
+/* ----------------------------------------------
+   3. TYPOGRAPHY & LINKS
+   ---------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+/* ----------------------------------------------
+   4. NAVBAR (STICKY + GLASS MORPHISM)
+   ---------------------------------------------- */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--gray-200);
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+  transition: transform var(--transition-fast);
+}
+
+.brand:hover {
+  transform: scale(1.02);
+}
+
+.buttons {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.buttons a,
+.buttons button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: 'Poppins', sans-serif;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  text-decoration: none;
+}
+
+#loginBtn,
+#registerBtn {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+#loginBtn:hover,
+#registerBtn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.buttons a:last-child {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-primary);
+}
+
+.buttons a:last-child:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary-lg);
+}
+
+#logoutBtn {
+  background: #ef4444;
+  color: white;
+}
+
+#logoutBtn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------
+   5. CATEGORY TABS (HORIZONTAL SCROLL SUPPORT)
+   ---------------------------------------------- */
+nav:first-of-type {
+  margin: 1rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  list-style: none;
+  background: var(--gray-50);
+  padding: 0.75rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xs);
+  margin: 0 1rem;
+  min-width: max-content;
+}
+
+nav ul li a {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-normal);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  background: transparent;
+  white-space: nowrap;
+}
+
+nav ul li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+  z-index: -1;
+}
+
+nav ul li a:hover {
+  color: white;
+}
+
+nav ul li a:hover::before {
+  width: 100%;
+}
+
+/* Active tab (add class="active" to current link) */
+nav ul li a.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-primary);
+}
+
+/* ----------------------------------------------
+   6. MAIN CONTENT CONTAINER
+   ---------------------------------------------- */
+.mian-all-products {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+@media (max-width: 768px) {
+  .mian-all-products {
+    padding: 1rem 1rem 2rem;
+  }
+}
+
+/* ----------------------------------------------
+   7. PAGE HEADING
+   ---------------------------------------------- */
+h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 1rem 0 2rem;
+  background: linear-gradient(135deg, var(--gray-800), var(--primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+  animation: fadeInDown 0.5s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------------------------
+   8. FILTER DROPDOWN
+   ---------------------------------------------- */
+.filter-category {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+#categoryFilter {
+  padding: 0.65rem 2.2rem 0.65rem 1rem;
+  font-size: 0.875rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: var(--gray-700);
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23FE4600' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  min-width: 180px;
+}
+
+#categoryFilter:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+#categoryFilter:hover {
+  border-color: var(--primary);
+}
+
+/* ----------------------------------------------
+   9. PRODUCT GRID (RESPONSIVE)
+   ---------------------------------------------- */
 #products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  margin: 0 auto;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
 }
 
-/* ===== PRODUCT CARD ===== */
-
-.product-card{
-  background:#fff;
-  border-radius:8px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  border:1px solid #eee;
-
-  transition:0.2s;
+/* No products message */
+#products > p {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 3rem;
+  color: var(--gray-500);
+  font-size: 1.1rem;
+  background: var(--gray-50);
+  border-radius: var(--radius-xl);
 }
 
-.product-card:hover{
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
-  transform:translateY(-3px);
+/* ----------------------------------------------
+   10. PRODUCT CARD (MODERN + ANIMATIONS)
+   ---------------------------------------------- */
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  animation: fadeInUp 0.5s ease backwards;
+  border: 1px solid var(--gray-100);
 }
 
-/* ===== IMAGE CONTAINER ===== */
+/* Staggered animation */
+.product-card:nth-child(1) { animation-delay: 0.05s; }
+.product-card:nth-child(2) { animation-delay: 0.1s; }
+.product-card:nth-child(3) { animation-delay: 0.15s; }
+.product-card:nth-child(4) { animation-delay: 0.2s; }
+.product-card:nth-child(5) { animation-delay: 0.25s; }
+.product-card:nth-child(6) { animation-delay: 0.3s; }
+.product-card:nth-child(7) { animation-delay: 0.35s; }
+.product-card:nth-child(8) { animation-delay: 0.4s; }
 
-.product-image{
-  width:100%;
-  height:220px;
-  object-fit:contain;   /* IMPORTANT */
-  padding:20px;
-  background:#fff;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* ===== PRODUCT INFO ===== */
-
-.product-info{
-  padding:14px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-2xl);
+  border-color: transparent;
 }
 
-/* ===== NAME ===== */
-
-.product-name{
-  font-size:14px;
-  line-height:1.4;
-  color:#222;
-
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
+.product-card:hover img {
+  transform: scale(1.1);
 }
 
-/* ===== PRICE ===== */
-
-.product-price{
-  font-size:18px;
-  font-weight:600;
-  color:#ff4800;
+.product-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  background: var(--gray-100);
 }
 
-/* ===== BUTTON ===== */
-
-.add-to-cart{
-  margin-top:8px;
-  padding:10px;
-  border:none;
-  border-radius:6px;
-
-  background:#FE4600;
-  color:#fff;
-
-  font-size:14px;
-  cursor:pointer;
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1rem 1rem 0.4rem;
+  color: var(--gray-800);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color var(--transition-fast);
 }
 
-.add-to-cart:hover{
-  background:#e03e00;
+.product-card:hover .product-name {
+  color: var(--primary-dark);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-/* ============================================
-   FILTER CATEGORY CONTAINER & DROPDOWN
-   ============================================ */
-
-.filter-category {
-    margin: 1.5rem 0 2rem;
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
+.product-price {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 1rem 0.5rem;
 }
 
-/* Modern select styling */
-#categoryFilter {
-    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
-    border: 2px solid var(--gray-200, #eaeaea);
-    border-radius: 40px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--gray-800, #2c2c2c);
-    background: var(--white, #ffffff);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23FE4600' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    min-width: 220px;
-    margin: auto;
+.product-category,
+.product-animal {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin: 0 1rem 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-/* Hover state */
-#categoryFilter:hover {
-    border-color: var(--primary-light, #ff7a3a);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+/* FontAwesome Icons for category and animal */
+.product-category::before {
+  content: '\f07c';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--primary);
 }
 
-/* Focus state */
-#categoryFilter:focus {
-    outline: none;
-    border-color: var(--primary, #FE4600);
-    box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.1);
+.product-animal::before {
+  content: '\f6d3';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--primary);
 }
 
-/* Optional: style for disabled/placeholder option */
-#categoryFilter option[value=""] {
-    color: var(--gray-600, #6b6b6b);
+/* Stock badge - unified styling */
+.product-stock {
+  display: inline-block;
+  margin: 0.5rem 1rem 1rem;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--gray-100);
+  transition: all var(--transition-fast);
 }
 
-/* ============================================
-   RESPONSIVE ADJUSTMENTS
-   ============================================ */
+/* Override inline style for stock colors */
+.product-stock[style*="color: red"] {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+}
+
+.product-stock[style*="color: black"] {
+  background: var(--gray-100);
+  color: var(--gray-700) !important;
+}
+
+/* Green stock override (if inline style uses green) */
+.product-stock[style*="color: green"] {
+  background: #e0f2e7 !important;
+  color: #15803d !important;
+}
+
+/* ----------------------------------------------
+   11. ERROR MESSAGE
+   ---------------------------------------------- */
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background: var(--primary-soft);
+  border-radius: var(--radius-lg);
+  color: var(--primary-dark);
+  font-weight: 500;
+  margin: 2rem 0;
+  border-left: 4px solid var(--primary);
+  font-size: 0.95rem;
+}
+
+/* ----------------------------------------------
+   12. LOADING STATE (OPTIONAL, ADD CLASS)
+   ---------------------------------------------- */
+.loading-products {
+  text-align: center;
+  padding: 3rem;
+  color: var(--gray-500);
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.loading-products::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--gray-200);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ----------------------------------------------
+   13. RESPONSIVE DESIGN (MOBILE, TABLET)
+   ---------------------------------------------- */
+@media (max-width: 1024px) {
+  .product-card img {
+    height: 200px;
+  }
+  #products {
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
-    .filter-category {
-        justify-content: center;
-    }
-    #categoryFilter {
-        width: 100%;
-        min-width: auto;
-        font-size: 0.9rem;
-    }
+  .nav-bar {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.75rem 1rem;
+  }
+  .brand {
+    font-size: 1.5rem;
+  }
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  nav ul {
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  nav ul li a {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+  .filter-category {
+    justify-content: center;
+  }
+  #categoryFilter {
+    min-width: 160px;
+  }
+  #products {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .product-card img {
+    height: 180px;
+  }
+  .product-name {
+    font-size: 1rem;
+  }
+  .product-price {
+    font-size: 1.1rem;
+  }
 }
+
+@media (max-width: 480px) {
+  .mian-all-products {
+    padding: 0.75rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  .product-card img {
+    height: 160px;
+  }
+  .buttons a,
+  .buttons button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  .product-category,
+  .product-animal {
+    font-size: 0.7rem;
+  }
+}
+
+/* ----------------------------------------------
+   14. CUSTOM SCROLLBAR
+   ---------------------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* ----------------------------------------------
+   15. TEXT SELECTION COLOR
+   ---------------------------------------------- */
+::selection {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+/* ----------------------------------------------
+   16. UTILITY CLASSES (EXTRA)
+   ---------------------------------------------- */
+.text-primary { color: var(--primary); }
+.bg-primary { background: var(--primary); color: white; }
+.text-center { text-align: center; }
+.mt-4 { margin-top: 1rem; }
+.mb-4 { margin-bottom: 1rem; }
+.p-4 { padding: 1rem; }
+.rounded-xl { border-radius: var(--radius-xl); }
+.shadow-md { box-shadow: var(--shadow-md); }
+
+/* Hover lift utility */
+.hover-lift {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Pulse animation for CTA */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; transform: scale(1.02); }
+}
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* ----------------------------------------------
+   17. BADGE & TAGS (if needed)
+   ---------------------------------------------- */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.badge-primary {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+/* End of CSS - All Products Page */

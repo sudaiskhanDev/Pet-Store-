@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8000/api/products";
+const BASE_URL = "http://localhost:8000"; 
+const API_URL = `${BASE_URL}/api/products`;
 const CATEGORY_NAME = "Accessories"; // current page category
 
 async function fetchProducts() {
@@ -35,7 +36,7 @@ async function fetchProducts() {
             // Image
             const img = document.createElement("img");
             img.src = product.image
-                ? `http://localhost:8000/storage/${product.image}`
+                ? `${BASE_URL}/storage/${product.image}`
                 : "https://via.placeholder.com/200";
             img.alt = product.name;
 
@@ -59,10 +60,18 @@ async function fetchProducts() {
             animal.className = "product-animal";
             animal.textContent = "Animal: " + (product.animal_name || "N/A");
 
-            // Stock
-            const stock = document.createElement("div");
-            stock.className = "product-stock";
-            stock.textContent = "Stock: " + (product.stock_quantity ?? "N/A");
+            // Stock with Out of Stock logic
+const stock = document.createElement("div");
+stock.className = "product-stock";
+
+if (product.stock_quantity <= 1) {
+    stock.textContent = "Out of Stock";
+    stock.style.color = "red";
+    stock.style.fontWeight = "bold";
+} else {
+    stock.textContent = "Stock: " + product.stock_quantity;
+    stock.style.color = "green";
+}
 
             // Append all to card
             card.appendChild(img);
@@ -70,7 +79,7 @@ async function fetchProducts() {
             card.appendChild(price);
             card.appendChild(category);
             card.appendChild(animal);
-            card.appendChild(stock); // Added stock here
+            card.appendChild(stock);
 
             // Append card to container
             productsContainer.appendChild(card);
@@ -83,6 +92,24 @@ async function fetchProducts() {
 }
 
 window.addEventListener("DOMContentLoaded", fetchProducts);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const API_URL = "http://localhost:8000/api/products";
 // const CATEGORY_NAME = "Accessories"; // current page category
 

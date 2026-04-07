@@ -67,13 +67,17 @@ function renderProducts(products) {
             window.location.href = `product-detail.html?id=${product.product_id}`;
         });
 
+        // Stock logic
+        let stockText = product.stock_quantity > 1 ? product.stock_quantity : "Out of Stock";
+        let stockColor = product.stock_quantity > 1 ? "black" : "red";
+
         card.innerHTML = `
             <img src="${product.image ? `${BASE_URL}/storage/${product.image}` : 'https://via.placeholder.com/200'}">
             <div class="product-name">${product.name}</div>
             <div class="product-price">Price: ₹${parseFloat(product.price).toLocaleString()}</div>
             <div class="product-category">Category: ${product.category_name || 'N/A'}</div>
             <div class="product-animal">Animal: ${product.animal_name || 'N/A'}</div>
-            <div class="product-stock">Stock: ${product.stock_quantity ?? 'N/A'}</div>
+            <div class="product-stock" style="color:${stockColor}">Stock: ${stockText}</div>
         `;
 
         productsContainer.appendChild(card);

@@ -50,7 +50,6 @@
         </div>
     </template>
 </div>
-
 <script>
 const API_URL = "http://localhost:8000/api/products";
 const ANIMAL_NAME = "Cats";
@@ -79,12 +78,23 @@ async function fetchProducts() {
         products.forEach(p => {
             let clone = template.content.cloneNode(true);
 
-            clone.querySelector(".product-image").src = p.image ? `http://localhost:8000/storage/${p.image}` : "https://via.placeholder.com/200";
+            clone.querySelector(".product-image").src = p.image 
+                ? `http://localhost:8000/storage/${p.image}` 
+                : "https://via.placeholder.com/200";
             clone.querySelector(".product-name").textContent = p.name;
             clone.querySelector(".product-price").textContent = "Price: ₹" + parseFloat(p.price).toLocaleString();
             clone.querySelector(".product-category").textContent = "Category: " + p.category_name;
             clone.querySelector(".product-animal").textContent = "Animal: " + p.animal_name;
-            clone.querySelector(".product-stock").textContent = "Stock: " + (p.stock_quantity ?? "N/A"); // Stock added
+
+            // Stock logic
+            const stockDiv = clone.querySelector(".product-stock");
+            if (!p.stock_quantity || p.stock_quantity <= 1) {
+                stockDiv.textContent = "Out of Stock";
+                stockDiv.style.color = "red";
+            } else {
+                stockDiv.textContent = "Stock: " + p.stock_quantity;
+                stockDiv.style.color = "green";
+            }
 
             // Navigate to product detail
             clone.querySelector(".product-card").addEventListener("click", () => {
@@ -102,6 +112,5 @@ async function fetchProducts() {
 
 fetchProducts();
 </script>
-
 </body>
 </html>

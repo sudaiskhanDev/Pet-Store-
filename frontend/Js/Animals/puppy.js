@@ -1,5 +1,5 @@
 const API_URL = "http://localhost:8000/api/products";
-const ANIMAL_NAME = "Puppy";
+const ANIMAL_NAME = "Puppy"; // Change for other pages
 
 async function fetchProducts() {
     const container = document.getElementById("products");
@@ -11,11 +11,12 @@ async function fetchProducts() {
 
     try {
         const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
 
         const products = data.products || [];
 
-        // Filter Cats
+        // Filter by animal
         const filtered = products.filter(p => p.animal_name === ANIMAL_NAME);
 
         if (filtered.length === 0) {
@@ -24,15 +25,22 @@ async function fetchProducts() {
         }
 
         filtered.forEach(product => {
-
             const clone = template.content.cloneNode(true);
 
-            // Select elements inside template
+            // Template elements
             const img = clone.querySelector(".product-image");
             const name = clone.querySelector(".product-name");
             const price = clone.querySelector(".product-price");
             const category = clone.querySelector(".product-category");
             const animal = clone.querySelector(".product-animal");
+
+            // Optional: stock div
+            let stockDiv = clone.querySelector(".product-stock");
+            if (!stockDiv) {
+                stockDiv = document.createElement("div");
+                stockDiv.className = "product-stock";
+                clone.querySelector(".product-card").appendChild(stockDiv);
+            }
 
             // Fill data
             img.src = product.image
@@ -44,7 +52,16 @@ async function fetchProducts() {
             category.textContent = "Category: " + (product.category_name || "N/A");
             animal.textContent = "Animal: " + (product.animal_name || "N/A");
 
-            // Click event
+            // Stock logic
+            if (product.stock_quantity <= 1) {
+                stockDiv.textContent = "Out of Stock";
+                stockDiv.style.color = "red";
+            } else {
+                stockDiv.textContent = "Stock: " + product.stock_quantity;
+                stockDiv.style.color = "green";
+            }
+
+            // Click to product detail
             clone.querySelector(".product-card").addEventListener("click", () => {
                 window.location.href = `../../Html/Pages/product-detail.html?id=${product.product_id}`;
             });
@@ -53,6 +70,7 @@ async function fetchProducts() {
         });
 
     } catch (error) {
+        console.error(error);
         errorDiv.textContent = "Error loading products.";
     }
 }

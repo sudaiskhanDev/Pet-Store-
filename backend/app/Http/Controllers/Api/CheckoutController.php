@@ -32,8 +32,8 @@ class CheckoutController extends Controller
             return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
         }
 
-        // Load cart items
         $cartItems = Cart::with('product')->where('user_id', $user->id)->get();
+
         if ($cartItems->isEmpty()) {
             return response()->json(['message' => 'Cart is empty'], 400);
         }
@@ -41,16 +41,25 @@ class CheckoutController extends Controller
         DB::beginTransaction();
 
         try {
-            // ---------------- Stock Validation ----------------
+            // ------------------ STOCK VALIDATION ------------------
+            $productTotals = [];
             foreach ($cartItems as $item) {
-                $product = $item->product;
-
-                if (!$product) {
+                if (!$item->product) {
                     DB::rollBack();
                     return response()->json(['message' => "Product ID {$item->product_id} not found"], 400);
                 }
+                $pid = $item->product_id;
+                $productTotals[$pid] = ($productTotals[$pid] ?? 0) + $item->quantity;
+            }
 
-                if ($item->quantity > $product->stock_quantity) {
+            foreach ($productTotals as $pid => $totalQty) {
+                $product = $cartItems->firstWhere('product_id', $pid)->product;
+                if (!$product) {
+                    DB::rollBack();
+                    return response()->json(['message' => "Product ID {$pid} not found"], 400);
+                }
+
+                if ($totalQty > $product->stock_quantity) {
                     DB::rollBack();
                     return response()->json([
                         'message' => "Insufficient stock for '{$product->name}'. Only {$product->stock_quantity} available."
@@ -58,10 +67,10 @@ class CheckoutController extends Controller
                 }
             }
 
-            // ---------------- Calculate Total ----------------
+            // ------------------ CALCULATE TOTAL ------------------
             $total = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
 
-            // ---------------- Create Order ----------------
+            // ------------------ CREATE ORDER ------------------
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_date' => now(),
@@ -72,7 +81,7 @@ class CheckoutController extends Controller
                 'phone' => $request->phone,
             ]);
 
-            // ---------------- Create Order Items ----------------
+            // ------------------ CREATE ORDER ITEMS ------------------
             $orderItems = [];
             foreach ($cartItems as $item) {
                 $orderItems[] = [
@@ -86,19 +95,21 @@ class CheckoutController extends Controller
             }
             OrderItem::insert($orderItems);
 
-            // ---------------- Decrease Product Stock ----------------
-            foreach ($cartItems as $item) {
-                $product = $item->product;
-                $product->decrement('stock_quantity', $item->quantity);
+            // ------------------ DECREASE PRODUCT STOCK SAFELY ------------------
+            foreach ($productTotals as $pid => $totalQty) {
+                $product = $cartItems->firstWhere('product_id', $pid)->product;
 
-                // Optional: mark out-of-stock
-                if ($product->stock_quantity <= 0) {
-                    $product->status = 'out_of_stock';
+                if ($product && $totalQty <= $product->stock_quantity) {
+                    $product->stock_quantity -= $totalQty;
+                    if ($product->stock_quantity <= 0) {
+                        $product->stock_quantity = 0;
+                        $product->status = 'out_of_stock';
+                    }
                     $product->save();
                 }
             }
 
-            // ---------------- Store Payment if Card ----------------
+            // ------------------ PAYMENT ------------------
             if ($request->payment_method === 'card' && $request->payment_id) {
                 Payment::create([
                     'order_id' => $order->order_id,
@@ -108,7 +119,7 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // ---------------- Clear Cart ----------------
+            // ------------------ CLEAR CART ------------------
             Cart::where('user_id', $user->id)->delete();
 
             DB::commit();
