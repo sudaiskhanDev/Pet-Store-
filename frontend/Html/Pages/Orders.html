@@ -40,7 +40,77 @@
     </div>
   </template>
 </div>
+<script>
+const API = "http://localhost:8000/api/my-orders";
+const token = localStorage.getItem("token");
+const notification = document.getElementById("notification");
 
+// Show notification
+function showNotification(msg) {
+  notification.textContent = msg;
+  notification.style.display = "block";
+  setTimeout(() => { notification.style.display = "none"; }, 3000);
+}
+
+// Redirect if not logged in
+if (!token) {
+  showNotification("Login required");
+  setTimeout(() => { window.location.href = "../UserAuth/login.html"; }, 1500);
+}
+
+// --- Load Orders ---
+async function loadOrders() {
+  try {
+    const res = await fetch(API, {
+      headers: { "Authorization": "Bearer " + token }
+    });
+
+    if (res.status === 401) {
+      localStorage.removeItem("token");
+      showNotification("Session expired");
+      setTimeout(() => { window.location.href = "../UserAuth/login.html"; }, 1500);
+      return;
+    }
+
+    const orders = await res.json();
+    console.log("Orders Data:", orders); // 🔥 DEBUG
+
+    const container = document.getElementById("ordersContainer");
+    const template = document.getElementById("orderTemplate");
+    container.innerHTML = "";
+
+    if (!orders || orders.length === 0) {
+      container.innerHTML = "<p class='empty-msg'>No orders found</p>";
+      return;
+    }
+
+    orders.forEach(order => {
+      const clone = template.content.cloneNode(true);
+
+      // ✅ SAFE ID FIX
+      const orderId = order.id || order.order_id || order.orderId || "N/A";
+
+      clone.querySelector(".orderId").textContent = "Order #" + orderId;
+      clone.querySelector(".orderDate").textContent = order.order_date || "N/A";
+      clone.querySelector(".orderStatus").textContent = order.status || "N/A";
+      clone.querySelector(".orderTotal").textContent = order.total_amount || "0";
+      clone.querySelector(".orderPayment").textContent = order.payment_method || "N/A";
+      clone.querySelector(".orderAddress").textContent = order.shipping_address || "N/A";
+      clone.querySelector(".orderPhone").textContent = order.phone || "N/A";
+
+      container.appendChild(clone);
+    });
+
+  } catch (err) {
+    console.error(err);
+    showNotification("Failed to load orders");
+  }
+}
+
+// Initial load
+loadOrders();
+</script>
+<!-- 
 <script>
 const API = "http://localhost:8000/api/my-orders";
 const token = localStorage.getItem("token");
@@ -98,7 +168,7 @@ async function loadOrders() {
 
 // Initial load
 loadOrders();
-</script>
+</script> -->
 
 </body>
 </html>
