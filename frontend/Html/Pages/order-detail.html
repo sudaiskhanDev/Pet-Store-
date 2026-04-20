@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Order Details | Happy Paws Haven</title>
+<!-- Font Awesome 6 (free) + Google Fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<style>
+/* ==================================================================
+   ORDER DETAILS PAGE – ULTRA DETAILED PROFESSIONAL CSS
+   Design System: #FAFAFA (bg), #FFFFFF (cards), #FE4600 (action)
+   Fully responsive, accessible, print-friendly.
+   ================================================================== */
+
+/* --------------------------------------------
+   1. CSS CUSTOM PROPERTIES (THEME)
+-------------------------------------------- */
+:root {
+  --bg-primary: #FAFAFA;
+  --bg-card: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --border-light: #E5E7EB;
+  --border-lighter: #F0F0F0;
+  --accent: #FE4600;
+  --accent-hover: #E03E00;
+  --accent-soft: rgba(254, 70, 0, 0.08);
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+}
+
+/* --------------------------------------------
+   2. RESET & BASE
+-------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-primary);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding: clamp(1rem, 5vw, 2rem);
+  min-height: 100vh;
+}
+
+/* --------------------------------------------
+   3. MAIN CONTAINER
+-------------------------------------------- */
+.container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------
+   4. NAV BAR (BRAND + BUTTONS)
+-------------------------------------------- */
+.nav-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-lg);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1e466e, var(--accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: -0.3px;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.buttons a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.buttons a i {
+  margin-right: 6px;
+}
+
+.buttons a:hover {
+  color: var(--accent);
+}
+
+.buttons button {
+  background: var(--accent);
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.buttons button:hover {
+  background: var(--accent-hover);
+}
+
+/* --------------------------------------------
+   5. CARDS
+-------------------------------------------- */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: clamp(1.25rem, 5vw, 1.75rem);
+  margin-bottom: 1.75rem;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  margin-bottom: 1.5rem;
+  border-left: 5px solid var(--accent);
+  padding-left: 1rem;
+}
+
+h3 {
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
+  margin-bottom: 1.25rem;
+  border-left: 4px solid var(--accent);
+  padding-left: 0.75rem;
+}
+
+/* Order info grid */
+#orderInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.info-block {
+  background: #F9FAFB;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+.info-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #E5E7EB;
+  color: #4B5563;
+}
+
+.order-status.pending {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.order-status.completed,
+.order-status.paid,
+.order-status.delivered {
+  background: #D1FAE5;
+  color: #059669;
+}
+
+.order-status.cancelled {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+/* Items container */
+#itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #F9FAFB;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  transition: all var(--transition-normal);
+  border-left: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: var(--accent-soft);
+  transition: width var(--transition-normal);
+  z-index: 0;
+}
+
+.item:hover::before {
+  width: 100%;
+}
+
+.item > * {
+  position: relative;
+  z-index: 1;
+}
+
+.item:hover {
+  border-left-color: var(--accent);
+  transform: translateX(5px);
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.item-image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.item-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.item-right {
+  text-align: right;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.item-price, .item-subtotal {
+  display: block;
+}
+
+.item-subtotal {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+/* Loading & error states */
+.skeleton {
+  animation: pulse 1.5s ease-in-out infinite;
+  background: linear-gradient(90deg, #F0F0F0 25%, #E0E0E0 50%, #F0F0F0 75%);
+  background-size: 200% 100%;
+}
+
+@keyframes pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-order {
+  height: 120px;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.skeleton-item {
+  height: 90px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+}
+
+.error-message {
+  background: #FEF2F2;
+  border-left: 4px solid var(--danger);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  color: #B91C1C;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  transition: all var(--transition-fast);
+}
+
+.back-button:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateX(-3px);
+}
+
+@media (max-width: 640px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .item-right {
+    text-align: left;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--border-lighter);
+  }
+  .item-image {
+    width: 55px;
+    height: 55px;
+  }
+  #orderInfo {
+    grid-template-columns: 1fr;
+  }
+  .nav-bar {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+  }
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  .item { background: white; border: none; border-bottom: 1px solid #eee; transform: none; }
+  .item::before { display: none; }
+  .back-button, .nav-bar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <nav class="nav-bar">
+    <h1 class="brand"><i class="fas fa-paw"></i> Happy Paws Haven</h1>
+    <div class="buttons">
+      <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="../Pages/Cart.html"><button><i class="fas fa-shopping-cart"></i> Cart</button></a>
+    </div>
+  </nav>
+
+  <a href="dashboard.html" class="back-button" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+  <div class="card" id="orderCard">
+    <h2 class="title"><i class="fas fa-receipt"></i> Order Details</h2>
+    <div id="orderInfo">
+      <!-- loading skeleton appears here -->
+    </div>
+  </div>
+
+  <div class="card" id="itemsCard">
+    <h3><i class="fas fa-boxes"></i> Products</h3>
+    <div id="itemsContainer">
+      <!-- items will be injected -->
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+    // ======================== CONFIGURATION ========================
+    const API_BASE = "http://localhost:8000/api";
+    const ORDERS_API = `${API_BASE}/orders`;
+    
+    // Token: try admin_token first (admin), then regular token
+    let token = localStorage.getItem("admin_token");
+    if (!token) token = localStorage.getItem("token");
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const orderId = urlParams.get("id");
+    
+    const orderInfoDiv = document.getElementById("orderInfo");
+    const itemsContainer = document.getElementById("itemsContainer");
+    
+    // Helper: authenticated fetch
+    async function authFetch(url) {
+        const res = await fetch(url, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+        return res;
+    }
+    
+    // Helper: format currency
+    function formatMoney(value) {
+        let num = parseFloat(value);
+        if (isNaN(num)) num = 0;
+        return `$${num.toFixed(2)}`;
+    }
+    
+    // Helper: format date
+    function formatDate(dateStr) {
+        if (!dateStr) return 'N/A';
+        try {
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+        } catch(e) {
+            return dateStr;
+        }
+    }
+    
+    // Helper: get product image URL
+    function getProductImageUrl(imagePath) {
+        if (!imagePath) return "https://via.placeholder.com/70?text=No+Image";
+        if (imagePath.startsWith('http')) return imagePath;
+        return `http://localhost:8000/storage/${imagePath}`;
+    }
+    
+    // Helper: get status class for badge
+    function getStatusClass(status) {
+        const s = String(status).toLowerCase();
+        if (s === 'completed' || s === 'paid' || s === 'delivered') return 'completed';
+        if (s === 'pending' || s === 'processing') return 'pending';
+        if (s === 'cancelled') return 'cancelled';
+        return '';
+    }
+    
+    // Helper: escape HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Show loading skeletons
+    function showLoadingSkeleton() {
+        orderInfoDiv.innerHTML = `
+            <div class="skeleton skeleton-order" style="height:100px;"></div>
+            <div class="skeleton skeleton-order" style="height:100px;"></div>
+        `;
+        itemsContainer.innerHTML = `
+            <div class="skeleton skeleton-item"></div>
+            <div class="skeleton skeleton-item"></div>
+            <div class="skeleton skeleton-item"></div>
+        `;
+    }
+    
+    // Show error message
+    function showError(message, isAuthError = false) {
+        orderInfoDiv.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div><strong>Error</strong><br>${escapeHtml(message)}</div>
+            </div>
+        `;
+        itemsContainer.innerHTML = '';
+        if (isAuthError) {
+            // clear invalid tokens
+            localStorage.removeItem("admin_token");
+            localStorage.removeItem("token");
+        }
+    }
+    
+    // Main load function
+    async function loadOrder() {
+        // validation
+        if (!token) {
+            showError("Authentication required. Please login to view order details.", false);
+            return;
+        }
+        if (!orderId) {
+            showError("Missing order ID in URL. Please go back and select a valid order.", false);
+            return;
+        }
+        
+        showLoadingSkeleton();
+        
+        try {
+            const res = await authFetch(`${ORDERS_API}/${orderId}`);
+            
+            if (res.status === 401) {
+                showError("Session expired. Please login again.", true);
+                return;
+            }
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status} - Order not found or server error`);
+            }
+            
+            const jsonResponse = await res.json();
+            const order = jsonResponse.data || jsonResponse;
+            
+            if (!order || (!order.order_id && !order.id)) {
+                throw new Error("Invalid order data received");
+            }
+            
+            // Normalize fields
+            const orderIdDisplay = order.order_id || order.id;
+            const status = order.status || "pending";
+            const totalAmount = order.total_amount || order.total || 0;
+            const orderDate = order.order_date || order.created_at || null;
+            
+            // Render order info with grid layout
+            orderInfoDiv.innerHTML = `
+                <div class="info-block">
+                    <div class="info-label"><i class="fas fa-hashtag"></i> Order Number</div>
+                    <div class="info-value">#${escapeHtml(orderIdDisplay)}</div>
+                </div>
+                <div class="info-block">
+                    <div class="info-label"><i class="fas fa-tag"></i> Status</div>
+                    <div class="info-value"><span class="order-status ${getStatusClass(status)}">${escapeHtml(status)}</span></div>
+                </div>
+                <div class="info-block">
+                    <div class="info-label"><i class="fas fa-dollar-sign"></i> Total Amount</div>
+                    <div class="info-value" style="font-weight:800;">${formatMoney(totalAmount)}</div>
+                </div>
+                <div class="info-block">
+                    <div class="info-label"><i class="far fa-calendar-alt"></i> Order Date</div>
+                    <div class="info-value">${formatDate(orderDate)}</div>
+                </div>
+            `;
+            
+            // Extract order items
+            let orderItems = [];
+            if (order.order_items && Array.isArray(order.order_items)) {
+                orderItems = order.order_items;
+            } else if (order.items && Array.isArray(order.items)) {
+                orderItems = order.items;
+            } else {
+                orderItems = [];
+            }
+            
+            if (orderItems.length === 0) {
+                itemsContainer.innerHTML = `<div class="error-message" style="background:#F9FAFB;"><i class="fas fa-box-open"></i> No products found for this order.</div>`;
+                return;
+            }
+            
+            // Render each item with detailed structure
+            itemsContainer.innerHTML = '';
+            orderItems.forEach(item => {
+                const product = item.product || {};
+                const productName = product.name || item.name || "Unnamed Product";
+                const productImage = product.image ? getProductImageUrl(product.image) : "https://via.placeholder.com/70?text=Product";
+                const quantity = Number(item.quantity) || 0;
+                let unitPrice = Number(item.unit_price ?? item.price ?? product.price ?? 0);
+                if (isNaN(unitPrice)) unitPrice = 0;
+                const subtotal = quantity * unitPrice;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <div class="item-left">
+                        <img class="item-image" src="${productImage}" alt="${escapeHtml(productName)}" onerror="this.src='https://via.placeholder.com/70?text=Product'">
+                        <div class="item-info">
+                            <div class="item-name">${escapeHtml(productName)}</div>
+                            <div class="item-meta">
+                                <span><i class="fas fa-cubes"></i> Quantity: ${quantity}</span>
+                                ${product.sku ? `<span><i class="fas fa-barcode"></i> SKU: ${escapeHtml(product.sku)}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-right">
+                        <span class="item-price">${formatMoney(unitPrice)} each</span>
+                        <span class="item-subtotal">Subtotal: ${formatMoney(subtotal)}</span>
+                    </div>
+                `;
+                itemsContainer.appendChild(itemDiv);
+            });
+            
+            // Optional: add a grand total footer inside items container (if needed)
+            const totalFooter = document.createElement('div');
+            totalFooter.style.marginTop = '1rem';
+            totalFooter.style.textAlign = 'right';
+            totalFooter.style.fontWeight = '700';
+            totalFooter.style.padding = '0.75rem';
+            totalFooter.style.borderTop = '2px solid var(--border-light)';
+            totalFooter.innerHTML = `<span style="font-size:0.9rem;">Grand Total: </span><span style="font-size:1.2rem; color:var(--accent);">${formatMoney(totalAmount)}</span>`;
+            itemsContainer.appendChild(totalFooter);
+            
+        } catch (err) {
+            console.error("Order details error:", err);
+            showError(err.message || "Failed to load order details. Please try again later.", false);
+        }
+    }
+    
+    // Back button functionality (fallback)
+    const backBtn = document.getElementById('backBtn');
+    if (backBtn) {
+        backBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.history.back();
+        });
+    }
+    
+    loadOrder();
+})();
+</script>
+</body>
+</html>

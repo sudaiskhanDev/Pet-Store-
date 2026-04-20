@@ -54,15 +54,31 @@ class OrderController extends Controller
     }
 
     // Show a single order
-    public function show($id)
-    {
-        $order = Order::with('user')->find($id);
-        if (!$order) {
-            return response()->json(['message' => 'Order not found'], 404);
-        }
 
-        return response()->json($order);
+    public function show($id)
+{
+    $order = Order::with(['orderItems.product'])
+        ->where('order_id', $id)
+        ->first();
+
+    if (!$order) {
+        return response()->json(['message' => 'Order not found'], 404);
     }
+
+    return response()->json([
+        'status' => true,
+        'data' => $order
+    ]);
+}
+    // public function show($id)
+    // {
+    //     $order = Order::with('user')->find($id);
+    //     if (!$order) {
+    //         return response()->json(['message' => 'Order not found'], 404);
+    //     }
+
+    //     return response()->json($order);
+    // }
 
     // Update an order
     public function update(Request $request, $id)
