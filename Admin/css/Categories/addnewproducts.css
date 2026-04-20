@@ -1,7 +1,10 @@
-/* ========== GOOGLE FONTS ========== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap');
+/* ============================================
+   Products Management – Custom Styles
+   Primary Background: #FAFAFA
+   Action Color:       #FE4600
+   ============================================ */
 
-/* ========== RESET & BASE ========== */
+/* ----- Global Reset & Background ----- */
 * {
   margin: 0;
   padding: 0;
@@ -9,318 +12,241 @@
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  background: linear-gradient(135deg, #fff8f5 0%, #ffffff 100%);
-  color: #1e1e2a;
+  background-color: #FAFAFA;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #1a1a1a;
   line-height: 1.5;
   padding: 2rem;
-  min-height: 100vh;
 }
 
-/* ========== MAIN CONTAINER (assumes .main-newProduct exists) ========== */
 .main-newProduct {
   max-width: 1400px;
   margin: 0 auto;
-  background: #FFFFFF;
+  background-color: #FAFAFA;
+}
+
+/* ----- Navigation (Action color for links) ----- */
+.nav {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 500;
   border-radius: 2rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  padding: 2rem;
-  animation: slideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  transition: all 0.2s ease;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+.nav-link:hover {
+  background-color: rgba(254, 70, 0, 0.08);
+  color: #FE4600;
 }
 
-/* ========== HEADINGS ========== */
+.nav-link:active {
+  color: #FE4600;
+}
+
+/* Active page indicator – add class "active" manually or via JS */
+.nav-link.active {
+  background-color: #FE4600;
+  color: white;
+}
+
+/* ----- Headings ----- */
 h2 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  background: linear-gradient(125deg, #FE4600, #ff9a60);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  margin-bottom: 1.8rem;
-  border-left: 6px solid #FE4600;
-  padding-left: 1.2rem;
-  animation: slideRight 0.5s ease;
-}
-
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  border-left: 5px solid #FE4600;
+  padding-left: 1rem;
 }
 
 h3 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-  color: #1f2e1c;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-h3::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f0ae";
-  color: #FE4600;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  margin: 1rem 0 1rem 0;
+  color: #1f2937;
 }
 
-/* ========== FORM SECTION ========== */
+/* ----- Form Section (Add/Edit Product) ----- */
 .add-product {
-  background: #fefaf8;
-  border-radius: 1.8rem;
-  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
-  border: 1px solid #ffe0d4;
-  animation: fadeUp 0.6s ease;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .form-group {
-  margin-bottom: 1.6rem;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 1.25rem;
 }
 
 label {
+  display: block;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #2c3e2f;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: #374151;
 }
-label::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  color: #FE4600;
-  width: 24px;
-}
-label[for="categorySelect"]::before { content: "\f07c"; }
-label[for="animalSelect"]::before { content: "\f6d3"; }
-label[for="name"]::before { content: "\f02e"; }
-label[for="description"]::before { content: "\f0e5"; }
-label[for="price"]::before { content: "\f155"; }
-label[for="stock_quantity"]::before { content: "\f0cb"; }
-label[for="image"]::before { content: "\f302"; }
 
 input, select, textarea {
-  padding: 0.9rem 1rem;
-  border: 2px solid #f0e2db;
-  border-radius: 1.2rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
   font-size: 1rem;
-  transition: all 0.25s ease;
-  background: white;
-  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #FFFFFF;
 }
+
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: #FE4600;
-  box-shadow: 0 0 0 5px rgba(254, 70, 0, 0.15);
-  transform: scale(1.01);
-}
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-input[type="file"] {
-  padding: 0.7rem;
-  border: 2px dashed #FE4600;
-  background: #fff9f5;
-  cursor: pointer;
-}
-input[type="file"]:hover {
-  background: #fff0e6;
+  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.2);
 }
 
-button[type="submit"] {
-  background: linear-gradient(95deg, #FE4600, #ff7330);
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: bold;
+/* Primary CTA Button (Submit) */
+button[type="submit"], 
+#submitBtn {
+  background-color: #FE4600;
   color: white;
-  border-radius: 3rem;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 2rem;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-  width: 100%;
-  max-width: 280px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  box-shadow: 0 6px 14px rgba(254, 70, 0, 0.3);
-  margin-top: 0.8rem;
-}
-button[type="submit"]::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f00c";
-  font-size: 1.1rem;
-}
-button[type="submit"]:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 18px 28px -10px #FE4600;
-  background: linear-gradient(95deg, #e03e00, #ff621f);
-}
-button[type="submit"]:active {
-  transform: translateY(1px);
+  transition: background-color 0.2s, transform 0.1s;
+  display: inline-block;
+  margin-top: 0.5rem;
 }
 
-/* ========== TABLE ========== */
+button[type="submit"]:hover,
+#submitBtn:hover {
+  background-color: #e03e00;
+}
+
+button[type="submit"]:active {
+  transform: scale(0.97);
+}
+
+/* ----- Products Table ----- */
 .product-list {
-  margin-top: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  padding: 1.5rem;
   overflow-x: auto;
 }
+
 table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  background: white;
+  border-collapse: collapse;
+  border: none;
 }
+
+thead tr {
+  background-color: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+}
+
 th {
-  background: #FE4600;
-  color: white;
-  padding: 1rem;
-  font-weight: 600;
-  font-size: 0.9rem;
   text-align: left;
+  padding: 1rem 0.8rem;
+  font-weight: 600;
+  color: #1f2937;
 }
-th:first-child { border-top-left-radius: 1.2rem; }
-th:last-child { border-top-right-radius: 1.2rem; }
+
 td {
-  padding: 1rem;
-  border-bottom: 1px solid #f0e2db;
-  background-color: #fff;
+  padding: 0.8rem;
+  border-bottom: 1px solid #f0f0f0;
   vertical-align: middle;
 }
-tr:hover td {
-  background-color: #fff7f2;
-  transition: 0.2s;
-}
 
-/* Action buttons */
+/* Table action buttons */
 .edit-btn, .delete-btn {
-  border: none;
-  background: none;
-  font-size: 0.9rem;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  margin: 0 5px;
-  padding: 6px 12px;
-  border-radius: 30px;
   transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  border: none;
+  margin-right: 0.5rem;
 }
+
 .edit-btn {
-  color: #2b7a4b;
-  background: #eaf9f0;
+  background-color: #FE4600;
+  color: white;
 }
-.edit-btn::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f044";
+
+.edit-btn:hover {
+  background-color: #e03e00;
 }
+
 .delete-btn {
+  background-color: #f3f4f6;
   color: #dc2626;
-  background: #fee8e8;
-}
-.delete-btn::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f1f8";
-}
-.edit-btn:hover, .delete-btn:hover {
-  transform: scale(1.03);
-}
-.edit-btn:hover { background: #c8f0da; }
-.delete-btn:hover { background: #ffd6d6; }
-
-/* Table images */
-td.image img {
-  max-width: 55px;
-  max-height: 55px;
-  border-radius: 12px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-td.image img:hover {
-  transform: scale(2);
-  z-index: 20;
-  position: relative;
+  border: 1px solid #fecaca;
 }
 
-/* Hidden template row */
-.product-row[style="display:none;"] {
-  display: none !important;
+.delete-btn:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
 }
 
-/* ========== TOAST NOTIFICATIONS ========== */
+/* ----- Toast Notifications (Action color used) ----- */
 #toastContainer {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 9999;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  pointer-events: none;
-}
-.toast {
-  background: #1f2937;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 60px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(8px);
-  animation: toastSlideIn 0.3s ease forwards;
-  pointer-events: auto;
-  border-left: 4px solid #FE4600;
-}
-.toast.success {
-  background: #0f3b2c;
-  border-left-color: #22c55e;
-}
-.toast.error {
-  background: #4a1a1a;
-  border-left-color: #ef4444;
-}
-.toast i {
-  font-size: 1.1rem;
-}
-@keyframes toastSlideIn {
-  from { opacity: 0; transform: translateX(60px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-.toast.fade-out {
-  animation: toastFadeOut 0.3s ease forwards;
-}
-@keyframes toastFadeOut {
-  to { opacity: 0; transform: translateX(60px); }
 }
 
-/* ========== CUSTOM CONFIRM MODAL ========== */
+.toast {
+  background-color: #FFFFFF;
+  color: #1f2937;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  border-left: 5px solid #FE4600;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ----- Custom Confirm Modal (Action color for Yes) ----- */
 .modal {
   display: none;
   position: fixed;
@@ -328,100 +254,105 @@ td.image img:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  z-index: 10000;
-  justify-content: center;
+  background-color: rgba(0,0,0,0.5);
   align-items: center;
-  animation: modalFadeIn 0.2s ease;
+  justify-content: center;
+  z-index: 2000;
 }
-@keyframes modalFadeIn {
-  from { opacity: 0; backdrop-filter: blur(0); }
-  to { opacity: 1; backdrop-filter: blur(6px); }
-}
+
 .modal-content {
-  background: #FFFFFF;
-  border-radius: 2rem;
-  padding: 2rem;
+  background-color: #FFFFFF;
+  padding: 1.8rem;
+  border-radius: 1rem;
   max-width: 400px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.2);
-  animation: modalPop 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
 }
-@keyframes modalPop {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
+
 #confirmMessage {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 1.8rem;
-  color: #1e1e2a;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #1f2937;
 }
+
 .modal-actions {
   display: flex;
   gap: 1rem;
   justify-content: center;
 }
+
 .modal-actions button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
   border: none;
-  padding: 0.7rem 1.8rem;
-  border-radius: 3rem;
-  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
+
 #confirmYes {
-  background: #FE4600;
+  background-color: #FE4600;
   color: white;
-  box-shadow: 0 4px 12px rgba(254, 70, 0, 0.3);
 }
+
 #confirmYes:hover {
-  background: #e03e00;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(254, 70, 0, 0.4);
+  background-color: #e03e00;
 }
+
 #confirmNo {
-  background: #eef2f6;
-  color: #2c3e2f;
+  background-color: #e5e7eb;
+  color: #374151;
 }
+
 #confirmNo:hover {
-  background: #e2e8f0;
-  transform: translateY(-2px);
+  background-color: #d1d5db;
 }
 
-/* ========== RESPONSIVE ========== */
+/* ----- Progress Bar (if used later) ----- */
+progress {
+  width: 100%;
+  height: 0.75rem;
+  border-radius: 1rem;
+  accent-color: #FE4600;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #e5e7eb;
+  border-radius: 1rem;
+}
+
+progress::-webkit-progress-value {
+  background-color: #FE4600;
+  border-radius: 1rem;
+}
+
+/* ----- Utility / Misc ----- */
+hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  body { padding: 1rem; }
-  .main-newProduct { padding: 1rem; }
-  h2 { font-size: 1.6rem; }
-  .add-product { padding: 1.2rem; }
-  button[type="submit"] { max-width: 100%; }
-  th, td { font-size: 0.8rem; padding: 0.6rem; }
-  .product-list { overflow-x: auto; }
-  table { min-width: 700px; }
-  .edit-btn, .delete-btn { padding: 4px 8px; font-size: 0.75rem; }
-  #toastContainer { bottom: 1rem; right: 1rem; left: 1rem; }
-  .toast { width: auto; font-size: 0.8rem; }
-  .modal-content { padding: 1.5rem; width: 85%; }
-  #confirmMessage { font-size: 1rem; }
-  .modal-actions button { padding: 0.5rem 1.2rem; }
-}
-
-/* ========== SCROLLBAR ========== */
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-::-webkit-scrollbar-thumb { background: #FE4600; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #cc3a00; }
-
-/* ========== FOCUS GLOW ========== */
-@keyframes glowPulse {
-  0% { box-shadow: 0 0 0 0 rgba(254, 70, 0, 0.2); }
-  70% { box-shadow: 0 0 0 8px rgba(254, 70, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(254, 70, 0, 0); }
-}
-input:focus, select:focus, textarea:focus {
-  animation: glowPulse 0.8s ease-out;
+  body {
+    padding: 1rem;
+  }
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-link {
+    text-align: center;
+  }
+  th, td {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+  .edit-btn, .delete-btn {
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 0.3rem;
+    display: inline-block;
+  }
 }

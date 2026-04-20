@@ -1,254 +1,427 @@
-/* ===== ANIMALS CATEGORIES PAGE STYLES ===== */
-/* Consistent with admin dashboard design */
+/* ==================================================================
+   ANIMALS CATEGORIES – COMPLETE DETAILED CSS
+   Primary Background: #FAFAFA (soft off-white)
+   Action Color:       #FE4600 (CTA, buttons, links, active states)
+   ================================================================== */
+
+/* --------------------------------------------
+   1. RESET & GLOBAL
+-------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAFAFA;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #1a1a1a;
+  line-height: 1.5;
+  padding: 2rem;
+  min-height: 100vh;
+}
 
 .main-animals {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fb 0%, #eef2f9 100%);
-  min-height: 100vh;
-  animation: fadeInUp 0.5s ease-out;
+  background-color: #FAFAFA;
 }
 
-/* Page Heading */
-.main-animals h2 {
+/* --------------------------------------------
+   2. TYPOGRAPHY & HEADINGS
+-------------------------------------------- */
+h2 {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  border-left: 5px solid #FE4600;
+  padding-left: 1rem;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------
+   3. NAVIGATION (action color for links)
+-------------------------------------------- */
+.nav {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
-  color: #0f172a;
-  position: relative;
+  padding: 0.5rem 1rem;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
   display: inline-block;
-  letter-spacing: -0.3px;
+  padding: 0.6rem 1.2rem;
+  color: #4b5563;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2rem;
+  transition: all 0.2s ease;
+  background-color: transparent;
 }
 
-.main-animals h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #FE4600, #ff8c5a);
-  border-radius: 4px;
+.nav-link:hover {
+  background-color: rgba(254, 70, 0, 0.08);
+  color: #FE4600;
 }
 
-/* Form Card */
+.nav-link:active {
+  color: #FE4600;
+  transform: scale(0.98);
+}
+
+/* Active page class – manually add "active" to the Animals link */
+.nav-link.active {
+  background-color: #FE4600;
+  color: white;
+  box-shadow: 0 2px 4px rgba(254, 70, 0, 0.2);
+}
+
+/* --------------------------------------------
+   4. FORM SECTION (Add/Edit Animal)
+-------------------------------------------- */
 #simple-form {
-  background: #FFFFFF;
-  border-radius: 28px;
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
-  padding: 1.5rem;
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  padding: 1.8rem;
   margin-bottom: 2rem;
-  transition: all 0.3s ease;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   gap: 1rem;
 }
 
-#simple-form:hover {
-  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-  border-color: #FE4600;
-  transform: translateY(-3px);
-}
-
 #simple-form label {
-  font-weight: 600;
-  color: #334155;
-  font-size: 0.9rem;
-  letter-spacing: 0.3px;
-  margin-bottom: 0.3rem;
+  flex: 1 0 100%;
   display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-size: 0.9rem;
 }
 
 #simple-form input {
-  width: 250px;
+  flex: 3;
   padding: 0.75rem 1rem;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   font-family: inherit;
-  font-size: 0.9rem;
+  background-color: #FFFFFF;
   transition: all 0.2s ease;
-  background: #fefefe;
+  min-width: 200px;
 }
 
 #simple-form input:focus {
   outline: none;
   border-color: #FE4600;
-  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.1);
+  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.2);
 }
 
+/* Save Button – primary CTA */
 #save-btn {
-  background: #FE4600;
+  background-color: #FE4600;
   color: white;
   border: none;
-  padding: 0.75rem 1.8rem;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 0.9rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 2rem;
   cursor: pointer;
-  transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
-  margin-top: 1.5rem;
-}
-
-#save-btn::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f0c7";
-  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  flex: 1;
 }
 
 #save-btn:hover {
-  background: #e03e00;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(254, 70, 0, 0.3);
+  background-color: #e03e00;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.25);
 }
 
-/* Table Card */
+#save-btn:active {
+  transform: scale(0.97);
+  background-color: #c23500;
+}
+
+/* --------------------------------------------
+   5. ANIMALS TABLE
+-------------------------------------------- */
 #animals-table {
   width: 100%;
-  background: #FFFFFF;
-  border-radius: 28px;
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
-  transition: all 0.3s ease;
-  border-collapse: separate;
-  border-spacing: 0;
+  background-color: #FFFFFF;
+  border-radius: 1rem;
   overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-collapse: collapse;
 }
 
-#animals-table:hover {
-  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-  border-color: #FE4600;
-  transform: translateY(-3px);
-}
-
-#animals-table th,
-#animals-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eef2f6;
+#animals-table thead tr {
+  background-color: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
 }
 
 #animals-table th {
-  background: #f8fafc;
+  text-align: left;
+  padding: 1rem 1rem;
   font-weight: 700;
-  color: #1e293b;
-  font-size: 0.9rem;
+  color: #1f2937;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
 }
 
-#animals-table tr:last-child td {
-  border-bottom: none;
+#animals-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
 }
 
 #animals-table tbody tr:hover td {
-  background: #fffaf5;
+  background-color: #fef9f5;  /* subtle action color tint */
 }
 
-/* Action Buttons */
+/* Table action buttons */
 .btn {
-  background: none;
-  border: none;
-  font-size: 0.9rem;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
-  padding: 0.3rem 0.8rem;
-  border-radius: 8px;
   transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin: 0 2px;
+  border: none;
+  margin-right: 0.6rem;
+  display: inline-block;
 }
 
 .btn-update {
-  color: #3b82f6;
-}
-
-.btn-update::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f044";
-  font-size: 0.9rem;
-}
-
-.btn-delete {
-  color: #ef4444;
-}
-
-.btn-delete::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f2ed";
-  font-size: 0.9rem;
+  background-color: #FE4600;
+  color: white;
 }
 
 .btn-update:hover {
-  background: #eff6ff;
-  transform: scale(1.05);
+  background-color: #e03e00;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(254, 70, 0, 0.3);
+}
+
+.btn-delete {
+  background-color: #f3f4f6;
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }
 
 .btn-delete:hover {
-  background: #fee2e2;
-  transform: scale(1.05);
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+  transform: translateY(-1px);
 }
 
-/* Responsive */
+/* --------------------------------------------
+   6. TOAST NOTIFICATIONS (optional, if your JS uses them)
+-------------------------------------------- */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.toast {
+  background-color: #FFFFFF;
+  color: #1f2937;
+  padding: 0.85rem 1.2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #FE4600;
+  font-size: 0.9rem;
+  font-weight: 500;
+  animation: slideInRight 0.2s ease forwards;
+  max-width: 320px;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------
+   7. CUSTOM CONFIRM MODAL (if your JS uses one)
+-------------------------------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+  animation: modalPop 0.2s ease;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.modal-actions button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-confirm {
+  background-color: #FE4600;
+  color: white;
+}
+
+.modal-confirm:hover {
+  background-color: #e03e00;
+}
+
+.modal-cancel {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* --------------------------------------------
+   8. ACCESSIBILITY & FOCUS
+-------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #FE4600;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+::selection {
+  background-color: #FE4600;
+  color: white;
+}
+
+/* --------------------------------------------
+   9. RESPONSIVE DESIGN
+-------------------------------------------- */
 @media (max-width: 768px) {
-  .main-animals {
+  body {
     padding: 1rem;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    text-align: center;
+    width: 100%;
   }
 
   #simple-form {
     flex-direction: column;
     align-items: stretch;
-    padding: 1rem;
   }
 
-  #simple-form label {
-    margin-bottom: 0.2rem;
-  }
-
-  #simple-form input {
-    width: 100%;
-  }
-
+  #simple-form input,
   #save-btn {
     width: 100%;
-    justify-content: center;
-    margin-top: 0.5rem;
-  }
-
-  #animals-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
   }
 
   #animals-table th,
   #animals-table td {
-    padding: 0.75rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
   }
 
   .btn {
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.7rem;
+    margin-right: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
   }
 }
 
-/* Animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@media (max-width: 480px) {
+  .modal-actions {
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .modal-actions button {
+    width: 100%;
   }
+}
+
+/* --------------------------------------------
+   10. UTILITY CLASSES
+-------------------------------------------- */
+.text-center {
+  text-align: center;
+}
+
+.bg-white {
+  background-color: #FFFFFF;
 }

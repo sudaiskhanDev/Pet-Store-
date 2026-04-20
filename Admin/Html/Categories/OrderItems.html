@@ -69,14 +69,19 @@
 
 
 
-  <h2>Order Items CRUD</h2>
+  <h2>Order Items</h2>
 
 <!-- FORM -->
 <div class="form-box">
+
     <input type="hidden" id="order_item_id">
 
-    <input type="number" id="order_id" placeholder="Order ID">
-    <input type="number" id="product_id" placeholder="Product ID">
+    <!-- ORDER DROPDOWN -->
+    <select id="order_id"></select>
+
+    <!-- PRODUCT DROPDOWN -->
+    <select id="product_id"></select>
+
     <input type="number" id="quantity" placeholder="Quantity">
     <input type="number" id="price" placeholder="Price">
 
@@ -85,12 +90,13 @@
 </div>
 
 <!-- TABLE -->
-<table>
+<table border="1" width="100%">
     <thead>
         <tr>
             <th>ID</th>
             <th>Order</th>
-            <th>Product Name</th>
+            <th>Product</th>
+            <th>Image</th>
             <th>Qty</th>
             <th>Price</th>
             <th>Action</th>
@@ -99,6 +105,7 @@
 
     <tbody id="tableBody"></tbody>
 </table>
+
 
 </div>
 

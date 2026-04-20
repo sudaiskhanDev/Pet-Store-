@@ -2,116 +2,976 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>PetPulse Admin | Secure Dashboard</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="../css/dashboard.css" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+<style>
+    /* ==================================================================
+   PETPULSE ADMIN DASHBOARD – COMPLETE PROFESSIONAL CSS
+   Design System: #FAFAFA (bg), #FFFFFF (cards), #FE4600 (action)
+   Fully responsive, modern, accessible.
+   ================================================================== */
+
+/* --------------------------------------------
+   1. RESET & BASE
+-------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #FAFAFA;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1A1A1A;
+  line-height: 1.5;
+  padding: clamp(1rem, 4vw, 2rem);
+  min-height: 100vh;
+}
+
+.main-dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #FAFAFA;
+  width: 100%;
+}
+
+/* --------------------------------------------
+   2. TOP BAR
+-------------------------------------------- */
+.topbar {
+  background-color: #FFFFFF;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.topbar h2 {
+  font-size: clamp(1.25rem, 5vw, 1.6rem);
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#logoutBtn {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#logoutBtn:hover {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------
+   3. NAVIGATION (consistent with other pages)
+-------------------------------------------- */
+.nav {
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  color: #4B5563;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-link i {
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  background-color: rgba(254, 70, 0, 0.08);
+  color: #FE4600;
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background-color: #FE4600;
+  color: white;
+  box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+  .nav-link {
+    justify-content: center;
+    white-space: normal;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------
+   4. STATS ROW (modern metric cards)
+-------------------------------------------- */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.stat-info h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6B7280;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.stat-icon {
+  font-size: 2.2rem;
+  color: #FE4600;
+  opacity: 0.8;
+}
+
+/* --------------------------------------------
+   5. DASHBOARD GRID (main content)
+-------------------------------------------- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.box {
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.box h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+  border-left: 4px solid #FE4600;
+  padding-left: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.box h3 a {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-size: 1.1rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  background: #F9FAFB;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  transition: all 0.2s;
+}
+
+.box h3 a:hover {
+  background-color: #FE4600;
+  color: white;
+  transform: translateX(2px);
+}
+
+/* Right side column (Orders + Payments) */
+.right-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.products,
+.order-items,
+.right-side {
+  grid-column: span 1;
+}
+
+/* --------------------------------------------
+   6. SCROLLABLE LISTS (Products, Order Items, Orders, Payments)
+-------------------------------------------- */
+.products-list,
+.order-items-list,
+.orders-list,
+.payments-list {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* Custom scrollbar */
+.products-list::-webkit-scrollbar,
+.order-items-list::-webkit-scrollbar,
+.orders-list::-webkit-scrollbar,
+.payments-list::-webkit-scrollbar {
+  width: 5px;
+}
+.products-list::-webkit-scrollbar-track,
+.order-items-list::-webkit-scrollbar-track,
+.orders-list::-webkit-scrollbar-track,
+.payments-list::-webkit-scrollbar-track {
+  background: #F3F4F6;
+  border-radius: 10px;
+}
+.products-list::-webkit-scrollbar-thumb,
+.order-items-list::-webkit-scrollbar-thumb,
+.orders-list::-webkit-scrollbar-thumb,
+.payments-list::-webkit-scrollbar-thumb {
+  background: #FE4600;
+  border-radius: 10px;
+}
+
+/* Empty message / loading */
+.empty-message {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #9CA3AF;
+  font-size: 0.9rem;
+}
+
+/* -------------------- Product Cards (detailed) -------------------- */
+.product-item-card {
+  background-color: #F9FAFB;
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+  transition: background 0.2s, border-left 0.2s;
+  border-left: 2px solid transparent;
+}
+
+.product-item-card:hover {
+  background-color: #FEF9F5;
+  border-left-color: #FE4600;
+}
+
+.product-detail {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  align-items: center;
+}
+
+.product-img-sm {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid #E5E7EB;
+  background: white;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-name {
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  color: #6B7280;
+}
+
+.product-meta i {
+  width: 14px;
+  color: #FE4600;
+}
+
+/* -------------------- Order Items Cards -------------------- */
+.order-item-card {
+  background-color: #F9FAFB;
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.order-item-card:hover {
+  background-color: #FEF9F5;
+  border-left-color: #FE4600;
+}
+
+.order-item-flex {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  align-items: center;
+}
+
+.order-item-img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  border: 1px solid #E5E7EB;
+  background: white;
+}
+
+.order-item-details {
+  flex: 1;
+}
+
+.order-item-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.order-item-sub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  color: #6B7280;
+}
+
+.order-item-sub i {
+  color: #FE4600;
+  width: 14px;
+}
+
+/* -------------------- Orders Cards -------------------- */
+.order-card {
+  background-color: #F9FAFB;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.order-card:hover {
+  background-color: #FEF9F5;
+  border-left-color: #FE4600;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.order-id {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #1F2937;
+}
+
+.order-status {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  background-color: #E5E7EB;
+  color: #4B5563;
+}
+
+.order-status.pending {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.order-customer {
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: #4B5563;
+}
+
+.order-total {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+/* -------------------- Payments Cards -------------------- */
+.payment-card {
+  background-color: #F9FAFB;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.payment-card:hover {
+  background-color: #FEF9F5;
+  border-left-color: #FE4600;
+}
+
+.payment-amount {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.badge-payment {
+  font-size: 0.7rem;
+  background-color: #E5E7EB;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  color: #4B5563;
+}
+
+/* --------------------------------------------
+   7. RESPONSIVE BREAKPOINTS
+-------------------------------------------- */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .products,
+  .order-items,
+  .right-side {
+    grid-column: span 1;
+  }
+  .right-side {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .stats-row {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+  .stat-card {
+    padding: 1rem;
+  }
+  .stat-number {
+    font-size: 1.4rem;
+  }
+  .product-detail,
+  .order-item-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+  .product-meta,
+  .order-item-sub {
+    justify-content: center;
+  }
+  .box h3 {
+    font-size: 1rem;
+  }
+}
+
+/* --------------------------------------------
+   8. ACCESSIBILITY & UTILITIES
+-------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #FE4600;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+::selection {
+  background-color: #FE4600;
+  color: white;
+}
+
+.text-center {
+  text-align: center;
+}
+</style>
+
+
 </head>
-
 <body>
-    <div class="main-dashboard">
+<div class="main-dashboard">
+    <header class="topbar">
+        <h2><i class="fas fa-paw" style="margin-right: 8px; color: #3c8db5;"></i> PetPulse Admin</h2>
+        <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </header>
 
-        <!-- Top Bar -->
-        <header class="topbar">
-            <h2>Admin Dashboard</h2>
-            <button id="logoutBtn">Logout</button>
-        </header>
+    <nav class="nav" role="navigation">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" href="../Html/Categories/AddNewProducts.html"><i class="fas fa-plus-circle"></i> Add Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="../Html/Categories/Product Categories.html"><i class="fas fa-tags"></i> Product Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="../Html/Categories/Animals.html"><i class="fas fa-dog"></i> Animal Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="../Html/Categories/Orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="../Html/Categories/OrderItems.html"><i class="fas fa-boxes"></i> Order Items</a></li>
+            <li class="nav-item"><a class="nav-link" href="../Html/Categories/payments.html"><i class="fas fa-credit-card"></i> Payments</a></li>
+        </ul>
+    </nav>
 
-        <!-- Navigation -->
-        <nav class="nav" role="navigation" aria-label="Main navigation">
-
-            <ul class="nav-list">
-                <li>
-                    <a href="../Html/dashboard.html"></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Html/Categories/AddNewProducts.html">
-                        Add New Products
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../Html/Categories/Product Categories.html">
-                        Product Categories
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../Html/Categories/Animals.html">
-                        Animal Categories
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../Html/Categories/Orders.html">
-                        Orders
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../Html/Categories/OrderItems.html">
-                        Order Items
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="../Html/Categories/payments.html">
-                        Payments
-                    </a>
-                </li>
-            </ul>
-        </nav>
-<main class="dashboard-content">
-
-    <!-- <div class="top-stats">
-        <div class="stat-box">Total Orders</div>
-        <div class="stat-box">Customers</div>
-    </div> -->
-
-    <div class="dashboard-grid">
-
-        <div class="box products">
-            <h3>Products</h3>
-            <a href="../Html/Categories/AddNewProducts.html">→</a>
-            <div class="products-list">
-                </div>
+    <main class="dashboard-content">
+        <!-- Stats Summary -->
+        <div class="stats-row" id="statsContainer">
+            <div class="stat-card"><div class="stat-info"><h4>Total Products</h4><div class="stat-number" id="totalProducts">—</div></div><i class="fas fa-boxes stat-icon"></i></div>
+            <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number" id="totalOrders">—</div></div><i class="fas fa-shopping-bag stat-icon"></i></div>
+            <div class="stat-card"><div class="stat-info"><h4>Revenue (USD)</h4><div class="stat-number" id="totalRevenue">—</div></div><i class="fas fa-dollar-sign stat-icon"></i></div>
+            <div class="stat-card"><div class="stat-info"><h4>Payments Processed</h4><div class="stat-number" id="totalPaymentsCount">—</div></div><i class="fas fa-receipt stat-icon"></i></div>
         </div>
 
-        <div class="box order-items">
-            <h3>Order Items</h3>
-            <a href="../Html/Categories/OrderItems.html">→</a>
-            <div class="order-items-list">
-                </div>
-        </div>
-
-        <div class="right-side">
-            <div class="box orders">
-                <h3>Orders</h3>
-                <a href="../Html/Categories/Orders.html">→</a>
-                <div class="orders-list"></div>
+        <!-- Detailed Grid -->
+        <div class="dashboard-grid">
+            <div class="box products">
+                <h3>📦 Products <a href="../Html/Categories/AddNewProducts.html" title="Manage Products">→</a></h3>
+                <div class="products-list" id="detailedProductsList"><div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading products...</div></div>
             </div>
-
-            <div class="box payments">
-                <h3>Payments</h3>
-                <a href="../Html/Categories/payments.html">→</a>
-                <div class="payments-list"></div>
+            <div class="box order-items">
+                <h3>🛍️ Order Items <a href="../Html/Categories/OrderItems.html">→</a></h3>
+                <div class="order-items-list" id="detailedOrderItemsList"><div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading order items...</div></div>
+            </div>
+            <div class="right-side">
+                <div class="box orders">
+                    <h3>📋 Orders <a href="../Html/Categories/Orders.html">→</a></h3>
+                    <div class="orders-list" id="detailedOrdersList"><div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading orders...</div></div>
+                </div>
+                <div class="box payments">
+                    <h3>💳 Payments <a href="../Html/Categories/payments.html">→</a></h3>
+                    <div class="payments-list" id="detailedPaymentsList"><div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading payments...</div></div>
+                </div>
             </div>
         </div>
+    </main>
+</div>
 
-    </div>
-</main>
-    </div>
+<script>
+    (function() {
+        // ======================== TOKEN & AUTH HANDLING ========================
+        const API_BASE = "http://127.0.0.1:8000/api";
+        const token = localStorage.getItem("admin_token");
 
-    <!-- Scripts -->
-    <script src="../js/Dashboard Items/Products.js"></script>
-    <script src="../js/Dashboard Items/orders.js"></script>
-    <script src="../js/Dashboard Items/PAyments.js"></script>
-    <script src="../js/Dashboard Items/OrderItemsScrollable.js"></script>
-    <script src="../js/dashboard.js"></script>
+        // Redirect if no token
+        if (!token) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        // Helper to create authenticated fetch options
+        function authFetch(url, options = {}) {
+            const headers = {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json",
+                ...options.headers
+            };
+            return fetch(url, { ...options, headers });
+        }
+
+        // Verify token on page load (call /admin/me)
+        async function verifyAdminToken() {
+            try {
+                const res = await authFetch(`${API_BASE}/admin/me`, { method: "GET" });
+                if (res.status === 401) {
+                    localStorage.removeItem("admin_token");
+                    window.location.href = "login.html";
+                    return false;
+                }
+                const data = await res.json();
+                console.log("Logged in as:", data.email || data.name || "Admin");
+                return true;
+            } catch (err) {
+                console.error("Token verification error:", err);
+                localStorage.removeItem("admin_token");
+                window.location.href = "login.html";
+                return false;
+            }
+        }
+
+        // Logout functionality
+        document.getElementById("logoutBtn").addEventListener("click", async () => {
+            try {
+                await authFetch(`${API_BASE}/admin/logout`, { method: "POST" });
+            } catch (e) { /* ignore network errors during logout */ }
+            localStorage.removeItem("admin_token");
+            window.location.href = "login.html";
+        });
+
+        // Helper: format currency
+        const formatMoney = (val) => `$${parseFloat(val).toFixed(2)}`;
+
+        // Helper: format date
+        const formatDate = (dateStr) => {
+            if (!dateStr) return 'N/A';
+            try {
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            } catch(e) { return dateStr.slice(0,10); }
+        };
+
+        // Helper: product image URL
+        function getProductImageUrl(imagePath) {
+            if (!imagePath) return "https://via.placeholder.com/60?text=No+Img";
+            if (imagePath.startsWith('http')) return imagePath;
+            return `http://127.0.0.1:8000/storage/${imagePath}`;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // ======================== API DATA FETCHERS (with token) ========================
+        async function fetchProducts() {
+            try {
+                const res = await authFetch(`${API_BASE}/products`);
+                if (!res.ok) throw new Error(`Products API error ${res.status}`);
+                const data = await res.json();
+                // API returns { products: [...] } as per original spec
+                let products = Array.isArray(data.products) ? data.products : (Array.isArray(data) ? data : []);
+                return products;
+            } catch (err) {
+                console.error("Products fetch error:", err);
+                return [];
+            }
+        }
+
+        async function fetchOrderItems() {
+            try {
+                const res = await authFetch(`${API_BASE}/order-items`);
+                if (!res.ok) throw new Error(`Order items API error ${res.status}`);
+                const response = await res.json();
+                let items = response.data || (Array.isArray(response) ? response : []);
+                return items;
+            } catch (err) {
+                console.error("Order items error:", err);
+                return [];
+            }
+        }
+
+        async function fetchOrders() {
+            try {
+                const res = await authFetch(`${API_BASE}/orders`);
+                if (!res.ok) throw new Error(`Orders API error ${res.status}`);
+                let orders = await res.json();
+                return Array.isArray(orders) ? orders : [];
+            } catch (err) {
+                console.error("Orders error:", err);
+                return [];
+            }
+        }
+
+        async function fetchPayments() {
+            try {
+                const res = await authFetch(`${API_BASE}/payments`);
+                if (!res.ok) throw new Error(`Payments API error ${res.status}`);
+                let payments = await res.json();
+                return Array.isArray(payments) ? payments : [];
+            } catch (err) {
+                console.error("Payments error:", err);
+                return [];
+            }
+        }
+
+        // ======================== RENDER DETAILED VIEWS ========================
+        async function renderProducts() {
+            const container = document.getElementById("detailedProductsList");
+            if (!container) return;
+            container.innerHTML = `<div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading products...</div>`;
+            const products = await fetchProducts();
+            if (!products.length) {
+                container.innerHTML = `<div class="empty-message"><i class="fas fa-box-open"></i> No products found</div>`;
+                return;
+            }
+            container.innerHTML = "";
+            products.slice(0, 12).forEach(prod => {
+                const imgSrc = getProductImageUrl(prod.image);
+                const stock = prod.stock_quantity !== undefined ? prod.stock_quantity : (prod.stock ?? '—');
+                const category = prod.category_name || prod.category?.name || 'General';
+                const price = prod.price ? formatMoney(prod.price) : '—';
+                const card = document.createElement("div");
+                card.className = "product-item-card";
+                card.innerHTML = `
+                    <div class="product-detail">
+                        <img class="product-img-sm" src="${imgSrc}" alt="${escapeHtml(prod.name)}" onerror="this.src='https://via.placeholder.com/60?text=Product'">
+                        <div class="product-info">
+                            <div class="product-name">${escapeHtml(prod.name)}</div>
+                            <div class="product-meta">
+                                <span><i class="fas fa-tag"></i> ${price}</span>
+                                <span><i class="fas fa-database"></i> Stock: ${stock}</span>
+                                <span><i class="fas fa-folder"></i> ${escapeHtml(category)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            if (products.length > 12) {
+                const more = document.createElement("div");
+                more.className = "empty-message";
+                more.style.padding = "0.5rem";
+                more.innerHTML = `<i class="fas fa-ellipsis-h"></i> +${products.length-12} more products`;
+                container.appendChild(more);
+            }
+        }
+
+        async function renderOrderItems() {
+            const container = document.getElementById("detailedOrderItemsList");
+            if (!container) return;
+            container.innerHTML = `<div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading order items...</div>`;
+            const items = await fetchOrderItems();
+            if (!items.length) {
+                container.innerHTML = `<div class="empty-message">No order items yet</div>`;
+                return;
+            }
+            container.innerHTML = "";
+            items.slice(0, 10).forEach(item => {
+                const product = item.product;
+                const productName = product?.name || "Unknown Product";
+                const productImg = product?.image ? getProductImageUrl(product.image) : "https://via.placeholder.com/48?text=Item";
+                const quantity = item.quantity || 0;
+                const unitPrice = parseFloat(item.price) || 0;
+                const subtotal = (quantity * unitPrice).toFixed(2);
+                const orderId = item.order_id || '—';
+                const div = document.createElement("div");
+                div.className = "order-item-card";
+                div.innerHTML = `
+                    <div class="order-item-flex">
+                        <img class="order-item-img" src="${productImg}" alt="${escapeHtml(productName)}" onerror="this.src='https://via.placeholder.com/48'">
+                        <div class="order-item-details">
+                            <div class="order-item-title">${escapeHtml(productName)}</div>
+                            <div class="order-item-sub">
+                                <span><i class="fas fa-hashtag"></i> Qty: ${quantity}</span>
+                                <span><i class="fas fa-dollar-sign"></i> ${formatMoney(unitPrice)} ea</span>
+                                <span><i class="fas fa-receipt"></i> Subtotal: ${formatMoney(subtotal)}</span>
+                                <span><i class="fas fa-truck"></i> Order #${orderId}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            if (items.length > 10) {
+                const more = document.createElement("div");
+                more.className = "empty-message";
+                more.innerHTML = `<i class="fas fa-arrow-right"></i> ${items.length-10} more items`;
+                container.appendChild(more);
+            }
+        }
+
+        async function renderOrders() {
+            const container = document.getElementById("detailedOrdersList");
+            if (!container) return;
+            container.innerHTML = `<div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading orders...</div>`;
+            const orders = await fetchOrders();
+            if (!orders.length) {
+                container.innerHTML = `<div class="empty-message">No orders found</div>`;
+                return;
+            }
+            container.innerHTML = "";
+            orders.slice(0, 8).forEach(order => {
+                const orderId = order.order_id || order.id;
+                const customerName = order.user?.name || order.customer_name || "Guest";
+                const total = order.total_amount || order.total || 0;
+                const statusRaw = order.status || "Pending";
+                const statusClass = (statusRaw.toLowerCase() === 'completed' || statusRaw.toLowerCase() === 'paid') ? '' : 'pending';
+                const createdAt = order.created_at || order.order_date || null;
+                const card = document.createElement("div");
+                card.className = "order-card";
+                card.innerHTML = `
+                    <div class="order-header">
+                        <span class="order-id"><i class="fas fa-hashtag"></i> ${orderId}</span>
+                        <span class="order-status ${statusClass}">${escapeHtml(statusRaw)}</span>
+                    </div>
+                    <div class="order-customer"><i class="fas fa-user"></i> ${escapeHtml(customerName)}</div>
+                    <div class="order-total">💰 ${formatMoney(total)}</div>
+                    <div style="font-size:0.7rem; color:#7899b5; margin-top:5px;"><i class="far fa-calendar-alt"></i> ${formatDate(createdAt)}</div>
+                `;
+                container.appendChild(card);
+            });
+            if (orders.length > 8) {
+                const extra = document.createElement("div");
+                extra.className = "empty-message";
+                extra.innerText = `+ ${orders.length-8} more orders`;
+                container.appendChild(extra);
+            }
+        }
+
+        async function renderPayments() {
+            const container = document.getElementById("detailedPaymentsList");
+            if (!container) return;
+            container.innerHTML = `<div class="empty-message"><i class="fas fa-spinner fa-pulse"></i> Loading payments...</div>`;
+            const payments = await fetchPayments();
+            if (!payments.length) {
+                container.innerHTML = `<div class="empty-message">No payment records</div>`;
+                return;
+            }
+            container.innerHTML = "";
+            payments.slice(0, 8).forEach(p => {
+                const amount = p.amount || 0;
+                const status = p.status || "pending";
+                const method = p.payment_method || p.method || "Card";
+                const orderRef = p.order_id ? `Order #${p.order_id}` : 'Order unknown';
+                const card = document.createElement("div");
+                card.className = "payment-card";
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="payment-amount">${formatMoney(amount)}</span>
+                        <span class="badge-payment"><i class="fas fa-credit-card"></i> ${escapeHtml(method)}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-top:8px;">
+                        <span><i class="fas fa-link"></i> ${escapeHtml(orderRef)}</span>
+                        <span style="font-size:0.7rem; background:${status === 'completed' ? '#e0f2e9' : '#fff0db'}; padding:2px 8px; border-radius:30px;">${escapeHtml(status)}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            if (payments.length > 8) {
+                const more = document.createElement("div");
+                more.className = "empty-message";
+                more.innerText = `+ ${payments.length-8} more transactions`;
+                container.appendChild(more);
+            }
+        }
+
+        // Stats: totals and revenue
+        async function renderStats() {
+            try {
+                const [products, orders, payments] = await Promise.all([
+                    fetchProducts(),
+                    fetchOrders(),
+                    fetchPayments()
+                ]);
+                const totalProducts = products.length;
+                const totalOrders = orders.length;
+                const totalRevenue = orders.reduce((sum, o) => sum + (parseFloat(o.total_amount) || 0), 0);
+                const totalPayments = payments.length;
+                document.getElementById("totalProducts").innerText = totalProducts;
+                document.getElementById("totalOrders").innerText = totalOrders;
+                document.getElementById("totalRevenue").innerHTML = formatMoney(totalRevenue);
+                document.getElementById("totalPaymentsCount").innerText = totalPayments;
+            } catch (err) {
+                console.warn("Stats partial error", err);
+                document.getElementById("totalProducts").innerText = "?";
+                document.getElementById("totalOrders").innerText = "?";
+                document.getElementById("totalRevenue").innerHTML = "$--";
+                document.getElementById("totalPaymentsCount").innerText = "?";
+            }
+        }
+
+        // ======================== INITIALIZE DASHBOARD AFTER TOKEN VERIFICATION ========================
+        async function initDashboard() {
+            const isVerified = await verifyAdminToken();
+            if (!isVerified) return; // already redirected
+
+            // Load all data in parallel
+            await Promise.all([
+                renderProducts(),
+                renderOrderItems(),
+                renderOrders(),
+                renderPayments(),
+                renderStats()
+            ]);
+        }
+
+        initDashboard();
+    })();
+</script>
 </body>
 </html>
+ 

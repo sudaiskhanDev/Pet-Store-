@@ -1,384 +1,435 @@
-/* Order Items Page - White & Orange Theme (#FE4600) */
-/* Navigation styles are intentionally omitted as requested */
+/* ==================================================================
+   ORDER ITEMS MANAGEMENT – PRODUCTION CSS
+   Design System: #FAFAFA (bg), #FFFFFF (surfaces), #FE4600 (action)
+   Fully responsive, modern, accessible.
+   ================================================================== */
 
-/* ===== RESET & BASE ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* --------------------------------------------
+   1. RESET & BASE
+-------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-    background: #fef6f0;        /* Very light orange-tinted background */
-    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-    line-height: 1.5;
-    color: #1e1e2a;
+  background-color: #FAFAFA;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #1A1A1A;
+  line-height: 1.5;
+  padding: clamp(1rem, 4vw, 2rem);
+  min-height: 100vh;
 }
 
-/* ===== MAIN CONTAINER ===== */
 .main-orderitems {
-    max-width: 1400px;
-    margin: 2rem auto;
-    padding: 2rem 2rem 2.5rem 2rem;
-    background: #ffffff;
-    border-radius: 28px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(0, 0, 0, 0.02);
-    transition: all 0.2s ease;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #FAFAFA;
+  width: 100%;
 }
 
-/* ===== HEADING ===== */
-.main-orderitems h2 {
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 1.8rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 3px solid #FE4600;
-    display: inline-block;
-    letter-spacing: -0.3px;
-    background: linear-gradient(135deg, #FE4600 0%, #FE4600 70%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: #1f2937;
-    border-image: none;
+/* --------------------------------------------
+   2. NAVIGATION (fully responsive)
+-------------------------------------------- */
+.nav {
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
 }
 
-/* ===== FORM SECTION ===== */
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  color: #4B5563;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2rem;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(254, 70, 0, 0.08);
+  color: #FE4600;
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background-color: #FE4600;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+  .nav-link {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------
+   3. TYPOGRAPHY
+-------------------------------------------- */
+h2 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  border-left: 5px solid #FE4600;
+  padding-left: 1rem;
+  letter-spacing: -0.02em;
+}
+
+/* --------------------------------------------
+   4. FORM CARD
+-------------------------------------------- */
 .form-box {
-    background: #ffffff;
-    padding: 1.6rem 1.8rem;
-    margin-bottom: 2.5rem;
-    border-radius: 24px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03), 0 0 0 1px #fff0e6;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: flex-end;
-    transition: box-shadow 0.2s;
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
 }
 
-.form-box:hover {
-    box-shadow: 0 8px 20px rgba(254, 70, 0, 0.08), 0 0 0 1px #ffe0d0;
-}
-
-/* Input fields */
+.form-box select,
 .form-box input {
-    flex: 1;
-    min-width: 150px;
-    padding: 0.9rem 1.1rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    border: 1px solid #e9eef3;
-    border-radius: 18px;
-    background: #fefcf9;
-    transition: all 0.25s ease;
-    color: #1a2634;
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #FFFFFF;
+  transition: all 0.2s;
 }
 
+.form-box select:focus,
 .form-box input:focus {
-    outline: none;
-    border-color: #FE4600;
-    box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.12);
-    background: #ffffff;
+  outline: none;
+  border-color: #FE4600;
+  box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.2);
 }
 
-.form-box input::placeholder {
-    color: #b9c2cc;
-    font-weight: 400;
-    font-size: 0.9rem;
-}
-
-/* Hidden ID field */
-#order_item_id {
-    display: none;
-}
-
-/* Buttons inside form */
 .form-box button {
-    padding: 0.85rem 1.8rem;
-    border-radius: 40px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    border: none;
-    letter-spacing: 0.3px;
-    font-family: inherit;
+  background-color: #FE4600;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-/* Save Button - Solid #FE4600 */
 .form-box button:first-of-type {
-    background: #FE4600;
-    color: white;
-    box-shadow: 0 2px 8px rgba(254, 70, 0, 0.3);
+  background-color: #FE4600;
 }
 
 .form-box button:first-of-type:hover {
-    background: #e03e00;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(254, 70, 0, 0.25);
+  background-color: #E03E00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
 }
 
-.form-box button:first-of-type:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
-}
-
-/* Clear Button - Outline Orange */
 .form-box button:last-of-type {
-    background: white;
-    border: 1.5px solid #FE4600;
-    color: #FE4600;
+  background-color: #F3F4F6;
+  color: #4B5563;
 }
 
 .form-box button:last-of-type:hover {
-    background: #fff5ef;
-    border-color: #e03e00;
-    color: #e03e00;
-    transform: translateY(-1px);
+  background-color: #E5E7EB;
+  transform: translateY(-1px);
 }
 
-/* ===== TABLE STYLES ===== */
-table {
+@media (max-width: 768px) {
+  .form-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-box select,
+  .form-box input,
+  .form-box button {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-top: 0.8rem;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 0 0 1px #f0eae4;
+  }
 }
 
-/* Table Header - #FE4600 theme */
+/* --------------------------------------------
+   5. TABLE (modern, horizontal scroll)
+-------------------------------------------- */
+table {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+/* Remove default border="1" */
+table, th, td {
+  border: none;
+}
+
 thead tr {
-    background: #FE4600;
+  background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+  border-bottom: 2px solid #E5E7EB;
 }
 
-thead th {
-    color: white;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 1.1rem 1.2rem;
-    text-align: left;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
+th {
+  text-align: left;
+  padding: 1rem 1rem;
+  font-weight: 700;
+  color: #1F2937;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #F0F0F0;
+  vertical-align: middle;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+/* Image inside table */
+td img {
+  max-width: 60px;
+  max-height: 60px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Hover effect (desktop only) */
+@media (hover: hover) {
+  tbody tr:hover td {
+    background-color: #FEF9F5;
+    transition: background 0.2s;
+  }
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  table {
+    min-width: 650px;
+  }
+  th, td {
+    padding: 0.75rem 0.75rem;
     font-size: 0.8rem;
-    opacity: 0.95;
+  }
+  td img {
+    max-width: 45px;
+    max-height: 45px;
+  }
 }
 
-thead th:first-child {
-    border-top-left-radius: 20px;
+/* --------------------------------------------
+   6. ACTION BUTTONS (Edit / Delete)
+   Matches your JS generated buttons
+-------------------------------------------- */
+td button {
+  padding: 0.35rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  margin: 0 0.25rem;
 }
 
-thead th:last-child {
-    border-top-right-radius: 20px;
+td button:first-child {
+  background-color: #FE4600;
+  color: white;
 }
 
-/* Table Body */
-tbody tr {
-    background: white;
-    transition: background 0.2s ease;
-    border-bottom: 1px solid #f1ebe5;
+td button:first-child:hover {
+  background-color: #E03E00;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
 }
 
-tbody tr:nth-child(even) {
-    background: #fffbf8;
+td button:last-child {
+  background-color: #F3F4F6;
+  color: #DC2626;
+  border: 1px solid #FECACA;
 }
 
-tbody tr:hover {
-    background: #fff3ec;
+td button:last-child:hover {
+  background-color: #FEE2E2;
+  border-color: #FCA5A5;
+  transform: translateY(-1px);
 }
 
-tbody td {
-    padding: 1rem 1.2rem;
-    font-size: 0.9rem;
-    color: #2c3e44;
-    border-bottom: 1px solid #f0e4dc;
-    vertical-align: middle;
+@media (max-width: 576px) {
+  td button {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.7rem;
+  }
 }
 
-/* Last row border radius */
-tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 20px;
-}
-tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 20px;
-}
-
-/* Price & quantity styling */
-tbody td:nth-child(4),
-tbody td:nth-child(5) {
-    font-weight: 700;
-    color: #1e293b;
-    letter-spacing: -0.2px;
+/* --------------------------------------------
+   7. TOAST NOTIFICATIONS (optional, for future)
+-------------------------------------------- */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-/* ===== ACTION BUTTONS (Edit / Delete) ===== */
-tbody td button {
-    background: transparent;
-    border: none;
-    font-size: 1.2rem;
-    margin: 0 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 34px;
-    height: 34px;
-    border-radius: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #FE4600;
+.toast {
+  background: #FFFFFF;
+  color: #1F2937;
+  padding: 0.85rem 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
+  border-left: 5px solid #FE4600;
+  font-weight: 500;
+  animation: slideIn 0.2s ease;
+  max-width: 360px;
 }
 
-tbody td button i {
-    pointer-events: none;
-    font-size: 1.05rem;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-/* Edit button specific (orange) */
-tbody td button:first-child {
-    color: #FE4600;
+@media (max-width: 576px) {
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+  }
+  .toast {
+    max-width: none;
+  }
 }
 
-tbody td button:first-child:hover {
-    background: #fff0e6;
-    color: #e03e00;
-    transform: scale(1.08);
+/* --------------------------------------------
+   8. CONFIRM MODAL (for delete confirmation)
+-------------------------------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
 }
 
-/* Delete button (red tone but keep orange border on hover) */
-tbody td button:last-child {
-    color: #e53e3e;
+.modal-content {
+  background: #FFFFFF;
+  padding: clamp(1.5rem, 5vw, 2rem);
+  border-radius: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  animation: modalPop 0.2s ease;
 }
 
-tbody td button:last-child:hover {
-    background: #ffe8e8;
-    color: #c53030;
-    transform: scale(1.05);
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
-tbody td button:active {
-    transform: scale(0.96);
+.modal-confirm {
+  background-color: #FE4600;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
 }
 
-/* Focus ring for accessibility */
-tbody td button:focus-visible {
-    outline: 2px solid #FE4600;
-    outline-offset: 2px;
+.modal-cancel {
+  background: #F3F4F6;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media screen and (max-width: 880px) {
-    .main-orderitems {
-        margin: 1.2rem;
-        padding: 1.4rem;
-    }
-
-    .form-box {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.9rem;
-        padding: 1.3rem;
-    }
-
-    .form-box input {
-        width: 100%;
-        min-width: auto;
-    }
-
-    .form-box button {
-        width: 100%;
-        justify-content: center;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.8rem;
-    }
-
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-        border-radius: 20px;
-    }
-
-    thead th,
-    tbody td {
-        padding: 0.85rem 1rem;
-    }
-
-    .main-orderitems h2 {
-        font-size: 1.6rem;
-        margin-bottom: 1.2rem;
-    }
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-@media screen and (max-width: 520px) {
-    .main-orderitems {
-        padding: 1rem;
-        margin: 0.8rem;
-    }
-
-    tbody td button {
-        width: 30px;
-        height: 30px;
-        margin: 0 2px;
-    }
-
-    thead th {
-        font-size: 0.7rem;
-        padding: 0.7rem 0.8rem;
-    }
-
-    tbody td {
-        font-size: 0.8rem;
-        padding: 0.7rem 0.8rem;
-    }
+@media (max-width: 480px) {
+  .modal-actions {
+    flex-direction: column;
+  }
 }
 
-/* ===== UTILITY & EXTRAS ===== */
-/* Smooth transition for all interactive elements */
-button, input, .form-box, table {
-    transition: all 0.2s ease;
+/* --------------------------------------------
+   9. ACCESSIBILITY
+-------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #FE4600;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
 }
 
-/* Loading or empty state message (if any dynamically added) */
-.empty-row td {
-    text-align: center;
-    padding: 2rem;
-    color: #8b7b6e;
-    font-weight: 500;
-    background: #fefaf7;
+::selection {
+  background-color: #FE4600;
+  color: white;
 }
 
-/* Make price and quantity column stand out slightly */
-tbody td:nth-child(5)::before {
-    content: "$";
-    font-size: 0.8rem;
-    margin-right: 3px;
-    color: #FE4600;
-    font-weight: 500;
-}
-
-/* Override for any existing default button styles */
-button {
-    font-family: inherit;
-}
-
-/* Table action column alignment */
-tbody td:last-child {
-    text-align: center;
-    white-space: nowrap;
-}
-
-/* Additional hover effect for table rows */
-tbody tr:hover td {
-    border-bottom-color: #ffe0d0;
-}
-
-/* Focus visible for inputs & buttons */
-input:focus-visible,
-button:focus-visible {
-    outline: 2px solid #FE4600;
-    outline-offset: 2px;
-}
+/* --------------------------------------------
+   10. UTILITIES
+-------------------------------------------- */
+.text-center { text-align: center; }
+.hidden { display: none; }

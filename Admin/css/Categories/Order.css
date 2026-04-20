@@ -1,209 +1,433 @@
-/* ===== ORDERS PAGE STYLES ===== */
-/* Matches admin dashboard design */
+/* ==================================================================
+   ORDER MANAGEMENT - FULLY RESPONSIVE PROFESSIONAL CSS
+   Design System: #FAFAFA (bg), #FFFFFF (cards), #FE4600 (action)
+   Responsive breakpoints: 1200px, 992px, 768px, 576px, 375px
+   ================================================================== */
+
+/* --------------------------------------------
+   1. RESET & BASE
+-------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #FAFAFA;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #1A1A1A;
+  line-height: 1.5;
+  padding: clamp(1rem, 4vw, 2rem);
+  min-height: 100vh;
+}
 
 .main-orders {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fb 0%, #eef2f9 100%);
-  min-height: 100vh;
-  animation: fadeInUp 0.5s ease-out;
-}
-
-/* Page Heading */
-.main-orders h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #0f172a;
-  position: relative;
-  display: inline-block;
-  letter-spacing: -0.3px;
-}
-
-.main-orders h1::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #FE4600, #ff8c5a);
-  border-radius: 4px;
-}
-
-/* Table Container Card */
-.list {
-  background: #FFFFFF;
-  border-radius: 28px;
-  border: 1px solid rgba(226, 232, 240, 0.6);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  overflow-x: auto;
-}
-
-.list:hover {
-  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-  border-color: #FE4600;
-  transform: translateY(-3px);
-}
-
-/* Table Styling */
-.list table {
+  background-color: #FAFAFA;
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid #eef2f6;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-  min-width: 800px;
 }
 
-.list th,
-.list td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eef2f6;
-  vertical-align: middle;
+/* --------------------------------------------
+   2. RESPONSIVE NAVIGATION (FLEX → COLUMN ON MOBILE)
+-------------------------------------------- */
+.nav {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  transition: box-shadow 0.2s;
 }
 
-.list th {
-  background: #f8fafc;
-  font-weight: 700;
-  color: #1e293b;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  align-items: center;
 }
 
-.list tr:last-child td {
-  border-bottom: none;
+.nav-item {
+  margin: 0;
 }
 
-.list tbody tr:hover td {
-  background: #fffaf5;
-}
-
-/* Status Badge */
-.td-status {
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.td-status[data-status="pending"] {
-  color: #eab308;
-  background: #fef9e3;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
+.nav-link {
   display: inline-block;
-  font-size: 0.8rem;
-}
-
-.td-status[data-status="processing"] {
-  color: #3b82f6;
-  background: #eff6ff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  display: inline-block;
-  font-size: 0.8rem;
-}
-
-.td-status[data-status="shipped"] {
-  color: #8b5cf6;
-  background: #f5f3ff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  display: inline-block;
-  font-size: 0.8rem;
-}
-
-.td-status[data-status="delivered"] {
-  color: #10b981;
-  background: #ecfdf5;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  display: inline-block;
-  font-size: 0.8rem;
-}
-
-.td-status[data-status="cancelled"] {
-  color: #ef4444;
-  background: #fee2e2;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  display: inline-block;
-  font-size: 0.8rem;
-}
-
-/* Delete Button */
-.td-actions .delete {
-  background: none;
-  border: none;
-  color: #ef4444;
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 0.3rem 0.8rem;
-  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  color: #4B5563;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2rem;
   transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background-color: rgba(254, 70, 0, 0.08);
+  color: #FE4600;
+}
+
+.nav-link.active {
+  background-color: #FE4600;
+  color: white;
+}
+
+/* Responsive nav: stack vertically on tablets & phones */
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+  .nav-link {
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------
+   3. TYPOGRAPHY (fluid scaling)
+-------------------------------------------- */
+h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111827;
+  border-left: 5px solid #FE4600;
+  padding-left: 1rem;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+/* --------------------------------------------
+   4. ORDERS TABLE – FULLY RESPONSIVE
+      Horizontal scroll on small screens
+      Maintains readability
+-------------------------------------------- */
+.list {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 700px; /* forces horizontal scroll on narrow screens */
+}
+
+/* Table header */
+thead tr {
+  background-color: #F9FAFB;
+  border-bottom: 2px solid #E5E7EB;
+}
+
+th {
+  text-align: left;
+  padding: 1rem 0.8rem;
+  font-weight: 700;
+  color: #1F2937;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+td {
+  padding: 0.9rem 0.8rem;
+  border-bottom: 1px solid #F0F0F0;
+  vertical-align: middle;
+  color: #374151;
+}
+
+/* Hover effect (desktop only, optional on touch) */
+@media (hover: hover) {
+  tbody tr:hover td {
+    background-color: #FEF9F5;
+    transition: background 0.15s;
+  }
+}
+
+/* Responsive table adjustments */
+@media (max-width: 768px) {
+  th, td {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  th {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  table {
+    min-width: 600px; /* keep scrolling, but reduce min-width */
+  }
+  th, td {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* --------------------------------------------
+   5. BUTTONS – TOUCH-FRIENDLY & RESPONSIVE
+-------------------------------------------- */
+.delete {
+  background-color: #F3F4F6;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.3rem;
+  white-space: nowrap;
 }
 
-.td-actions .delete::before {
+.delete::before {
+  content: "\f1f8";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed";
+  font-size: 0.7rem;
+}
+
+.delete:hover {
+  background-color: #FEE2E2;
+  border-color: #FCA5A5;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 576px) {
+  .delete {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.7rem;
+  }
+  .delete::before {
+    font-size: 0.65rem;
+  }
+}
+
+/* Optional secondary button (if you add edit/view) */
+.button-secondary {
+  background-color: #FE4600;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-right: 0.5rem;
+}
+
+.button-secondary:hover {
+  background-color: #E03E00;
+}
+
+/* --------------------------------------------
+   6. TOAST NOTIFICATIONS (responsive positioning)
+-------------------------------------------- */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: calc(100% - 2rem);
+}
+
+.toast {
+  background-color: #FFFFFF;
+  color: #1F2937;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  border-left: 5px solid #FE4600;
   font-size: 0.9rem;
+  font-weight: 500;
+  animation: slideIn 0.2s ease;
+  width: auto;
+  max-width: 360px;
 }
 
-.td-actions .delete:hover {
-  background: #fee2e2;
-  transform: scale(1.05);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .main-orders {
-    padding: 1.5rem;
+@media (max-width: 576px) {
+  .toast-container {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
   }
-
-  .list {
-    padding: 1rem;
-  }
-
-  .list th,
-  .list td {
-    padding: 0.8rem;
+  .toast {
+    max-width: none;
+    width: 100%;
   }
 }
 
-@media (max-width: 768px) {
-  .main-orders {
-    padding: 1rem;
-  }
-
-  .list {
-    padding: 0.8rem;
-  }
-
-  .list th,
-  .list td {
-    padding: 0.6rem;
-    font-size: 0.85rem;
-  }
-}
-
-/* Animation */
-@keyframes fadeInUp {
+@keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(40px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------
+   7. MODAL (fully responsive)
+-------------------------------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(3px);
+  padding: 1rem;
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  padding: clamp(1.5rem, 5vw, 2rem);
+  border-radius: 1.5rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 40px -12px rgba(0,0,0,0.25);
+  animation: modalPop 0.2s ease;
+}
+
+.modal-content p {
+  margin-bottom: 1.5rem;
+  font-size: clamp(1rem, 4vw, 1.1rem);
+  color: #1F2937;
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modal-actions button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 100px;
+}
+
+.modal-confirm {
+  background-color: #FE4600;
+  color: white;
+}
+
+.modal-confirm:hover {
+  background-color: #E03E00;
+}
+
+.modal-cancel {
+  background-color: #F3F4F6;
+  color: #4B5563;
+}
+
+@media (max-width: 480px) {
+  .modal-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --------------------------------------------
+   8. ACCESSIBILITY (focus visible)
+-------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #FE4600;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+::selection {
+  background-color: #FE4600;
+  color: white;
+}
+
+/* --------------------------------------------
+   9. ADDITIONAL RESPONSIVE UTILITIES
+-------------------------------------------- */
+/* Hide non-essential columns on very small screens? 
+   You can add classes to specific <th>/<td> if needed, but not required */
+@media (max-width: 576px) {
+  /* Example: make table cells break words */
+  td {
+    word-break: break-word;
+  }
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.hidden { display: none; }
+.bg-white { background-color: #FFFFFF; }
+
+/* Optional status badges (responsive text) */
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+  .status-badge {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
   }
 }

@@ -1,173 +1,520 @@
-/* ===== RESET & BASE ===== */
-* {
+/* ==================================================================
+   PAYMENTS MANAGEMENT – MODERN & FULLY RESPONSIVE CSS
+   Design System:
+   - Background:        #FAFAFA (soft off-white)
+   - Surface / Cards:   #FFFFFF
+   - Action Color:      #FE4600 (buttons, active links, focus)
+   - Fonts:             'Inter', system-ui, modern sans
+   ================================================================== */
+
+/* --------------------------------------------
+   1. RESET & BASE (Modern Reset)
+-------------------------------------------- */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
-  font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecf2 100%);
-  color: #1e293b;
-  line-height: 1.6;
+  background-color: #FAFAFA;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #1A1A1A;
+  line-height: 1.5;
+  padding: clamp(1rem, 4vw, 2rem);
   min-height: 100vh;
-  padding: 2rem;
+}
+
+.main-paymenta {
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #FAFAFA;
+  width: 100%;
+}
+
+/* --------------------------------------------
+   2. MODERN NAVIGATION (Fully Responsive)
+-------------------------------------------- */
+.nav {
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.nav-list {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
   align-items: center;
 }
 
-/* ===== HEADING ===== */
-h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 2.5rem;
-  position: relative;
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
   display: inline-block;
+  padding: 0.6rem 1.2rem;
+  color: #4B5563;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background-color: rgba(254, 70, 0, 0.08);
+  color: #FE4600;
+  transform: translateY(-1px);
+}
+
+.nav-link:active {
+  transform: translateY(0);
+}
+
+/* Active page indicator (add class "active" to Payments link) */
+.nav-link.active {
+  background-color: #FE4600;
+  color: white;
+  box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
+}
+
+/* Responsive navigation: stack on tablets & phones */
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+  .nav-link {
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------
+   3. TYPOGRAPHY (Modern, fluid)
+-------------------------------------------- */
+h1 {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  border-left: 5px solid #FE4600;
+  padding-left: 1rem;
   letter-spacing: -0.02em;
+  word-break: break-word;
 }
 
-h1::after {
-  content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 5px;
-  background: linear-gradient(90deg, #FE4600, #ff8a5c);
-  border-radius: 6px;
-}
-
-/* ===== TABLE CARD ===== */
+/* --------------------------------------------
+   4. PAYMENTS TABLE – MODERN CARD STYLE
+      Fully responsive with horizontal scroll
+-------------------------------------------- */
 table {
   width: 100%;
-  max-width: 1200px;
-  border-collapse: collapse;
   background-color: #FFFFFF;
-  border-radius: 28px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-radius: 1.25rem;
   overflow: hidden;
-  border: none; /* remove default border from border="1" */
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  border-collapse: collapse;
+  min-width: 600px; /* ensures horizontal scroll on narrow screens */
 }
 
-table:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 30px 60px -12px rgba(254, 70, 0, 0.2);
+/* Remove default border="1" styling */
+table,
+th,
+td {
+  border: none;
 }
 
-thead {
-  background: linear-gradient(90deg, #f1f5f9 0%, #e9edf3 100%);
+thead tr {
+  background: linear-gradient(135deg, #F9FAFB 0%, #F3F4F6 100%);
+  border-bottom: 2px solid #E5E7EB;
 }
 
 th {
   text-align: left;
-  padding: 1.2rem 1rem;
+  padding: 1rem 1rem;
   font-weight: 700;
-  color: #1e293b;
-  text-transform: uppercase;
+  color: #1F2937;
   font-size: 0.85rem;
-  letter-spacing: 0.8px;
-  border-bottom: 3px solid #FE4600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 td {
-  padding: 1.2rem 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #F0F0F0;
   vertical-align: middle;
-  font-size: 1rem;
-}
-
-tbody tr {
-  transition: background-color 0.2s ease;
-}
-
-tbody tr:hover {
-  background-color: #fff4ec; /* soft orange */
-  cursor: pointer;
-}
-
-/* ===== DELETE BUTTON ===== */
-.delete {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 40px;
+  color: #374151;
   font-size: 0.9rem;
+}
+
+/* Hover effect (desktop only, touch devices ignore) */
+@media (hover: hover) {
+  tbody tr:hover td {
+    background-color: #FEF9F5;
+    transition: background-color 0.2s ease;
+  }
+}
+
+/* Responsive table adjustments */
+@media (max-width: 768px) {
+  table {
+    min-width: 550px;
+  }
+  th, td {
+    padding: 0.75rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  th {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  table {
+    min-width: 480px;
+  }
+  th, td {
+    padding: 0.6rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Status column styling (enhanced) */
+.td-status {
+  font-weight: 500;
+}
+
+/* Modern status badges (optional, if JS adds classes) */
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.status-completed {
+  background-color: #D1FAE5;
+  color: #059669;
+}
+
+.status-pending {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.status-failed {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+/* --------------------------------------------
+   5. MODERN BUTTONS (Delete & Optional Edit)
+-------------------------------------------- */
+.delete {
+  background-color: #F3F4F6;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  padding: 0.4rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: #fee2e2;
-  color: #b91c1c;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
 }
 
 .delete::before {
+  content: "\f1f8";
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  content: "\f2ed"; /* trash icon */
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 .delete:hover {
-  background-color: #ef4444;
-  color: white;
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px -8px rgba(239, 68, 68, 0.6);
+  background-color: #FEE2E2;
+  border-color: #FCA5A5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.1);
 }
 
 .delete:active {
-  transform: scale(0.98);
+  transform: translateY(0);
 }
 
-/* ===== TEMPLATE ROW HIDDEN ===== */
-#templateRow {
-  display: none !important;
+/* Optional Edit button (action color) */
+.btn-edit {
+  background-color: #FE4600;
+  color: white;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-right: 0.5rem;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  body {
-    padding: 1rem;
-  }
+.btn-edit::before {
+  content: "\f303";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.7rem;
+}
 
-  h1 {
-    font-size: 2.2rem;
-  }
+.btn-edit:hover {
+  background-color: #E03E00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(254, 70, 0, 0.2);
+}
 
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-radius: 20px;
+/* Responsive buttons */
+@media (max-width: 576px) {
+  .delete, .btn-edit {
+    padding: 0.3rem 0.9rem;
+    font-size: 0.7rem;
   }
-
-  th, td {
-    padding: 1rem;
-    font-size: 0.9rem;
+  .delete::before, .btn-edit::before {
+    font-size: 0.65rem;
   }
+}
 
-  .delete {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+/* --------------------------------------------
+   6. TOAST NOTIFICATIONS (Modern, responsive)
+-------------------------------------------- */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: calc(100% - 2rem);
+}
+
+.toast {
+  background-color: #FFFFFF;
+  color: #1F2937;
+  padding: 0.85rem 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #FE4600;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(2px);
+  animation: slideInRight 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  width: auto;
+  max-width: 360px;
+}
+
+.toast.success {
+  border-left-color: #10B981;
+}
+
+.toast.error {
+  border-left-color: #EF4444;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 576px) {
+  .toast-container {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+  .toast {
+    max-width: none;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------
+   7. CONFIRMATION MODAL (Modern, centered)
+-------------------------------------------- */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(6px);
+  padding: 1rem;
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  padding: clamp(1.5rem, 5vw, 2.2rem);
+  border-radius: 1.75rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.25);
+  animation: modalScale 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.modal-content p {
+  margin-bottom: 1.75rem;
+  font-size: clamp(1rem, 4vw, 1.1rem);
+  color: #1F2937;
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modal-actions button {
+  padding: 0.65rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 110px;
+}
+
+.modal-confirm {
+  background-color: #FE4600;
+  color: white;
+}
+
+.modal-confirm:hover {
+  background-color: #E03E00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(254, 70, 0, 0.3);
+}
+
+.modal-cancel {
+  background-color: #F3F4F6;
+  color: #4B5563;
+}
+
+.modal-cancel:hover {
+  background-color: #E5E7EB;
+  transform: translateY(-1px);
+}
+
+@keyframes modalScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
+  .modal-actions {
+    flex-direction: column;
+    gap: 0.6rem;
   }
-
-  th, td {
-    padding: 0.8rem;
-  }
-
-  .delete {
+  .modal-actions button {
     width: 100%;
-    justify-content: center;
+  }
+}
+
+/* --------------------------------------------
+   8. ACCESSIBILITY & MODERN FOCUS
+------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #FE4600;
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+::selection {
+  background-color: #FE4600;
+  color: white;
+}
+
+/* Skip to content link (accessibility) */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #FE4600;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  z-index: 2100;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* --------------------------------------------
+   9. RESPONSIVE UTILITIES & ADDITIONAL
+------------------------------------------- */
+/* Wrapper for table if needed (already handled) */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 1.25rem;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.hidden { display: none !important; }
+.bg-white { background-color: #FFFFFF; }
+.mt-2 { margin-top: 0.5rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+
+/* Ensure container spacing on small screens */
+@media (max-width: 768px) {
+  .main-paymenta {
+    padding: 0;
   }
 }
