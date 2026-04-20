@@ -1,102 +1,528 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail</title>
-
-    <!-- Font Awesome -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Product Detail | Happy Paws Haven</title>
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="../../Css/Pages/product-detail.css">
-    <!-- <link rel="stylesheet" href="../../Css/IndexStyling.css"> -->
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 0.8rem 2rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid #e9edf2;
+            gap: 1rem;
+        }
+
+        .brand {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e466e, #fe5c1f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-bar ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        .nav-bar ul li a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #4a6f8f;
+            transition: 0.2s;
+        }
+
+        .nav-bar ul li a:hover {
+            color: #fe5c1f;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .buttons a, .buttons button {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .buttons a {
+            color: #4a6f8f;
+        }
+
+        .buttons a:hover {
+            background: #f0f4f9;
+            color: #fe5c1f;
+        }
+
+        .buttons button {
+            background: #fe5c1f;
+            color: white;
+        }
+
+        .buttons button:hover {
+            background: #e04a0e;
+            transform: translateY(-1px);
+        }
+
+        /* ---------- MAIN CONTAINER ---------- */
+        .main-product-detail-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+            border: 1px solid #edf2f7;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        /* image section - perfect fit */
+        .image-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1 / 1;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-section img:hover {
+            transform: scale(1.02);
+        }
+
+        /* info section */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .info-section h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        #price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fe5c1f;
+            margin: 0.5rem 0;
+        }
+
+        .detail-badge {
+            background: #f1f5f9;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            width: fit-content;
+            margin: 0.25rem 0;
+        }
+
+        #description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 0.75rem 0;
+            font-size: 0.95rem;
+        }
+
+        .buy-btn {
+            background: #fe5c1f;
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            max-width: 260px;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .buy-btn:hover {
+            background: #e04a0e;
+            transform: translateY(-2px);
+        }
+
+        /* back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 1.5rem;
+            color: #4a6f8f;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: #fe5c1f;
+            transform: translateX(-3px);
+        }
+
+        /* toast container */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 60px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transform: translateX(120%);
+            transition: transform 0.25s ease;
+            border-left: 4px solid;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .toast.error {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        /* responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+                gap: 1.5rem;
+            }
+            .main-product-detail-page {
+                padding: 1rem;
+            }
+            .info-section h1 {
+                font-size: 1.5rem;
+            }
+            #price {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="main-product-detail-page">
-        
-           <!-- Navbar -->
-<nav class="nav-bar">
-    <h1 class="brand">Happy Paws Haven</h1>
-
-    <ul>
+<div class="main-product-detail-page">
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <h1 class="brand"><i class="fas fa-paw"></i> Happy Paws Haven</h1>
+        <ul>
             <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="All Products.html"><i class="fas fa-boxes"></i> All Products</a></li>
+        </ul>
+        <div class="buttons">
+            <a href="../UserAuth/login.html" id="loginBtn">Login</a>
+            <a href="../UserAuth/register.html" id="registerBtn">Register</a>
+            <button id="logoutBtn" style="display:none;">Logout</button>
+            <a href="../Pages/Cart.html"><button><i class="fas fa-shopping-cart"></i> Cart</button></a>
+        </div>
+    </nav>
 
-    </ul>
-    <div class="buttons">
-        
-        <a href="../Pages/Cart.html"><button>Cart</button></a>
-    </div>
-</nav>
+    <!-- back link -->
+    <a href="All Products.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Products</a>
 
- 
-<div class="container">
-
-    <!-- Header Section -->
-
-    <!-- Image Section -->
-    <div class="image-section">
-        <img id="image" alt="Product Image">
-    </div>
-
-    <!-- Info Section -->
-    <div class="info-section">
-        <h1 id="name">Loading...</h1>
-        <div id="price"></div>
-        <div id="category"></div>
-        <div id="animal"></div>
-        <p id="description"></p>
-        <button class="buy-btn">Add to Cart</button>
-                <a href="../Pages/Cart.html"><button>Cart</button></a>
-
+    <!-- product detail container -->
+    <div class="container">
+        <div class="image-section">
+            <img id="productImage" src="https://via.placeholder.com/500?text=Loading" alt="Product Image">
+        </div>
+        <div class="info-section">
+            <h1 id="productName">Loading...</h1>
+            <div id="productPrice"></div>
+            <div class="detail-badge" id="productCategory"><i class="fas fa-tag"></i> Category: --</div>
+            <div class="detail-badge" id="productAnimal"><i class="fas fa-paw"></i> Animal: --</div>
+            <p id="productDescription">Fetching product details...</p>
+            <button class="buy-btn" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+        </div>
     </div>
 </div>
 
-
-    </div>
-    <!-- ✅ TOAST CONTAINER -->
+<!-- Toast Container -->
 <div id="toast-container"></div>
 
-<!-- JS -->
-<script src="../../Js/pages/product-detail.js"></script>
-<script src="../../Js/Index.js"></script>
+<script>
+    (function() {
+        // ======================= CONFIGURATION =======================
+        const BASE_URL = "http://localhost:8000";
+        const API_BASE = `${BASE_URL}/api`;
+        
+        // Get product ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get("id");
+        
+        if (!productId) {
+            showToast("Invalid product ID", "error");
+            document.getElementById("productName").textContent = "Product not found";
+            return;
+        }
+        
+        const PRODUCT_API = `${API_BASE}/products/${productId}`;
+        const CART_API = `${API_BASE}/carts`;
+        
+        // DOM elements
+        const productNameEl = document.getElementById("productName");
+        const productPriceEl = document.getElementById("productPrice");
+        const productCategoryEl = document.getElementById("productCategory");
+        const productAnimalEl = document.getElementById("productAnimal");
+        const productDescriptionEl = document.getElementById("productDescription");
+        const productImageEl = document.getElementById("productImage");
+        const addToCartBtn = document.getElementById("addToCartBtn");
+        
+        // ======================= TOAST FUNCTION =======================
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            
+            const toast = document.createElement("div");
+            toast.classList.add("toast", type);
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add("show"), 10);
+            setTimeout(() => {
+                toast.classList.remove("show");
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // ======================= FETCH PRODUCT DETAILS =======================
+        async function fetchProductDetail() {
+            try {
+                const response = await fetch(PRODUCT_API);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const product = await response.json();
+                
+                // Populate UI
+                productNameEl.textContent = product.name || "Unnamed Product";
+                
+                const price = parseFloat(product.price) || 0;
+                productPriceEl.innerHTML = `<i class="fas fa-dollar-sign"></i> ${price.toFixed(2)} USD`;
+                
+                const categoryName = product.category_name || (product.category?.name) || "General";
+                productCategoryEl.innerHTML = `<i class="fas fa-tag"></i> Category: ${escapeHtml(categoryName)}`;
+                
+                const animalName = product.animal_name || (product.animal?.name) || "All Pets";
+                productAnimalEl.innerHTML = `<i class="fas fa-paw"></i> Animal: ${escapeHtml(animalName)}`;
+                
+                productDescriptionEl.textContent = product.description || "No description available for this product.";
+                
+                // Image handling
+                let imageUrl = "https://via.placeholder.com/500x500?text=No+Image";
+                if (product.image) {
+                    imageUrl = product.image.startsWith("http") ? product.image : `${BASE_URL}/storage/${product.image}`;
+                }
+                productImageEl.src = imageUrl;
+                productImageEl.alt = product.name || "Product Image";
+                productImageEl.onerror = () => {
+                    productImageEl.src = "https://via.placeholder.com/500x500?text=Image+Missing";
+                };
+                
+            } catch (error) {
+                console.error("Product fetch error:", error);
+                showToast("Failed to load product details", "error");
+                productNameEl.textContent = "Error loading product";
+                productDescriptionEl.textContent = "Unable to fetch product information. Please try again later.";
+            }
+        }
+        
+        // ======================= ADD TO CART =======================
+        async function addToCart() {
+            // Get token (supports both regular and admin token)
+            let token = localStorage.getItem("token");
+            if (!token) token = localStorage.getItem("admin_token");
+            
+            if (!token) {
+                showToast("Please login to add items to cart", "error");
+                setTimeout(() => {
+                    window.location.href = "../UserAuth/login.html";
+                }, 1500);
+                return;
+            }
+            
+            if (!productId) {
+                showToast("Invalid product", "error");
+                return;
+            }
+            
+            addToCartBtn.disabled = true;
+            addToCartBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Adding...';
+            
+            try {
+                const response = await fetch(CART_API, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        quantity: 1
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showToast("Product added to cart successfully!", "success");
+                    // optional: change button text briefly
+                    addToCartBtn.innerHTML = '<i class="fas fa-check"></i> Added!';
+                    setTimeout(() => {
+                        addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                        addToCartBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    showToast(data.message || "Failed to add product", "error");
+                    addToCartBtn.disabled = false;
+                    addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("Network error. Could not add to cart.", "error");
+                addToCartBtn.disabled = false;
+                addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+            }
+        }
+        
+        // ======================= AUTH UI UPDATE =======================
+        function updateAuthUI() {
+            const token = localStorage.getItem("token") || localStorage.getItem("admin_token");
+            const loginBtn = document.getElementById("loginBtn");
+            const registerBtn = document.getElementById("registerBtn");
+            const logoutBtn = document.getElementById("logoutBtn");
+            
+            if (token) {
+                if (loginBtn) loginBtn.style.display = "none";
+                if (registerBtn) registerBtn.style.display = "none";
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+            } else {
+                if (loginBtn) loginBtn.style.display = "inline-block";
+                if (registerBtn) registerBtn.style.display = "inline-block";
+                if (logoutBtn) logoutBtn.style.display = "none";
+            }
+        }
+        
+        // ======================= LOGOUT =======================
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async () => {
+                let token = localStorage.getItem("token") || localStorage.getItem("admin_token");
+                if (!token) return;
+                try {
+                    await fetch(`${API_BASE}/logout`, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                } catch(e) {}
+                localStorage.removeItem("token");
+                localStorage.removeItem("admin_token");
+                showToast("Logged out successfully", "success");
+                setTimeout(() => {
+                    window.location.href = "../index.html";
+                }, 1200);
+            });
+        }
+        
+        // ======================= HELPER: ESCAPE HTML =======================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        // ======================= INITIALIZE =======================
+        document.addEventListener("DOMContentLoaded", () => {
+            updateAuthUI();
+            fetchProductDetail();
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener("click", addToCart);
+            }
+        });
+    })();
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-<!--  
-
-
-
-<body>
-
-<div class="container">
- 
-    <div class="image-section">
-        <img id="image" alt="Product Image">
-    </div>
-
-  
-    <div class="info-section">
-        <h1 id="name">Loading...</h1>
-        <div id="price"></div>
-        <div id="category"></div>
-        <div id="animal"></div>
-        <p id="description"></p>
-        <button class="buy-btn">Add to Cart</button>
-    </div>
-</div>
-
-
-<script src="../../Js/pages/product-detail.js"></script>
-</body> -->

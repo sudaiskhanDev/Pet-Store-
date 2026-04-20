@@ -908,3 +908,65 @@ details[open] > .footer-summary::after {
         font-size: 1.5rem;
     }
 }
+
+
+
+
+#product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.product-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #edf2f7;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #f8fafc;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0.8rem 1rem 0.25rem;
+    color: #0f172a;
+}
+
+.product-card p {
+    font-size: 0.8rem;
+    color: #5f8baf;
+    margin: 0.25rem 1rem;
+}
+
+.product-card b {
+    display: block;
+    margin: 0.5rem 1rem 1rem;
+    font-size: 1.1rem;
+    color: #fe5c1f;
+}
+
+.loading-spinner, .no-products, .error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #5f8baf;
+}
+
+.error-message {
+    color: #dc2626;
+}

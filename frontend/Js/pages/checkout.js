@@ -1,159 +1,275 @@
-const API = "http://localhost:8000/api/carts";
-const ORDER_API = "http://localhost:8000/api/orders";
-const ORDER_ITEMS_API = "http://localhost:8000/api/order-items";
-const token = localStorage.getItem("token");
-
-async function loadCheckoutCart(){
-    const res = await fetch(API, {
-       headers: {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer " + token
-}
-    });
-    const carts = await res.json();
-
-    const container = document.getElementById("checkoutContainer");
-    container.innerHTML = "";
-
-    let total = 0;
-
-    carts.forEach(item => {
-        const div = document.createElement("div");
-        div.classList.add("checkout-item");
-        div.innerHTML = `<p>${item.product.name} - ₹${item.product.price} x ${item.quantity}</p>`;
-        container.appendChild(div);
-
-        total += item.product.price * item.quantity;
-    });
-
-    const totalDiv = document.createElement("div");
-    totalDiv.innerHTML = `<h3>Total: ₹${total}</h3>`;
-    container.appendChild(totalDiv);
-
-    return { carts, total }; // return both carts and total
-}
-
-loadCheckoutCart();
-
-
-const TOKEN = localStorage.getItem("token");
-const CHECKOUT_API = "http://localhost:8000/api/checkout";
-
-document.getElementById("checkoutForm").addEventListener("submit", async(e)=>{
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const shipping_address = `${formData.get('address')}, ${formData.get('city')}, ${formData.get('zip')}`;
-    const phone = formData.get('phone');
-    const payment_method = formData.get('payment_method');
-
-    const res = await fetch(CHECKOUT_API,{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-            "Authorization":"Bearer "+TOKEN
-        },
-        body: JSON.stringify({shipping_address, phone, payment_method})
-    });
-
-    const data = await res.json();
-
-    if(res.ok){
-        alert("Order placed successfully!");
-        window.location.href="/pages/thankyou.html";
-    } else {
-        alert("Error: "+(data.message||""));
-    }
-});
  
-
-async function placeOrder() {
-    const res = await fetch("http://localhost:8000/api/checkout", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            shipping_address: document.getElementById("address").value,
-            phone: document.getElementById("phone").value,
-            payment_method: "cod" // ya stripe id agar online
-        })
-    });
-
-    const data = await res.json();
-    console.log(data);
-}
-
-
-
-// const checkoutForm = document.getElementById("checkoutForm");
-// checkoutForm.addEventListener("submit", async (e) => {
-//     e.preventDefault();
-
-//     // 1️⃣ Get form data
-//     const formData = new FormData(checkoutForm);
-//     const shippingDetails = {
-//         name: formData.get("name"),
-//         address: formData.get("address"),
-//         city: formData.get("city"),
-//         zip: formData.get("zip"),
-//         phone: formData.get("phone"),
-//         payment_method: formData.get("payment_method")
-//     };
-
-//     // 2️⃣ Get cart items and total
-//     const { carts, total } = await loadCheckoutCart();
-
-//     // 3️⃣ Create order payload
-//     const orderData = {
-//         total_amount: total,
-//         payment_method: shippingDetails.payment_method,
-//         shipping_address: `${shippingDetails.address}, ${shippingDetails.city}, ${shippingDetails.zip}`,
-//         phone: shippingDetails.phone,
-//         order_date: new Date().toISOString().slice(0,10) // YYYY-MM-DD
-//     };
-
-//     // 4️⃣ Send order to backend
-//     const resOrder = await fetch(ORDER_API, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization": "Bearer " + token
-//         },
-//         body: JSON.stringify(orderData)
-//     });
-
-//     const orderResult = await resOrder.json();
-
-//     if(resOrder.ok){
-//         const orderId = orderResult.order.order_id;
-
-//         // 5️⃣ Save order items
-//         for(const item of carts){
-//             await fetch(ORDER_ITEMS_API, {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     "Authorization": "Bearer " + token
-//                 },
-//                 body: JSON.stringify({
-//                     order_id: orderId,
-//                     product_id: item.product.id,
-//                     quantity: item.quantity,
-//                     price: item.product.price
-//                 })
-//             });
-//         }
-
-//         alert("Order placed successfully!");
-//         window.location.href = "/pages/thankyou.html";
-//     } else {
-//         alert("Error placing order: " + orderResult.message);
-//     }
-// });
-
-
-
-// Correct
-
+    (function() {
+        // ======================= CONFIGURATION =======================
+        const API_BASE = "http://localhost:8000/api";
+        const CART_API = `${API_BASE}/carts`;
+        const CHECKOUT_API = `${API_BASE}/checkout`;
+        const CREATE_PAYMENT_INTENT_API = `${API_BASE}/payments/create-payment-intent`;
+        
+        // Token handling: regular token first, then admin_token
+        let token = localStorage.getItem("token");
+        if (!token) token = localStorage.getItem("admin_token");
+        
+        // Stripe publishable key (from your code)
+        const stripe = Stripe("pk_test_51T3YGjPubxVvHrmFHvOK8ut1lXw8X7nL77iYk0Y47aj4G6758ndZDGRnWu54qEuv2mk3feOfbRNTKZmwRe9A8Cbx00VNTxBm5d");
+        let elements = stripe.elements();
+        let card = null;
+        
+        // DOM elements
+        const checkoutContainer = document.getElementById("checkoutContainer");
+        const totalDisplay = document.getElementById("totalDisplay");
+        const paymentMethodSelect = document.getElementById("paymentMethod");
+        const cardContainer = document.getElementById("card-container");
+        const placeOrderBtn = document.getElementById("placeOrderBtn");
+        const loaderDiv = document.getElementById("loader");
+        const checkoutForm = document.getElementById("checkoutForm");
+        
+        let cartItems = [];
+        let totalAmount = 0;
+        
+        // ======================= TOAST NOTIFICATION =======================
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateX(120%)";
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // ======================= LOAD CART & CALCULATE TOTAL =======================
+        async function loadCartAndTotal() {
+            if (!token) {
+                checkoutContainer.innerHTML = `<div class="error-message">Please <a href="../UserAuth/login.html">login</a> to view your cart.</div>`;
+                totalDisplay.innerHTML = "";
+                return;
+            }
+            
+            try {
+                const response = await fetch(CART_API, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                if (response.status === 401) {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("admin_token");
+                    checkoutContainer.innerHTML = `<div class="error-message">Session expired. Please login again.</div>`;
+                    return;
+                }
+                if (!response.ok) throw new Error("Failed to fetch cart");
+                
+                const data = await response.json();
+                cartItems = Array.isArray(data) ? data : (data.data || []);
+                
+                if (cartItems.length === 0) {
+                    checkoutContainer.innerHTML = `<div class="error-message">Your cart is empty. <a href="All Products.html">Continue shopping</a></div>`;
+                    totalDisplay.innerHTML = "";
+                    return;
+                }
+                
+                // render items
+                checkoutContainer.innerHTML = "";
+                totalAmount = 0;
+                cartItems.forEach(item => {
+                    const product = item.product;
+                    if (!product) return;
+                    const quantity = item.quantity || 0;
+                    const price = parseFloat(product.price) || 0;
+                    const subtotal = quantity * price;
+                    totalAmount += subtotal;
+                    
+                    const div = document.createElement("div");
+                    div.className = "checkout-item";
+                    div.innerHTML = `
+                        <span>${escapeHtml(product.name)} x ${quantity}</span>
+                        <span>$${price.toFixed(2)}</span>
+                    `;
+                    checkoutContainer.appendChild(div);
+                });
+                
+                totalDisplay.innerHTML = `<strong>Total: $${totalAmount.toFixed(2)}</strong>`;
+            } catch (err) {
+                console.error(err);
+                checkoutContainer.innerHTML = `<div class="error-message">Error loading cart. Please try again.</div>`;
+                showToast("Could not load cart", "error");
+            }
+        }
+        
+        // ======================= STRIPE CARD ELEMENT =======================
+        function initStripeCard() {
+            if (!card) {
+                card = elements.create('card', {
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#1e293b',
+                            '::placeholder': { color: '#94a3b8' }
+                        }
+                    }
+                });
+                card.mount('#card-element');
+                card.addEventListener('change', (event) => {
+                    const errorDiv = document.getElementById('card-errors');
+                    if (event.error) {
+                        errorDiv.textContent = event.error.message;
+                    } else {
+                        errorDiv.textContent = '';
+                    }
+                });
+            }
+        }
+        
+        // toggle card input visibility
+        function toggleCardContainer() {
+            if (paymentMethodSelect.value === 'card') {
+                cardContainer.style.display = 'block';
+                initStripeCard();
+            } else {
+                cardContainer.style.display = 'none';
+            }
+        }
+        
+        paymentMethodSelect.addEventListener('change', toggleCardContainer);
+        
+        // ======================= FORM SUBMIT (ORDER PLACEMENT) =======================
+        checkoutForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            if (!token) {
+                showToast("Please login to place order", "error");
+                window.location.href = "../UserAuth/login.html";
+                return;
+            }
+            
+            if (cartItems.length === 0) {
+                showToast("Your cart is empty", "error");
+                return;
+            }
+            
+            // validate stock (optional but good)
+            const outOfStock = cartItems.filter(item => (item.product?.stock_quantity ?? 0) <= 0);
+            if (outOfStock.length > 0) {
+                showToast("Some items are out of stock. Please remove them from cart.", "error");
+                return;
+            }
+            
+            // disable button and show loader
+            placeOrderBtn.disabled = true;
+            loaderDiv.style.display = "block";
+            
+            // collect form data
+            const formData = new FormData(checkoutForm);
+            const name = formData.get('name');
+            const address = formData.get('address');
+            const city = formData.get('city');
+            const zip = formData.get('zip');
+            const phone = formData.get('phone');
+            const payment_method = formData.get('payment_method');
+            
+            const shipping_address = `${address}, ${city}, ${zip}`;
+            
+            try {
+                let payment_id = null;
+                
+                // Handle Stripe card payment
+                if (payment_method === 'card') {
+                    if (!card) {
+                        throw new Error("Card element not initialized");
+                    }
+                    
+                    // 1. Create PaymentIntent on backend
+                    const intentRes = await fetch(CREATE_PAYMENT_INTENT_API, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ amount: totalAmount })
+                    });
+                    
+                    if (!intentRes.ok) {
+                        const errData = await intentRes.json();
+                        throw new Error(errData.message || "Failed to initialize payment");
+                    }
+                    
+                    const intentData = await intentRes.json();
+                    const clientSecret = intentData.clientSecret;
+                    
+                    // 2. Confirm card payment with Stripe
+                    const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: { card: card }
+                    });
+                    
+                    if (error) {
+                        throw new Error(error.message);
+                    }
+                    
+                    payment_id = paymentIntent.id;
+                }
+                
+                // 3. Place order (COD or after successful card payment)
+                const orderPayload = {
+                    name: name,
+                    shipping_address: shipping_address,
+                    phone: phone,
+                    payment_method: payment_method,
+                    payment_id: payment_id
+                };
+                
+                const orderRes = await fetch(CHECKOUT_API, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(orderPayload)
+                });
+                
+                const orderData = await orderRes.json();
+                
+                if (orderRes.ok) {
+                    showToast("Order placed successfully! Redirecting...", "success");
+                    setTimeout(() => {
+                        window.location.href = "thankyou.html";
+                    }, 1500);
+                } else {
+                    throw new Error(orderData.message || "Order placement failed");
+                }
+                
+            } catch (err) {
+                console.error(err);
+                showToast(err.message || "An unexpected error occurred", "error");
+                placeOrderBtn.disabled = false;
+                loaderDiv.style.display = "none";
+            } finally {
+                if (payment_method !== 'card') {
+                    placeOrderBtn.disabled = false;
+                    loaderDiv.style.display = "none";
+                }
+            }
+        });
+        
+        // Helper: escape HTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        // ======================= INITIALIZE =======================
+        async function init() {
+            await loadCartAndTotal();
+            toggleCardContainer(); // initial state
+        }
+        
+        init();
+    })();
+ 

@@ -35,7 +35,40 @@ class ProductController extends Controller
         'products' => $products
     ]);
 }
+   
+   public function latestProducts()
+{
+    $products = Product::with(['category', 'animal'])
+        ->latest('created_at')   // clearly define sorting
+        ->take(5)
+        ->get();
 
+    $data = $products->map(function ($product) {
+        return [
+            'product_id'     => $product->product_id,
+            'name'           => $product->name,
+            'description'    => $product->description ?? 'NA',
+            'price'          => $product->price,
+            'stock_quantity' => $product->stock_quantity ?? 0,
+            'image'          => $product->image 
+                                ? asset('storage/' . $product->image)
+                                : null,
+
+            'category_id'    => $product->category_id,
+            'category_name'  => $product->category?->category_name ?? 'NA',
+
+            'animal_id'      => $product->animal_id,
+            'animal_name'    => $product->animal?->animal_name ?? 'NA',
+
+            'created_at'     => $product->created_at,
+        ];
+    });
+
+    return response()->json([
+        'status' => true,
+        'data' => $data
+    ]);
+}
 // Search products by name, category, or animal
 public function search(Request $request)
 {

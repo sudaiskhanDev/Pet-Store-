@@ -2,307 +2,659 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Paws Haven</title>
-   
-    <link rel="stylesheet" href="../Css/IndexStyling.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Happy Paws Haven | Pet Supplies Store</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ========== NAVBAR ========== */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border-bottom: 1px solid #e9edf2;
+            gap: 1rem;
+        }
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e466e, #fe5c1f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .buttons {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .buttons a, .buttons button {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+        }
+        .buttons a { color: #4a6f8f; }
+        .buttons a:hover { background: #f0f4f9; color: #fe5c1f; }
+        .buttons button {
+            background: #fe5c1f;
+            color: white;
+        }
+        .buttons button:hover { background: #e04a0e; transform: translateY(-1px); }
+
+        /* Secondary navigation */
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.3rem;
+            list-style: none;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #eef2f8;
+            margin-bottom: 1.5rem;
+        }
+        nav ul li a {
+            text-decoration: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: #4a6f8f;
+            transition: 0.2s;
+        }
+        nav ul li a:hover {
+            background: #fe5c1f10;
+            color: #fe5c1f;
+        }
+
+        /* Hero section - horizontal scroll */
+        .Hero-section {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            margin-bottom: 1.5rem;
+            border-radius: 24px;
+        }
+        .Hero-section img {
+            width: 100%;
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            border-radius: 24px;
+            object-fit: cover;
+            max-height: 280px;
+        }
+
+        /* View All Products Button */
+        .view-all-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fe5c1f;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .view-all-btn:hover {
+            background: #e04a0e;
+            transform: translateY(-2px);
+        }
+
+        /* Section titles */
+        h1, .Category h1, .animal-and-category h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 1.5rem 0 1rem;
+            border-left: 4px solid #fe5c1f;
+            padding-left: 0.8rem;
+        }
+
+        /* Pet Categories (grid) */
+        .category-img-logo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .category-img-logo a {
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .category-img-logo a:hover {
+            transform: translateY(-4px);
+        }
+        .category-img-logo img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #edf2f7;
+        }
+        .category-img-logo h3 {
+            margin-top: 0.4rem;
+            font-size: 0.9rem;
+            color: #1e466e;
+        }
+
+        /* New Arrivals grid - SMALLER CARDS */
+        .new-arrivals {
+            margin: 1.5rem 0;
+        }
+        #product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #edf2f7;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.1);
+        }
+        /* NEW BADGE */
+        .new-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #fe5c1f;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 30px;
+            z-index: 2;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #f8fafc;
+        }
+        .product-card h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 0.5rem 0.6rem 0.2rem;
+            color: #0f172a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-card p {
+            font-size: 0.7rem;
+            color: #5f8baf;
+            margin: 0.2rem 0.6rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-card b {
+            display: block;
+            margin: 0.3rem 0.6rem 0.7rem;
+            font-size: 0.9rem;
+            color: #fe5c1f;
+        }
+        .loading-spinner, .no-products, .error-message {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: #5f8baf;
+        }
+        .error-message {
+            color: #dc2626;
+        }
+
+        /* Shop by Pets Type (grids) - SMALLER */
+        .cat-and-category-product, .dog-and-category-product {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .cat-and-category-product a, .dog-and-category-product a {
+            text-decoration: none;
+            text-align: center;
+            transition: 0.2s;
+            background: white;
+            border-radius: 20px;
+            padding: 0.8rem;
+            border: 1px solid #edf2f7;
+        }
+        .cat-and-category-product a:hover, .dog-and-category-product a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        .cat-and-category-product img, .dog-and-category-product img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .cat-and-category-product h3, .dog-and-category-product h3 {
+            margin-top: 0.4rem;
+            font-size: 0.85rem;
+            color: #1e466e;
+        }
+
+        /* Product Categories (icon grid) */
+        .types-shop-secion {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .types-shop-secion a {
+            text-decoration: none;
+            text-align: center;
+            background: white;
+            padding: 0.8rem 0.3rem;
+            border-radius: 20px;
+            transition: 0.2s;
+            border: 1px solid #edf2f7;
+        }
+        .types-shop-secion a:hover {
+            transform: translateY(-3px);
+            border-color: #fe5c1f;
+        }
+        .types-shop-secion img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 0.3rem;
+        }
+        .types-shop-secion h3 {
+            font-size: 0.75rem;
+            color: #2c5a7a;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #1a2c3e;
+            color: #cbd5e6;
+            margin-top: 2rem;
+            padding: 1.5rem 1.5rem 1rem;
+            border-radius: 28px 28px 0 0;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+        }
+        .footer-summary {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            list-style: none;
+        }
+        .links-list { list-style: none; }
+        .links-list li a {
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.75rem;
+            line-height: 1.8;
+        }
+        .links-list li a:hover { color: #fe5c1f; }
+        .contact-info div {
+            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+        }
+        .contact-info a { color: #cbd5e6; text-decoration: none; }
+        .social { display: flex; gap: 0.8rem; margin-top: 0.8rem; }
+        .social-link {
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #2d4a6e;
+            font-size: 0.7rem;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border-color: #eef2f8;
+        }
+
+        /* Toast */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .toast {
+            background: white;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transform: translateX(120%);
+            transition: transform 0.25s ease;
+            border-left: 3px solid;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #10b981; background: #f0fdf4; color: #166534; }
+        .toast.error { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+
+        @media (max-width: 640px) {
+            .nav-bar { padding: 0.6rem 1rem; }
+            h1 { font-size: 1.3rem; }
+            .Hero-section img { max-height: 200px; }
+            #product-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .product-card h3, .product-card p { white-space: normal; }
+        }
+    </style>
 </head>
 <body>
-    <div class="main">
-
-
-
-        
-   <!-- Navbar -->
-<nav class="nav-bar">
-    <h1 class="brand">Happy Paws Haven</h1>
-
-
-
-    <div class="buttons">
-        <a href="../Html/Pages/Orders.html" style="display: inline-block; margin: 20px; padding: 10px 20px; background-color: #FE4600; color: white; text-decoration: none; border-radius: 5px; font-weight: 600;">My Orders</a>
-
-        <a href="../Html/UserAuth/login.html" id="loginBtn">Login</a>
-        <a href="../Html/UserAuth/register.html" id="registerBtn">Register</a>
-        <button id="logoutBtn" style="display:none;">Logout</button>
-        <a href="../Html/Pages/Cart.html"><button>Cart</button></a>
-    </div>
-</nav>
-
-<nav>
-    <ul>
-        <li><a href="/frontend/Html/index.html">Home</a></li>
-        <li><a href="../Html/Category/toys.html">Toys</a></li>
-        <li><a href="../Html/Category/food.html">Food</a></li>
-        <li><a href="../Html/Category/accessories.html">Accessories</a></li>
-        <li><a href="../Html/Category/grooming.html">Grooming</a></li>
-        <li><a href="../Html/Category/housing.html">Housing</a></li>
-        <li><a href="../Html/Category/travel.html">Travel</a></li>
-        <li><a href="../Html/Category/clothing.html">Clothing</a></li>
-
-    </ul>
-</nav>
-
-        <!-- Header Section -->
-       <div class="Hero-section">
-    <img src="../Assets/Header Hero/bg-1.png" alt="Slide 1">
-    <img src="../Assets/Header Hero/bg-2.png" alt="Slide 2">
-    <img src="../Assets/Header Hero/bg-3.png" alt="Slide 3">
-    
-</div>
-
-
-<!-- Optional Dots (uncomment if needed) -->
-<!-- <div class="slider-dots">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-</div> -->
-
-
-<!-- All Product Page Button -->
-<div class="view-all-container">
-    <a href="../Html/Pages/All Products.html" class="view-all-btn">
-        View All Products <i class="fas fa-arrow-right"></i>
-    </a>
-</div>
-
-
-
-
-        <!-- Category Section Nav -->
-<div class="Category">
-    <h1>Pet Categories</h1>
-
-    <div class="category-img-logo">
-
-        <a href="../Html/Animals/cats.html">
-            <div class="cat">
-                <img src="../Assets/Category Logo Images/cat.jpg" alt="Cats">
-                <h3>Cats</h3>
-            </div>
-        </a>
-
-        <a href="../Html/Animals/dogs.html">
-            <div class="dog">
-                <img src="../Assets/Category Logo Images/dog.jpg" alt="Dogs">
-                <h3>Dogs</h3>
-            </div>
-        </a>
-
-        <a href="../Html/Animals/kitten.html">
-            <div class="kiten">
-                <img src="../Assets/Category Logo Images/kitten.jpg" alt="Kittens">
-                <h3>Kittens</h3>
-            </div>
-        </a>
-
-        <a href="../Html/Animals/puppy.html">
-            <div class="puppies">
-                <img src="../Assets/Category Logo Images/puppy.jpg" alt="Puppies">
-                <h3>Puppies</h3>
-            </div>
-        </a>
-
-    </div>
-</div>
-
-         <hr>
-
-         <div class="animal-and-category">
-            <h1>Shop by Pets Type</h1>
-            <div class="cat-and-category-product">
-                
-            <a href="../Html/cats and Categories/cat-food.html">
-                <div class="cat-food">
-                    <img src="../Assets/Cat and dog categories products/cat/Cat food packing.jpg" alt="">
-                    <h3>Cat Food</h3>
-                </div>
-            </a>
-            <a href="../Html/cats and Categories/cat-grooming.html">
-                <div class="cat-grooming">
-                    <img src="../Assets/Cat and dog categories products/cat/cat grooming paking.jpg" alt="">
-                    <h3>Cat Grooming</h3>
-                </div>
-            
-            </a>
-
-            <a href="../Html/cats and Categories/cat-Accessories.html">
-                <div class="cat-accessories">
-                    <img src="../Assets/Cat and dog categories products/cat/Cat assessories packing.jpg" alt="">
-                    <h3>Cat Accessories</h3>
-
-                </div>
-            </a>
-            <a href="../Html/cats and Categories/cat-travel.html">
-                <div class="cat-travel">
-                    <img src="../Assets/Cat and dog categories products/cat/cat travel.png" alt="">
-                    <h3>Cat Travel</h3>
-                </div>
-
-            </a>
-            </div>
-            
-
-
-            <div class="dog-and-category-product">  
-                <a href="../Html/dogs and  Categories/dog-food.html">
-                    <div class="dog-food-category">
-                        <img src="../Assets/Cat and dog categories products/dog/dog food.jpg" alt="">
-                        <h3>Dog Food</h3>
-
-                    </div>
-                </a>
-
-                <a href="../Html/dogs and  Categories/dog-grooming.html">
-                    <div class="dog-grooming-category">
-                        <img src="../Assets/Cat and dog categories products/dog/dog grooming.jpg" alt="">
-                        <h3>Dog Grooming</h3>
-                    </div>
-                </a>
-
-                <a href="../Html/dogs and  Categories/dog-Accessories.html">
-                    <div class="dog-accessories-category">
-                        <img src="../Assets/Cat and dog categories products/dog/dog accessories.jpg" alt="">
-                        <h3>Dog Accessories</h3>
-                    </div>
-                
-                </a>
-
-                <a href="../Html/dogs and  Categories/dog-travel.html">
-                    <div class="dog-travel-category">
-                        <img src="../Assets/Cat and dog categories products/dog/dog travel.jpg" alt="">
-                        <h3>Dog Travel</h3>
-                    </div>
-                </a>
-            </div>
-
-         </div>
-         
-
-
-
-
-         
-         <!-- Types Section -->
-        <!-- Types Section -->
-        <h1>Product Categories</h1>
-        <div class="types-shop-secion">
-            <a href="../Html/Category/food.html">
-                <div>
-                    <img src="../Assets/Product Categoris/food.png" alt="Food">
-                    <h3>Food</h3>
-                </div>
-            </a>
-            <a href="../Html/Category/toys.html">
-                <div>
-                    <img src="../Assets/Product Categoris/Toys.png" alt="Toys">
-                    <h3>Toys</h3>
-                </div>
-            </a>
-            <a href="../Html/Category/accessories.html">
-                <div>
-                    <img src="../Assets//Product Categoris/Accessories.png" alt="Accessories">
-                    <h3>Accessories</h3>
-                </div>
-            </a>
-            <a href="../Html/Category/grooming.html">
-                <div>
-                    <img src="../Assets/Product Categoris/Grooming.png" alt="Grooming">
-                    <h3>Grooming</h3>
-                </div>
-            </a>
-            <a href="../Html/Category/travel.html">
-                <div>
-                    <img src="../Assets/Product Categoris/Travel.png" alt="Travel & Outdoor">
-                    <h3>Travel & Outdoor</h3>
-                </div>
-            </a>
-            <a href="../Html/Category/clothing.html">
-                <div>
-                    <img src="../Assets/Product Categoris/Clothing.png" alt="Clothing & Apparel">
-                    <h3>Clothing & Apparel</h3>
-                </div>
-            </a>
-            <a href="../Html/Category/housing.html">
-                <div>
-                    <img src="../Assets/Product Categoris/Housing.png" alt="Housing & Bedding">
-                    <h3>Housing & Bedding</h3>
-                </div>
-            </a>
+<div class="main">
+    <!-- Navbar -->
+    <nav class="nav-bar">
+        <h1 class="brand"><i class="fas fa-paw"></i> Happy Paws Haven</h1>
+        <div class="buttons">
+            <a href="../Html/Pages/Orders.html" style="background-color: #FE4600; color: white; border-radius: 40px;">My Orders</a>
+            <a href="../Html/UserAuth/login.html" id="loginBtn">Login</a>
+            <a href="../Html/UserAuth/register.html" id="registerBtn">Register</a>
+            <button id="logoutBtn" style="display:none;">Logout</button>
+            <a href="../Html/Pages/Cart.html"><button><i class="fas fa-shopping-cart"></i> Cart</button></a>
         </div>
+    </nav>
 
+    <!-- Category Navigation -->
+    <nav>
+        <ul>
+            <li><a href="../Html/index.html">Home</a></li>
+            <li><a href="../Html/Category/toys.html">Toys</a></li>
+            <li><a href="../Html/Category/food.html">Food</a></li>
+            <li><a href="../Html/Category/accessories.html">Accessories</a></li>
+            <li><a href="../Html/Category/grooming.html">Grooming</a></li>
+            <li><a href="../Html/Category/housing.html">Housing</a></li>
+            <li><a href="../Html/Category/travel.html">Travel</a></li>
+            <li><a href="../Html/Category/clothing.html">Clothing</a></li>
+        </ul>
+    </nav>
 
-        <!-- Footer section -->
-        <!-- Footer -->
-<footer class="site-footer" role="contentinfo" aria-label="Site footer">
-  <div class="footer-inner">
-    <!-- Brand -->
-    <div class="footer-block footer-brand">
-      <a class="brand-link" href="/" aria-label="PetNest home">
-        <span class="brand-icon" aria-hidden="true">🐾</span>
-        <span class="brand-name">PetNest</span>
-      </a>
-      <p class="brand-tag">Quality food, toys, and care for your pets</p>
+    <!-- Hero Section (horizontal scroll) -->
+    <div class="Hero-section">
+        <img src="../Assets/Header Hero/bg-1.png" alt="Happy pets">
+        <img src="../Assets/Header Hero/bg-2.png" alt="Pet supplies">
+        <img src="../Assets/Header Hero/bg-3.png" alt="Pet care">
     </div>
 
-    <!-- Quick Links -->
-    <details class="footer-block footer-links" open>
-      <summary class="footer-summary">Quick Links</summary>
-      <ul class="links-list" role="list">
-        <li><a href="/shop">Shop</a></li>
-        <li><a href="/collections">Collections</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/faq">FAQ</a></li>
-      </ul>
-    </details>
-
-    <!-- Customer Care -->
-    <details class="footer-block footer-care">
-      <summary class="footer-summary">Customer Care</summary>
-      <ul class="links-list" role="list">
-        <li><a href="/shipping">Shipping</a></li>
-        <li><a href="/returns">Returns</a></li>
-        <li><a href="/contact">Contact Support</a></li>
-        <li><a href="/size-guide">Size Guide</a></li>
-      </ul>
-    </details>
-
-    <!-- Contact and Social -->
-    <div class="footer-block footer-contact">
-      <h3 class="footer-heading">Contact</h3>
-      <address class="contact-info">
-        <div>Email: <a href="mailto:support@petnest.com">support@petnest.com</a></div>
-        <div>Phone: <a href="tel:+923001234567">+92 300 1234567</a></div>
-        <div>Address: Peshawar, Khyber Pakhtunkhwa</div>
-      </address>
-
-      <div class="social">
-        <a class="social-link" href="#" aria-label="Facebook">Facebook</a>
-        <a class="social-link" href="#" aria-label="Instagram">Instagram</a>
-        <a class="social-link" href="#" aria-label="Twitter">Twitter</a>
-      </div>
+    <!-- View All Products Button -->
+    <div class="view-all-container">
+        <a href="../Html/Pages/All Products.html" class="view-all-btn">
+            View All Products <i class="fas fa-arrow-right"></i>
+        </a>
     </div>
-  </div>
 
-  <div class="footer-bottom">
-    <p>&copy; <span id="year"></span> <strong>PetNest</strong>. All rights reserved.</p>
-  </div>
-</footer>
+    <!-- Pet Categories -->
+    <div class="Category">
+        <h1>Pet Categories</h1>
+        <div class="category-img-logo">
+            <a href="../Html/Animals/cats.html"><div><img src="../Assets/Category Logo Images/cat.jpg" alt="Cats"><h3>Cats</h3></div></a>
+            <a href="../Html/Animals/dogs.html"><div><img src="../Assets/Category Logo Images/dog.jpg" alt="Dogs"><h3>Dogs</h3></div></a>
+            <a href="../Html/Animals/kitten.html"><div><img src="../Assets/Category Logo Images/kitten.jpg" alt="Kittens"><h3>Kittens</h3></div></a>
+            <a href="../Html/Animals/puppy.html"><div><img src="../Assets/Category Logo Images/puppy.jpg" alt="Puppies"><h3>Puppies</h3></div></a>
+        </div>
+    </div>
 
+    <hr>
 
+    <!-- New Arrivals with "NEW" badge - SMALL CARDS -->
+    <div class="new-arrivals">
+        <h1>New Arrivals</h1>
+        <div id="product-list"><div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Loading new arrivals...</div></div>
+    </div>
 
+    <hr>
+
+    <!-- Shop by Pets Type -->
+    <div class="animal-and-category">
+        <h1>Shop by Pets Type</h1>
+        <div class="cat-and-category-product">
+            <a href="../Html/cats and Categories/cat-food.html"><div><img src="../Assets/Cat and dog categories products/cat/Cat food packing.jpg" alt="Cat Food"><h3>Cat Food</h3></div></a>
+            <a href="../Html/cats and Categories/cat-grooming.html"><div><img src="../Assets/Cat and dog categories products/cat/cat grooming paking.jpg" alt="Cat Grooming"><h3>Cat Grooming</h3></div></a>
+            <a href="../Html/cats and Categories/cat-Accessories.html"><div><img src="../Assets/Cat and dog categories products/cat/Cat assessories packing.jpg" alt="Cat Accessories"><h3>Cat Accessories</h3></div></a>
+            <a href="../Html/cats and Categories/cat-travel.html"><div><img src="../Assets/Cat and dog categories products/cat/cat travel.png" alt="Cat Travel"><h3>Cat Travel</h3></div></a>
+        </div>
+        <div class="dog-and-category-product">
+            <a href="../Html/dogs and  Categories/dog-food.html"><div><img src="../Assets/Cat and dog categories products/dog/dog food.jpg" alt="Dog Food"><h3>Dog Food</h3></div></a>
+            <a href="../Html/dogs and  Categories/dog-grooming.html"><div><img src="../Assets/Cat and dog categories products/dog/dog grooming.jpg" alt="Dog Grooming"><h3>Dog Grooming</h3></div></a>
+            <a href="../Html/dogs and  Categories/dog-Accessories.html"><div><img src="../Assets/Cat and dog categories products/dog/dog accessories.jpg" alt="Dog Accessories"><h3>Dog Accessories</h3></div></a>
+            <a href="../Html/dogs and  Categories/dog-travel.html"><div><img src="../Assets/Cat and dog categories products/dog/dog travel.jpg" alt="Dog Travel"><h3>Dog Travel</h3></div></a>
+        </div>
+    </div>
+
+    <!-- Product Categories (icons) -->
+    <h1>Product Categories</h1>
+    <div class="types-shop-secion">
+        <a href="../Html/Category/food.html"><div><img src="../Assets/Product Categoris/food.png" alt="Food"><h3>Food</h3></div></a>
+        <a href="../Html/Category/toys.html"><div><img src="../Assets/Product Categoris/Toys.png" alt="Toys"><h3>Toys</h3></div></a>
+        <a href="../Html/Category/accessories.html"><div><img src="../Assets/Product Categoris/Accessories.png" alt="Accessories"><h3>Accessories</h3></div></a>
+        <a href="../Html/Category/grooming.html"><div><img src="../Assets/Product Categoris/Grooming.png" alt="Grooming"><h3>Grooming</h3></div></a>
+        <a href="../Html/Category/travel.html"><div><img src="../Assets/Product Categoris/Travel.png" alt="Travel"><h3>Travel & Outdoor</h3></div></a>
+        <a href="../Html/Category/clothing.html"><div><img src="../Assets/Product Categoris/Clothing.png" alt="Clothing"><h3>Clothing & Apparel</h3></div></a>
+        <a href="../Html/Category/housing.html"><div><img src="../Assets/Product Categoris/Housing.png" alt="Housing"><h3>Housing & Bedding</h3></div></a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-block footer-brand">
+                <a class="brand-link" href="/"><span class="brand-icon">🐾</span><span class="brand-name">PetNest</span></a>
+                <p class="brand-tag" style="font-size:0.75rem;">Quality food, toys, and care</p>
+            </div>
+            <details class="footer-block footer-links" open>
+                <summary class="footer-summary">Quick Links</summary>
+                <ul class="links-list"><li><a href="/shop">Shop</a></li><li><a href="/collections">Collections</a></li><li><a href="/about">About Us</a></li><li><a href="/faq">FAQ</a></li></ul>
+            </details>
+            <details class="footer-block footer-care">
+                <summary class="footer-summary">Customer Care</summary>
+                <ul class="links-list"><li><a href="/shipping">Shipping</a></li><li><a href="/returns">Returns</a></li><li><a href="/contact">Contact Support</a></li><li><a href="/size-guide">Size Guide</a></li></ul>
+            </details>
+            <div class="footer-block footer-contact">
+                <h3 class="footer-heading" style="font-size:0.9rem;">Contact</h3>
+                <address class="contact-info">
+                    <div>Email: <a href="mailto:support@petnest.com">support@petnest.com</a></div>
+                    <div>Phone: <a href="tel:+923001234567">+92 300 1234567</a></div>
+                    <div>Address: Peshawar, Pakistan</div>
+                </address>
+                <div class="social"><a class="social-link" href="#">FB</a><a class="social-link" href="#">IG</a><a class="social-link" href="#">TW</a></div>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; <span id="year"></span> <strong>PetNest</strong>. All rights reserved.</p></div>
+    </footer>
+</div>
 
 <div id="toast-container"></div>
-<script>
-  // Auto update year
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
 
-         </div>
-    <script src="../Js/Index.js"></script>
+<script>
+    (function() {
+        // ========== 1. TOAST FUNCTION ==========
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.classList.add("toast", type);
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add("show"), 10);
+            setTimeout(() => {
+                toast.classList.remove("show");
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ========== 2. AUTH UI ==========
+        const loginBtn = document.getElementById("loginBtn");
+        const registerBtn = document.getElementById("registerBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        function updateAuthUI() {
+            const hasToken = !!localStorage.getItem("token");
+            if (hasToken) {
+                if (loginBtn) loginBtn.style.display = "none";
+                if (registerBtn) registerBtn.style.display = "none";
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+            } else {
+                if (loginBtn) loginBtn.style.display = "inline-block";
+                if (registerBtn) registerBtn.style.display = "inline-block";
+                if (logoutBtn) logoutBtn.style.display = "none";
+            }
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async () => {
+                const token = localStorage.getItem("token");
+                if (!token) return;
+                try {
+                    await fetch("http://localhost:8000/api/user/logout", {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" }
+                    });
+                } catch(e) {}
+                localStorage.removeItem("token");
+                showToast("Logged out successfully", "success");
+                updateAuthUI();
+                setTimeout(() => window.location.reload(), 1200);
+            });
+        }
+
+        // ========== 3. NEW ARRIVALS with SMALL CARDS & "NEW" BADGE ==========
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        async function loadLatestProducts() {
+            const container = document.getElementById('product-list');
+            if (!container) return;
+            container.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Loading new arrivals...</div>`;
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/products/latest');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                const products = data.data || [];
+                if (products.length === 0) {
+                    container.innerHTML = '<p class="no-products">No new arrivals yet.</p>';
+                    return;
+                }
+                container.innerHTML = '';
+                products.forEach(product => {
+                    let imageUrl = product.image;
+                    if (imageUrl && !imageUrl.startsWith('http')) {
+                        imageUrl = `http://localhost:8000/storage/${imageUrl}`;
+                    } else if (!imageUrl) {
+                        imageUrl = 'https://via.placeholder.com/180?text=No+Img';
+                    }
+                    const productName = product.name || 'Unnamed';
+                    const category = product.category_name || 'General';
+                    const animal = product.animal_name || 'All Pets';
+                    const price = parseFloat(product.price) || 0;
+                    const productId = product.product_id || product.id;
+
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.onclick = () => {
+                        window.location.href = `./Pages/product-detail.html?id=${productId}`;
+                    };
+                    card.innerHTML = `
+                        <span class="new-badge"><i class="fas fa-star"></i> NEW</span>
+                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(productName)}" loading="lazy">
+                        <h3>${escapeHtml(productName)}</h3>
+                        <p>${escapeHtml(category)}</p>
+                        <p>${escapeHtml(animal)}</p>
+                        <b>Rs ${price.toFixed(2)}</b>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<p class="error-message">Failed to load new arrivals.</p>';
+            }
+        }
+
+        // ========== 4. INITIALIZE ==========
+        updateAuthUI();
+        loadLatestProducts();
+        document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+</script>
 </body>
 </html>
