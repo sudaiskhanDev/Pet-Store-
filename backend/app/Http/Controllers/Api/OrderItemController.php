@@ -11,10 +11,26 @@ class OrderItemController extends Controller
 {
     // List all order items
     public function index()
-    {
-        $items = OrderItem::with('order')->get();
-        return response()->json($items);
-    }
+{
+    $items = OrderItem::with(['order', 'product'])->get();
+
+    return response()->json([
+        'status' => true,
+        'data' => $items
+    ]);
+}
+//     public function index()
+//     {
+//         $items = OrderItem::with('order')->get();
+//         return response()->json($items);
+
+//         $items = OrderItem::with('product')->get();
+
+// return response()->json([
+//     'status' => true,
+//     'data' => OrderItem::with('product')->get()
+// ]);
+//     }
 
     // Store new order item
     public function store(Request $request)

@@ -1,187 +1,119 @@
+ 
+
 const API_BASE = "http://localhost:8000/api/order-items";
+const tableBody = document.getElementById("tableBody");
 
-const tableBody = document.getElementById('orderItemsTableBody');
-const template = document.getElementById('templateRow');
 
-// 🔥 Create row
-function createRow(item) {
-    const tr = template.cloneNode(true);
-
-    tr.style.display = "";
-    tr.removeAttribute("id");
-
-    tr.querySelector('.td-id').textContent = item.order_item_id;
-    tr.querySelector('.td-order').textContent = item.order_id;
-    tr.querySelector('.td-product').textContent = item.product_id;
-    tr.querySelector('.td-quantity').textContent = item.quantity;
-    tr.querySelector('.td-price').textContent = item.price;
-
-    tr.querySelector('.delete').addEventListener('click', () => deleteItem(item.order_item_id));
-
-    return tr;
-}
-
-// 🔥 Load data
+// ================= READ =================
 async function fetchItems() {
     try {
         const res = await fetch(API_BASE);
-        const items = await res.json();
+        const response = await res.json();
 
-        // clear old rows except template
-        tableBody.querySelectorAll('tr:not(#templateRow)').forEach(r => r.remove());
+        console.log("API Response:", response);
+
+        // ✅ handle both formats safely
+        const items = Array.isArray(response) ? response : response.data;
+
+        if (!Array.isArray(items)) {
+            console.error("Invalid API response format:", response);
+            return;
+        }
+
+        tableBody.innerHTML = "";
 
         items.forEach(item => {
-            const row = createRow(item);
-            tableBody.appendChild(row);
+
+            // ✅ SAFE PRODUCT NAME HANDLING
+            const productName = item.product?.name || "N/A";
+
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${item.order_item_id}</td>
+                    <td>${item.order_id}</td>
+                    <td>${productName}</td>
+                    <td>${item.quantity}</td>
+                    <td>${item.price}</td>
+                    <td>
+                        <button onclick='editItem(${JSON.stringify(item)})'>Edit</button>
+                        <button onclick='deleteItem(${item.order_item_id})'>Delete</button>
+                    </td>
+                </tr>
+            `;
         });
 
     } catch (error) {
-        console.error("Error loading items:", error);
+        console.error("Fetch error:", error);
     }
 }
 
-// 🔥 Delete
+
+// ================= CREATE / UPDATE =================
+async function saveItem() {
+
+    const id = document.getElementById("order_item_id").value;
+
+    const data = {
+        order_id: document.getElementById("order_id").value,
+        product_id: document.getElementById("product_id").value,
+        quantity: document.getElementById("quantity").value,
+        price: document.getElementById("price").value
+    };
+
+    let url = API_BASE;
+    let method = "POST";
+
+    if (id) {
+        url = `${API_BASE}/${id}`;
+        method = "PUT";
+    }
+
+    await fetch(url, {
+        method: method,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    resetForm();
+    fetchItems();
+}
+
+
+// ================= EDIT =================
+function editItem(item) {
+    document.getElementById("order_item_id").value = item.order_item_id;
+    document.getElementById("order_id").value = item.order_id;
+    document.getElementById("product_id").value = item.product_id;
+    document.getElementById("quantity").value = item.quantity;
+    document.getElementById("price").value = item.price;
+}
+
+
+// ================= DELETE =================
 async function deleteItem(id) {
     if (!confirm("Delete this item?")) return;
 
-    try {
-        await fetch(`${API_BASE}/${id}`, {
-            method: "DELETE"
-        });
+    await fetch(`${API_BASE}/${id}`, {
+        method: "DELETE"
+    });
 
-        fetchItems();
-    } catch (error) {
-        console.error("Delete error:", error);
-    }
+    fetchItems();
 }
 
-// Init
+
+// ================= RESET =================
+function resetForm() {
+    document.getElementById("order_item_id").value = "";
+    document.getElementById("order_id").value = "";
+    document.getElementById("product_id").value = "";
+    document.getElementById("quantity").value = "";
+    document.getElementById("price").value = "";
+}
+
+
+// INIT
 fetchItems();
 
-
-
-
-
-
-// let orderItems = [];
-// let editItemId = null;
-
-// const orderIdInput = document.getElementById('orderId');
-// const productIdInput = document.getElementById('productId');
-// const quantityInput = document.getElementById('quantity');
-// const priceInput = document.getElementById('price');
-// const saveBtn = document.getElementById('saveBtn');
-// const tableBody = document.getElementById('orderItemsTableBody');
-// const errorMsg = document.getElementById('errorMsg');
-
-// const API_BASE = "http://localhost:8000/api/order-items";
-
-// // Create row
-// function createRow(item) {
-//     const template = tableBody.querySelector('tr');
-//     const tr = template.cloneNode(true);
-
-//     tr.dataset.id = item.order_item_id;
-
-//     tr.querySelector('.td-id').textContent = item.order_item_id;
-//     tr.querySelector('.td-order').textContent = item.order_id;
-//     tr.querySelector('.td-product').textContent = item.product_id;
-//     tr.querySelector('.td-quantity').textContent = item.quantity;
-//     tr.querySelector('.td-price').textContent = item.price;
-
-//     const editBtn = tr.querySelector('.edit');
-//     const deleteBtn = tr.querySelector('.delete');
-
-//     editBtn.replaceWith(editBtn.cloneNode(true));
-//     deleteBtn.replaceWith(deleteBtn.cloneNode(true));
-
-//     tr.querySelector('.edit').addEventListener('click', () => editItem(item.order_item_id));
-//     tr.querySelector('.delete').addEventListener('click', () => deleteItem(item.order_item_id));
-
-//     return tr;
-// }
-
-// // Fetch data
-// async function fetchItems() {
-//     const res = await fetch(API_BASE);
-//     orderItems = await res.json();
-
-//     tableBody.querySelectorAll('tr:not([data-id=""])').forEach(r => r.remove());
-
-//     orderItems.forEach(item => {
-//         const tr = createRow(item);
-//         tableBody.appendChild(tr);
-//     });
-// }
-
-// // Save / Update
-// saveBtn.addEventListener('click', async () => {
-
-//     const payload = {
-//         order_id: parseInt(orderIdInput.value),
-//         product_id: parseInt(productIdInput.value),
-//         quantity: parseInt(quantityInput.value),
-//         price: parseFloat(priceInput.value)
-//     };
-
-//     if (!payload.order_id || !payload.product_id || !payload.quantity || isNaN(payload.price)) {
-//         errorMsg.textContent = "Fill all fields correctly";
-//         return;
-//     }
-
-//     errorMsg.textContent = "";
-
-//     if (editItemId) {
-//         await fetch(`${API_BASE}/${editItemId}`, {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(payload)
-//         });
-//     } else {
-//         await fetch(API_BASE, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(payload)
-//         });
-//     }
-
-//     resetForm();
-//     fetchItems();
-// });
-
-// // Edit
-// function editItem(id) {
-//     const item = orderItems.find(i => i.order_item_id === id);
-
-//     orderIdInput.value = item.order_id;
-//     productIdInput.value = item.product_id;
-//     quantityInput.value = item.quantity;
-//     priceInput.value = item.price;
-
-//     editItemId = id;
-//     saveBtn.textContent = "Update";
-// }
-
-// // Delete
-// async function deleteItem(id) {
-//     if (!confirm("Delete this item?")) return;
-
-//     await fetch(`${API_BASE}/${id}`, {
-//         method: 'DELETE'
-//     });
-
-//     fetchItems();
-// }
-
-// // Reset
-// function resetForm() {
-//     orderIdInput.value = "";
-//     productIdInput.value = "";
-//     quantityInput.value = "";
-//     priceInput.value = "";
-//     editItemId = null;
-//     saveBtn.textContent = "Save";
-// }
-
-// // Init
-// fetchItems();
+ 

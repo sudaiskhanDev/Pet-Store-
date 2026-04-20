@@ -69,38 +69,37 @@
 
 
 
-    <h1>Order Items Page</h1>
+  <h2>Order Items CRUD</h2>
 
-<div class="list">
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Order ID</th>
-                <th>Product ID</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+<!-- FORM -->
+<div class="form-box">
+    <input type="hidden" id="order_item_id">
 
-        <tbody id="orderItemsTableBody">
+    <input type="number" id="order_id" placeholder="Order ID">
+    <input type="number" id="product_id" placeholder="Product ID">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <input type="number" id="price" placeholder="Price">
 
-            <!-- 🔥 Template Row -->
-            <tr id="templateRow" style="display: none;">
-                <td class="td-id"></td>
-                <td class="td-order"></td>
-                <td class="td-product"></td>
-                <td class="td-quantity"></td>
-                <td class="td-price"></td>
-                <td>
-                    <button class="delete">Delete</button>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
+    <button onclick="saveItem()">Save</button>
+    <button onclick="resetForm()">Clear</button>
 </div>
+
+<!-- TABLE -->
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order</th>
+            <th>Product Name</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="tableBody"></tbody>
+</table>
+
 </div>
 
 <script src="../../js/Categories/orderItems.js"></script>

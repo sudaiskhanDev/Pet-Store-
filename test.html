@@ -1,203 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Basic Hygiene Products</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Items CRUD</title>
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f9fafc;
-    color: #1f2937;
-    line-height: 1.5;
-  }
-
-  .main-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-  }
-
-  .main-all-products h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    color: #111827;
-    border-left: 5px solid #10b981;
-    padding-left: 1rem;
-  }
-
-  #products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.75rem;
-  }
-
-  .product-card {
-    background: #ffffff;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.15);
-  }
-
-  .product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    background-color: #f3f4f6;
-    transition: transform 0.3s ease;
-  }
-
-  .product-card:hover img {
-    transform: scale(1.02);
-  }
-
-  .product-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin: 1rem 1rem 0.5rem 1rem;
-    color: #1f2937;
-    line-height: 1.4;
-  }
-
-  .product-price {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #10b981;
-    margin: 0 1rem 0.5rem 1rem;
-  }
-
-  .product-category,
-  .product-animal {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin: 0 1rem 0.25rem 1rem;
-  }
-
-  .product-category:last-of-type,
-  .product-animal:last-of-type {
-    margin-bottom: 1rem;
-  }
-
-  /* Loading and error styles inside products container */
-  #products:empty::before {
-    content: "Loading products...";
-    display: block;
-    text-align: center;
-    padding: 3rem;
-    color: #6b7280;
-    font-size: 1rem;
-  }
-
-  .error-display {
-    background-color: #fee2e2;
-    color: #b91c1c;
-    padding: 1rem;
-    border-radius: 0.75rem;
-    text-align: center;
-    font-weight: 500;
-  }
-
-  @media (max-width: 640px) {
-    .main-container {
-      padding: 1rem;
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
     }
-    .main-all-products h1 {
-      font-size: 1.5rem;
-    }
-    #products {
-      gap: 1rem;
-    }
-    .product-card img {
-      height: 180px;
-    }
-  }
 
-  @media (min-width: 1024px) {
-    #products {
-      grid-template-columns: repeat(3, 1fr);
+    .form-box input {
+      margin: 5px;
+      padding: 8px;
     }
-  }
-</style>
+
+    button {
+      padding: 6px 10px;
+      margin: 2px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="main-container">
-   <div class="main-all-products">
-        <h1>Basic Hygiene Products</h1>
-        <div id="products"></div>
-    </div>
+<h2>Order Items CRUD</h2>
+
+<!-- FORM -->
+<div class="form-box">
+  <input type="hidden" id="order_item_id">
+
+  <input type="number" id="order_id" placeholder="Order ID">
+  <input type="number" id="product_id" placeholder="Product ID">
+  <input type="number" id="quantity" placeholder="Quantity">
+  <input type="number" id="price" placeholder="Price">
+
+  <button onclick="saveItem()">Save</button>
+  <button onclick="resetForm()">Clear</button>
 </div>
 
+<!-- TABLE -->
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Order</th>
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody id="tableBody"></tbody>
+</table>
+
 <script>
-const API_URL = "http://localhost:8000/api/products";
-const CATEGORY_NAME = "Basic Hygiene";
+const API_BASE = "http://127.0.0.1:8000/api/order-items";
 
-async function fetchProducts() {
-    const productsContainer = document.getElementById("products");
+const tableBody = document.getElementById("tableBody");
 
-    productsContainer.innerHTML = ""; // Clear previous content
+// ================= CREATE / UPDATE =================
+async function saveItem() {
 
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Failed to fetch products");
+  const id = document.getElementById("order_item_id").value;
 
-        const data = await response.json();
-        const products = data.products || [];
+  const data = {
+    order_id: document.getElementById("order_id").value,
+    product_id: document.getElementById("product_id").value,
+    quantity: document.getElementById("quantity").value,
+    price: document.getElementById("price").value
+  };
 
-        const filteredProducts = products.filter(p => p.category_name === CATEGORY_NAME);
+  let url = API_BASE;
+  let method = "POST";
 
-        if (filteredProducts.length === 0) {
-            productsContainer.innerHTML = '<div class="error-display">No products available in this category.</div>';
-            return;
-        }
+  if (id) {
+    url = `${API_BASE}/${id}`;
+    method = "PUT";
+  }
 
-        const fragment = document.createDocumentFragment();
+  await fetch(url, {
+    method: method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
 
-        filteredProducts.forEach(product => {
-            const card = document.createElement("div");
-            card.className = "product-card";
-
-            card.addEventListener("click", () => {
-                window.location.href = `product-detail.html?id=${product.product_id}`;
-            });
-
-            card.innerHTML = `
-                <img src="${product.image ? `http://localhost:8000/storage/${product.image}` : 'https://via.placeholder.com/200'}" alt="${product.name}">
-                <div class="product-name">${product.name}</div>
-                <div class="product-price">Price: ₹${parseFloat(product.price).toLocaleString()}</div>
-                <div class="product-category">Category: ${product.category_name || "N/A"}</div>
-                <div class="product-animal">Animal: ${product.animal_name || "N/A"}</div>
-            `;
-
-            fragment.appendChild(card);
-        });
-
-        productsContainer.appendChild(fragment);
-
-    } catch (error) {
-        console.error(error);
-        productsContainer.innerHTML = '<div class="error-display">Error loading products. Please try again later.</div>';
-    }
+  resetForm();
+  fetchItems();
 }
 
-window.addEventListener("DOMContentLoaded", fetchProducts);
+// ================= READ =================
+async function fetchItems() {
+  const res = await fetch(API_BASE);
+  const response = await res.json();
+
+  const items = response.data;
+
+  tableBody.innerHTML = "";
+
+  items.forEach(item => {
+    const row = `
+      <tr>
+        <td>${item.order_item_id}</td>
+        <td>${item.order_id}</td>
+        <td>${item.product_id}</td>
+        <td>${item.quantity}</td>
+        <td>${item.price}</td>
+        <td>
+          <button onclick='editItem(${JSON.stringify(item)})'>Edit</button>
+          <button onclick='deleteItem(${item.order_item_id})'>Delete</button>
+        </td>
+      </tr>
+    `;
+
+    tableBody.innerHTML += row;
+  });
+}
+
+// ================= EDIT =================
+function editItem(item) {
+  document.getElementById("order_item_id").value = item.order_item_id;
+  document.getElementById("order_id").value = item.order_id;
+  document.getElementById("product_id").value = item.product_id;
+  document.getElementById("quantity").value = item.quantity;
+  document.getElementById("price").value = item.price;
+}
+
+// ================= DELETE =================
+async function deleteItem(id) {
+  if (!confirm("Delete this item?")) return;
+
+  await fetch(`${API_BASE}/${id}`, {
+    method: "DELETE"
+  });
+
+  fetchItems();
+}
+
+// ================= RESET =================
+function resetForm() {
+  document.getElementById("order_item_id").value = "";
+  document.getElementById("order_id").value = "";
+  document.getElementById("product_id").value = "";
+  document.getElementById("quantity").value = "";
+  document.getElementById("price").value = "";
+}
+
+// INIT
+fetchItems();
+
 </script>
 
 </body>

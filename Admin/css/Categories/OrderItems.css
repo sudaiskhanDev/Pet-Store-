@@ -1,272 +1,384 @@
-/* ===== ORDER ITEMS PAGE – ULTRA DETAILED STYLES ===== */
-/* Purpose: Professional admin panel with clean aesthetics, smooth interactions,
-   and full responsiveness. Uses #FE4600 as primary accent, white cards, and a
-   subtle gradient background. */
+/* Order Items Page - White & Orange Theme (#FE4600) */
+/* Navigation styles are intentionally omitted as requested */
 
-/* ===== GLOBAL CONTAINER ===== */
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fef6f0;        /* Very light orange-tinted background */
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    line-height: 1.5;
+    color: #1e1e2a;
+}
+
+/* ===== MAIN CONTAINER ===== */
 .main-orderitems {
-  max-width: 1300px;               /* Constrains content on large screens */
-  margin: 0 auto;                  /* Centers the container */
-  padding: 2rem;                   /* Inner spacing for comfort */
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  min-height: 100vh;               /* Full viewport height */
-  animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  position: relative;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 2rem 2rem 2.5rem 2rem;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04), 0 4px 10px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
 }
 
-/* ===== PAGE HEADER ===== */
-.main-orderitems h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  /* Gradient text effect */
-  background: linear-gradient(135deg, #1e293b, #2d3a4a);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  letter-spacing: -0.02em;
-  position: relative;
-  display: inline-block;
+/* ===== HEADING ===== */
+.main-orderitems h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 3px solid #FE4600;
+    display: inline-block;
+    letter-spacing: -0.3px;
+    background: linear-gradient(135deg, #FE4600 0%, #FE4600 70%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: #1f2937;
+    border-image: none;
 }
 
-/* Animated underline under the heading */
-.main-orderitems h1::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 70px;
-  height: 4px;
-  background: linear-gradient(90deg, #FE4600, #ff8c5a);
-  border-radius: 4px;
-  transition: width 0.3s ease;
+/* ===== FORM SECTION ===== */
+.form-box {
+    background: #ffffff;
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03), 0 0 0 1px #fff0e6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    transition: box-shadow 0.2s;
 }
 
-/* Hover effect: underline expands to full width */
-.main-orderitems h1:hover::after {
-  width: 100%;
+.form-box:hover {
+    box-shadow: 0 8px 20px rgba(254, 70, 0, 0.08), 0 0 0 1px #ffe0d0;
 }
 
-/* ===== TABLE CARD (wraps the table) ===== */
-.list {
-  background: #FFFFFF;
-  border-radius: 28px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
-  padding: 0;                     /* No internal padding – table fills the card */
-  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  overflow: hidden;               /* Keeps the border radius intact */
-  backdrop-filter: blur(2px);
+/* Input fields */
+.form-box input {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid #e9eef3;
+    border-radius: 18px;
+    background: #fefcf9;
+    transition: all 0.25s ease;
+    color: #1a2634;
 }
 
-/* Lift effect on card hover */
-.list:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
-  border-color: #FE4600;
+.form-box input:focus {
+    outline: none;
+    border-color: #FE4600;
+    box-shadow: 0 0 0 3px rgba(254, 70, 0, 0.12);
+    background: #ffffff;
+}
+
+.form-box input::placeholder {
+    color: #b9c2cc;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+/* Hidden ID field */
+#order_item_id {
+    display: none;
+}
+
+/* Buttons inside form */
+.form-box button {
+    padding: 0.85rem 1.8rem;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    border: none;
+    letter-spacing: 0.3px;
+    font-family: inherit;
+}
+
+/* Save Button - Solid #FE4600 */
+.form-box button:first-of-type {
+    background: #FE4600;
+    color: white;
+    box-shadow: 0 2px 8px rgba(254, 70, 0, 0.3);
+}
+
+.form-box button:first-of-type:hover {
+    background: #e03e00;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(254, 70, 0, 0.25);
+}
+
+.form-box button:first-of-type:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(254, 70, 0, 0.2);
+}
+
+/* Clear Button - Outline Orange */
+.form-box button:last-of-type {
+    background: white;
+    border: 1.5px solid #FE4600;
+    color: #FE4600;
+}
+
+.form-box button:last-of-type:hover {
+    background: #fff5ef;
+    border-color: #e03e00;
+    color: #e03e00;
+    transform: translateY(-1px);
 }
 
 /* ===== TABLE STYLES ===== */
-.list table {
-  width: 100%;
-  border-collapse: separate;      /* Allows individual cell borders */
-  border-spacing: 0;
-  background: white;
-  font-size: 0.95rem;
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 0.8rem;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 0 0 1px #f0eae4;
 }
 
-/* Header cells */
-.list th {
-  background: #fafcff;
-  font-weight: 700;
-  color: #1e293b;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  padding: 1.2rem 1rem;
-  text-align: left;
-  border-bottom: 2px solid #eef2f6;
-  position: sticky;               /* Makes header sticky on vertical scroll */
-  top: 0;
-  z-index: 1;
+/* Table Header - #FE4600 theme */
+thead tr {
+    background: #FE4600;
 }
 
-/* Table data cells */
-.list td {
-  padding: 1.2rem 1rem;
-  border-bottom: 1px solid #eef2f6;
-  vertical-align: middle;
-  transition: background 0.2s ease;
+thead th {
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 1.1rem 1.2rem;
+    text-align: left;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    opacity: 0.95;
 }
 
-/* Remove border from last row */
-.list tbody tr:last-child td {
-  border-bottom: none;
+thead th:first-child {
+    border-top-left-radius: 20px;
 }
 
-/* Row hover effect */
-.list tbody tr:hover td {
-  background: #fffaf5;            /* Very light orange tint */
+thead th:last-child {
+    border-top-right-radius: 20px;
 }
 
-/* ===== COLUMN‑SPECIFIC STYLES ===== */
-.td-id,
-.td-order,
-.td-product {
-  font-weight: 500;
-  color: #334155;
+/* Table Body */
+tbody tr {
+    background: white;
+    transition: background 0.2s ease;
+    border-bottom: 1px solid #f1ebe5;
 }
 
-.td-quantity {
-  font-weight: 600;
-  color: #0f172a;
+tbody tr:nth-child(even) {
+    background: #fffbf8;
 }
 
-.td-price {
-  font-weight: 700;
-  color: #FE4600;
-  font-size: 1rem;
-  letter-spacing: -0.2px;
+tbody tr:hover {
+    background: #fff3ec;
 }
 
-/* Adds a dollar sign before the price */
-.td-price::before {
-  content: '$';
-  font-size: 0.85rem;
-  margin-right: 2px;
-  opacity: 0.8;
+tbody td {
+    padding: 1rem 1.2rem;
+    font-size: 0.9rem;
+    color: #2c3e44;
+    border-bottom: 1px solid #f0e4dc;
+    vertical-align: middle;
 }
 
-/* ===== DELETE BUTTON ===== */
-.delete {
-  background: transparent;
-  border: none;
-  color: #ef4444;
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 0.4rem 1rem;
-  border-radius: 40px;
-  transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
+/* Last row border radius */
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 20px;
+}
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 20px;
 }
 
-/* Trash icon via Font Awesome */
-.delete::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f2ed";
-  font-size: 0.9rem;
-  transition: transform 0.2s;
+/* Price & quantity styling */
+tbody td:nth-child(4),
+tbody td:nth-child(5) {
+    font-weight: 700;
+    color: #1e293b;
+    letter-spacing: -0.2px;
 }
 
-.delete:hover {
-  background: #fee2e2;
-  color: #dc2626;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.2);
+/* ===== ACTION BUTTONS (Edit / Delete) ===== */
+tbody td button {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    margin: 0 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 34px;
+    height: 34px;
+    border-radius: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #FE4600;
 }
 
-.delete:hover::before {
-  transform: scale(1.1);
+tbody td button i {
+    pointer-events: none;
+    font-size: 1.05rem;
 }
 
-.delete:active {
-  transform: translateY(0);
+/* Edit button specific (orange) */
+tbody td button:first-child {
+    color: #FE4600;
 }
 
-/* ===== EMPTY STATE ===== */
-/* When the tbody is empty, we show a placeholder message */
-#orderItemsTableBody:empty::before {
-  content: "No order items found";
-  display: block;
-  text-align: center;
-  padding: 3rem;
-  color: #94a3b8;
-  font-size: 0.95rem;
-  font-style: italic;
-  background: #fefefe;
-  border-radius: 20px;
+tbody td button:first-child:hover {
+    background: #fff0e6;
+    color: #e03e00;
+    transform: scale(1.08);
+}
+
+/* Delete button (red tone but keep orange border on hover) */
+tbody td button:last-child {
+    color: #e53e3e;
+}
+
+tbody td button:last-child:hover {
+    background: #ffe8e8;
+    color: #c53030;
+    transform: scale(1.05);
+}
+
+tbody td button:active {
+    transform: scale(0.96);
+}
+
+/* Focus ring for accessibility */
+tbody td button:focus-visible {
+    outline: 2px solid #FE4600;
+    outline-offset: 2px;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
-/* Medium screens: reduce padding */
-@media (max-width: 1024px) {
-  .main-orderitems {
-    padding: 1.5rem;
-  }
-  .list th,
-  .list td {
-    padding: 1rem;
-  }
+@media screen and (max-width: 880px) {
+    .main-orderitems {
+        margin: 1.2rem;
+        padding: 1.4rem;
+    }
+
+    .form-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.9rem;
+        padding: 1.3rem;
+    }
+
+    .form-box input {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .form-box button {
+        width: 100%;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        border-radius: 20px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 0.85rem 1rem;
+    }
+
+    .main-orderitems h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+    }
 }
 
-/* Tablet and smaller: stack layout, horizontal scroll for table */
-@media (max-width: 768px) {
-  .main-orderitems {
-    padding: 1rem;
-  }
-  .main-orderitems h1 {
-    font-size: 1.6rem;
-  }
-  .list {
-    border-radius: 20px;
-  }
-  /* Allow table to scroll horizontally */
-  .list table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
-  .list th,
-  .list td {
-    padding: 0.8rem;
-    font-size: 0.85rem;
-  }
-  .delete {
-    padding: 0.3rem 0.8rem;
-  }
+@media screen and (max-width: 520px) {
+    .main-orderitems {
+        padding: 1rem;
+        margin: 0.8rem;
+    }
+
+    tbody td button {
+        width: 30px;
+        height: 30px;
+        margin: 0 2px;
+    }
+
+    thead th {
+        font-size: 0.7rem;
+        padding: 0.7rem 0.8rem;
+    }
+
+    tbody td {
+        font-size: 0.8rem;
+        padding: 0.7rem 0.8rem;
+    }
 }
 
-/* Mobile: further reduce font and spacing */
-@media (max-width: 480px) {
-  .main-orderitems h1 {
-    font-size: 1.4rem;
-  }
-  .list th,
-  .list td {
-    padding: 0.6rem;
+/* ===== UTILITY & EXTRAS ===== */
+/* Smooth transition for all interactive elements */
+button, input, .form-box, table {
+    transition: all 0.2s ease;
+}
+
+/* Loading or empty state message (if any dynamically added) */
+.empty-row td {
+    text-align: center;
+    padding: 2rem;
+    color: #8b7b6e;
+    font-weight: 500;
+    background: #fefaf7;
+}
+
+/* Make price and quantity column stand out slightly */
+tbody td:nth-child(5)::before {
+    content: "$";
     font-size: 0.8rem;
-  }
+    margin-right: 3px;
+    color: #FE4600;
+    font-weight: 500;
 }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Override for any existing default button styles */
+button {
+    font-family: inherit;
 }
 
-/* Optional shimmer effect for loading rows (add .loading-row to tr) */
-@keyframes shimmer {
-  0% {
-    background-position: -100% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
+/* Table action column alignment */
+tbody td:last-child {
+    text-align: center;
+    white-space: nowrap;
 }
 
-.loading-row td {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+/* Additional hover effect for table rows */
+tbody tr:hover td {
+    border-bottom-color: #ffe0d0;
+}
+
+/* Focus visible for inputs & buttons */
+input:focus-visible,
+button:focus-visible {
+    outline: 2px solid #FE4600;
+    outline-offset: 2px;
 }
