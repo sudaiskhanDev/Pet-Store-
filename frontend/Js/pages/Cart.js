@@ -147,13 +147,27 @@
         }
         
         // ======================= QUANTITY CONTROLS =======================
-        async function increaseQuantity(cartId, currentQty, stock) {
-            if (currentQty + 1 > stock) {
-                showNotification(`Cannot increase. Only ${stock} items available.`, "error");
-                return;
-            }
-            await updateCartQuantity(cartId, currentQty + 1);
-        }
+        async function increaseQuantity(cartId) {
+
+    const item = cartItems.find(i => (i.cart_id || i.id) == cartId);
+    if (!item) return;
+
+    const stock = Number(
+        item.product?.stock_quantity ??
+        item.product?.stock ??
+        0
+    );
+
+    const currentQty = Number(item.quantity);
+
+    // 🔥 STRICT RULE
+    if (currentQty >= stock - 1) {
+        showNotification(`Out of stock. Only ${stock} item available`, "error");
+        return;
+    }
+
+    await updateCartQuantity(cartId, currentQty + 1);
+}
         
         async function decreaseQuantity(cartId, currentQty) {
             if (currentQty <= 1) {
@@ -198,33 +212,29 @@
         }
         
         // ======================= CHECKOUT =======================
-        function proceedToCheckout() {
-            if (!cartItems.length) {
-                showNotification("Cart is empty", "error");
-                return;
-            }
-            // check for out-of-stock items
-            const outOfStock = cartItems.filter(item => {
-                const stock = item.product?.stock_quantity ?? 0;
-                return stock <= 0;
-            });
-            if (outOfStock.length > 0) {
-                const names = outOfStock.map(i => i.product.name).join(", ");
-                showNotification(`Cannot checkout: ${names} is out of stock.`, "error");
-                return;
-            }
-            // check if any quantity exceeds stock (just in case)
-            const exceedsStock = cartItems.filter(item => {
-                const stock = item.product?.stock_quantity ?? 0;
-                return item.quantity > stock;
-            });
-            if (exceedsStock.length > 0) {
-                showNotification("Some items have insufficient stock. Please adjust quantities.", "error");
-                return;
-            }
-            window.location.href = "checkout.html";
-        }
-        
+      function proceedToCheckout() {
+
+    if (!cartItems.length) {
+        showNotification("Cart is empty", "error");
+        return;
+    }
+
+    const invalidItems = cartItems.filter(item => {
+        const stock = Number(item.product?.stock_quantity ?? 0);
+        const qty = Number(item.quantity);
+
+        // 🔥 SAME STRICT RULE
+        return qty >= stock;
+    });
+
+    if (invalidItems.length > 0) {
+        const names = invalidItems.map(i => i.product.name).join(", ");
+        showNotification(`Cannot checkout. ${names} out of stock`, "error");
+        return;
+    }
+
+    window.location.href = "checkout.html";
+}
         // ======================= HELPER =======================
         function escapeHtml(str) {
             if (!str) return '';
