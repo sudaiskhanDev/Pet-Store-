@@ -20,4 +20,5 @@ use App\Http\Controllers\Api\CheckoutController;
 
 Route::middleware('auth:api')->group(function(){
     Route::post('/checkout', [CheckoutController::class,'placeOrder']);
+    Route::middleware('auth:api')->delete('/my-orders/{id}', [OrderController::class, 'deleteMyOrder']);
 });

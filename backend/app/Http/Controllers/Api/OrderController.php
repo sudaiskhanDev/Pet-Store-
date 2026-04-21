@@ -122,4 +122,21 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order deleted successfully']);
     }
+
+
+
+    public function deleteMyOrder($id)
+{
+    $order = Order::where('order_id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
+
+    $order->delete();
+
+    return response()->json([
+        'message' => 'Order deleted successfully'
+    ]);
+}
+
+
 }
