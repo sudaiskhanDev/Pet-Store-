@@ -48,7 +48,7 @@ async function fetchProducts() {
                 : "https://via.placeholder.com/200";
 
             name.textContent = product.name;
-            price.textContent = "Price: ₹" + parseFloat(product.price).toLocaleString();
+            price.textContent = "Price: RS " + parseFloat(product.price).toLocaleString();
             category.textContent = "Category: " + (product.category_name || "N/A");
             animal.textContent = "Animal: " + (product.animal_name || "N/A");
 

@@ -46,7 +46,7 @@ async function fetchProducts() {
             // Price
             const price = document.createElement("div");
             price.className = "product-price";
-            price.textContent = `Price: ₹${parseFloat(product.price).toLocaleString()}`;
+            price.textContent = `Price: RS ${parseFloat(product.price).toLocaleString()}`;
 
             // Category
             const category = document.createElement("div");

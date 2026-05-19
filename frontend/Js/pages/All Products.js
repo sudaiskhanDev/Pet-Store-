@@ -121,7 +121,7 @@
       let stockColor = stockQty > 0 ? "#10b981" : "#ef4444";
 
       const price = parseFloat(product.price) || 0;
-      const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+      const formattedPrice = new Intl.NumberFormat('ur-PK', { style: 'currency', currency: 'PKR' }).format(price);
 
       const categoryName = product.category_name || (product.category?.name) || "General";
       const animalName = product.animal_name || (product.animal?.name) || "All Pets";

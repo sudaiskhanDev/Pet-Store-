@@ -608,7 +608,7 @@ body {
         <div class="stats-row" id="statsContainer">
             <div class="stat-card"><div class="stat-info"><h4>Total Products</h4><div class="stat-number" id="totalProducts">—</div></div><i class="fas fa-boxes stat-icon"></i></div>
             <div class="stat-card"><div class="stat-info"><h4>Total Orders</h4><div class="stat-number" id="totalOrders">—</div></div><i class="fas fa-shopping-bag stat-icon"></i></div>
-            <div class="stat-card"><div class="stat-info"><h4>Revenue (USD)</h4><div class="stat-number" id="totalRevenue">—</div></div><i class="fas fa-dollar-sign stat-icon"></i></div>
+            <div class="stat-card"><div class="stat-info"><h4>Revenue (PKR)</h4><div class="stat-number" id="totalRevenue">—</div></div></div>
             <div class="stat-card"><div class="stat-info"><h4>Payments Processed</h4><div class="stat-number" id="totalPaymentsCount">—</div></div><i class="fas fa-receipt stat-icon"></i></div>
         </div>
 
@@ -688,7 +688,7 @@ body {
         });
 
         // Helper: format currency
-        const formatMoney = (val) => `$${parseFloat(val).toFixed(2)}`;
+        const formatMoney = (val) => `RS ${parseFloat(val).toFixed(2)}`;
 
         // Helper: format date
         const formatDate = (dateStr) => {
@@ -837,7 +837,7 @@ body {
                             <div class="order-item-title">${escapeHtml(productName)}</div>
                             <div class="order-item-sub">
                                 <span><i class="fas fa-hashtag"></i> Qty: ${quantity}</span>
-                                <span><i class="fas fa-dollar-sign"></i> ${formatMoney(unitPrice)} ea</span>
+                                <span></i> ${formatMoney(unitPrice)} ea</span>
                                 <span><i class="fas fa-receipt"></i> Subtotal: ${formatMoney(subtotal)}</span>
                                 <span><i class="fas fa-truck"></i> Order #${orderId}</span>
                             </div>

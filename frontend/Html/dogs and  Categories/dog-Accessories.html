@@ -86,7 +86,7 @@ async function fetchProducts(){
                         : "https://via.placeholder.com/200";
 
             clone.querySelector(".product-name").textContent = p.name;
-            clone.querySelector(".product-price").textContent = "Price: ₹" + parseFloat(p.price).toLocaleString();
+            clone.querySelector(".product-price").textContent = "Price: RS " + parseFloat(p.price).toLocaleString();
             clone.querySelector(".product-category").textContent = "Category: " + p.category_name;
             clone.querySelector(".product-animal").textContent = "Animal: " + p.animal_name;
 

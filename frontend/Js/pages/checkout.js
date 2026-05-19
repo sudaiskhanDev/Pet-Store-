@@ -86,12 +86,12 @@
                     div.className = "checkout-item";
                     div.innerHTML = `
                         <span>${escapeHtml(product.name)} x ${quantity}</span>
-                        <span>$${price.toFixed(2)}</span>
+                        <span>RS ${price.toFixed(2)}</span>
                     `;
                     checkoutContainer.appendChild(div);
                 });
                 
-                totalDisplay.innerHTML = `<strong>Total: $${totalAmount.toFixed(2)}</strong>`;
+                totalDisplay.innerHTML = `<strong>Total: RS ${totalAmount.toFixed(2)}</strong>`;
             } catch (err) {
                 console.error(err);
                 checkoutContainer.innerHTML = `<div class="error-message">Error loading cart. Please try again.</div>`;

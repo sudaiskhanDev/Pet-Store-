@@ -23,7 +23,7 @@ function showToast(message, type = "success") {
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
-
+ 
 // ==========================
 // Navbar Buttons
 // ==========================
@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if(token){
         if(loginBtn) loginBtn.style.display = "none";
         if(registerBtn) registerBtn.style.display = "none";
+        if(adminBtn) adminBtn.style.display = "none";
+        
         if(logoutBtn) logoutBtn.style.display = "inline-block";
     } else {
         if(loginBtn) loginBtn.style.display = "inline-block";
@@ -244,139 +246,120 @@ function escapeHtml(str) {
 
 
 
+ 
+    (function() {
+        // ========== 1. TOAST FUNCTION ==========
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+            const toast = document.createElement("div");
+            toast.classList.add("toast", type);
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add("show"), 10);
+            setTimeout(() => {
+                toast.classList.remove("show");
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
-// // Path: frontend/JavaScript/index.js
+        // ========== 2. AUTH UI ==========
+        const loginBtn = document.getElementById("loginBtn");
+        const registerBtn = document.getElementById("registerBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
 
-// const API = "http://localhost:8000/api/user";
+        function updateAuthUI() {
+            const hasToken = !!localStorage.getItem("token");
+            if (hasToken) {
+                if (loginBtn) loginBtn.style.display = "none";
+                if (registerBtn) registerBtn.style.display = "none";
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+            } else {
+                if (loginBtn) loginBtn.style.display = "inline-block";
+                if (registerBtn) registerBtn.style.display = "inline-block";
+                if (logoutBtn) logoutBtn.style.display = "none";
+            }
+        }
 
-// // ==========================
-// // Navbar Buttons
-// // ==========================
-// const loginBtn = document.getElementById("loginBtn");
-// const registerBtn = document.getElementById("registerBtn");
-// const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async () => {
+                const token = localStorage.getItem("token");
+                if (!token) return;
+                try {
+                    await fetch("http://localhost:8000/api/user/logout", {
+                        method: "POST",
+                        headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" }
+                    });
+                } catch(e) {}
+                localStorage.removeItem("token");
+                showToast("Logged out successfully", "success");
+                updateAuthUI();
+                setTimeout(() => window.location.reload(), 1200);
+            });
+        }
 
-// // ==========================
-// // Check Login Status on Page Load
-// // ==========================
-// document.addEventListener("DOMContentLoaded", () => {
-//     const token = localStorage.getItem("token");
+        // ========== 3. NEW ARRIVALS with SMALL CARDS & "NEW" BADGE ==========
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
 
-//     if(token){
-//         if(loginBtn) loginBtn.style.display = "none";
-//         if(registerBtn) registerBtn.style.display = "none";
-//         if(logoutBtn) logoutBtn.style.display = "inline-block";
-//     } else {
-//         if(loginBtn) loginBtn.style.display = "inline-block";
-//         if(registerBtn) registerBtn.style.display = "inline-block";
-//         if(logoutBtn) logoutBtn.style.display = "none";
-//     }
-// });
+        async function loadLatestProducts() {
+            const container = document.getElementById('product-list');
+            if (!container) return;
+            container.innerHTML = `<div class="loading-spinner"><i class="fas fa-spinner fa-pulse"></i> Loading new arrivals...</div>`;
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/products/latest');
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                const products = data.data || [];
+                if (products.length === 0) {
+                    container.innerHTML = '<p class="no-products">No new arrivals yet.</p>';
+                    return;
+                }
+                container.innerHTML = '';
+                products.forEach(product => {
+                    let imageUrl = product.image;
+                    if (imageUrl && !imageUrl.startsWith('http')) {
+                        imageUrl = `http://localhost:8000/storage/${imageUrl}`;
+                    } else if (!imageUrl) {
+                        imageUrl = 'https://via.placeholder.com/180?text=No+Img';
+                    }
+                    const productName = product.name || 'Unnamed';
+                    const category = product.category_name || 'General';
+                    const animal = product.animal_name || 'All Pets';
+                    const price = parseFloat(product.price) || 0;
+                    const productId = product.product_id || product.id;
 
-// // ==========================
-// // LOGIN
-// // ==========================
-// const loginForm = document.getElementById("loginForm");
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.onclick = () => {
+                        window.location.href = `./Pages/product-detail.html?id=${productId}`;
+                    };
+                    card.innerHTML = `
+                        <span class="new-badge"><i class="fas fa-star"></i> NEW</span>
+                        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(productName)}" loading="lazy">
+                        <h3>${escapeHtml(productName)}</h3>
+                        <p>${escapeHtml(category)}</p>
+                        <p>${escapeHtml(animal)}</p>
+                        <b>Rs ${price.toFixed(2)}</b>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<p class="error-message">Failed to load new arrivals.</p>';
+            }
+        }
 
-// if(loginForm){
-//     loginForm.addEventListener("submit", async (e) => {
-//         e.preventDefault();
-
-//         const formData = new FormData(loginForm);
-//         const data = Object.fromEntries(formData.entries());
-
-//         try{
-//             const res = await fetch(API + "/login", {
-//                 method: "POST",
-//                 headers: { "Content-Type": "application/json" },
-//                 body: JSON.stringify(data)
-//             });
-
-//             const result = await res.json();
-
-//             if(res.ok){
-//                 localStorage.setItem("token", result.token);
-//                 alert("Login Successful!");
-
-//                 // Correct relative path from login.html to index.html
-//                 window.location.href = "../index.html"; 
-//             } else {
-//                 alert(result.message || "Login failed!");
-//             }
-
-//         } catch(err){
-//             console.error(err);
-//             alert("Network error!");
-//         }
-//     });
-// }
-
-// // ==========================
-// // REGISTER
-// // ==========================
-// const registerForm = document.getElementById("registerForm");
-
-// if(registerForm){
-//     registerForm.addEventListener("submit", async (e) => {
-//         e.preventDefault();
-
-//         const formData = new FormData(registerForm);
-//         const data = Object.fromEntries(formData.entries());
-
-//         try{
-//             const res = await fetch(API + "/register", {
-//                 method: "POST",
-//                 headers: { "Content-Type": "application/json" },
-//                 body: JSON.stringify(data)
-//             });
-
-//             const result = await res.json();
-
-//             if(res.ok){
-//                 alert("Registration Successful! Please login.");
-
-//                 // Redirect to login.html inside same folder
-//                 window.location.href = "login.html"; 
-//             } else {
-//                 alert(JSON.stringify(result));
-//             }
-
-//         } catch(err){
-//             console.error(err);
-//             alert("Network error!");
-//         }
-//     });
-// }
-
-// // ==========================
-// // LOGOUT
-// // ==========================
-// if(logoutBtn){
-//     logoutBtn.addEventListener("click", async () => {
-//         const token = localStorage.getItem("token");
-//         if(!token) return;
-
-//         try{
-//             await fetch(API + "/logout", {
-//                 method: "POST",
-//                 headers: {
-//                     "Authorization": "Bearer " + token,
-//                     "Content-Type": "application/json"
-//                 }
-//             });
-
-//             localStorage.removeItem("token");
-//             alert("Logged Out!");
-
-//             // Reload navbar page to update buttons
-//             location.href = "../Html/index.html"; 
-
-//         } catch(err){
-//             console.error(err);
-//             alert("Logout failed!");
-//         }
-//     });
-// }
-
-
-// // PRoducts
+        // ========== 4. INITIALIZE ==========
+        updateAuthUI();
+        loadLatestProducts();
+        document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+ 

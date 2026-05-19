@@ -67,7 +67,7 @@
                     <img class="productImage" src="${imageUrl}" alt="${escapeHtml(product.name)}" onerror="this.src='https://via.placeholder.com/100?text=Product'">
                     <div style="flex:1;">
                         <h3>${escapeHtml(product.name)}</h3>
-                        <p><b>Price:</b> $${price.toFixed(2)}</p>
+                        <p><b>Price:</b> RS ${price.toFixed(2)}</p>
                         <p class="product-description"><b>Description:</b> ${escapeHtml(product.description || "No description")}</p>
                         <p><b>Quantity:</b> ${quantity} ${stockWarning}</p>
                         ${isOutOfStock ? `<p style="color:#dc2626; font-weight:700;"><i class="fas fa-times-circle"></i> Out of Stock</p>` : ""}
@@ -109,7 +109,7 @@
             
             // update total and show checkout wrapper
             const totalSpan = document.getElementById("cartTotal");
-            if (totalSpan) totalSpan.textContent = `$${totalPrice.toFixed(2)}`;
+            if (totalSpan) totalSpan.textContent = `RS ${totalPrice.toFixed(2)}`;
             if (checkoutWrapper) checkoutWrapper.style.display = "flex";
         }
         
@@ -162,7 +162,7 @@
 
     // 🔥 STRICT RULE
     if (currentQty >= stock - 1) {
-        showNotification(`Out of stock. Only ${stock} item available`, "error");
+        showNotification(`Out of stock. `, "error");
         return;
     }
 

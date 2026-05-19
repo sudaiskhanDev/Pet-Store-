@@ -374,7 +374,7 @@
                 productNameEl.textContent = product.name || "Unnamed Product";
                 
                 const price = parseFloat(product.price) || 0;
-                productPriceEl.innerHTML = `<i class="fas fa-dollar-sign"></i> ${price.toFixed(2)} USD`;
+                productPriceEl.innerHTML = `Price ${price.toFixed(2)} PKR`;
                 
                 const categoryName = product.category_name || (product.category?.name) || "General";
                 productCategoryEl.innerHTML = `<i class="fas fa-tag"></i> Category: ${escapeHtml(categoryName)}`;

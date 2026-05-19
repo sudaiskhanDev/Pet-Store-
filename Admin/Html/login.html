@@ -2,9 +2,72 @@
 <html>
 <head>
     <title>Admin Login</title>
-    <link rel="stylesheet" href="../css/loginPanel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { 
+            background-color: #FAFAFA; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .nav-barr { 
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+        }
+        .nav-barr a { 
+            text-decoration: none; 
+            color: #4B5563; 
+            font-weight: 600; 
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-barr a:hover { color: #FE4600; }
+        .login-container { 
+            background: #FFFFFF; 
+            padding: 2.5rem; 
+            border-radius: 1.5rem; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            width: 100%; 
+            max-width: 400px; 
+            text-align: center;
+        }
+        h2 { margin-bottom: 1.5rem; color: #111827; font-weight: 700; }
+        input { 
+            width: 100%; 
+            padding: 0.8rem 1rem; 
+            margin-bottom: 1rem; 
+            border: 1px solid #E5E7EB; 
+            border-radius: 0.5rem; 
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: #FE4600; }
+        button { 
+            width: 100%; 
+            padding: 0.8rem; 
+            background-color: #FE4600; 
+            color: white; 
+            border: none; 
+            border-radius: 0.5rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        button:hover { background-color: #e63e00; }
+    </style>
 </head>
 <body>
+
+    <div class="nav-barr">
+        <a href="../../frontend/Html/index.html">Back to Home</a>
+    </div>
     <div class="login-container">
         <h2>Admin Login</h2>
         <input type="email" id="email" placeholder="Email">

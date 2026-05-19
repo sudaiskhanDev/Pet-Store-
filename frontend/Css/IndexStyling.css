@@ -1,972 +1,407 @@
-/* =========================================================
-   THEME VARIABLES
-   ---------------------------------------------------------
-   These custom properties control the entire visual theme.
-   Change them once, and the whole site updates consistently.
-========================================================= */
-:root {
-    --primary: #FE4600;
-    --primary-dark: #d84500;
-    --white: #FFFFFF;
-    --bg: #fffaf8;
-    --soft: #fff1ea;
-    --text: #1f1f1f;
-    --muted: #6b6b6b;
-    --border: rgba(254, 70, 0, .16);
-    --shadow: 0 18px 45px rgba(254, 70, 0, .12);
-    --shadow-strong: 0 22px 60px rgba(254, 70, 0, .18);
-    --radius: 18px;
-    --radius-lg: 26px;
-}
 
-/* =========================================================
-   GLOBAL RESET
-   ---------------------------------------------------------
-   Removes default browser spacing and makes layout behavior
-   more predictable across all elements.
-========================================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-
-    /* Soft premium background using layered gradients */
-    background:
-        radial-gradient(circle at top left, rgba(254, 70, 0, .07), transparent 25%),
-        radial-gradient(circle at bottom right, rgba(254, 70, 0, .05), transparent 22%),
-        var(--bg);
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-img {
-    display: block;
-    max-width: 100%;
-}
-
-.main {
-    width: 100%;
-    min-height: 100vh;
-}
-
-/* =========================================================
-   TYPOGRAPHY
-   ---------------------------------------------------------
-   Consistent heading treatment for the entire page.
-========================================================= */
-h1,
-h2,
-h3 {
-    color: var(--text);
-    line-height: 1.2;
-}
-
-h1 {
-    font-size: clamp(1.7rem, 2.5vw, 2.6rem);
-    text-align: center;
-    margin: 22px 0 18px;
-    position: relative;
-    letter-spacing: .2px;
-}
-
-h1::after {
-    content: "";
-    display: block;
-    width: 84px;
-    height: 4px;
-    margin: 12px auto 0;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--primary), rgba(254, 70, 0, .18));
-}
-
-/* =========================================================
-   TOP NAVBAR
-   ---------------------------------------------------------
-   Sticky header with glassmorphism effect, soft shadow,
-   and a smooth entrance animation.
-========================================================= */
-.nav-bar {
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-
-    padding: 16px 5%;
-    background: rgba(255, 255, 255, .82);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    animation: dropIn .65s ease both;
-}
-
-.brand {
-    font-size: clamp(1.4rem, 2vw, 2rem);
-    font-weight: 900;
-    color: var(--primary);
-    letter-spacing: .3px;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
-}
-
-.brand::before {
-    content: "🐾";
-    font-size: 1.4rem;
-    filter: drop-shadow(0 6px 12px rgba(254, 70, 0, .2));
-}
-
-/* =========================================================
-   NAV ACTION BUTTONS
-   ---------------------------------------------------------
-   Shared button styling for login, register, logout, cart.
-   This keeps all actions consistent.
-========================================================= */
-.buttons {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.buttons a,
-.buttons button {
-    min-height: 44px;
-    padding: 11px 18px;
-
-    border-radius: 14px;
-    border: 1px solid transparent;
-
-    font-size: .96rem;
-    font-weight: 700;
-    cursor: pointer;
-
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-
-    transition:
-        transform .24s ease,
-        box-shadow .24s ease,
-        background .24s ease,
-        color .24s ease,
-        border-color .24s ease,
-        opacity .24s ease;
-}
-
-.buttons a:hover,
-.buttons button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-strong);
-}
-
-.buttons a:focus-visible,
-.buttons button:focus-visible {
-    outline: 3px solid rgba(254, 70, 0, .22);
-    outline-offset: 3px;
-}
-
-/* Login button */
-#loginBtn {
-    background: var(--white);
-    color: var(--primary);
-    border-color: var(--border);
-}
-
-#loginBtn::before {
-    content: "🔐";
-    margin-right: 8px;
-}
-
-/* Register button */
-#registerBtn {
-    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-    color: var(--white);
-    border-color: var(--primary);
-}
-
-#registerBtn::before {
-    content: "✚";
-    margin-right: 8px;
-}
-
-/* Logout button */
-#logoutBtn {
-    background: linear-gradient(180deg, #ff6b3a, var(--primary));
-    color: var(--white);
-    border-color: var(--primary);
-}
-
-#logoutBtn::before {
-    content: "⎋";
-    margin-right: 8px;
-}
-
-/* Cart button inside anchor */
-.buttons a[href*="Cart"] {
-    display: inline-flex;
-    align-items: center;
-}
-
-.buttons a[href*="Cart"] button {
-    background: var(--white);
-    color: var(--primary);
-    border: 1px solid var(--border);
-    box-shadow: 0 10px 22px rgba(254, 70, 0, .08);
-}
-
-.buttons a[href*="Cart"] button::before {
-    content: "🛒";
-    margin-right: 8px;
-}
-
-/* Shine sweep effect on action buttons */
-.buttons a::after,
-.buttons button::after,
-.view-all-btn::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgba(255, 255, 255, .35) 50%,
-        transparent 100%
-    );
-    transform: translateX(-120%);
-    transition: transform .7s ease;
-    z-index: -1;
-}
-
-.buttons a:hover::after,
-.buttons button:hover::after,
-.view-all-btn:hover::after {
-    transform: translateX(120%);
-}
-
-/* =========================================================
-   SECOND NAVIGATION BAR
-   ---------------------------------------------------------
-   This styles the category navigation menu below the main nav.
-========================================================= */
-nav:not(.nav-bar) ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-
-    padding: 14px 5%;
-    margin: 0;
-    background: linear-gradient(180deg, #fff, #fff7f3);
-    border-bottom: 1px solid var(--border);
-}
-
-nav:not(.nav-bar) ul li a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px 16px;
-    border-radius: 999px;
-    border: 1px solid transparent;
-
-    color: #333;
-    font-weight: 700;
-
-    transition: all .22s ease;
-}
-
-nav:not(.nav-bar) ul li a:hover {
-    color: var(--primary);
-    background: rgba(254, 70, 0, .06);
-    border-color: rgba(254, 70, 0, .12);
-    transform: translateY(-2px);
-}
-
-/* =========================================================
-   HERO SECTION
-   ---------------------------------------------------------
-   Full-width image slider/banner with overlay for contrast.
-========================================================= */
-.Hero-section {
-    position: relative;
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(255, 255, 255, .55);
-    background: #f4e9e4;
-}
-
-.Hero-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-
-    background:
-        linear-gradient(90deg, rgba(0, 0, 0, .28), rgba(0, 0, 0, .04) 55%, rgba(0, 0, 0, .18)),
-        linear-gradient(180deg, rgba(0, 0, 0, .12), transparent 35%, rgba(0, 0, 0, .18));
-}
-
-.Hero-section img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-    opacity: 0;
-    transform: scale(1.05);
-    animation: heroFade 12s infinite;
-    will-change: opacity, transform;
-}
-
-.Hero-section img:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.Hero-section img:nth-child(2) {
-    animation-delay: 4s;
-}
-
-.Hero-section img:nth-child(3) {
-    animation-delay: 8s;
-}
-
-@keyframes heroFade {
-    0%   { opacity: 0; transform: scale(1.05); }
-    8%   { opacity: 1; transform: scale(1); }
-    30%  { opacity: 1; transform: scale(1); }
-    38%  { opacity: 0; transform: scale(1.03); }
-    100% { opacity: 0; }
-}
-
-/* =========================================================
-   VIEW ALL BUTTON
-   ---------------------------------------------------------
-   Main CTA button used to guide users to full listings.
-========================================================= */
-.view-all-container {
-    display: flex;
-    justify-content: center;
-    padding: 34px 16px 18px;
-}
-
-.view-all-btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 14px 24px;
-    border-radius: 999px;
-
-    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-    color: var(--white);
-    font-weight: 800;
-    letter-spacing: .2px;
-
-    box-shadow: 0 14px 30px rgba(254, 70, 0, .22);
-    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
-
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.view-all-btn:hover {
-    transform: translateY(-3px) scale(1.01);
-    box-shadow: 0 18px 40px rgba(254, 70, 0, .28);
-    filter: saturate(1.05);
-}
-
-.view-all-btn i {
-    transition: transform .25s ease;
-}
-
-.view-all-btn:hover i {
-    transform: translateX(4px);
-}
-
-/* =========================================================
-   SECTION WRAPPERS
-   ---------------------------------------------------------
-   Shared layout width and spacing for content sections.
-========================================================= */
-.Category,
-.animal-and-category {
-    width: min(1200px, 100%);
-    margin: 0 auto;
-    padding: 32px 5%;
-}
-
-.Category h1,
-.animal-and-category h1,
-.types-shop-secion + h1 {
-    margin-top: 8px;
-}
-
-/* =========================================================
-   PET CATEGORIES GRID
-   ---------------------------------------------------------
-   Cards for category tiles with image + title.
-========================================================= */
-.category-img-logo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 22px;
-    margin-top: 24px;
-}
-
-.category-img-logo a {
-    display: block;
-}
-
-.category-img-logo a > div {
-    position: relative;
-    overflow: hidden;
-
-    background: linear-gradient(180deg, #fff, #fff9f6);
-    border: 1px solid rgba(254, 70, 0, .1);
-    border-radius: var(--radius-lg);
-    padding: 14px;
-
-    box-shadow: var(--shadow);
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-}
-
-.category-img-logo a > div::before {
-    content: "";
-    position: absolute;
-    inset: auto auto 0 0;
-    width: 100%;
-    height: 4px;
-
-    background: linear-gradient(90deg, var(--primary), rgba(254, 70, 0, .08));
-    transform: scaleX(.2);
-    transform-origin: left;
-    transition: transform .25s ease;
-}
-
-.category-img-logo a:hover > div {
-    transform: translateY(-8px);
-    box-shadow: 0 22px 50px rgba(254, 70, 0, .16);
-    border-color: rgba(254, 70, 0, .2);
-}
-
-.category-img-logo a:hover > div::before {
-    transform: scaleX(1);
-}
-
-.category-img-logo img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 16px;
-    margin-bottom: 12px;
-}
-
-.category-img-logo h3 {
-    text-align: center;
-    font-size: 1.05rem;
-    color: var(--text);
-}
-
-/* =========================================================
-   PET TYPE SECTION
-   ---------------------------------------------------------
-   Separate product grids for cat and dog categories.
-========================================================= */
-.animal-and-category {
-    padding-top: 18px;
-}
-
-.cat-and-category-product,
-.dog-and-category-product {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 22px;
-    margin-top: 18px;
-}
-
-.cat-and-category-product a,
-.dog-and-category-product a {
-    display: block;
-}
-
-.cat-and-category-product a > div,
-.dog-and-category-product a > div {
-    position: relative;
-    overflow: hidden;
-
-    background: #fff;
-    border: 1px solid rgba(254, 70, 0, .1);
-    border-radius: var(--radius-lg);
-    padding: 14px;
-
-    box-shadow: var(--shadow);
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-}
-
-.cat-and-category-product a > div::after,
-.dog-and-category-product a > div::after,
-.types-shop-secion a > div::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-
-    background: linear-gradient(180deg, transparent 0%, rgba(254, 70, 0, .04) 100%);
-    opacity: 0;
-    transition: opacity .25s ease;
-}
-
-.cat-and-category-product a:hover > div,
-.dog-and-category-product a:hover > div {
-    transform: translateY(-8px);
-    box-shadow: 0 22px 50px rgba(254, 70, 0, .15);
-    border-color: rgba(254, 70, 0, .2);
-}
-
-.cat-and-category-product a:hover > div::after,
-.dog-and-category-product a:hover > div::after,
-.types-shop-secion a:hover > div::after {
-    opacity: 1;
-}
-
-.cat-and-category-product img,
-.dog-and-category-product img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 14px;
-    margin-bottom: 10px;
-}
-
-.cat-and-category-product h3,
-.dog-and-category-product h3 {
-    text-align: center;
-    font-size: 1rem;
-}
-
-/* =========================================================
-   HORIZONTAL DIVIDER
-========================================================= */
-hr {
-    width: min(1200px, 90%);
-    margin: 24px auto 8px;
-    border: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(254, 70, 0, .22), transparent);
-}
-
-/* =========================================================
-   TYPES SECTION
-   ---------------------------------------------------------
-   Smaller category cards, usually used for shop types.
-========================================================= */
-.types-shop-secion {
-    width: min(1200px, 100%);
-    margin: 0 auto;
-    padding: 10px 5% 36px;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 22px;
-}
-
-.types-shop-secion a {
-    display: block;
-}
-
-.types-shop-secion a > div {
-    position: relative;
-    overflow: hidden;
-
-    background: linear-gradient(180deg, #fff, #fff9f6);
-    border: 1px solid rgba(254, 70, 0, .1);
-    border-radius: var(--radius-lg);
-    padding: 14px;
-    text-align: center;
-
-    box-shadow: var(--shadow);
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-}
-
-.types-shop-secion a:hover > div {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 22px 50px rgba(254, 70, 0, .16);
-    border-color: rgba(254, 70, 0, .2);
-}
-
-.types-shop-secion img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 16px;
-    margin-bottom: 12px;
-}
-
-.types-shop-secion h3 {
-    font-size: 1rem;
-}
-
-/* =========================================================
-   FOOTER
-   ---------------------------------------------------------
-   Dark premium footer with multiple columns and social links.
-========================================================= */
-.site-footer {
-    margin-top: 24px;
-    color: #f5f5f5;
-    padding: 44px 5% 18px;
-
-    background:
-        radial-gradient(circle at top left, rgba(254, 70, 0, .09), transparent 28%),
-        linear-gradient(180deg, #171717, #0f0f0f);
-
-    border-top: 1px solid rgba(255, 255, 255, .08);
-}
-
-.footer-inner {
-    width: min(1200px, 100%);
-    margin: 0 auto;
-
-    display: grid;
-    grid-template-columns: 1.1fr .9fr .9fr 1.1fr;
-    gap: 28px;
-    align-items: start;
-}
-
-.footer-block {
-    min-width: 0;
-}
-
-.footer-brand .brand-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: #fff;
-}
-
-.brand-icon {
-    font-size: 1.3rem;
-}
-
-.brand-tag {
-    margin-top: 10px;
-    max-width: 28ch;
-    line-height: 1.7;
-    color: #cfcfcf;
-}
-
-.footer-summary {
-    list-style: none;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-
-    margin-bottom: 14px;
-    color: #fff;
-    font-size: 1.05rem;
-    font-weight: 800;
-}
-
-.footer-summary::-webkit-details-marker {
-    display: none;
-}
-
-.footer-summary::after {
-    content: "+";
-    color: var(--primary);
-    font-size: 1.2rem;
-    font-weight: 900;
-}
-
-details[open] > .footer-summary::after {
-    content: "–";
-}
-
-.links-list {
-    list-style: none;
-    display: grid;
-    gap: 10px;
-}
-
-.links-list a {
-    color: #d7d7d7;
-    transition: color .2s ease, transform .2s ease;
-}
-
-.links-list a:hover {
-    color: var(--primary);
-    transform: translateX(3px);
-}
-
-.footer-heading {
-    color: #fff;
-    font-size: 1.08rem;
-    margin-bottom: 14px;
-}
-
-.contact-info {
-    font-style: normal;
-    color: #d7d7d7;
-    display: grid;
-    gap: 10px;
-    line-height: 1.6;
-}
-
-.contact-info a {
-    color: #fff;
-}
-
-.contact-info a:hover {
-    color: var(--primary);
-}
-
-.social {
-    margin-top: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px 14px;
-    border-radius: 999px;
-
-    background: rgba(255, 255, 255, .06);
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, .08);
-
-    transition: transform .22s ease, background .22s ease, border-color .22s ease;
-}
-
-.social-link:hover {
-    transform: translateY(-2px);
-    background: rgba(254, 70, 0, .14);
-    border-color: rgba(254, 70, 0, .24);
-}
-
-.footer-bottom {
-    width: min(1200px, 100%);
-    margin: 30px auto 0;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, .08);
-    text-align: center;
-    color: #c9c9c9;
-}
-
-.footer-bottom strong {
-    color: #fff;
-}
-
-/* =========================================================
-   TOAST CONTAINER
-   ---------------------------------------------------------
-   Used for notifications/messages that appear fixed on screen.
-========================================================= */
-#toast-container {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 2000;
-    display: grid;
-    gap: 10px;
-}
-
-/* =========================================================
-   SMALL UX ENHANCEMENTS
-========================================================= */
-::selection {
-    background: rgba(254, 70, 0, .18);
-    color: #111;
-}
-
-:where(a, button, img, .brand, .view-all-btn, .social-link) {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Drop-in animation used by the sticky navbar */
-@keyframes dropIn {
-    from {
-        opacity: 0;
-        transform: translateY(-18px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* =========================================================
-   RESPONSIVE DESIGN
-   ---------------------------------------------------------
-   Adjusts layout for tablet and mobile screens.
-========================================================= */
-@media (max-width: 992px) {
-    .footer-inner {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-bar {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 14px 4%;
-    }
-
-    .brand {
-        justify-content: center;
-    }
-
-    .buttons {
-        justify-content: center;
-    }
-
-    .buttons a,
-    .buttons button {
-        flex: 1 1 140px;
-    }
-
-    nav:not(.nav-bar) ul {
-        gap: 8px;
-        padding: 12px 4%;
-    }
-
-    nav:not(.nav-bar) ul li a {
-        padding: 9px 13px;
-    }
-
-    .Hero-section {
-        height: 42vh;
-    }
-
-    .category-img-logo,
-    .cat-and-category-product,
-    .dog-and-category-product,
-    .types-shop-secion {
-        gap: 16px;
-    }
-}
-
-@media (max-width: 560px) {
-    .buttons a,
-    .buttons button {
-        width: 100%;
-    }
-
-    .footer-inner {
-        grid-template-columns: 1fr;
-    }
-
-    .site-footer {
-        padding: 38px 4% 16px;
-    }
-
-    .Hero-section {
-        height: 34vh;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-}
-
-
-
-
-#product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.product-card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border: 1px solid #edf2f7;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-}
-
-.product-card img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    background: #f8fafc;
-}
-
-.product-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0.8rem 1rem 0.25rem;
-    color: #0f172a;
-}
-
-.product-card p {
-    font-size: 0.8rem;
-    color: #5f8baf;
-    margin: 0.25rem 1rem;
-}
-
-.product-card b {
-    display: block;
-    margin: 0.5rem 1rem 1rem;
-    font-size: 1.1rem;
-    color: #fe5c1f;
-}
-
-.loading-spinner, .no-products, .error-message {
-    text-align: center;
-    padding: 2rem;
-    color: #5f8baf;
-}
-
-.error-message {
-    color: #dc2626;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ========== NAVBAR ========== */
+        .nav-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border-bottom: 1px solid #e9edf2;
+            gap: 1rem;
+        }
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e466e, #fe5c1f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .buttons {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .buttons a, .buttons button {
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            transition: all 0.2s;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+        }
+        .buttons a { color: #4a6f8f; }
+        .buttons a:hover { background: #f0f4f9; color: #fe5c1f; }
+        .buttons button {
+            background: #fe5c1f;
+            color: white;
+        }
+        .buttons button:hover { background: #e04a0e; transform: translateY(-1px); }
+
+        /* Secondary navigation */
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.3rem;
+            list-style: none;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #eef2f8;
+            margin-bottom: 1.5rem;
+        }
+        nav ul li a {
+            text-decoration: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: #4a6f8f;
+            transition: 0.2s;
+        }
+        nav ul li a:hover {
+            background: #fe5c1f10;
+            color: #fe5c1f;
+        }
+
+        /* Hero section - horizontal scroll */
+        .Hero-section {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            margin-bottom: 1.5rem;
+            border-radius: 24px;
+        }
+        .Hero-section img {
+            width: 100%;
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            border-radius: 24px;
+            object-fit: cover;
+            max-height: 280px;
+        }
+
+        /* View All Products Button */
+        .view-all-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fe5c1f;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .view-all-btn:hover {
+            background: #e04a0e;
+            transform: translateY(-2px);
+        }
+
+        /* Section titles */
+        h1, .Category h1, .animal-and-category h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 1.5rem 0 1rem;
+            border-left: 4px solid #fe5c1f;
+            padding-left: 0.8rem;
+        }
+
+        /* Pet Categories (grid) */
+        .category-img-logo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 0.5rem 0 1.5rem;
+        }
+        .category-img-logo a {
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .category-img-logo a:hover {
+            transform: translateY(-4px);
+        }
+        .category-img-logo img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #edf2f7;
+        }
+        .category-img-logo h3 {
+            margin-top: 0.4rem;
+            font-size: 0.9rem;
+            color: #1e466e;
+        }
+
+        /* New Arrivals grid - SMALLER CARDS */
+        .new-arrivals {
+            margin: 1.5rem 0;
+        }
+        #product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #edf2f7;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.1);
+        }
+        /* NEW BADGE */
+        .new-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: #fe5c1f;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 30px;
+            z-index: 2;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .product-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background: #f8fafc;
+        }
+        .product-card h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 0.5rem 0.6rem 0.2rem;
+            color: #0f172a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-card p {
+            font-size: 0.7rem;
+            color: #5f8baf;
+            margin: 0.2rem 0.6rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-card b {
+            display: block;
+            margin: 0.3rem 0.6rem 0.7rem;
+            font-size: 0.9rem;
+            color: #fe5c1f;
+        }
+        .loading-spinner, .no-products, .error-message {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: #5f8baf;
+        }
+        .error-message {
+            color: #dc2626;
+        }
+
+        /* Shop by Pets Type (grids) - SMALLER */
+        .cat-and-category-product, .dog-and-category-product {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .cat-and-category-product a, .dog-and-category-product a {
+            text-decoration: none;
+            text-align: center;
+            transition: 0.2s;
+            background: white;
+            border-radius: 20px;
+            padding: 0.8rem;
+            border: 1px solid #edf2f7;
+        }
+        .cat-and-category-product a:hover, .dog-and-category-product a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        .cat-and-category-product img, .dog-and-category-product img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .cat-and-category-product h3, .dog-and-category-product h3 {
+            margin-top: 0.4rem;
+            font-size: 0.85rem;
+            color: #1e466e;
+        }
+
+        /* Product Categories (icon grid) */
+        .types-shop-secion {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .types-shop-secion a {
+            text-decoration: none;
+            text-align: center;
+            background: white;
+            padding: 0.8rem 0.3rem;
+            border-radius: 20px;
+            transition: 0.2s;
+            border: 1px solid #edf2f7;
+        }
+        .types-shop-secion a:hover {
+            transform: translateY(-3px);
+            border-color: #fe5c1f;
+        }
+        .types-shop-secion img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 0.3rem;
+        }
+        .types-shop-secion h3 {
+            font-size: 0.75rem;
+            color: #2c5a7a;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #1a2c3e;
+            color: #cbd5e6;
+            margin-top: 2rem;
+            padding: 1.5rem 1.5rem 1rem;
+            border-radius: 28px 28px 0 0;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+        }
+        .footer-summary {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            list-style: none;
+        }
+        .links-list { list-style: none; }
+        .links-list li a {
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.75rem;
+            line-height: 1.8;
+        }
+        .links-list li a:hover { color: #fe5c1f; }
+        .contact-info div {
+            margin-bottom: 0.3rem;
+            font-size: 0.75rem;
+        }
+        .contact-info a { color: #cbd5e6; text-decoration: none; }
+        .social { display: flex; gap: 0.8rem; margin-top: 0.8rem; }
+        .social-link {
+            color: #cbd5e6;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #2d4a6e;
+            font-size: 0.7rem;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border-color: #eef2f8;
+        }
+
+        /* Toast */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .toast {
+            background: white;
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transform: translateX(120%);
+            transition: transform 0.25s ease;
+            border-left: 3px solid;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.success { border-left-color: #10b981; background: #f0fdf4; color: #166534; }
+        .toast.error { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+
+        @media (max-width: 640px) {
+            .nav-bar { padding: 0.6rem 1rem; }
+            h1 { font-size: 1.3rem; }
+            .Hero-section img { max-height: 200px; }
+            #product-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .product-card h3, .product-card p { white-space: normal; }
+        }
+    

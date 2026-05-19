@@ -486,14 +486,14 @@ h3 {
     function formatMoney(value) {
         let num = parseFloat(value);
         if (isNaN(num)) num = 0;
-        return `$${num.toFixed(2)}`;
+        return `RS ${num.toFixed(2)}`;
     }
     
     // Helper: format date
     function formatDate(dateStr) {
         if (!dateStr) return 'N/A';
         try {
-            return new Date(dateStr).toLocaleDateString('en-US', {
+            return new Date(dateStr).toLocaleDateString( {
                 year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
             });
         } catch(e) {
@@ -606,7 +606,7 @@ h3 {
                     <div class="info-value"><span class="order-status ${getStatusClass(status)}">${escapeHtml(status)}</span></div>
                 </div>
                 <div class="info-block">
-                    <div class="info-label"><i class="fas fa-dollar-sign"></i> Total Amount</div>
+                    <div class="info-label"> Total Amount</div>
                     <div class="info-value" style="font-weight:800;">${formatMoney(totalAmount)}</div>
                 </div>
                 <div class="info-block">

@@ -392,7 +392,7 @@
         orderIdDiv.textContent = `Order #${orderId}`;
         dateSpan.textContent = order.order_date || "N/A";
         statusSpan.textContent = order.status || "unknown";
-        totalSpan.textContent = `$${parseFloat(order.total_amount).toFixed(2)}`;
+        totalSpan.textContent = `RS ${parseFloat(order.total_amount).toFixed(2)}`;
         paymentSpan.textContent = order.payment_method || "—";
 
         // Apply status-specific styling
